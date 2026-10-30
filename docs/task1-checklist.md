@@ -33,7 +33,7 @@ All rows are initially Not run. Each member must supply their own real results, 
 | --- | --- | --- |
 | `/api/health` actual response | Not run | Command, HTTP status and response |
 | CI pytest workflow | Not run | Run URL and commit SHA |
-| Administration PR independently reviewed | Pending | PR and reviewer |
+| Administration PR independently reviewed | Pending | PR #8 exists. Requesting Guanyu-Lu and ZhengZaikun together returned HTTP 422: one or more requested users is not yet a collaborator. Both last permission checks returned read. |
 | Backend PR independently reviewed | Pending | PR and reviewer |
 | Frontend PR independently reviewed | Pending | PR and reviewer |
 
@@ -48,3 +48,7 @@ All rows are initially Not run. Each member must supply their own real results, 
 Use a timestamp with timezone, for example `YYYY-MM-DDTHH:mm:ss+08:00`. Do not insert placeholder timestamps as execution evidence.
 
 Task 1 remains open until all three members can run the project, CI has a successful run, and another developer has actually reviewed the relevant PRs. Record any enforcement limitation explicitly.
+
+## Administration delivery verification
+
+Seven Issue templates passed required-header and owner-reference checks; all four relative Markdown links resolved. GitHub confirmed Issues #1–#7 and PR #8. Application, pytest and CI checks were not run; backend and frontend remain assigned to their module owners. The PR is awaiting real human review and has not been merged.
