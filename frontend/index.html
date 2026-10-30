@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#203449">
+  <meta name="description" content="SG Navi is a developing English-language navigation tool for rental deposit disputes and consumer complaints in Singapore.">
+  <title>SG Navi | Start Here</title>
+  <style>
+
+    :root {
+      color-scheme: light;
+      --navy: #203449;
+      --navy-deep: #172b3f;
+      --teal: #42858c;
+      --ink: #22384a;
+      --muted: #607484;
+      --border: #dce7e9;
+      --bg: #f5f8f8;
+      --white: #fff;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; min-width: 300px; color: var(--ink); background: var(--bg); }
+    button { font: inherit; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #2387a0; outline-offset: 4px; }
+
+    /* Desktop: a wider, consistently aligned content column. */
+    .shell { width: min(1216px, calc(100% - 88px)); margin-inline: auto; }
+    .site-header { background: var(--white); border-bottom: 1px solid #e6eeee; }
+    .header-inner { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--navy); }
+    .brand-mark { display: block; width: 51px; height: 51px; flex: none; }
+    .brand-name { font-size: 1.65rem; font-weight: 800; letter-spacing: -.055em; line-height: 1; }
+    .header-tag { color: #647b86; font-size: .78rem; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; }
+
+    /* Keep the team-approved skyline as a local static asset. */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 71px 0 94px;
+      color: var(--white);
+      background-color: var(--navy-deep);
+      background-image:
+        linear-gradient(90deg, rgba(20, 43, 62, .94) 0%, rgba(20, 43, 62, .79) 36%, rgba(20, 43, 62, .41) 68%, rgba(20, 43, 62, .12) 100%),
+        url("./assets/sg-skyline.webp");
+      background-size: cover;
+      background-position: center 53%;
+      background-repeat: no-repeat;
+    }
+    .hero::before, .hero::after { position: absolute; content: ""; border: 1px solid rgba(255,255,255,.07); border-radius: 50%; pointer-events: none; z-index: -1; }
+    .hero::before { width: 560px; height: 560px; top: -335px; right: -65px; }
+    .hero::after { width: 430px; height: 430px; top: -280px; right: 80px; }
+    .eyebrow { margin: 0 0 15px; color: #b9e6e0; font-size: .74rem; letter-spacing: .15em; text-transform: uppercase; font-weight: 750; }
+    h1 { max-width: 700px; margin: 0; font-size: clamp(3.0rem, 5.1vw, 4.55rem); line-height: 1.08; letter-spacing: -.055em; font-weight: 780; }
+    .hero-copy { max-width: 645px; margin: 20px 0 0; color: #e5f0f1; font-size: 1.05rem; line-height: 1.75; }
+    .hero-note { display: flex; align-items: flex-start; gap: 10px; margin-top: 22px; color: #d4e8e8; font-size: .84rem; line-height: 1.5; }
+    .hero-note::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-top: 5px; border-radius: 50%; background: #91d3cf; flex: none; }
+
+    /* On desktop the heading sits at the bottom of the image; cards sit on the light surface. */
+    .main-section { position: relative; margin-top: -43px; padding-bottom: 50px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 18px; min-height: 22px; margin-bottom: 20px; }
+    .section-head h2 { margin: 0; font-size: 1.18rem; letter-spacing: -.02em; color: #fff; }
+    .section-head p { margin: 0; color: #e7f1f1; font-size: .84rem; }
+    .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .choice {
+      appearance: none; display: flex; flex-direction: column; gap: 0; min-width: 0;
+      min-height: 236px; padding: 26px 28px; border: 1px solid var(--border); border-radius: 19px;
+      background: #fff; box-shadow: 0 13px 34px rgba(19, 48, 62, .07);
+      text-align: left; color: inherit; cursor: pointer;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .choice:hover { transform: translateY(-3px); border-color: #98c2c8; box-shadow: 0 17px 40px rgba(19,48,62,.11); }
+    .choice-top { display: flex; gap: 16px; align-items: center; width: 100%; margin-bottom: 17px; }
+    .choice-icon { display: inline-flex; justify-content: center; align-items: center; width: 56px; height: 56px; flex: none; border-radius: 15px; background: #e7f4f3; color: #247780; }
+    .choice:nth-child(2) .choice-icon { background: #e8f0f8; color: #356b91; }
+    .choice-title { margin: 0; color: var(--navy); font-size: clamp(1.12rem, 1.8vw, 1.4rem); line-height: 1.25; letter-spacing: -.02em; }
+    .choice-arrow { margin-left: auto; color: #91a5ac; font-size: 1.45rem; line-height: 1; flex: none; }
+    .choice-description { max-width: 470px; margin: 0 0 18px; font-size: .94rem; line-height: 1.66; color: var(--muted); }
+    .choice-label { display: block; width: 100%; margin-top: auto; padding-top: 14px; border-top: 1px solid #e8eff0; font-size: .71rem; color: #4c8084; font-weight: 750; letter-spacing: .10em; text-transform: uppercase; }
+    .selection-note { min-height: 27px; margin: 14px 2px 20px; color: #496b74; font-size: .85rem; line-height: 1.45; }
+    .status-panel { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 19px 24px; border: 1px solid var(--border); border-radius: 17px; background: #fff; box-shadow: 0 9px 26px rgba(19,48,62,.035); }
+    .status-main { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .server-icon { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; flex: none; border-radius: 13px; background: #eaf4f4; color: #2e7983; }
+    .status-title { margin: 0 0 5px; font-size: .94rem; font-weight: 750; color: var(--navy); }
+    .status-value { display: flex; align-items: center; gap: 8px; margin: 0; color: var(--muted); font-size: .85rem; line-height: 1.45; }
+    .status-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: #e0ac56; }
+    .status-panel[data-state="online"] .status-dot { background: #1ea56f; }
+    .status-panel[data-state="offline"] .status-dot { background: #d17e66; }
+    .status-actions { display: flex; align-items: center; gap: 15px; flex: none; }
+    .status-path { color: #788c99; font-size: .76rem; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .refresh { appearance: none; padding: 9px 14px; border: 1px solid #cbdce0; border-radius: 10px; background: white; color: #31576b; font-size: .82rem; font-weight: 700; cursor: pointer; }
+    .refresh:hover { background: #f1f7f7; }
+    .refresh:disabled { opacity: .55; cursor: progress; }
+    .site-footer { padding: 0 0 30px; text-align: center; font-size: .79rem; line-height: 1.6; color: #7d8d96; }
+
+    @media (max-width: 900px) {
+      .shell { width: calc(100% - 48px); }
+      .hero { padding-top: 62px; }
+      .hero-copy { max-width: 570px; }
+      .choice { padding: 23px; }
+    }
+
+    /* Tablet and phone: restore normal document flow and compress the hero/cards. */
+    @media (max-width: 700px) {
+      .shell { width: calc(100% - 36px); }
+      .header-inner { min-height: 68px; }
+      .brand-mark { width: 43px; height: 43px; }
+      .brand-name { font-size: 1.35rem; }
+      .header-tag { display: none; }
+      .hero {
+        padding: 39px 0 42px;
+        background-image:
+          linear-gradient(90deg, rgba(20, 43, 62, .92) 0%, rgba(20, 43, 62, .82) 46%, rgba(20, 43, 62, .62) 100%),
+          url("./assets/sg-skyline.webp");
+        background-position: 61% center;
+      }
+      .hero::before { width: 300px; height: 300px; top: -185px; right: -110px; }
+      .hero::after { display: none; }
+      .eyebrow { margin-bottom: 11px; font-size: .67rem; letter-spacing: .125em; }
+      h1 { max-width: 330px; font-size: clamp(2.18rem, 9.5vw, 2.75rem); line-height: 1.09; letter-spacing: -.044em; }
+      .hero-copy { max-width: 510px; margin-top: 15px; font-size: .93rem; line-height: 1.61; }
+      .hero-note { margin-top: 15px; font-size: .77rem; line-height: 1.4; }
+      .hero-note::before { margin-top: 4px; width: 7px; height: 7px; }
+      .main-section { margin-top: 0; padding-top: 24px; padding-bottom: 32px; }
+      .section-head { display: block; margin-bottom: 15px; }
+      .section-head h2 { color: var(--navy); font-size: 1.25rem; }
+      .section-head p { margin-top: 4px; color: var(--muted); font-size: .83rem; }
+      .choices { grid-template-columns: 1fr; gap: 13px; }
+      .choice { min-height: auto; padding: 18px; border-radius: 17px; }
+      .choice-top { gap: 13px; margin-bottom: 12px; }
+      .choice-icon { width: 49px; height: 49px; border-radius: 13px; }
+      .choice-icon svg { width: 27px; height: 27px; }
+      .choice-title { font-size: 1.1rem; }
+      .choice-arrow { font-size: 1.25rem; }
+      .choice-description { max-width: none; margin-bottom: 12px; font-size: .87rem; line-height: 1.56; }
+      .choice-label { padding-top: 11px; font-size: .67rem; }
+      .selection-note { min-height: 0; margin: 11px 2px 18px; font-size: .79rem; }
+      .status-panel { align-items: stretch; flex-direction: column; gap: 12px; padding: 15px 17px; }
+      .status-main { gap: 11px; }
+      .server-icon { width: 40px; height: 40px; }
+      .status-title { font-size: .86rem; }
+      .status-value { font-size: .8rem; }
+      .status-actions { justify-content: space-between; gap: 10px; }
+      .status-path { font-size: .73rem; }
+      .refresh { padding: 8px 12px; font-size: .79rem; }
+      .site-footer { padding-bottom: 27px; font-size: .72rem; }
+    }
+    @media (max-width: 355px) {
+      .shell { width: calc(100% - 28px); }
+      h1 { font-size: 2.05rem; }
+      .hero-copy { font-size: .88rem; }
+      .choice-title { font-size: 1.02rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="./index.html" aria-label="SG Navi home">
+        <!-- Scalable compass mark refined from the team-provided SG Navi logo. -->
+        <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" role="img" aria-label="SG Navi compass logo">
+          <circle cx="44" cy="44" r="38" fill="#fff" stroke="#203449" stroke-width="5"/>
+          <path d="M27 56 36 30 44 44Z" fill="#203449"/>
+          <path d="M36 30 61 18 44 44Z" fill="#42858c"/>
+          <circle cx="44" cy="44" r="3.4" fill="#fff"/>
+        </svg>
+        <span class="brand-name">SG Navi</span>
+      </a>
+      <span class="header-tag">Singapore · Service Navigation</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="shell">
+        <p class="eyebrow">Navigate with more clarity</p>
+        <h1 id="hero-heading">A clearer place<br>to begin.</h1>
+        <p class="hero-copy">SG Navi is an English-language prototype designed to help foreign residents in Singapore find a starting point for rental deposit disputes and personal consumer complaints.</p>
+        <div class="hero-note">Early-stage prototype · No legal advice or case filing</div>
+      </div>
+    </section>
+
+    <section class="shell main-section" aria-labelledby="choices-heading">
+      <div class="section-head">
+        <h2 id="choices-heading">Choose a topic</h2>
+        <p>Both flows are being developed</p>
+      </div>
+      <div class="choices">
+        <button class="choice" type="button" data-case="Rental Deposit">
+          <span class="choice-top">
+            <span class="choice-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="31" height="31" fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"><path d="m4 15 12-10 12 10"/><path d="M7 14v13h18V14"/><path d="M13 27v-9h6v9"/></svg>
+            </span>
+            <span class="choice-title">Rental Deposit</span>
+            <span class="choice-arrow" aria-hidden="true">↗</span>
+          </span>
+          <span class="choice-description">Explore guidance for concerns about a residential rental deposit, including disputes involving a landlord or property agent.</span>
+          <span class="choice-label">Flow coming soon</span>
+        </button>
+        <button class="choice" type="button" data-case="Consumer Complaint">
+          <span class="choice-top">
+            <span class="choice-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="31" height="31" fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="27" r="1.2"/><circle cx="24" cy="27" r="1.2"/><path d="M3 5h4l4 17h15l3-12H9"/></svg>
+            </span>
+            <span class="choice-title">Consumer Complaint</span>
+            <span class="choice-arrow" aria-hidden="true">↗</span>
+          </span>
+          <span class="choice-description">Explore a starting point for personal consumer complaints about goods or services from businesses in Singapore.</span>
+          <span class="choice-label">Flow coming soon</span>
+        </button>
+      </div>
+      <p class="selection-note" id="selection-note" role="status" aria-live="polite">Select a topic to see its current availability.</p>
+      <section class="status-panel" id="api-status" data-state="checking" aria-label="Backend API connection">
+        <div class="status-main">
+          <span class="server-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01M11 6.5h6M11 17.5h6"/></svg>
+          </span>
+          <div>
+            <p class="status-title">Backend API status</p>
+            <p class="status-value" role="status" aria-live="polite"><span class="status-dot"></span><span id="status-text">Checking connection…</span></p>
+          </div>
+        </div>
+        <div class="status-actions">
+          <span class="status-path">GET /api/health</span>
+          <button id="refresh-api" type="button" class="refresh">↻&nbsp; Refresh</button>
+        </div>
+      </section>
+    </section>
+  </main>
+  <footer class="site-footer shell">SG Navi · Group 6 · A student project for procedural navigation in Singapore</footer>
+
+  <script>
+    "use strict";
+    const statusPanel = document.getElementById("api-status");
+    const statusText = document.getElementById("status-text");
+    const refreshButton = document.getElementById("refresh-api");
+
+    async function checkApiHealth() {
+      statusPanel.dataset.state = "checking";
+      statusText.textContent = "Checking connection…";
+      refreshButton.disabled = true;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      try {
+        // Same-origin endpoint. Task 1 does not require an invented backend or a mock success.
+        const response = await fetch("/api/health", {
+          method: "GET", cache: "no-store", headers: { Accept: "application/json" }, signal: controller.signal
+        });
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        const contentType = response.headers.get("content-type") || "";
+        if (!contentType.toLowerCase().includes("application/json")) throw new Error("Not JSON");
+        const payload = await response.json();
+        if (!payload || typeof payload !== "object" || Array.isArray(payload)) throw new Error("Invalid health response");
+        if (payload.healthy === false || payload.ok === false ||
+            (typeof payload.status === "string" && ["error", "failed", "offline", "unhealthy", "down"].includes(payload.status.toLowerCase()))) {
+          throw new Error("Backend reported an unhealthy state");
+        }
+        statusPanel.dataset.state = "online";
+        statusText.textContent = "Online · Health endpoint responded";
+      } catch (_) {
+        statusPanel.dataset.state = "offline";
+        statusText.textContent = "Unavailable · Backend not reachable";
+      } finally {
+        clearTimeout(timeout);
+        refreshButton.disabled = false;
+      }
+    }
+    document.querySelectorAll("[data-case]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.getElementById("selection-note").textContent =
+          button.dataset.case + " is a placeholder in Task 1. The form will be added in a later task.";
+      });
+    });
+    refreshButton.addEventListener("click", checkApiHealth);
+    checkApiHealth();
+  </script>
+</body>
+</html>
