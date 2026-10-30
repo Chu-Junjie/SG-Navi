@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#203449">
+  <meta name="description" content="SG Navi is a developing English-language navigation tool for rental deposit disputes and consumer complaints in Singapore.">
+  <title>SG Navi | Start Here</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #203449;
+      --navy-deep: #172b3f;
+      --teal: #42858c;
+      --ink: #22384a;
+      --muted: #607484;
+      --border: #dce7e9;
+      --bg: #f5f8f8;
+      --white: #fff;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { min-width: 300px; margin: 0; background: var(--bg); color: var(--ink); }
+    button { font: inherit; }
+    button:focus-visible { outline: 3px solid #2a809a; outline-offset: 4px; }
+    .shell { width: min(1100px, calc(100% - 40px)); margin-inline: auto; }
+    .site-header { background: var(--white); border-bottom: 1px solid #e6eeee; }
+    .header-inner { min-height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 13px; color: var(--navy); text-decoration: none; }
+    .brand-mark { display: block; width: 53px; height: 53px; flex: none; }
+    .brand-name { font-weight: 800; font-size: 1.65rem; line-height: 1; letter-spacing: -.06em; }
+    .header-tag { color: #647b86; font-size: .82rem; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; }
+    .hero { isolation: isolate; position: relative; overflow: hidden; padding: 76px 0 101px; color: var(--white); background: linear-gradient(120deg, var(--navy-deep) 0%, #24465b 60%, #347681 100%); }
+    .hero::before, .hero::after { position: absolute; content: ""; border: 1px solid rgba(255,255,255,.09); border-radius: 50%; pointer-events: none; z-index: -1; }
+    .hero::before { width: 560px; height: 560px; top: -335px; right: -65px; }
+    .hero::after { width: 430px; height: 430px; right: 80px; top: -280px; }
+    .eyebrow { margin: 0 0 18px; color: #afe4e0; font-size: .78rem; letter-spacing: .17em; text-transform: uppercase; font-weight: 750; }
+    h1 { max-width: 720px; margin: 0; font-size: clamp(2.55rem, 6vw, 4.8rem); line-height: 1.08; letter-spacing: -.057em; font-weight: 780; }
+    .hero-copy { max-width: 650px; margin: 23px 0 0; color: #dfeded; font-size: clamp(1rem, 2vw, 1.17rem); line-height: 1.8; }
+    .hero-note { display: inline-flex; align-items: center; gap: 9px; margin-top: 28px; color: #d2e6e6; font-size: .87rem; }
+    .hero-note::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #8ecac9; }
+    .main-section { position: relative; margin-top: -45px; padding-bottom: 54px; }
+    .section-head { position: relative; display: flex; justify-content: space-between; align-items: end; gap: 18px; margin-bottom: 19px; }
+    .section-head h2 { margin: 0; font-size: 1.18rem; letter-spacing: -.025em; color: var(--white); }
+    .section-head p { margin: 0; font-size: .85rem; color: #e0eded; }
+    .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 19px; }
+    .choice { appearance: none; text-align: left; border: 1px solid var(--border); background: var(--white); border-radius: 20px; padding: 29px 29px 27px; min-height: 255px; box-shadow: 0 16px 36px rgba(19,48,62,.07); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; cursor: pointer; color: inherit; }
+    .choice:hover { transform: translateY(-3px); border-color: #98c2c8; box-shadow: 0 20px 42px rgba(19,48,62,.1); }
+    .choice-top { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-bottom: 22px; }
+    .choice-icon { display: inline-flex; justify-content: center; align-items: center; width: 62px; height: 62px; border-radius: 16px; background: #e7f4f3; color: #247780; }
+    .choice:nth-child(2) .choice-icon { background: #e8f0f8; color: #356b91; }
+    .choice-arrow { color: #91a5ac; font-size: 1.6rem; line-height: 1; }
+    .choice h3 { margin: 0; color: var(--navy); font-size: clamp(1.2rem, 2vw, 1.45rem); letter-spacing: -.025em; }
+    .choice p { max-width: 390px; margin: 10px 0 18px; line-height: 1.68; font-size: .94rem; color: var(--muted); }
+    .choice-label { display: inline-block; padding-top: 15px; border-top: 1px solid #e8eff0; width: 100%; color: #4c8084; text-transform: uppercase; font-weight: 750; letter-spacing: .11em; font-size: .7rem; }
+    .selection-note { min-height: 28px; margin: 14px 2px 25px; color: #496b74; font-size: .89rem; }
+    .status-panel { background: var(--white); border: 1px solid var(--border); border-radius: 17px; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 22px 27px; box-shadow: 0 9px 26px rgba(19,48,62,.035); }
+    .status-main { display: flex; align-items: center; gap: 16px; }
+    .server-icon { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 13px; background: #eaf4f4; color: #2e7983; flex: none; }
+    .status-title { margin: 0 0 5px; font-size: .94rem; font-weight: 750; color: var(--navy); }
+    .status-value { display: flex; align-items: center; gap: 8px; margin: 0; font-size: .88rem; color: var(--muted); }
+    .status-dot { width: 9px; height: 9px; border-radius: 50%; background: #e0ac56; flex: none; }
+    .status-panel[data-state="online"] .status-dot { background: #1ea56f; }
+    .status-panel[data-state="offline"] .status-dot { background: #d17e66; }
+    .status-actions { display: flex; align-items: center; gap: 16px; }
+    .status-path { color: #788c99; font-size: .78rem; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .refresh { appearance: none; border: 1px solid #cbdce0; border-radius: 10px; padding: 10px 15px; font-size: .85rem; font-weight: 700; color: #31576b; background: #fff; cursor: pointer; }
+    .refresh:hover { background: #f1f7f7; }
+    .refresh:disabled { opacity: .55; cursor: progress; }
+    .site-footer { text-align: center; padding: 0 0 35px; font-size: .8rem; line-height: 1.7; color: #7d8d96; }
+    @media (max-width: 700px) {
+      .shell { width: min(100% - 30px, 500px); }
+      .header-inner { min-height: 77px; }
+      .brand-mark { width: 46px; height: 46px; }
+      .brand-name { font-size: 1.4rem; }
+      .header-tag { display: none; }
+      .hero { padding: 59px 0 93px; }
+      .hero-copy { line-height: 1.65; }
+      .main-section { margin-top: -41px; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 5px; }
+      .choices { grid-template-columns: 1fr; gap: 14px; }
+      .choice { min-height: 0; padding: 22px; }
+      .choice-top { margin-bottom: 16px; }
+      .status-panel { align-items: stretch; flex-direction: column; padding: 19px; }
+      .status-actions { justify-content: space-between; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="./index.html" aria-label="SG Navi home">
+        <!-- Scalable compass mark refined from the team-provided SG Navi logo. -->
+        <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" role="img" aria-label="SG Navi compass logo">
+          <circle cx="44" cy="44" r="38" fill="#fff" stroke="#203449" stroke-width="5"/>
+          <path d="M27 56 36 30 44 44Z" fill="#203449"/>
+          <path d="M36 30 61 18 44 44Z" fill="#42858c"/>
+          <circle cx="44" cy="44" r="3.4" fill="#fff"/>
+        </svg>
+        <span class="brand-name">SG Navi</span>
+      </a>
+      <span class="header-tag">Singapore · Service Navigation</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="shell">
+        <p class="eyebrow">Navigate with more clarity</p>
+        <h1 id="hero-heading">A clearer place<br>to begin.</h1>
+        <p class="hero-copy">SG Navi is an English-language prototype designed to help foreign residents in Singapore find a starting point for rental deposit disputes and personal consumer complaints.</p>
+        <div class="hero-note">Early-stage prototype · No legal advice or case filing</div>
+      </div>
+    </section>
+
+    <section class="shell main-section" aria-labelledby="choices-heading">
+      <div class="section-head">
+        <h2 id="choices-heading">Choose a topic</h2>
+        <p>Both flows are being developed</p>
+      </div>
+      <div class="choices">
+        <button class="choice" type="button" data-case="Rental Deposit">
+          <span class="choice-top">
+            <span class="choice-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="31" height="31" fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"><path d="m4 15 12-10 12 10"/><path d="M7 14v13h18V14"/><path d="M13 27v-9h6v9"/></svg>
+            </span>
+            <span class="choice-arrow" aria-hidden="true">↗</span>
+          </span>
+          <h3>Rental Deposit</h3>
+          <p>Explore guidance for concerns about a residential rental deposit, including disputes involving a landlord or property agent.</p>
+          <span class="choice-label">Flow coming soon</span>
+        </button>
+        <button class="choice" type="button" data-case="Consumer Complaint">
+          <span class="choice-top">
+            <span class="choice-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="31" height="31" fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="27" r="1.2"/><circle cx="24" cy="27" r="1.2"/><path d="M3 5h4l4 17h15l3-12H9"/></svg>
+            </span>
+            <span class="choice-arrow" aria-hidden="true">↗</span>
+          </span>
+          <h3>Consumer Complaint</h3>
+          <p>Explore a starting point for personal consumer complaints about goods or services from businesses in Singapore.</p>
+          <span class="choice-label">Flow coming soon</span>
+        </button>
+      </div>
+      <p class="selection-note" id="selection-note" role="status" aria-live="polite">Select a topic to see its current availability.</p>
+      <section class="status-panel" id="api-status" data-state="checking" aria-label="Backend API connection">
+        <div class="status-main">
+          <span class="server-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01M11 6.5h6M11 17.5h6"/></svg>
+          </span>
+          <div>
+            <p class="status-title">Backend API status</p>
+            <p class="status-value" role="status" aria-live="polite"><span class="status-dot"></span><span id="status-text">Checking connection…</span></p>
+          </div>
+        </div>
+        <div class="status-actions">
+          <span class="status-path">GET /api/health</span>
+          <button id="refresh-api" type="button" class="refresh">↻&nbsp; Refresh</button>
+        </div>
+      </section>
+    </section>
+  </main>
+  <footer class="site-footer shell">SG Navi · Group 6 · A student project for procedural navigation in Singapore</footer>
+
+  <script>
+    "use strict";
+    const statusPanel = document.getElementById("api-status");
+    const statusText = document.getElementById("status-text");
+    const refreshButton = document.getElementById("refresh-api");
+
+    async function checkApiHealth() {
+      statusPanel.dataset.state = "checking";
+      statusText.textContent = "Checking connection…";
+      refreshButton.disabled = true;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      try {
+        // Same-origin endpoint. Task 1 does not require an invented backend or a mock success.
+        const response = await fetch("/api/health", {
+          method: "GET", cache: "no-store", headers: { Accept: "application/json" }, signal: controller.signal
+        });
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        const contentType = response.headers.get("content-type") || "";
+        if (!contentType.toLowerCase().includes("application/json")) throw new Error("Not JSON");
+        const payload = await response.json();
+        if (!payload || typeof payload !== "object" || Array.isArray(payload)) throw new Error("Invalid health response");
+        if (payload.healthy === false || payload.ok === false ||
+            (typeof payload.status === "string" && ["error", "failed", "offline", "unhealthy", "down"].includes(payload.status.toLowerCase()))) {
+          throw new Error("Backend reported an unhealthy state");
+        }
+        statusPanel.dataset.state = "online";
+        statusText.textContent = "Online · Health endpoint responded";
+      } catch (_) {
+        statusPanel.dataset.state = "offline";
+        statusText.textContent = "Unavailable · Backend not reachable";
+      } finally {
+        clearTimeout(timeout);
+        refreshButton.disabled = false;
+      }
+    }
+    document.querySelectorAll("[data-case]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.getElementById("selection-note").textContent =
+          button.dataset.case + " is a placeholder in Task 1. The form will be added in a later task.";
+      });
+    });
+    refreshButton.addEventListener("click", checkApiHealth);
+    checkApiHealth();
+  </script>
+</body>
+</html>
