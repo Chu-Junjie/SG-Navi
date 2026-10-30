@@ -1,6 +1,6 @@
 # SG Navi
 
-Group 6's English web project for Rental Deposit and Consumer Complaint navigation.
+Group 6 project for Rental Deposit and Consumer Complaint navigation.
 
 This initial package contains Chu Junjie's Task 1 repository administration files. Backend, frontend, dependencies and CI are assigned to the other two developers and are not implemented here.
 
