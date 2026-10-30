@@ -1,0 +1,37 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Frontend tooling
+node_modules/
+dist/
+coverage/
+
+# Local runtime files
+*.log
+instance/
+*.sqlite
+*.sqlite3
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Keep real user data outside the repository
+private-data/
+uploads/
