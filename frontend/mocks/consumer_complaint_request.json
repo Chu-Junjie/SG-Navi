@@ -1,0 +1,15 @@
+{
+  "api_version": "1.0",
+  "case_type": "consumer_complaint",
+  "answers": {
+    "purchase_type": "goods",
+    "purchase_purpose": "personal",
+    "supplier_registered_in_sg": "unknown",
+    "supplier_location": null,
+    "problem_type": null,
+    "purchase_date": null,
+    "claim_amount_sgd": null,
+    "resolution_attempted": null,
+    "documents_available": false
+  }
+}

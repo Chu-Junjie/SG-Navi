@@ -1,0 +1,17 @@
+{
+  "api_version": "1.0",
+  "rule_version": "mock-1",
+  "source_version": "mock-1",
+  "status": "NEED_CLARIFICATION",
+  "questions": [
+    {
+      "id": "claim_amount_sgd",
+      "label": "What is the disputed amount?",
+      "input_type": "number",
+      "required": true
+    }
+  ],
+  "action_card": null,
+  "evidence": [],
+  "warnings": []
+}

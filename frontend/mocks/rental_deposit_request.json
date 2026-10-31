@@ -1,0 +1,15 @@
+{
+  "api_version": "1.0",
+  "case_type": "rental_deposit",
+  "answers": {
+    "dispute_with": "unknown",
+    "premises_type": "residential",
+    "tenancy_duration_months": null,
+    "claim_amount_sgd": null,
+    "relevant_event_date": null,
+    "respondent_in_singapore": "unknown",
+    "agency_agreement_signed": null,
+    "resolution_attempted": false,
+    "documents_available": null
+  }
+}
