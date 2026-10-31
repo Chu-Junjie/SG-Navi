@@ -1,0 +1,9 @@
+{
+  "case_type": "rental_deposit",
+  "rule_ids": [
+    "mock-rule-1"
+  ],
+  "facts": {
+    "claim_amount_sgd": null
+  }
+}
