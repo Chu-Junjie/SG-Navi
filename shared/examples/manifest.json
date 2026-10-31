@@ -1,0 +1,46 @@
+[
+  {
+    "file": "rental_deposit_request.json",
+    "definition": "navigate_request"
+  },
+  {
+    "file": "consumer_complaint_request.json",
+    "definition": "navigate_request"
+  },
+  {
+    "file": "need_clarification_response.json",
+    "definition": "navigate_response"
+  },
+  {
+    "file": "supported_path_response.json",
+    "definition": "navigate_response"
+  },
+  {
+    "file": "refer_to_official_response.json",
+    "definition": "navigate_response"
+  },
+  {
+    "file": "error_response.json",
+    "definition": "navigate_response"
+  },
+  {
+    "file": "health_response.json",
+    "definition": "health_response"
+  },
+  {
+    "file": "case_types_response.json",
+    "definition": "case_types_response"
+  },
+  {
+    "file": "version_response.json",
+    "definition": "version_response"
+  },
+  {
+    "file": "retrieval_request.json",
+    "definition": "retrieval_request"
+  },
+  {
+    "file": "retrieval_response.json",
+    "definition": "retrieval_response"
+  }
+]

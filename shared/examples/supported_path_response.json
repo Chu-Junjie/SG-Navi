@@ -1,0 +1,33 @@
+{
+  "api_version": "1.0",
+  "rule_version": "mock-1",
+  "source_version": "mock-1",
+  "status": "SUPPORTED_PATH",
+  "questions": [],
+  "action_card": {
+    "case_summary": "Synthetic contract fixture only; no eligibility or channel has been assessed.",
+    "potential_channels": [],
+    "conditions": [],
+    "steps": [],
+    "document_checklist": [],
+    "unresolved_questions": [],
+    "citations": [
+      "mock-evidence-1"
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "mock-evidence-1",
+      "source_id": "mock-source-1",
+      "rule_ids": [
+        "mock-rule-1"
+      ],
+      "url": "https://example.invalid/contract-fixture",
+      "review_status": "verified",
+      "source_version": "mock-1"
+    }
+  ],
+  "warnings": [
+    "Mock data only. The review status simulates a schema branch, not an actual source review."
+  ]
+}

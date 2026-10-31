@@ -1,0 +1,384 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sg-navi.invalid/shared/api_contract.json",
+  "title": "SG Navi API 1.0 shared contract",
+  "description": "Default validation target is a navigation response. Select a named $defs entry for requests and other endpoints. Schema IDs use a reserved .invalid domain and are resolved locally.",
+  "$ref": "#/$defs/navigate_response",
+  "$defs": {
+    "navigate_request": {
+      "type": "object",
+      "properties": {
+        "api_version": {
+          "type": "string",
+          "const": "1.0"
+        },
+        "case_type": {
+          "type": "string",
+          "enum": [
+            "rental_deposit",
+            "consumer_complaint"
+          ]
+        },
+        "answers": {
+          "type": "object",
+          "description": "Case-specific schema is owned by the frontend developer. Preserve null/unknown; never coerce missing facts to false."
+        }
+      },
+      "required": [
+        "api_version",
+        "case_type",
+        "answers"
+      ],
+      "additionalProperties": false
+    },
+    "question": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "input_type": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "required": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "input_type",
+        "required"
+      ],
+      "additionalProperties": false
+    },
+    "action_card": {
+      "description": "Seven section names only. The frontend owner defines section content and case-specific input schemas in Task 2; this envelope does not validate their internal types or legal meaning.",
+      "type": "object",
+      "properties": {
+        "case_summary": {},
+        "potential_channels": {},
+        "conditions": {},
+        "steps": {},
+        "document_checklist": {},
+        "unresolved_questions": {},
+        "citations": {}
+      },
+      "required": [
+        "case_summary",
+        "potential_channels",
+        "conditions",
+        "steps",
+        "document_checklist",
+        "unresolved_questions",
+        "citations"
+      ],
+      "additionalProperties": false
+    },
+    "navigate_response": {
+      "type": "object",
+      "properties": {
+        "api_version": {
+          "type": "string",
+          "const": "1.0"
+        },
+        "rule_version": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "source_version": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "NEED_CLARIFICATION",
+            "SUPPORTED_PATH",
+            "REFER_TO_OFFICIAL",
+            "ERROR"
+          ]
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/question"
+          }
+        },
+        "action_card": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/action_card"
+            }
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "schemas/evidence_schema.json"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        }
+      },
+      "required": [
+        "api_version",
+        "rule_version",
+        "source_version",
+        "status",
+        "questions",
+        "action_card",
+        "evidence",
+        "warnings"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "NEED_CLARIFICATION"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "questions": {
+                "minItems": 1
+              },
+              "action_card": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "SUPPORTED_PATH"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "questions": {
+                "maxItems": 0
+              },
+              "action_card": {
+                "$ref": "#/$defs/action_card"
+              },
+              "evidence": {
+                "minItems": 1,
+                "items": {
+                  "properties": {
+                    "review_status": {
+                      "const": "verified"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "REFER_TO_OFFICIAL",
+                  "ERROR"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "questions": {
+                "maxItems": 0
+              },
+              "warnings": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ERROR"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "action_card": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action_card": {
+                "type": "object"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence": {
+                "minItems": 1,
+                "items": {
+                  "properties": {
+                    "review_status": {
+                      "const": "verified"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "health_response": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "ok"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "case_types_response": {
+      "type": "object",
+      "properties": {
+        "api_version": {
+          "type": "string",
+          "const": "1.0"
+        },
+        "case_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "rental_deposit",
+              "consumer_complaint"
+            ]
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "api_version",
+        "case_types"
+      ],
+      "additionalProperties": false
+    },
+    "version_response": {
+      "type": "object",
+      "properties": {
+        "api_version": {
+          "type": "string",
+          "const": "1.0"
+        },
+        "rule_version": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "source_version": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "api_version",
+        "rule_version",
+        "source_version"
+      ],
+      "additionalProperties": false
+    },
+    "retrieval_request": {
+      "type": "object",
+      "properties": {
+        "case_type": {
+          "type": "string",
+          "enum": [
+            "rental_deposit",
+            "consumer_complaint"
+          ]
+        },
+        "rule_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true
+        },
+        "facts": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "case_type",
+        "rule_ids",
+        "facts"
+      ],
+      "additionalProperties": false
+    },
+    "retrieval_response": {
+      "description": "retrieval_status is separate from navigation status; its vocabulary remains for the RAG implementation to confirm.",
+      "type": "object",
+      "properties": {
+        "retrieval_status": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "schemas/evidence_schema.json"
+          }
+        }
+      },
+      "required": [
+        "retrieval_status",
+        "evidence"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
