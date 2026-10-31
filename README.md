@@ -1,55 +1,71 @@
 # SG Navi
 
-Group 6 project for Rental Deposit and Consumer Complaint navigation.
+Group 6 project for English Rental Deposit and Consumer Complaint navigation.
 
-This initial package contains Chu Junjie's Task 1 repository administration files. Backend, frontend, dependencies and CI are assigned to the other two developers and are not implemented here.
+Task 1 provides a working development baseline: a Flask service, a homepage with two placeholder case entries, a real backend health indicator, basic tests and GitHub Actions. Full case forms, the navigation API, legal rules and retrieval are later Tasks.
 
-## Team
+## Team and repository
 
-| Member | GitHub login | Responsibility |
-| --- | --- | --- |
-| Chu Junjie | `Chu-Junjie` | Repository owner, shared contracts, RAG, integration |
-| Zheng Zaikun | `ZhengZaikun` | Backend, pytest, GitHub Actions |
-| Lu Guanyu | `Guanyu-Lu` | Frontend |
+| Member | GitHub login | Responsibility | Verified access |
+| --- | --- | --- | --- |
+| Chu Junjie | `Chu-Junjie` | Repository administration, shared contracts, RAG, integration | Admin |
+| Zheng Zaikun | `ZhengZaikun` | Backend, tests, dependencies and CI | Write |
+| Lu Guanyu | `Guanyu-Lu` | Frontend and frontend tests | Write |
 
-The owner reports sending both invitations. Accepted collaborator write access still requires verification. The repository is public by the owner's explicit decision, overriding the shared guide's original private-repository requirement.
+Repository: [Chu-Junjie/SG-Navi](https://github.com/Chu-Junjie/SG-Navi). It is public by the owner's explicit decision. Task 1 was accepted for baseline development on 2026-10-31; see [the acceptance record](docs/task1-checklist.md) for verified results and remaining limitations.
 
-## Task 1 setup
+## Install and run on Windows
 
-Follow [the GitHub setup instructions](docs/github-setup.md) to finish collaborator access, review rules and a private task board. Repository: https://github.com/Chu-Junjie/SG-Navi (public by owner decision). Administration files use a feature branch and PR; seven Task Issues track the work.
-
-Use [the Task 1 checklist](docs/task1-checklist.md) to record real acceptance evidence. The seven actual Task Issues are linked from [the repository task board](docs/task-board.md). Tasks 2–7 remain in Backlog; their Issues do not authorize starting them early.
-
-## Planned project layout
-
-```text
-frontend/              index.html, css/, js/              Guanyu-Lu
-backend/               app.py, routes/, rules/             ZhengZaikun
-rag/                   knowledge_base/, retriever.py      Chu-Junjie
-shared/                api_contract.json, schemas/         Chu-Junjie
-tests/                 backend/, rag/, integration/        Respective owners
-docs/                  sources/, test-results/             Respective owners
-.github/workflows/     test.yml                            ZhengZaikun
-AGENTS.md
-README.md
-requirements.txt                                           ZhengZaikun
-.env.example                                               Empty values only
-.gitignore
-```
-
-This is the agreed target layout, not a list of implemented files. The respective owners create their Task 1 modules.
-
-## Installation, startup and tests
-
-Clone the public repository (write access is still required to push feature branches):
+Use Python 3.12 or newer and Git. From PowerShell:
 
 ```powershell
 git clone https://github.com/Chu-Junjie/SG-Navi.git
 cd SG-Navi
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m flask --app backend.app run --host 127.0.0.1 --port 5000
 ```
 
-No application start or pytest command is available in this administration package. Zheng Zaikun must add tested environment, Flask, `/api/health`, pytest and CI instructions in his Task 1 PR. Lu Guanyu must document how to open the homepage and verify the health request in his PR. Do not mark Task 1 complete until all three members have run the resulting project.
+Open [the homepage](http://127.0.0.1:5000/). It displays SG Navi, Rental Deposit and Consumer Complaint placeholder entries, and a health status fetched from the same Flask service. The placeholders do not yet open complete case flows. The health indicator should show Online when its request succeeds; use Refresh to check again.
 
-## Contribution workflow
+In a second PowerShell window, verify the backend:
 
-Read [AGENTS.md](AGENTS.md). Branch from updated `main`, make the assigned change, open a PR using the template, and request another developer's review. Record real test results and resolve review discussions before merging.
+```powershell
+Invoke-RestMethod http://127.0.0.1:5000/api/health
+```
+
+The response is `{"status":"ok"}`. Stop the development server with Ctrl+C. No API key or `.env` is required for this baseline. A static server for `frontend/` alone does not provide `/api/health`; use Flask for the integrated page and health endpoint.
+
+## Run the Task 1 tests
+
+From the repository root after installing dependencies:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/backend -v
+.\.venv\Scripts\python.exe -m unittest discover -s frontend/tests -v
+```
+
+The 2026-10-31 audit of baseline commit `743f609cdfc0bdfac4e3c7bd9ed839f65615d9bb` passed 3 backend tests and 3 homepage structure tests. A temporary real HTTP server returned 200 for `/` and `/api/health`. Backend PR #10's CI passed. These are results from the audited environment, not proof that all three members independently ran the project or that the audit executed browser JavaScript.
+
+## Current baseline layout
+
+```text
+backend/                 Flask app and health route
+frontend/                Homepage and structure tests
+tests/backend/           Backend tests
+docs/                    Setup instructions, acceptance record and task board
+.github/ISSUE_TEMPLATE/  Task 1-7 templates
+.github/workflows/       Task 1 CI
+.github/pull_request_template.md
+AGENTS.md
+requirements.txt
+.gitignore
+```
+
+Shared contracts and remaining module directories are added in their assigned Tasks. See [the task board](docs/task-board.md). Task 2 contracts are being reviewed in [PR #11](https://github.com/Chu-Junjie/SG-Navi/pull/11).
+
+## Collaboration and follow-up
+
+Read [AGENTS.md](AGENTS.md). Work on a feature branch, stay within your module, open a PR and request another developer's review before merging. Never commit secrets or real dispute data.
+
+Enforced branch protection and required CI checks remain follow-up improvements; the last audit found `main` unprotected. Independent member environment records have not all been supplied. These limitations do not block the owner's agreed Task 1 baseline closeout. The repository task table is verified; a native GitHub Project has not been verified.
