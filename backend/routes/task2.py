@@ -1,5 +1,10 @@
 """SG Navi Task 2 API stubs. No legal decisions or official evidence."""
+import json
+from functools import lru_cache
+from pathlib import Path
+
 from flask import Blueprint, jsonify, request
+from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import ValidationError
 from shared.validate_contracts import validate
 
@@ -7,6 +12,14 @@ api = Blueprint("task2", __name__)
 VERSION = "1.0"
 MOCK = "mock-1"
 CASE_TYPES = ["rental_deposit", "consumer_complaint"]
+SCHEMA_DIR = Path(__file__).resolve().parents[2] / "frontend" / "schemas"
+
+@lru_cache(maxsize=2)
+def answers_validator(case_type):
+    schema_path = SCHEMA_DIR / f"{case_type}_input.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    Draft202012Validator.check_schema(schema)
+    return Draft202012Validator(schema, format_checker=FormatChecker())
 
 def response(status, questions=None, warnings=None):
     return {
@@ -43,6 +56,8 @@ def navigate():
         validate(payload, "navigate_request")
     except ValidationError:
         return send(response("ERROR", warnings=["Invalid request: check api_version, case_type and answers."]), code=400)
+    if not answers_validator(payload["case_type"]).is_valid(payload["answers"]):
+        return send(response("ERROR", warnings=["Invalid answers for the selected case type."]), code=400)
     question = {
         "id": "claim_amount_sgd",
         "label": "What is the disputed amount in SGD?",
