@@ -1,0 +1,7 @@
+{
+  "api_version": "1.0",
+  "case_types": [
+    "rental_deposit",
+    "consumer_complaint"
+  ]
+}

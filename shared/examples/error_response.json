@@ -1,0 +1,12 @@
+{
+  "api_version": "1.0",
+  "rule_version": "mock-1",
+  "source_version": "mock-1",
+  "status": "ERROR",
+  "questions": [],
+  "action_card": null,
+  "evidence": [],
+  "warnings": [
+    "Synthetic contract example: the service could not complete the request."
+  ]
+}

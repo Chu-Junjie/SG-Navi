@@ -15,9 +15,14 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            tests/contracts/requirements.txt
       - name: Install dependencies
-        run: python -m pip install -r requirements.txt
-      - name: Run backend tests
-        run: python -m pytest tests/backend -v
-      - name: Run existing frontend structure tests
+        run: python -m pip install -r tests/contracts/requirements.txt
+      - name: Validate shared API contract examples
+        run: python -m shared.validate_contracts
+      - name: Run backend and contract tests
+        run: python -m pytest tests/contracts tests/backend -v
+      - name: Run frontend tests
         run: python -m unittest discover -s frontend/tests -v
