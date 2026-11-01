@@ -1,0 +1,33 @@
+{
+  "rental_deposit": {
+    "dispute_with": "Dispute with",
+    "premises_type": "Premises type",
+    "tenancy_duration_months": "Tenancy duration (months)",
+    "claim_amount_sgd": "Claim amount (SGD)",
+    "relevant_event_date": "Relevant event date",
+    "respondent_in_singapore": "Respondent in Singapore",
+    "agency_agreement_signed": "Agency agreement signed",
+    "resolution_attempted": "Resolution attempted",
+    "documents_available": "Documents available"
+  },
+  "consumer_complaint": {
+    "purchase_type": "Purchase type",
+    "purchase_purpose": "Purchase purpose",
+    "supplier_registered_in_sg": "Supplier registered in Singapore",
+    "supplier_location": "Supplier location",
+    "problem_type": "Problem type",
+    "purchase_date": "Purchase date",
+    "claim_amount_sgd": "Claim amount (SGD)",
+    "resolution_attempted": "Resolution attempted",
+    "documents_available": "Documents available"
+  },
+  "action_card": {
+    "case_summary": "Case summary",
+    "potential_channels": "Potential channels",
+    "conditions": "Conditions",
+    "steps": "Steps",
+    "document_checklist": "Document checklist",
+    "unresolved_questions": "Unresolved questions",
+    "citations": "Citations"
+  }
+}

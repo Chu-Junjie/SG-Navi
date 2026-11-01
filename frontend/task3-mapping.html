@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SG Navi | Task 3 Mapping</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#203449;background:#f3f7f8}*{box-sizing:border-box}
+body{margin:0}.wrap{max-width:1140px;margin:auto;padding:24px}header{background:white;border-bottom:1px solid #dce6e9}
+a{color:#26717e}header a{font-weight:800;font-size:1.25rem;text-decoration:none}
+h1{font-size:clamp(1.8rem,4vw,2.7rem);letter-spacing:-.04em;margin:20px 0 10px}
+.intro{color:#5c7281;max-width:780px;line-height:1.6}.notice{background:#fff8e7;color:#72562b;border:1px solid #eedcba;border-radius:12px;padding:14px;line-height:1.5}
+.controls{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:23px 0}.control{display:grid;gap:7px;flex:1 1 250px}
+label{font-weight:700}select,button{padding:12px;border-radius:10px;font:inherit}
+select{border:1px solid #b8cdd2;background:white;color:#203449}
+button{background:#256e7b;color:white;border:0;font-weight:750;cursor:pointer}button:disabled{opacity:.6}
+button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #3194a4;outline-offset:3px}
+.grid{display:grid;grid-template-columns:minmax(0, .9fr) minmax(0,1.1fr);gap:16px}
+.panel{padding:22px;border:1px solid #dce7e9;border-radius:16px;background:white;min-width:0}
+h2{font-size:1.14rem;margin:0 0 10px}.small{font-size:.87rem;color:#657987;line-height:1.5}
+dl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}dt,dd{margin:0;overflow-wrap:anywhere;padding-bottom:10px;border-bottom:1px solid #e8eff1;font-size:.89rem}dt{color:#5e7382}dd{font-weight:650}
+.status{display:inline-block;margin:12px 0;padding:7px 10px;border-radius:9px;background:#e5f1f3;color:#226b75;font-weight:750}
+.verify{background:#fff9e9;color:#795823;border-left:4px solid #d2a04b;border-radius:6px;padding:13px;line-height:1.5}
+#sections{display:grid;gap:10px;margin-top:17px}.section{padding:13px;border:1px solid #e1e8eb;border-radius:10px;min-width:0}
+.section h3{font-size:.95rem;margin:0 0 8px}.section p,.section li{color:#566c79;line-height:1.55;font-size:.89rem;overflow-wrap:anywhere}
+.section p{margin:0}.section ul{padding-left:20px;margin:0}#warnings{color:#876324}
+footer{text-align:center;color:#788b95;padding:30px;font-size:.8rem}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.wrap{padding:16px}.panel{padding:16px}.controls button{width:100%}}
+@media(max-width:340px){dl{grid-template-columns:1fr;gap:3px}dt{border:0;padding:0}dd{padding-bottom:12px}}
+</style><script src="./js/task3-mapping.js" defer></script></head>
+<body><header><div class="wrap"><a href="./index.html">SG Navi</a> · Task 3 field mapping</div></header>
+<main class="wrap"><h1>Action Card display mapping</h1>
+<p class="intro">Two existing case types and seven Action Card sections. Only the backend can return channels, conditions, steps, and citations. This page makes no eligibility decisions.</p>
+<p class="notice"><strong>Development preview:</strong> inputs are synthetic. An empty or unverified response is not official guidance. Do not enter real user or dispute information.</p>
+<div class="controls"><div class="control"><label for="case">Synthetic case example</label><select id="case"><option value="rental_deposit">Rental Deposit</option><option value="consumer_complaint">Consumer Complaint</option></select></div>
+<button id="request" type="button">Request backend response</button></div>
+<p id="message" role="status" aria-live="polite" class="small">Loading input example…</p>
+<div class="grid"><section class="panel" aria-labelledby="inputs-title"><h2 id="inputs-title">Input field mapping</h2><p class="small">Null, unknown, missing and false are distinct.</p><dl id="fields"></dl></section>
+<section class="panel" aria-labelledby="card-title"><h2 id="card-title">Backend Action Card</h2><p class="small">No hardcoded official route or legal rules.</p>
+<span id="status" class="status" role="status" aria-live="polite">Not requested</span>
+<p id="verification" class="verify" role="status" aria-live="polite">Needs verification — no backend response received.</p>
+<div id="questions"></div><div id="sections"></div><div id="warnings"></div>
+</section></div></main><footer>SG Navi · Group 6 · Presentation-only preview · Not legal advice</footer></body></html>
