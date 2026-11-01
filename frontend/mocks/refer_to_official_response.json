@@ -1,0 +1,12 @@
+{
+  "api_version": "1.0",
+  "rule_version": "mock-1",
+  "source_version": "mock-1",
+  "status": "REFER_TO_OFFICIAL",
+  "questions": [],
+  "action_card": null,
+  "evidence": [],
+  "warnings": [
+    "Synthetic test fixture only. Confirm any next steps using official sources."
+  ]
+}

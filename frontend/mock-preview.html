@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SG Navi | Task 2 Mock Preview</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #203449; background: #f4f8f8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .layout { width: min(960px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 48px; }
+    header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    header a { color: #286e78; }
+    h1 { margin: 25px 0 8px; font-size: clamp(1.55rem, 4vw, 2.25rem); }
+    p { line-height: 1.55; }
+    .warning { background: #fff6dd; color: #674c16; padding: 13px 16px; border: 1px solid #e7d299; border-radius: 10px; }
+    .controls { display: flex; flex-wrap: wrap; gap: 16px; margin: 22px 0; }
+    .control { display: grid; gap: 7px; min-width: min(220px, 100%); flex: 1; }
+    label { font-size: .89rem; font-weight: 700; }
+    select { color: inherit; background: #fff; border: 1px solid #c2d4da; border-radius: 9px; padding: 11px; font: inherit; width: 100%; }
+    select:focus-visible { outline: 3px solid #67abb5; outline-offset: 2px; }
+    .panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .panel { min-width: 0; padding: 20px; background: white; border: 1px solid #dbe5e8; border-radius: 15px; }
+    .panel h2 { margin: 0 0 13px; font-size: 1.15rem; }
+    .status { font-weight: 750; display: inline-block; margin: 6px 0 12px; color: #176672; overflow-wrap: anywhere; }
+    dl { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 7px 10px; font-size: .88rem; }
+    dt, dd { margin: 0; overflow-wrap: anywhere; }
+    dt { color: #526877; }
+    dd { font-weight: 600; }
+    .unknown { color: #886225; font-weight: 650; }
+    .empty { color: #667c89; font-style: italic; }
+    .area { margin-top: 16px; }
+    .area h3 { margin: 13px 0 5px; font-size: .98rem; }
+    ul { margin: 7px 0; padding-left: 22px; }
+    li { margin-bottom: 6px; overflow-wrap: anywhere; }
+    .muted { color: #647887; }
+    .warning-list { background: #fff9ee; border-radius: 9px; padding: 12px 14px; }
+    @media (max-width: 700px) { .panels { grid-template-columns: 1fr; } .layout { padding-top: 18px; } .panel { padding: 16px; } }
+  </style>
+  <script src="./js/task2-preview.js" defer></script>
+</head>
+<body>
+  <main class="layout">
+    <header><strong>SG Navi · Task 2</strong><a href="./index.html">Return to homepage</a></header>
+    <h1>Schema &amp; Action Card Mock Preview</h1>
+    <p class="warning"><strong>Development fixtures only.</strong> These examples are synthetic. Mock evidence IDs, URLs and review states are not verified official information. No legal eligibility, real channel, or filing guidance is provided.</p>
+    <div class="controls">
+      <div class="control"><label for="case-select">Case type</label><select id="case-select"><option value="rental_deposit">Rental Deposit</option><option value="consumer_complaint">Consumer Complaint</option></select></div>
+      <div class="control"><label for="status-select">Mock navigation status</label><select id="status-select"><option value="NEED_CLARIFICATION">NEED_CLARIFICATION</option><option value="SUPPORTED_PATH">SUPPORTED_PATH</option><option value="REFER_TO_OFFICIAL">REFER_TO_OFFICIAL</option><option value="ERROR">ERROR</option></select></div>
+    </div>
+    <div id="preview-message" role="status" aria-live="polite"></div>
+    <div class="panels">
+      <section class="panel" aria-labelledby="request-title"><h2 id="request-title">Synthetic input data</h2><dl id="answers"></dl></section>
+      <section class="panel" aria-labelledby="response-title"><h2 id="response-title">Mock response</h2><div id="mock-status" class="status" role="status"></div><div id="questions" class="area"></div><div id="card" class="area"></div><div id="warnings" class="area"></div><div id="evidence" class="area"></div></section>
+    </div>
+  </main>
+</body>
+</html>

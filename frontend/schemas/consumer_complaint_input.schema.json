@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SG Navi consumer_complaint answers — Task 2",
+  "description": "Structural input only; no legal decision or eligibility threshold. Missing, null and unknown are distinct from false.",
+  "type": "object",
+  "properties": {
+    "purchase_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "const": "unknown"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "purchase_purpose": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "const": "unknown"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "supplier_registered_in_sg": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "const": "unknown"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "supplier_location": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "const": "unknown"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "problem_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "const": "unknown"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "purchase_date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "const": "unknown"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "claim_amount_sgd": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "const": "unknown"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "resolution_attempted": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "const": "unknown"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "documents_available": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "const": "unknown"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

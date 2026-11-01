@@ -1,0 +1,33 @@
+{
+  "api_version": "1.0",
+  "rule_version": "mock-1",
+  "source_version": "mock-1",
+  "status": "SUPPORTED_PATH",
+  "questions": [],
+  "action_card": {
+    "case_summary": "Synthetic display fixture: no actual case was assessed.",
+    "potential_channels": [],
+    "conditions": [],
+    "steps": [],
+    "document_checklist": [],
+    "unresolved_questions": null,
+    "citations": [
+      "mock-evidence-1"
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "mock-evidence-1",
+      "source_id": "mock-source-1",
+      "rule_ids": [
+        "mock-rule-1"
+      ],
+      "url": "https://example.invalid/fixture-only",
+      "review_status": "verified",
+      "source_version": "mock-1"
+    }
+  ],
+  "warnings": [
+    "Synthetic test fixture only. Mock review_status does not indicate real official review or eligibility."
+  ]
+}
