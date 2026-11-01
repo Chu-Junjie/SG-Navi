@@ -6,6 +6,8 @@ from pathlib import Path
 
 from flask import Flask, jsonify, send_from_directory
 
+from backend.routes.task2 import api as task2_api
+
 
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 
@@ -13,6 +15,7 @@ FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 def create_app() -> Flask:
     """Create the minimal web application, without case-routing logic."""
     app = Flask(__name__, static_folder=None)
+    app.register_blueprint(task2_api)
 
     @app.get("/api/health")
     def health():
