@@ -1,0 +1,7 @@
+{
+  "api_version": "1.0",
+  "case_type": "rental_deposit",
+  "answers": {
+    "claim_amount_sgd": null
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "retrieval_status": "MOCK_ONLY",
+  "evidence": [
+    {
+      "evidence_id": "mock-evidence-1",
+      "source_id": "mock-source-1",
+      "rule_ids": [
+        "mock-rule-1"
+      ],
+      "url": "https://example.invalid/contract-fixture",
+      "review_status": "verified",
+      "source_version": "mock-1"
+    }
+  ]
+}

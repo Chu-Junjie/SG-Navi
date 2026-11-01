@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sg-navi.invalid/shared/schemas/evidence_schema.json",
+  "title": "SG Navi evidence envelope",
+  "description": "Structural metadata only; validation does not establish an official source or an actual review.",
+  "type": "object",
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "rule_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https?://[^\\s/?#]+(?:[/?#][^\\s]*)?$",
+      "not": {
+        "pattern": "\\s"
+      }
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "unreviewed",
+        "verified",
+        "quarantined"
+      ]
+    },
+    "source_version": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    }
+  },
+  "required": [
+    "evidence_id",
+    "source_id",
+    "rule_ids",
+    "url",
+    "review_status",
+    "source_version"
+  ],
+  "additionalProperties": false
+}
