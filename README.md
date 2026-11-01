@@ -2,7 +2,7 @@
 
 Group 6 project for English Rental Deposit and Consumer Complaint navigation.
 
-Task 1 provides a working development baseline: a Flask service, a homepage with two placeholder case entries, a real backend health indicator, basic tests and GitHub Actions. Full case forms, the navigation API, legal rules and retrieval are later Tasks.
+Tasks 1 and 2 provide a working baseline: a Flask service, a homepage with a real health indicator, shared API contracts, two case input schemas, a four-state mock preview and contract-valid API stubs. Full case forms, legal rules and retrieval remain later work. See [Task 2 acceptance](docs/task2-checklist.md) for the verified baseline.
 
 ## Team and repository
 
@@ -22,7 +22,7 @@ Use Python 3.12 or newer and Git. From PowerShell:
 git clone https://github.com/Chu-Junjie/SG-Navi.git
 cd SG-Navi
 py -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r tests/contracts/requirements.txt
 .\.venv\Scripts\python.exe -m flask --app backend.app run --host 127.0.0.1 --port 5000
 ```
 
@@ -36,12 +36,13 @@ Invoke-RestMethod http://127.0.0.1:5000/api/health
 
 The response is `{"status":"ok"}`. Stop the development server with Ctrl+C. No API key or `.env` is required for this baseline. A static server for `frontend/` alone does not provide `/api/health`; use Flask for the integrated page and health endpoint.
 
-## Run the Task 1 tests
+## Run the baseline and contract tests
 
 From the repository root after installing dependencies:
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest tests/backend -v
+.\.venv\Scripts\python.exe -m shared.validate_contracts
+.\.venv\Scripts\python.exe -m pytest tests/contracts tests/backend -v
 .\.venv\Scripts\python.exe -m unittest discover -s frontend/tests -v
 ```
 
@@ -53,6 +54,8 @@ The 2026-10-31 audit of baseline commit `743f609cdfc0bdfac4e3c7bd9ed839f65615d9b
 backend/                 Flask app and health route
 frontend/                Homepage and structure tests
 tests/backend/           Backend tests
+tests/contracts/         Shared contract tests
+shared/                  Canonical contracts, examples and validator
 docs/                    Setup instructions, acceptance record and task board
 .github/ISSUE_TEMPLATE/  Task 1-7 templates
 .github/workflows/       Task 1 CI
@@ -62,7 +65,9 @@ requirements.txt
 .gitignore
 ```
 
-Shared contracts and remaining module directories are added in their assigned Tasks. See [the task board](docs/task-board.md). Task 2 contracts are being reviewed in [PR #11](https://github.com/Chu-Junjie/SG-Navi/pull/11).
+The shared contract and frontend schemas are merged. See [the task board](docs/task-board.md) and [Task 2 acceptance](docs/task2-checklist.md). The 2026-11-01 audit passed 125 tests and all 11 shared examples. Task 3 knowledge-base work is in progress.
+
+Task 2 endpoints are GET /api/health, GET /api/case-types, GET /api/version and POST /api/navigate. They are contract-valid stubs with mock version identifiers. The standalone preview can be opened with `python -m http.server 8000 --directory frontend` at http://127.0.0.1:8000/mock-preview.html; this preview uses synthetic JSON, while Flask provides the API.
 
 ## Collaboration and follow-up
 
