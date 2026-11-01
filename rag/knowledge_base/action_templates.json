@@ -1,0 +1,233 @@
+{
+  "source_version": "kb-2026-11-01.1",
+  "templates": [
+    {
+      "template_id": "rental-sct-review",
+      "case_type": "rental_deposit",
+      "channel": "Check the potential SCT route",
+      "review_status": "verified",
+      "conditions": [
+        {
+          "text": "Check residential tenancy scope and duration.",
+          "evidence_ids": [
+            "SCT-ELIG-RESIDENTIAL"
+          ]
+        },
+        {
+          "text": "Confirm amount, event date and respondent service.",
+          "evidence_ids": [
+            "SCT-ELIG-AMOUNT",
+            "SCT-ELIG-TIME",
+            "SCT-ELIG-SERVICE"
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "text": "Complete official assessment before filing in CJTS.",
+          "evidence_ids": [
+            "SCT-FILE-PORTAL"
+          ]
+        },
+        {
+          "text": "Check fees, service and proof deadlines.",
+          "evidence_ids": [
+            "SCT-FILE-FEES",
+            "SCT-FILE-SERVICE",
+            "SCT-FILE-DOS"
+          ]
+        }
+      ],
+      "document_checklist": [
+        {
+          "text": "Prepare agreements, payment records and dispute correspondence.",
+          "evidence_ids": [
+            "SCT-FILE-DOCUMENTS"
+          ]
+        }
+      ],
+      "limitations": [
+        {
+          "text": "Scope conditions alone do not establish eligibility.",
+          "evidence_ids": [
+            "SCT-ELIG-RESIDENTIAL"
+          ]
+        }
+      ]
+    },
+    {
+      "template_id": "agency-contract-review",
+      "case_type": "rental_deposit",
+      "channel": "Check agency dispute resolution",
+      "review_status": "verified",
+      "conditions": [
+        {
+          "text": "Confirm the signed agency agreement and contractual dispute.",
+          "evidence_ids": [
+            "CEA-DR-AGREEMENT",
+            "CEA-DR-TERMS"
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "text": "Approach the agency; check mediation and arbitration options.",
+          "evidence_ids": [
+            "CEA-DR-AGREEMENT",
+            "CEA-DR-MEDIATION",
+            "CEA-DR-ARBITRATION"
+          ]
+        }
+      ],
+      "document_checklist": [
+        {
+          "text": "Locate the signed agency agreement.",
+          "evidence_ids": [
+            "CEA-DR-AGREEMENT"
+          ]
+        }
+      ],
+      "limitations": [
+        {
+          "text": "Confirm centre fees and time requirements on the source page.",
+          "evidence_ids": [
+            "CEA-DR-MEDIATION",
+            "CEA-DR-ARBITRATION"
+          ]
+        },
+        {
+          "text": "Independent centres conduct the proceedings.",
+          "evidence_ids": [
+            "CEA-DR-INDEPENDENCE"
+          ]
+        }
+      ]
+    },
+    {
+      "template_id": "agent-conduct-complaint",
+      "case_type": "rental_deposit",
+      "channel": "Check CEA conduct complaint scope",
+      "review_status": "verified",
+      "conditions": [
+        {
+          "text": "Identify the agent's estate-agency conduct at issue.",
+          "evidence_ids": [
+            "CEA-COMPLAINT-SCOPE"
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "text": "Prepare the timeline; submit through CEA's official form.",
+          "evidence_ids": [
+            "CEA-COMPLAINT-CHRONOLOGY",
+            "CEA-COMPLAINT-DOCUMENTS"
+          ]
+        }
+      ],
+      "document_checklist": [
+        {
+          "text": "Gather transaction, agent and supporting record details.",
+          "evidence_ids": [
+            "CEA-COMPLAINT-CHRONOLOGY",
+            "CEA-COMPLAINT-DOCUMENTS"
+          ]
+        }
+      ],
+      "limitations": [
+        {
+          "text": "Complaint information may be disclosed during investigation.",
+          "evidence_ids": [
+            "CEA-COMPLAINT-PRIVACY"
+          ]
+        }
+      ]
+    },
+    {
+      "template_id": "consumer-sct-review",
+      "case_type": "consumer_complaint",
+      "channel": "Check the potential SCT route",
+      "review_status": "verified",
+      "conditions": [
+        {
+          "text": "Check contract category and jurisdiction.",
+          "evidence_ids": [
+            "SCT-ELIG-GOODS",
+            "SCT-ELIG-AMOUNT",
+            "SCT-ELIG-TIME",
+            "SCT-ELIG-SERVICE"
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "text": "Use the official filing checklist.",
+          "evidence_ids": [
+            "SCT-FILE-PORTAL"
+          ]
+        }
+      ],
+      "document_checklist": [
+        {
+          "text": "Prepare purchase records.",
+          "evidence_ids": [
+            "SCT-FILE-DOCUMENTS"
+          ]
+        }
+      ],
+      "limitations": [
+        {
+          "text": "Scope alone does not establish eligibility.",
+          "evidence_ids": [
+            "SCT-ELIG-GOODS"
+          ]
+        }
+      ]
+    },
+    {
+      "template_id": "consumer-case-review",
+      "case_type": "consumer_complaint",
+      "channel": "Check CASE consumer assistance",
+      "review_status": "verified",
+      "conditions": [
+        {
+          "text": "Confirm personal purpose and Singapore supplier registration.",
+          "evidence_ids": [
+            "CASE-PERSONAL",
+            "CASE-SG-SUPPLIER"
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "text": "Request official consultation and confirm service charges.",
+          "evidence_ids": [
+            "CASE-PROCESS-FEES"
+          ]
+        }
+      ],
+      "document_checklist": [
+        {
+          "text": "Gather identification, purchase records and any agreement.",
+          "evidence_ids": [
+            "CASE-DOCUMENTS"
+          ]
+        }
+      ],
+      "limitations": [
+        {
+          "text": "Keep rental disputes separate from consumer complaints.",
+          "evidence_ids": [
+            "CASE-RENTAL-EXCLUDED"
+          ]
+        },
+        {
+          "text": "Cross-border assistance is outside this project scope.",
+          "evidence_ids": [
+            "CASE-OVERSEAS"
+          ]
+        }
+      ]
+    }
+  ]
+}

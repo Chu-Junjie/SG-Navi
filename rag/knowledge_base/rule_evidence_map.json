@@ -1,0 +1,327 @@
+{
+  "source_version": "kb-2026-11-01.1",
+  "rules": [
+    {
+      "rule_id": "SCT_RESIDENTIAL_SCOPE",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "evidence_ids": [
+        "SCT-ELIG-RESIDENTIAL"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "SCT_CLAIM_AMOUNT",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "SCT-ELIG-AMOUNT"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "SCT_EVENT_DATE",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "SCT-ELIG-TIME"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "SCT_RESPONDENT_SERVICE",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "SCT-ELIG-SERVICE"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "SCT_GOODS_SERVICES_SCOPE",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "SCT-ELIG-GOODS"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "SCT_EMPLOYMENT_EXCLUDED",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "SCT-ELIG-EMPLOYMENT"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "SCT_FILING_PORTAL",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "SCT-FILE-PORTAL"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "SCT_DOCUMENTS",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "SCT-FILE-DOCUMENTS"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "SCT_FILING_FEES",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "SCT-FILE-FEES"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "SCT_SERVICE_DEADLINE",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "SCT-FILE-SERVICE"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "SCT_PROOF_OF_SERVICE",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "SCT-FILE-DOS"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CEA_AGENCY_AGREEMENT",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "evidence_ids": [
+        "CEA-DR-AGREEMENT"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CEA_AGREEMENT_DISPUTE",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "evidence_ids": [
+        "CEA-DR-TERMS"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CEA_MEDIATION",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "evidence_ids": [
+        "CEA-DR-MEDIATION"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CEA_ARBITRATION",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "evidence_ids": [
+        "CEA-DR-ARBITRATION"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CEA_CENTRE_INDEPENDENCE",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "evidence_ids": [
+        "CEA-DR-INDEPENDENCE"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CEA_CONDUCT_COMPLAINT",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "evidence_ids": [
+        "CEA-COMPLAINT-SCOPE"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CEA_COMPLAINT_PRIVACY",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "evidence_ids": [
+        "CEA-COMPLAINT-PRIVACY"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CEA_COMPLAINT_SUBMISSION",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "evidence_ids": [
+        "CEA-COMPLAINT-DOCUMENTS"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CEA_COMPLAINT_RECORDS",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "evidence_ids": [
+        "CEA-COMPLAINT-CHRONOLOGY"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CASE_PERSONAL_PURPOSE",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "CASE-PERSONAL"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CASE_SINGAPORE_SUPPLIER",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "CASE-SG-SUPPLIER"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CASE_DOCUMENTS",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "CASE-DOCUMENTS"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CASE_PROCESS_FEES",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "CASE-PROCESS-FEES"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    },
+    {
+      "rule_id": "CASE_OVERSEAS_CONTEXT",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "CASE-OVERSEAS"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "source context only"
+    },
+    {
+      "rule_id": "CASE_RENTAL_SEPARATION",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "evidence_ids": [
+        "CASE-RENTAL-EXCLUDED"
+      ],
+      "review_status": "verified",
+      "runtime_enabled": false,
+      "purpose": "evidence mapping for backend owner review"
+    }
+  ]
+}
