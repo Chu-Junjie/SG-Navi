@@ -35,14 +35,14 @@ SYNTHETIC_EVIDENCE = {
     "rule_ids": ["mock-rule-task4-1"],
     "url": "https://example.invalid/task4-fixture",
     "review_status": "verified",
-    "source_version": source_version or MOCK_SOURCE_VERSION,
+    "source_version": MOCK_SOURCE_VERSION,
 }
 
 def envelope(status, questions=None, warnings=None, evidence=None, action_card=None, source_version=None):
     result = {
         "api_version": API_VERSION,
         "rule_version": MOCK_RULE_VERSION,
-        "source_version": MOCK_SOURCE_VERSION,
+        "source_version": source_version or MOCK_SOURCE_VERSION,
         "status": status,
         "questions": questions if questions is not None else [],
         "action_card": action_card,
