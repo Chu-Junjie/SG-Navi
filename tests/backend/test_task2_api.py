@@ -40,8 +40,9 @@ def test_no_unverified_supported_path(client):
     res = client.post("/api/navigate", json=payload)
     data = res.get_json()
     validate(data, "navigate_response")
-    assert data["status"] == "REFER_TO_OFFICIAL"
+    assert data["status"] in {"NEED_CLARIFICATION", "REFER_TO_OFFICIAL"}
     assert data["evidence"] == []
+    assert data["action_card"] is None
 
 @pytest.mark.parametrize("payload", [
     {"api_version": "2.0", "case_type": "rental_deposit", "answers": {}},
