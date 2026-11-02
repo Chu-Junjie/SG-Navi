@@ -1,0 +1,133 @@
+{
+  "category": "boundary",
+  "source_version": "kb-2026-11-01.1",
+  "unknown_policy": "clarify_or_refer",
+  "checks": [
+    {
+      "check_id": "boundary.employment",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "input_fields": [],
+      "rule_id": "SCT_EMPLOYMENT_EXCLUDED",
+      "evidence_ids": [
+        "SCT-ELIG-EMPLOYMENT"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Employment disputes are not a supported case flow; no Task 2 input field."
+    },
+    {
+      "check_id": "boundary.commercial_tenancy",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "input_fields": [
+        "premises_type"
+      ],
+      "rule_id": "SCT_RESIDENTIAL_SCOPE",
+      "evidence_ids": [
+        "SCT-ELIG-RESIDENTIAL"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Commercial premises boundary remains disabled until a validated scope check exists."
+    },
+    {
+      "check_id": "boundary.business_purchase",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "purchase_purpose"
+      ],
+      "rule_id": "CASE_PERSONAL_PURPOSE",
+      "evidence_ids": [
+        "CASE-PERSONAL"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Personal/business purpose boundary requires explicit verification."
+    },
+    {
+      "check_id": "boundary.non_sg_supplier",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "supplier_location"
+      ],
+      "rule_id": "CASE_OVERSEAS_CONTEXT",
+      "evidence_ids": [
+        "CASE-OVERSEAS"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Cross-border source context only; not eligibility evidence."
+    },
+    {
+      "check_id": "boundary.supplier_registered",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "supplier_registered_in_sg"
+      ],
+      "rule_id": "CASE_SINGAPORE_SUPPLIER",
+      "evidence_ids": [
+        "CASE-SG-SUPPLIER"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Supplier registration alone must not trigger an automatic conclusion."
+    },
+    {
+      "check_id": "boundary.immigration",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "input_fields": [],
+      "rule_id": null,
+      "evidence_ids": [],
+      "mapping_status": "unverified",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "No mapped official source; outside the two supported flows."
+    },
+    {
+      "check_id": "boundary.criminal",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "input_fields": [],
+      "rule_id": null,
+      "evidence_ids": [],
+      "mapping_status": "unverified",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "No mapped official source; outside the two supported flows."
+    },
+    {
+      "check_id": "boundary.investment",
+      "case_types": [
+        "rental_deposit",
+        "consumer_complaint"
+      ],
+      "input_fields": [],
+      "rule_id": null,
+      "evidence_ids": [],
+      "mapping_status": "unverified",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "No mapped official source; outside the two supported flows."
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "category": "consumer",
+  "source_version": "kb-2026-11-01.1",
+  "unknown_policy": "clarify_or_refer",
+  "checks": [
+    {
+      "check_id": "consumer.goods_services",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "purchase_type"
+      ],
+      "rule_id": "SCT_GOODS_SERVICES_SCOPE",
+      "evidence_ids": [
+        "SCT-ELIG-GOODS"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Goods/services categories require official context, not free-text inference."
+    },
+    {
+      "check_id": "consumer.personal_purpose",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "purchase_purpose"
+      ],
+      "rule_id": "CASE_PERSONAL_PURPOSE",
+      "evidence_ids": [
+        "CASE-PERSONAL"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Business-versus-personal scope must be verified before routing."
+    },
+    {
+      "check_id": "consumer.supplier_registration",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "supplier_registered_in_sg"
+      ],
+      "rule_id": "CASE_SINGAPORE_SUPPLIER",
+      "evidence_ids": [
+        "CASE-SG-SUPPLIER"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "A boolean is not sufficient proof of registration."
+    },
+    {
+      "check_id": "consumer.supplier_location",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "supplier_location"
+      ],
+      "rule_id": "CASE_OVERSEAS_CONTEXT",
+      "evidence_ids": [
+        "CASE-OVERSEAS"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Source context is not proof of cross-border eligibility."
+    },
+    {
+      "check_id": "consumer.problem_type",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "problem_type"
+      ],
+      "rule_id": null,
+      "evidence_ids": [],
+      "mapping_status": "unverified",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "No supported automatic classification yet."
+    },
+    {
+      "check_id": "consumer.purchase_date",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "purchase_date"
+      ],
+      "rule_id": null,
+      "evidence_ids": [],
+      "mapping_status": "unverified",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "A purchase date must not be substituted for a cause-of-action event."
+    },
+    {
+      "check_id": "consumer.claim_amount",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "claim_amount_sgd"
+      ],
+      "rule_id": "SCT_CLAIM_AMOUNT",
+      "evidence_ids": [
+        "SCT-ELIG-AMOUNT"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "No automatic amount-limit check is enabled."
+    },
+    {
+      "check_id": "consumer.resolution_attempted",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "resolution_attempted"
+      ],
+      "rule_id": null,
+      "evidence_ids": [],
+      "mapping_status": "unverified",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Missing rule evidence for automatic procedural decision."
+    },
+    {
+      "check_id": "consumer.documents",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "input_fields": [
+        "documents_available"
+      ],
+      "rule_id": "CASE_DOCUMENTS",
+      "evidence_ids": [
+        "CASE-DOCUMENTS"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Document preparation context only; no eligibility decision."
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "category": "rental",
+  "source_version": "kb-2026-11-01.1",
+  "unknown_policy": "clarify_or_refer",
+  "checks": [
+    {
+      "check_id": "rental.premises_scope",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "input_fields": [
+        "premises_type",
+        "tenancy_duration_months"
+      ],
+      "rule_id": "SCT_RESIDENTIAL_SCOPE",
+      "evidence_ids": [
+        "SCT-ELIG-RESIDENTIAL"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Residential/commercial tenancy scope: check only, no activated duration threshold."
+    },
+    {
+      "check_id": "rental.landlord_or_agent",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "input_fields": [
+        "dispute_with"
+      ],
+      "rule_id": null,
+      "evidence_ids": [],
+      "mapping_status": "unverified",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Distinguish landlord and agent without assuming legal route; no direct standalone rule evidence."
+    },
+    {
+      "check_id": "rental.claim_amount",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "input_fields": [
+        "claim_amount_sgd"
+      ],
+      "rule_id": "SCT_CLAIM_AMOUNT",
+      "evidence_ids": [
+        "SCT-ELIG-AMOUNT"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Do not activate a monetary limit from an excerpt alone."
+    },
+    {
+      "check_id": "rental.event_date",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "input_fields": [
+        "relevant_event_date"
+      ],
+      "rule_id": "SCT_EVENT_DATE",
+      "evidence_ids": [
+        "SCT-ELIG-TIME"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Event date may not be the legal cause-of-action date; needs verification."
+    },
+    {
+      "check_id": "rental.respondent_location",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "input_fields": [
+        "respondent_in_singapore"
+      ],
+      "rule_id": "SCT_RESPONDENT_SERVICE",
+      "evidence_ids": [
+        "SCT-ELIG-SERVICE"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Location alone does not establish service or tribunal jurisdiction."
+    },
+    {
+      "check_id": "rental.agency_agreement",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "input_fields": [
+        "agency_agreement_signed"
+      ],
+      "rule_id": "CEA_AGENCY_AGREEMENT",
+      "evidence_ids": [
+        "CEA-DR-AGREEMENT"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Only relevant when the agency contractual context is confirmed."
+    },
+    {
+      "check_id": "rental.resolution_attempted",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "input_fields": [
+        "resolution_attempted"
+      ],
+      "rule_id": null,
+      "evidence_ids": [],
+      "mapping_status": "unverified",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "No verified rule in this map establishes an eligibility outcome from this fact."
+    },
+    {
+      "check_id": "rental.documents",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "input_fields": [
+        "documents_available"
+      ],
+      "rule_id": "SCT_DOCUMENTS",
+      "evidence_ids": [
+        "SCT-FILE-DOCUMENTS"
+      ],
+      "mapping_status": "linked",
+      "threshold": null,
+      "runtime_enabled": false,
+      "notes": "Evidence checklist only, not an eligibility decision."
+    }
+  ]
+}
