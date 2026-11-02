@@ -116,8 +116,8 @@ def evaluate(case_type, answers, *, simulate_supported=False, mock_evidence=None
             return envelope("REFER_TO_OFFICIAL", warnings=[
                 "Verified evidence is missing or unavailable. Confirm the situation directly with official sources."
             ], source_version=kb["source_version"])
-        return envelope("REFER_TO_OFFICIAL", evidence=records, warnings=[
-            "Relevant official-source excerpts were found, but eligibility has not been assessed.",
+        return envelope("REFER_TO_OFFICIAL", warnings=[
+            "Real RAG evidence was retrieved and validated, but eligibility has not been assessed.",
             "Please read the linked source material and confirm the applicable process."
         ], source_version=kb["source_version"])
 
