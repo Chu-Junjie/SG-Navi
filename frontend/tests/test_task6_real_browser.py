@@ -48,6 +48,9 @@ class RealBrowserFE01to08(unittest.TestCase):
                 cwd=ROOT, capture_output=True, text=True, encoding="utf-8",
                 errors="replace", timeout=135, check=False
             )
+            print("\nFE-01–08 real Chromium diagnostics:\n" + (result.stdout or ""))
+            if result.stderr:
+                print("Chromium stderr (last 1500 chars): " + result.stderr[-1500:])
             data = None
             for pos in (i for i,c in enumerate(result.stdout) if c=="{"):
                 try:
