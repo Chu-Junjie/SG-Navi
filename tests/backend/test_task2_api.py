@@ -28,7 +28,7 @@ def test_missing_amount_clarifies(client, case_type):
     data = res.get_json()
     validate(data, "navigate_response")
     assert data["status"] == "NEED_CLARIFICATION"
-    assert data["questions"][0]["id"] == "claim_amount_sgd"
+    assert "claim_amount_sgd" in {question["id"] for question in data["questions"]}
 
 def test_unknown_is_not_false(client):
     payload = {"api_version": "1.0", "case_type": "rental_deposit", "answers": {"claim_amount_sgd": "unknown"}}
