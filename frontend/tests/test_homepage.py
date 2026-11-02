@@ -13,8 +13,8 @@ class HomepageTests(unittest.TestCase):
 
     def test_title_and_brand(self):
         self.assertIn("<title>SG Navi | Start Here</title>", self.html)
-        self.assertIn('aria-label="SG Navi compass logo"', self.html)
-        self.assertIn('class="brand-name">SG Navi</span>', self.html)
+        self.assertIn('alt="SG Navi"', self.html)
+        self.assertIn('class="brand-logo"', self.html)
 
     def test_only_two_task1_topics(self):
         matches = re.findall(r'data-case="([^"]+)"', self.html)
