@@ -11,9 +11,11 @@ class ReferralSourceJavaScriptTests(unittest.TestCase):
     def test_node_source_validation_and_safe_rendering(self):
         result = subprocess.run(
             ["node", "--test", "tests/test_verified_sources.cjs"],
-            cwd=FRONTEND, capture_output=True, text=True, timeout=20, check=False
+            cwd=FRONTEND, capture_output=True, text=True,
+            encoding="utf-8", errors="replace", timeout=20, check=False
         )
-        self.assertEqual(result.returncode, 0, result.stdout + "\n" + result.stderr)
+        diagnostics = (result.stdout or "") + "\n" + (result.stderr or "")
+        self.assertEqual(result.returncode, 0, diagnostics)
 
 if __name__ == "__main__":
     unittest.main()
