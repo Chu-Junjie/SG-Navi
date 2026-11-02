@@ -23,6 +23,6 @@ jobs:
       - name: Validate shared API contract examples
         run: python -m shared.validate_contracts
       - name: Run backend and contract tests
-        run: python -m pytest tests/contracts tests/backend -v
+        run: python -m pytest tests/contracts tests/backend tests/rag -v
       - name: Run frontend tests
         run: python -m unittest discover -s frontend/tests -v
