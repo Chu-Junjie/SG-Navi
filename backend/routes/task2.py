@@ -7,6 +7,7 @@ from flask import Blueprint, jsonify, request
 from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import ValidationError
 from shared.validate_contracts import validate
+from backend.rules.engine import evaluate
 
 api = Blueprint("task2", __name__)
 VERSION = "1.0"
@@ -58,14 +59,9 @@ def navigate():
         return send(response("ERROR", warnings=["Invalid request: check api_version, case_type and answers."]), code=400)
     if not answers_validator(payload["case_type"]).is_valid(payload["answers"]):
         return send(response("ERROR", warnings=["Invalid answers for the selected case type."]), code=400)
-    question = {
-        "id": "claim_amount_sgd",
-        "label": "What is the disputed amount in SGD?",
-        "input_type": "number",
-        "required": True,
-    }
-    if payload["answers"].get("claim_amount_sgd") in (None, "unknown"):
-        return send(response("NEED_CLARIFICATION", questions=[question]))
-    return send(response("REFER_TO_OFFICIAL", warnings=[
-        "Task 2 mock only; no eligibility or official evidence has been verified."
-    ]))
+    try:
+        return send(evaluate(payload["case_type"], payload["answers"]))
+    except (ValueError, OSError, KeyError):
+        return send(response("ERROR", warnings=[
+            "Backend rule configuration is unavailable; no conclusion can be made."
+        ]), code=503)
