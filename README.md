@@ -2,7 +2,7 @@
 
 Group 6 project for English Rental Deposit and Consumer Complaint navigation.
 
-Tasks 1 and 2 provide a working baseline: a Flask service, a homepage with a real health indicator, shared API contracts, two case input schemas, a four-state mock preview and contract-valid API stubs. Full case forms, legal rules and retrieval remain later work. See [Task 2 acceptance](docs/task2-checklist.md) for the verified baseline.
+Tasks 1-3 provide a working baseline: a Flask service, a homepage with a real health indicator, shared API contracts, two case schemas, mock previews, source preparation and disabled rule configurations. Full case forms, runtime legal rules and retrieval remain later work. See [Task 2 acceptance](docs/task2-checklist.md) and [Task 3 acceptance](docs/task3-checklist.md) for verified results.
 
 ## Team and repository
 
@@ -42,7 +42,8 @@ From the repository root after installing dependencies:
 
 ```powershell
 .\.venv\Scripts\python.exe -m shared.validate_contracts
-.\.venv\Scripts\python.exe -m pytest tests/contracts tests/backend -v
+.\.venv\Scripts\python.exe -m rag.import_knowledge_base
+.\.venv\Scripts\python.exe -m pytest tests/contracts tests/backend tests/rag -v
 .\.venv\Scripts\python.exe -m unittest discover -s frontend/tests -v
 ```
 
@@ -56,6 +57,8 @@ frontend/                Homepage and structure tests
 tests/backend/           Backend tests
 tests/contracts/         Shared contract tests
 shared/                  Canonical contracts, examples and validator
+rag/                     Source preparation, knowledge files and import validator
+tests/rag/               Source ingestion tests
 docs/                    Setup instructions, acceptance record and task board
 .github/ISSUE_TEMPLATE/  Task 1-7 templates
 .github/workflows/       Task 1 CI
@@ -65,7 +68,7 @@ requirements.txt
 .gitignore
 ```
 
-The shared contract and frontend schemas are merged. See [the task board](docs/task-board.md) and [Task 2 acceptance](docs/task2-checklist.md). The 2026-11-01 audit passed 125 tests and all 11 shared examples. Task 3 knowledge-base work is in progress.
+The shared contract, frontend schemas, source preparation, disabled rule configuration and Task 3 mappings are merged. See [the task board](docs/task-board.md) and [Task 3 acceptance](docs/task3-checklist.md). The 2026-11-02 closeout checks passed 186 tests; all five source pages and 26 excerpts passed the live recheck. [RAG instructions](rag/README.md) explain how to validate and import the source bundle.
 
 Task 2 endpoints are GET /api/health, GET /api/case-types, GET /api/version and POST /api/navigate. They are contract-valid stubs with mock version identifiers. The standalone preview can be opened with `python -m http.server 8000 --directory frontend` at http://127.0.0.1:8000/mock-preview.html; this preview uses synthetic JSON, while Flask provides the API.
 
