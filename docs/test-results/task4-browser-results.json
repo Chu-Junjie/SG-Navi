@@ -1,0 +1,194 @@
+{
+  "audit_date": "2026-11-02",
+  "audited_commit": "de5e4f2c12cb107c1185334710acac490c636910",
+  "browser": "Microsoft Edge headless",
+  "summary": {
+    "page": "frontend/task4-forms.html",
+    "widths": [
+      1366,
+      390,
+      320
+    ],
+    "scenarios": 2,
+    "mockStates": 4,
+    "combinationsPassed": 24,
+    "sevenSections": true,
+    "mockEvidenceGuard": true,
+    "basicKeyboardTab": true,
+    "editableAnswers": true,
+    "caseSwitchPreservesAnswers": true,
+    "unknownNullFalseDistinct": true,
+    "negativeNumberRejected": true,
+    "javascriptExceptions": 0
+  },
+  "results": [
+    {
+      "width": 1366,
+      "caseType": "rental_deposit",
+      "status": "NEED_CLARIFICATION",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1366,
+      "caseType": "rental_deposit",
+      "status": "SUPPORTED_PATH",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1366,
+      "caseType": "rental_deposit",
+      "status": "REFER_TO_OFFICIAL",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1366,
+      "caseType": "rental_deposit",
+      "status": "ERROR",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1366,
+      "caseType": "consumer_complaint",
+      "status": "NEED_CLARIFICATION",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1366,
+      "caseType": "consumer_complaint",
+      "status": "SUPPORTED_PATH",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1366,
+      "caseType": "consumer_complaint",
+      "status": "REFER_TO_OFFICIAL",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1366,
+      "caseType": "consumer_complaint",
+      "status": "ERROR",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "caseType": "rental_deposit",
+      "status": "NEED_CLARIFICATION",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "caseType": "rental_deposit",
+      "status": "SUPPORTED_PATH",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "caseType": "rental_deposit",
+      "status": "REFER_TO_OFFICIAL",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "caseType": "rental_deposit",
+      "status": "ERROR",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "caseType": "consumer_complaint",
+      "status": "NEED_CLARIFICATION",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "caseType": "consumer_complaint",
+      "status": "SUPPORTED_PATH",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "caseType": "consumer_complaint",
+      "status": "REFER_TO_OFFICIAL",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "caseType": "consumer_complaint",
+      "status": "ERROR",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "caseType": "rental_deposit",
+      "status": "NEED_CLARIFICATION",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "caseType": "rental_deposit",
+      "status": "SUPPORTED_PATH",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "caseType": "rental_deposit",
+      "status": "REFER_TO_OFFICIAL",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "caseType": "rental_deposit",
+      "status": "ERROR",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "caseType": "consumer_complaint",
+      "status": "NEED_CLARIFICATION",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "caseType": "consumer_complaint",
+      "status": "SUPPORTED_PATH",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "caseType": "consumer_complaint",
+      "status": "REFER_TO_OFFICIAL",
+      "sections": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "caseType": "consumer_complaint",
+      "status": "ERROR",
+      "sections": 7,
+      "horizontalOverflow": false
+    }
+  ]
+}

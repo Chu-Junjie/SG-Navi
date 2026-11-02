@@ -2,7 +2,7 @@
 
 Group 6 project for English Rental Deposit and Consumer Complaint navigation.
 
-Tasks 1-3 provide a working baseline: a Flask service, a homepage with a real health indicator, shared API contracts, two case schemas, mock previews, source preparation and disabled rule configurations. Full case forms, runtime legal rules and retrieval remain later work. See [Task 2 acceptance](docs/task2-checklist.md) and [Task 3 acceptance](docs/task3-checklist.md) for verified results.
+Tasks 1-4 provide a working development baseline: Flask APIs, schema-generated mock forms, shared contracts, source preparation, conservative backend logic and independent evidence retrieval/citation checks. See [Task 4 acceptance](docs/task4-checklist.md) for verified results. Connecting the real modules into complete source-backed flows remains Task 5.
 
 ## Team and repository
 
@@ -36,6 +36,24 @@ Invoke-RestMethod http://127.0.0.1:5000/api/health
 
 The response is `{"status":"ok"}`. Stop the development server with Ctrl+C. No API key or `.env` is required for this baseline. A static server for `frontend/` alone does not provide `/api/health`; use Flask for the integrated page and health endpoint.
 
+## Preview Task 4 forms
+
+In another terminal, serve the frontend prototype and open [the form preview](http://127.0.0.1:8000/task4-forms.html):
+
+```powershell
+.\.venv\Scripts\python.exe -m http.server 8000 --directory frontend
+```
+
+Select Rental Deposit or Consumer Complaint, edit answers and choose one of the four Mock API statuses. The page preserves unknown/null/false values and shows the seven Action Card sections. Synthetic source examples stay marked Needs verification. This prototype loads fixture JSON; it is an independent Task 4 demonstration rather than a full API/RAG flow.
+
+For independent RAG usage:
+
+```powershell
+.\.venv\Scripts\python.exe -m rag.retriever rental_deposit --rule-id SCT_RESIDENTIAL_SCOPE
+```
+
+[RAG Task 4 instructions](rag/TASK4.md) document the retrieval response, citation validation, quarantine and source update procedures.
+
 ## Run the baseline and contract tests
 
 From the repository root after installing dependencies:
@@ -68,9 +86,9 @@ requirements.txt
 .gitignore
 ```
 
-The shared contract, frontend schemas, source preparation, disabled rule configuration and Task 3 mappings are merged. See [the task board](docs/task-board.md) and [Task 3 acceptance](docs/task3-checklist.md). The 2026-11-02 closeout checks passed 186 tests; all five source pages and 26 excerpts passed the live recheck. [RAG instructions](rag/README.md) explain how to validate and import the source bundle.
+The frontend forms, backend logic and RAG module are merged through PRs #23-25. See [the task board](docs/task-board.md) and [Task 4 acceptance](docs/task4-checklist.md). The 2026-11-02 combined audit passed 278 tests and 2 subtests, 24 browser case/status/width combinations and the five-page live source check. [RAG instructions](rag/README.md) explain source validation and import.
 
-Task 2 endpoints are GET /api/health, GET /api/case-types, GET /api/version and POST /api/navigate. They are contract-valid stubs with mock version identifiers. The standalone preview can be opened with `python -m http.server 8000 --directory frontend` at http://127.0.0.1:8000/mock-preview.html; this preview uses synthetic JSON, while Flask provides the API.
+The API exposes GET /api/health, GET /api/case-types, GET /api/version and POST /api/navigate. Normal navigation requests use conservative scope/clarification behavior with mock version identifiers. Source-based legal eligibility rules remain disabled. The earlier four-state fixture viewer remains available at http://127.0.0.1:8000/mock-preview.html when the frontend static server is running.
 
 ## Collaboration and follow-up
 
