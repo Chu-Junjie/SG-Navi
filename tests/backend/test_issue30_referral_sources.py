@@ -63,3 +63,39 @@ def test_duplicate_source_id_is_not_presented():
             "url":"https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
             "review_status":"verified","source_version":version}
     assert referral_source_context([record,deepcopy(record)],expected_version=version)==[]
+
+
+@pytest.mark.parametrize("case,answers", [
+    ("rental_deposit", RENTAL),
+    ("consumer_complaint", CONSUMER),
+])
+@pytest.mark.parametrize("bad_field,bad_value", [
+    ("url", "https://example.invalid/not-official"),
+    ("review_status", "quarantined"),
+    ("source_version", "obsolete-source-version"),
+])
+def test_backend_http_referral_never_exposes_bad_source_metadata(
+        client, case, answers, bad_field, bad_value):
+    """Even a mistaken FOUND envelope must not turn bad sources into UI links."""
+    version = load_knowledge_base()["source_version"]
+    fake = {
+        "evidence_id": "synthetic-evidence",
+        "source_id": "synthetic-source",
+        "rule_ids": ["synthetic-rule"],
+        "url": "https://www.judiciary.gov.sg/civil",
+        "review_status": "verified",
+        "source_version": version,
+    }
+    fake[bad_field] = bad_value
+    with patch("backend.rules.engine.retrieve_checked",
+               return_value=("FOUND", [fake])):
+        response = client.post("/api/navigate", json={
+            "api_version": "1.0", "case_type": case, "answers": answers
+        })
+    assert response.status_code == 200
+    result = response.get_json()
+    validate(result, "navigate_response")
+    assert result["status"] == "REFER_TO_OFFICIAL"
+    assert result["action_card"] is None
+    assert result["evidence"] == []
+    assert result["warnings"]
