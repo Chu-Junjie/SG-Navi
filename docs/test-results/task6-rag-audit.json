@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-02",
+  "timezone": "Asia/Singapore",
+  "baseline_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+  "owner": "Chu-Junjie",
+  "tester": "Codex automated execution",
+  "scope": "Task 6 RAG acceptance and integrity fixes; team Task 6 remains open",
+  "initial_new_regressions": {"command": "python -X utf8 -m pytest tests/rag/test_task6_integrity.py -q", "failed": 7, "passed": 3, "seconds": 3.34, "exit_code": 1, "issues": [41, 42]},
+  "intermediate_post_fix_rag": {"failed": 2, "passed": 119, "seconds": 23.08, "exit_code": 1, "cause": "Existing RAG fixture used historical review fingerprint and assertion expected former wording; fixtures aligned with the stricter current-review contract"},
+  "final_rag": {"command": "python -X utf8 tests/rag/run_task6.py --output docs/test-results/task6-rag-results.json", "exit_code": 0, "groups_passed": 12, "pytest_passed": 121, "seconds": 20.30},
+  "full_regression": {"command": "python -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q", "exit_code": 0, "passed": 356, "subtests_passed": 7, "seconds": 29.91},
+  "shared_examples": {"command": "python -m shared.validate_contracts", "exit_code": 0, "passed": 11},
+  "backend_rag_diagnostic": {"command": "python -m integration.checks", "exit_code": 0, "passed_checks": 5},
+  "report_destination_guard": {"command": "python -X utf8 tests/rag/run_task6.py --output rag/knowledge_base/unsafe-report.json", "expected_exit": 2, "actual_exit": 2, "file_created": false},
+  "real_source_check": {"command": "python -X utf8 -m rag.import_knowledge_base --verify-live", "exit_code": 0, "http_200_sources": 5, "excerpts_matched": 26},
+  "unchanged": ["five canonical knowledge files", "source_version kb-2026-11-01.1", "legal activation flags", "shared API fields", "backend/", "frontend/", "dependencies", "CI workflow"],
+  "not_performed": ["fresh dependency installation", "other owners' formal FE/BE/E2E acceptance", "new real browser run during Task 6", "Task 7 candidate acceptance", "automatic semantic/legal contradiction classification"]
+}

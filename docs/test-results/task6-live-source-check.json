@@ -1,0 +1,14 @@
+{
+  "started_at_utc": "2026-11-02T12:56:52.6378537+00:00",
+  "output": [
+    "LIVE courts-sct-eligibility: HTTP 200, 6 excerpts checked",
+    "LIVE courts-sct-filing: HTTP 200, 5 excerpts checked",
+    "LIVE cea-dispute-resolution: HTTP 200, 5 excerpts checked",
+    "LIVE cea-complaint: HTTP 200, 4 excerpts checked",
+    "LIVE case-complaint: HTTP 200, 6 excerpts checked",
+    "PASS kb-2026-11-01.1: 5 sources, 26 passages, 26 rule mappings, 5 templates"
+  ],
+  "finished_at_utc": "2026-11-02T12:56:58.8592865+00:00",
+  "exit_code": 0,
+  "command": "python -X utf8 -m rag.import_knowledge_base --verify-live"
+}

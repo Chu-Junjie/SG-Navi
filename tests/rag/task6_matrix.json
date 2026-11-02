@@ -1,0 +1,90 @@
+{
+  "definition": "Team guide specifies RAG-01 through RAG-12 and coverage topics, but no per-ID definitions. These are this audit's explicit operational groupings; groups may overlap and are not additive test counts.",
+  "cases": [
+    {
+      "test_id": "RAG-01", "title": "Rental exact retrieval and Evidence contract",
+      "input": "Rental SCT_RESIDENTIAL_SCOPE; checked five-file bundle",
+      "expected": "Exact Courts source and six-field Evidence; shared schema valid, no legal applicability inferred",
+      "pytest_nodes": ["test_retrieval.py::test_exact_rule_lookup_keeps_channels_separate[rental_deposit-SCT_RESIDENTIAL_SCOPE-courts-sct-eligibility]", "test_knowledge_base.py::test_every_projected_record_matches_the_existing_shared_evidence_schema", "test_knowledge_base.py::test_live_prepared_bundle_has_five_files_and_traceable_content"],
+      "bug_issues": []
+    },
+    {
+      "test_id": "RAG-02", "title": "Consumer exact retrieval",
+      "input": "Consumer CASE_PERSONAL_PURPOSE and existing checked mapping",
+      "expected": "Correct CASE source and citation validation; deterministic isolated results",
+      "pytest_nodes": ["test_retrieval.py::test_exact_rule_lookup_keeps_channels_separate[consumer_complaint-CASE_PERSONAL_PURPOSE-case-complaint]", "test_retrieval.py::test_order_is_deterministic_and_response_mutation_does_not_poison_future_reads"],
+      "bug_issues": []
+    },
+    {
+      "test_id": "RAG-03", "title": "Landlord and agent source separation",
+      "input": "Rental CEA_AGENCY_AGREEMENT versus SCT mapping; consumer requests rental-only agency rule; wrong-case template",
+      "expected": "Requested IDs determine exact evidence; no accidental cross-case/channel mapping or frontend/legal decision",
+      "pytest_nodes": ["test_retrieval.py::test_exact_rule_lookup_keeps_channels_separate[rental_deposit-CEA_AGENCY_AGREEMENT-cea-dispute-resolution]", "test_retrieval.py::test_consumer_cannot_request_the_rental_only_agency_mapping", "test_knowledge_base.py::test_agent_template_cannot_use_unrelated_consumer_evidence"],
+      "bug_issues": []
+    },
+    {
+      "test_id": "RAG-04", "title": "No results and unknown facts",
+      "input": "Empty/unknown/wrong-case Rule IDs, invalid requests and facts containing null/unknown/false",
+      "expected": "NO_RESULTS for absent mappings, ERROR for malformed input, no partial Evidence, facts preserved",
+      "pytest_nodes": ["test_retrieval.py::test_missing_or_wrong_scope_rules_never_return_partial_evidence", "test_retrieval.py::test_invalid_requests_return_contract_valid_error", "test_retrieval.py::test_unknown_null_and_false_facts_are_preserved_and_never_used_to_guess_a_rule", "test_retrieval.py::test_retriever_cli_reports_found_and_empty_request"],
+      "bug_issues": []
+    },
+    {
+      "test_id": "RAG-05", "title": "Bad Evidence and citation rejection",
+      "input": "Forged/mismatched IDs, URLs, source metadata, duplicate/partial/extra citations and empty claims",
+      "expected": "Typed CitationValidationError; no unsupported citation batch accepted",
+      "pytest_nodes": ["test_retrieval.py::test_citation_validator_rejects_plausible_but_wrong_evidence_metadata", "test_retrieval.py::test_citation_list_requires_exact_unique_evidence_ids", "test_retrieval.py::test_citations_reject_partial_coverage_extra_records_and_duplicates", "test_retrieval.py::test_citation_validation_never_treats_an_empty_or_invalid_claim_as_supported"],
+      "bug_issues": []
+    },
+    {
+      "test_id": "RAG-06", "title": "Unreviewed and quarantined source exclusion",
+      "input": "Coherently downgraded review states; persistent operational quarantine; already-retrieved Evidence",
+      "expected": "Affected evidence unavailable across repository instances; prior citations invalidated; unrelated sources remain usable",
+      "pytest_nodes": ["test_retrieval.py::test_coherent_source_state_filters_only_affected_evidence", "test_retrieval.py::test_persistent_quarantine_blocks_retrieval_across_repository_instances", "test_retrieval.py::test_citation_validator_rechecks_quarantine_after_retrieval", "test_retrieval.py::test_live_match_does_not_promote_unreviewed_source_metadata", "test_knowledge_base.py::test_unreviewed_or_quarantined_source_cannot_back_verified_passages"],
+      "bug_issues": []
+    },
+    {
+      "test_id": "RAG-07", "title": "Current versions and review identity",
+      "input": "Version transitions, stale citations, current excerpt mismatch and synthetic historical page fingerprint",
+      "expected": "No stale cache; only current version/time/reviewer proof accepted, historical review cannot override current mismatch",
+      "pytest_nodes": ["test_retrieval.py::test_version_updates_are_visible_without_a_stale_evidence_cache", "test_retrieval.py::test_in_place_version_changes_are_observed_on_the_next_read", "test_task6_integrity.py::test_current_review_digest_cannot_fall_back_to_history", "test_task6_integrity.py::test_live_import_rejects_historical_hash_even_when_quotes_match", "test_knowledge_base.py::test_live_verification_accepts_only_matching_content_and_present_excerpts"],
+      "bug_issues": [41]
+    },
+    {
+      "test_id": "RAG-08", "title": "Conflicting proof and quarantine history",
+      "input": "Conflicting current review fingerprints; deleted quarantine entry/history, altered reason or orphan release",
+      "expected": "Reject ambiguous proof and contradictory state; ERROR/no Evidence, prior citations rejected; no silent repair",
+      "pytest_nodes": ["test_task6_integrity.py::test_conflicting_current_review_records_are_rejected", "test_task6_integrity.py::test_quarantine_state_must_agree_with_event_history", "test_retrieval.py::test_historical_page_hash_cannot_replace_the_current_source_review"],
+      "bug_issues": [41, 42]
+    },
+    {
+      "test_id": "RAG-09", "title": "Unavailable or malformed source storage",
+      "input": "Synthetic live outage/changed page/missing excerpt, malformed files or corrupt operational JSON",
+      "expected": "Affected source blocked or retrieval ERROR; no stale/fabricated evidence and no implicit source approval",
+      "pytest_nodes": ["test_retrieval.py::test_live_change_and_outage_quarantine_affected_sources_only", "test_retrieval.py::test_missing_live_excerpt_is_quarantined_even_if_reported_page_digest_matches", "test_retrieval.py::test_malformed_bundle_and_missing_files_fail_without_stale_evidence", "test_retrieval.py::test_broken_operational_state_is_not_treated_as_an_empty_blocklist", "test_retrieval.py::test_retriever_cli_rejects_state_path_inside_corpus_without_traceback"],
+      "bug_issues": []
+    },
+    {
+      "test_id": "RAG-10", "title": "Deterministic rebuild/import and reload",
+      "input": "Two checked snapshot exports, new repository instance and invalid candidate export",
+      "expected": "Same bytes/results; canonical files unchanged, no runtime activation, invalid rebuild preserves old snapshot and quarantine",
+      "pytest_nodes": ["test_task6_integrity.py::test_rebuild_reload_is_deterministic_and_preserves_checked_files", "test_task6_integrity.py::test_failed_rebuild_does_not_replace_export_or_lift_quarantine", "test_knowledge_base.py::test_export_is_a_checked_snapshot_and_preserves_existing_output", "test_knowledge_base.py::test_export_cannot_pollute_the_five_file_directory"],
+      "bug_issues": [],
+      "limitation": "Exact Rule-ID lookup has no FTS5/vector index; applicable rebuild is validated snapshot import and fresh reload, not an invented index rebuild."
+    },
+    {
+      "test_id": "RAG-11", "title": "Shared sources and complete mapping coverage",
+      "input": "Real SCT_CLAIM_AMOUNT in both cases; synthetic shared Rule-ID alias; a multi-passage rule",
+      "expected": "Canonical Evidence consistent across cases, deduplicated with all requested IDs; incomplete coverage refused",
+      "pytest_nodes": ["test_task6_integrity.py::test_real_shared_source_is_consistent_in_both_cases", "test_retrieval.py::test_shared_evidence_is_deduplicated_and_keeps_each_requested_rule", "test_retrieval.py::test_each_rule_requires_its_entire_mapped_evidence_set"],
+      "bug_issues": []
+    },
+    {
+      "test_id": "RAG-12", "title": "Update rollback, state writes and explicit recovery",
+      "input": "Invalid/same-version candidate updates, quarantine carried into new bundle, changed source release, write failure and writer lock",
+      "expected": "Old binding/state preserved on failure; changed sources stay blocked; recovery requires fresh matching proof; no automatic release or activation",
+      "pytest_nodes": ["test_retrieval.py::test_invalid_candidate_does_not_replace_a_valid_repository", "test_retrieval.py::test_source_update_keeps_existing_quarantine", "test_retrieval.py::test_content_change_without_version_bump_is_rejected", "test_retrieval.py::test_update_performs_live_verification_by_default", "test_retrieval.py::test_recovery_never_releases_quarantine_automatically", "test_retrieval.py::test_release_refuses_changed_sources_and_preserves_the_block", "test_retrieval.py::test_release_rejects_a_bundle_changed_during_the_live_check", "test_retrieval.py::test_failed_atomic_state_write_preserves_old_quarantine", "test_retrieval.py::test_concurrent_state_writer_is_rejected_without_overwrite"],
+      "bug_issues": []
+    }
+  ]
+}

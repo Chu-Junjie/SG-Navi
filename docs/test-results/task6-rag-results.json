@@ -1,0 +1,682 @@
+{
+  "status": "PASS",
+  "matrix_definition": "Team guide specifies RAG-01 through RAG-12 and coverage topics, but no per-ID definitions. These are this audit's explicit operational groupings; groups may overlap and are not additive test counts.",
+  "started_at": "2026-11-02T12:56:46+00:00",
+  "finished_at": "2026-11-02T12:57:10+00:00",
+  "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+  "code_state": "Working tree derived from code_commit; audited_file_sha256 identifies the exact tested files",
+  "source_version": "kb-2026-11-01.1",
+  "audited_file_sha256": {
+    "rag/__init__.py": "87d81f8ac28b9a85ac6b5353e752a2b6642fccc022fb3ca9a55649166dc33456",
+    "rag/citations.py": "ff629e5d7011ba90fac974d015d1b139bbd1dafd4fa8c2e45a30eeb7331d9e9d",
+    "rag/import_knowledge_base.py": "8b807038a1f90c53bf1fbb46a2d1470eb27d6d94895d14a3db7087462f82b425",
+    "rag/repository.py": "8c3dbe6064e0293d805297f52953b6462c60fc1a4b213c4d733561848185e740",
+    "rag/retriever.py": "b3122554fc647e7beba5a60625d703379f91a86324f0d63768e2b4a505090ba5",
+    "rag/selection.py": "0956b64fbe2944e2664d4d919ea9ef7be1d5181e03267722c15bcb105d9e305e",
+    "rag/source_review.py": "f08f68ce9a3413b8e1957f511042bdb9f91f4f8da8495515d1e03117e4d3109e",
+    "tests/rag/run_task6.py": "ea8f75184a9bc2b708341412b5d384dbb043767a2e3d2c40032bc8740b3e9b52",
+    "tests/rag/task6_matrix.json": "81c458f8b92fd036a7860d2929e883e63c2fb8d490afeb5d6f7aedfbf4835708",
+    "tests/rag/test_knowledge_base.py": "9b31cf50737c1526e9071ff4e3d64bea9ec86d5eeac63eb8a6a635c7b4156186",
+    "tests/rag/test_retrieval.py": "598eadb30e6a9f459fe26eca915ec5bb6bce6cb11a9cd6331d3434ebe5bc0554",
+    "tests/rag/test_task6_integrity.py": "9f3658028fbd722ba051a81ff3f8b993ff205356f055fa803e462123dbbcc10c"
+  },
+  "environment": {
+    "python": "3.14.6",
+    "platform": "Windows"
+  },
+  "command": [
+    "python",
+    "-X",
+    "utf8",
+    "-m",
+    "pytest",
+    "tests/rag",
+    "-q",
+    "--junitxml",
+    "instance/task6-rag/775c3e85b03f4d86824332464a28fc1d/pytest.xml"
+  ],
+  "pytest_exit_code": 0,
+  "pytest_summary": [
+    "121 passed in 20.30s"
+  ],
+  "canonical_unchanged": true,
+  "canonical_sha256": {
+    "rag/knowledge_base/action_templates.json": "98995fe1f4218377d3a19482278f81341f21c08afed91a9cd00eb2232ee1bd9d",
+    "rag/knowledge_base/passages.jsonl": "9d599d7d9004cd08c4b2efbedb1364aa49cdbae50fe7c71afb67442e5957733d",
+    "rag/knowledge_base/rule_evidence_map.json": "755e1127a1a5012fd478bb093969cc94afdc18fc00d5e870900166256afec6d9",
+    "rag/knowledge_base/source_review_log.csv": "c393c98a1c527fb1ffa03e676f5bb2fa5c4a353305e0651fa6de9c01ad2e7619",
+    "rag/knowledge_base/sources.csv": "becfb55c4e265c183f24082517669504921560797414009d4c2a8af4a662c38b"
+  },
+  "suite_counts": {
+    "passed": 121,
+    "failed": 0,
+    "not_run": 0
+  },
+  "network": "No publisher requests; network/state damage tests use isolated synthetic fixtures",
+  "results": [
+    {
+      "test_id": "RAG-01",
+      "title": "Rental exact retrieval and Evidence contract",
+      "input": "Rental SCT_RESIDENTIAL_SCOPE; checked five-file bundle",
+      "expected": "Exact Courts source and six-field Evidence; shared schema valid, no legal applicability inferred",
+      "pytest_nodes": [
+        "test_retrieval.py::test_exact_rule_lookup_keeps_channels_separate[rental_deposit-SCT_RESIDENTIAL_SCOPE-courts-sct-eligibility]",
+        "test_knowledge_base.py::test_every_projected_record_matches_the_existing_shared_evidence_schema",
+        "test_knowledge_base.py::test_live_prepared_bundle_has_five_files_and_traceable_content"
+      ],
+      "bug_issues": [],
+      "status": "PASS",
+      "actual": {
+        "passed": 3,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_retrieval.py::test_exact_rule_lookup_keeps_channels_separate[rental_deposit-SCT_RESIDENTIAL_SCOPE-courts-sct-eligibility]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_knowledge_base.py::test_every_projected_record_matches_the_existing_shared_evidence_schema",
+            "status": "PASS"
+          },
+          {
+            "node": "test_knowledge_base.py::test_live_prepared_bundle_has_five_files_and_traceable_content",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    },
+    {
+      "test_id": "RAG-02",
+      "title": "Consumer exact retrieval",
+      "input": "Consumer CASE_PERSONAL_PURPOSE and existing checked mapping",
+      "expected": "Correct CASE source and citation validation; deterministic isolated results",
+      "pytest_nodes": [
+        "test_retrieval.py::test_exact_rule_lookup_keeps_channels_separate[consumer_complaint-CASE_PERSONAL_PURPOSE-case-complaint]",
+        "test_retrieval.py::test_order_is_deterministic_and_response_mutation_does_not_poison_future_reads"
+      ],
+      "bug_issues": [],
+      "status": "PASS",
+      "actual": {
+        "passed": 2,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_retrieval.py::test_exact_rule_lookup_keeps_channels_separate[consumer_complaint-CASE_PERSONAL_PURPOSE-case-complaint]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_order_is_deterministic_and_response_mutation_does_not_poison_future_reads",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    },
+    {
+      "test_id": "RAG-03",
+      "title": "Landlord and agent source separation",
+      "input": "Rental CEA_AGENCY_AGREEMENT versus SCT mapping; consumer requests rental-only agency rule; wrong-case template",
+      "expected": "Requested IDs determine exact evidence; no accidental cross-case/channel mapping or frontend/legal decision",
+      "pytest_nodes": [
+        "test_retrieval.py::test_exact_rule_lookup_keeps_channels_separate[rental_deposit-CEA_AGENCY_AGREEMENT-cea-dispute-resolution]",
+        "test_retrieval.py::test_consumer_cannot_request_the_rental_only_agency_mapping",
+        "test_knowledge_base.py::test_agent_template_cannot_use_unrelated_consumer_evidence"
+      ],
+      "bug_issues": [],
+      "status": "PASS",
+      "actual": {
+        "passed": 3,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_retrieval.py::test_exact_rule_lookup_keeps_channels_separate[rental_deposit-CEA_AGENCY_AGREEMENT-cea-dispute-resolution]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_consumer_cannot_request_the_rental_only_agency_mapping",
+            "status": "PASS"
+          },
+          {
+            "node": "test_knowledge_base.py::test_agent_template_cannot_use_unrelated_consumer_evidence",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    },
+    {
+      "test_id": "RAG-04",
+      "title": "No results and unknown facts",
+      "input": "Empty/unknown/wrong-case Rule IDs, invalid requests and facts containing null/unknown/false",
+      "expected": "NO_RESULTS for absent mappings, ERROR for malformed input, no partial Evidence, facts preserved",
+      "pytest_nodes": [
+        "test_retrieval.py::test_missing_or_wrong_scope_rules_never_return_partial_evidence",
+        "test_retrieval.py::test_invalid_requests_return_contract_valid_error",
+        "test_retrieval.py::test_unknown_null_and_false_facts_are_preserved_and_never_used_to_guess_a_rule",
+        "test_retrieval.py::test_retriever_cli_reports_found_and_empty_request"
+      ],
+      "bug_issues": [],
+      "status": "PASS",
+      "actual": {
+        "passed": 12,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_retrieval.py::test_missing_or_wrong_scope_rules_never_return_partial_evidence[rules0]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_missing_or_wrong_scope_rules_never_return_partial_evidence[rules1]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_missing_or_wrong_scope_rules_never_return_partial_evidence[rules2]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_missing_or_wrong_scope_rules_never_return_partial_evidence[rules3]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_invalid_requests_return_contract_valid_error[employment-rules0-facts0]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_invalid_requests_return_contract_valid_error[rental_deposit-SCT_RESIDENTIAL_SCOPE-facts1]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_invalid_requests_return_contract_valid_error[rental_deposit-rules2-facts2]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_invalid_requests_return_contract_valid_error[rental_deposit-rules3-facts3]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_invalid_requests_return_contract_valid_error[rental_deposit-rules4-None]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_invalid_requests_return_contract_valid_error[rental_deposit-rules5-facts5]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_unknown_null_and_false_facts_are_preserved_and_never_used_to_guess_a_rule",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_retriever_cli_reports_found_and_empty_request",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    },
+    {
+      "test_id": "RAG-05",
+      "title": "Bad Evidence and citation rejection",
+      "input": "Forged/mismatched IDs, URLs, source metadata, duplicate/partial/extra citations and empty claims",
+      "expected": "Typed CitationValidationError; no unsupported citation batch accepted",
+      "pytest_nodes": [
+        "test_retrieval.py::test_citation_validator_rejects_plausible_but_wrong_evidence_metadata",
+        "test_retrieval.py::test_citation_list_requires_exact_unique_evidence_ids",
+        "test_retrieval.py::test_citations_reject_partial_coverage_extra_records_and_duplicates",
+        "test_retrieval.py::test_citation_validation_never_treats_an_empty_or_invalid_claim_as_supported"
+      ],
+      "bug_issues": [],
+      "status": "PASS",
+      "actual": {
+        "passed": 17,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_retrieval.py::test_citation_validator_rejects_plausible_but_wrong_evidence_metadata[evidence_id-FORGED]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_validator_rejects_plausible_but_wrong_evidence_metadata[source_id-cea-complaint]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_validator_rejects_plausible_but_wrong_evidence_metadata[url-https://www.cea.gov.sg/submit-complaint/]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_validator_rejects_plausible_but_wrong_evidence_metadata[source_version-old-version]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_validator_rejects_plausible_but_wrong_evidence_metadata[review_status-unreviewed]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_validator_rejects_plausible_but_wrong_evidence_metadata[rule_ids-value5]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_validator_rejects_plausible_but_wrong_evidence_metadata[extra-field]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_list_requires_exact_unique_evidence_ids[None]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_list_requires_exact_unique_evidence_ids[citations1]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_list_requires_exact_unique_evidence_ids[citations2]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_list_requires_exact_unique_evidence_ids[citations3]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_list_requires_exact_unique_evidence_ids[citations4]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_list_requires_exact_unique_evidence_ids[citations5]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citations_reject_partial_coverage_extra_records_and_duplicates",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_validation_never_treats_an_empty_or_invalid_claim_as_supported[rental_deposit-rules0-evidence0-citations0]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_validation_never_treats_an_empty_or_invalid_claim_as_supported[employment-rules1-evidence1-citations1]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_validation_never_treats_an_empty_or_invalid_claim_as_supported[rental_deposit-rules2-None-None]",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    },
+    {
+      "test_id": "RAG-06",
+      "title": "Unreviewed and quarantined source exclusion",
+      "input": "Coherently downgraded review states; persistent operational quarantine; already-retrieved Evidence",
+      "expected": "Affected evidence unavailable across repository instances; prior citations invalidated; unrelated sources remain usable",
+      "pytest_nodes": [
+        "test_retrieval.py::test_coherent_source_state_filters_only_affected_evidence",
+        "test_retrieval.py::test_persistent_quarantine_blocks_retrieval_across_repository_instances",
+        "test_retrieval.py::test_citation_validator_rechecks_quarantine_after_retrieval",
+        "test_retrieval.py::test_live_match_does_not_promote_unreviewed_source_metadata",
+        "test_knowledge_base.py::test_unreviewed_or_quarantined_source_cannot_back_verified_passages"
+      ],
+      "bug_issues": [],
+      "status": "PASS",
+      "actual": {
+        "passed": 7,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_retrieval.py::test_coherent_source_state_filters_only_affected_evidence[unreviewed]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_coherent_source_state_filters_only_affected_evidence[quarantined]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_persistent_quarantine_blocks_retrieval_across_repository_instances",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_citation_validator_rechecks_quarantine_after_retrieval",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_live_match_does_not_promote_unreviewed_source_metadata",
+            "status": "PASS"
+          },
+          {
+            "node": "test_knowledge_base.py::test_unreviewed_or_quarantined_source_cannot_back_verified_passages[unreviewed]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_knowledge_base.py::test_unreviewed_or_quarantined_source_cannot_back_verified_passages[quarantined]",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    },
+    {
+      "test_id": "RAG-07",
+      "title": "Current versions and review identity",
+      "input": "Version transitions, stale citations, current excerpt mismatch and synthetic historical page fingerprint",
+      "expected": "No stale cache; only current version/time/reviewer proof accepted, historical review cannot override current mismatch",
+      "pytest_nodes": [
+        "test_retrieval.py::test_version_updates_are_visible_without_a_stale_evidence_cache",
+        "test_retrieval.py::test_in_place_version_changes_are_observed_on_the_next_read",
+        "test_task6_integrity.py::test_current_review_digest_cannot_fall_back_to_history",
+        "test_task6_integrity.py::test_live_import_rejects_historical_hash_even_when_quotes_match",
+        "test_knowledge_base.py::test_live_verification_accepts_only_matching_content_and_present_excerpts"
+      ],
+      "bug_issues": [
+        41
+      ],
+      "status": "PASS",
+      "actual": {
+        "passed": 5,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_retrieval.py::test_version_updates_are_visible_without_a_stale_evidence_cache",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_in_place_version_changes_are_observed_on_the_next_read",
+            "status": "PASS"
+          },
+          {
+            "node": "test_task6_integrity.py::test_current_review_digest_cannot_fall_back_to_history",
+            "status": "PASS"
+          },
+          {
+            "node": "test_task6_integrity.py::test_live_import_rejects_historical_hash_even_when_quotes_match",
+            "status": "PASS"
+          },
+          {
+            "node": "test_knowledge_base.py::test_live_verification_accepts_only_matching_content_and_present_excerpts",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    },
+    {
+      "test_id": "RAG-08",
+      "title": "Conflicting proof and quarantine history",
+      "input": "Conflicting current review fingerprints; deleted quarantine entry/history, altered reason or orphan release",
+      "expected": "Reject ambiguous proof and contradictory state; ERROR/no Evidence, prior citations rejected; no silent repair",
+      "pytest_nodes": [
+        "test_task6_integrity.py::test_conflicting_current_review_records_are_rejected",
+        "test_task6_integrity.py::test_quarantine_state_must_agree_with_event_history",
+        "test_retrieval.py::test_historical_page_hash_cannot_replace_the_current_source_review"
+      ],
+      "bug_issues": [
+        41,
+        42
+      ],
+      "status": "PASS",
+      "actual": {
+        "passed": 6,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_task6_integrity.py::test_conflicting_current_review_records_are_rejected",
+            "status": "PASS"
+          },
+          {
+            "node": "test_task6_integrity.py::test_quarantine_state_must_agree_with_event_history[missing_block]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_task6_integrity.py::test_quarantine_state_must_agree_with_event_history[missing_history]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_task6_integrity.py::test_quarantine_state_must_agree_with_event_history[changed_reason]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_task6_integrity.py::test_quarantine_state_must_agree_with_event_history[orphan_release]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_historical_page_hash_cannot_replace_the_current_source_review",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    },
+    {
+      "test_id": "RAG-09",
+      "title": "Unavailable or malformed source storage",
+      "input": "Synthetic live outage/changed page/missing excerpt, malformed files or corrupt operational JSON",
+      "expected": "Affected source blocked or retrieval ERROR; no stale/fabricated evidence and no implicit source approval",
+      "pytest_nodes": [
+        "test_retrieval.py::test_live_change_and_outage_quarantine_affected_sources_only",
+        "test_retrieval.py::test_missing_live_excerpt_is_quarantined_even_if_reported_page_digest_matches",
+        "test_retrieval.py::test_malformed_bundle_and_missing_files_fail_without_stale_evidence",
+        "test_retrieval.py::test_broken_operational_state_is_not_treated_as_an_empty_blocklist",
+        "test_retrieval.py::test_retriever_cli_rejects_state_path_inside_corpus_without_traceback"
+      ],
+      "bug_issues": [],
+      "status": "PASS",
+      "actual": {
+        "passed": 8,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_retrieval.py::test_live_change_and_outage_quarantine_affected_sources_only",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_missing_live_excerpt_is_quarantined_even_if_reported_page_digest_matches",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_malformed_bundle_and_missing_files_fail_without_stale_evidence",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_broken_operational_state_is_not_treated_as_an_empty_blocklist[{]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_broken_operational_state_is_not_treated_as_an_empty_blocklist[{\"format_version\":2,\"blocked_sources\":{},\"events\":[]}]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_broken_operational_state_is_not_treated_as_an_empty_blocklist[{\"format_version\":1,\"blocked_sources\":[],\"events\":[]}]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_broken_operational_state_is_not_treated_as_an_empty_blocklist[{\"format_version\":1,\"blocked_sources\":{},\"events\":[],\"extra\":true}]",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_retriever_cli_rejects_state_path_inside_corpus_without_traceback",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    },
+    {
+      "test_id": "RAG-10",
+      "title": "Deterministic rebuild/import and reload",
+      "input": "Two checked snapshot exports, new repository instance and invalid candidate export",
+      "expected": "Same bytes/results; canonical files unchanged, no runtime activation, invalid rebuild preserves old snapshot and quarantine",
+      "pytest_nodes": [
+        "test_task6_integrity.py::test_rebuild_reload_is_deterministic_and_preserves_checked_files",
+        "test_task6_integrity.py::test_failed_rebuild_does_not_replace_export_or_lift_quarantine",
+        "test_knowledge_base.py::test_export_is_a_checked_snapshot_and_preserves_existing_output",
+        "test_knowledge_base.py::test_export_cannot_pollute_the_five_file_directory"
+      ],
+      "bug_issues": [],
+      "limitation": "Exact Rule-ID lookup has no FTS5/vector index; applicable rebuild is validated snapshot import and fresh reload, not an invented index rebuild.",
+      "status": "PASS",
+      "actual": {
+        "passed": 4,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_task6_integrity.py::test_rebuild_reload_is_deterministic_and_preserves_checked_files",
+            "status": "PASS"
+          },
+          {
+            "node": "test_task6_integrity.py::test_failed_rebuild_does_not_replace_export_or_lift_quarantine",
+            "status": "PASS"
+          },
+          {
+            "node": "test_knowledge_base.py::test_export_is_a_checked_snapshot_and_preserves_existing_output",
+            "status": "PASS"
+          },
+          {
+            "node": "test_knowledge_base.py::test_export_cannot_pollute_the_five_file_directory",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    },
+    {
+      "test_id": "RAG-11",
+      "title": "Shared sources and complete mapping coverage",
+      "input": "Real SCT_CLAIM_AMOUNT in both cases; synthetic shared Rule-ID alias; a multi-passage rule",
+      "expected": "Canonical Evidence consistent across cases, deduplicated with all requested IDs; incomplete coverage refused",
+      "pytest_nodes": [
+        "test_task6_integrity.py::test_real_shared_source_is_consistent_in_both_cases",
+        "test_retrieval.py::test_shared_evidence_is_deduplicated_and_keeps_each_requested_rule",
+        "test_retrieval.py::test_each_rule_requires_its_entire_mapped_evidence_set"
+      ],
+      "bug_issues": [],
+      "status": "PASS",
+      "actual": {
+        "passed": 3,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_task6_integrity.py::test_real_shared_source_is_consistent_in_both_cases",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_shared_evidence_is_deduplicated_and_keeps_each_requested_rule",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_each_rule_requires_its_entire_mapped_evidence_set",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    },
+    {
+      "test_id": "RAG-12",
+      "title": "Update rollback, state writes and explicit recovery",
+      "input": "Invalid/same-version candidate updates, quarantine carried into new bundle, changed source release, write failure and writer lock",
+      "expected": "Old binding/state preserved on failure; changed sources stay blocked; recovery requires fresh matching proof; no automatic release or activation",
+      "pytest_nodes": [
+        "test_retrieval.py::test_invalid_candidate_does_not_replace_a_valid_repository",
+        "test_retrieval.py::test_source_update_keeps_existing_quarantine",
+        "test_retrieval.py::test_content_change_without_version_bump_is_rejected",
+        "test_retrieval.py::test_update_performs_live_verification_by_default",
+        "test_retrieval.py::test_recovery_never_releases_quarantine_automatically",
+        "test_retrieval.py::test_release_refuses_changed_sources_and_preserves_the_block",
+        "test_retrieval.py::test_release_rejects_a_bundle_changed_during_the_live_check",
+        "test_retrieval.py::test_failed_atomic_state_write_preserves_old_quarantine",
+        "test_retrieval.py::test_concurrent_state_writer_is_rejected_without_overwrite"
+      ],
+      "bug_issues": [],
+      "status": "PASS",
+      "actual": {
+        "passed": 9,
+        "failed": 0,
+        "not_run": 0,
+        "missing_selectors": [],
+        "executed_testcases": [
+          {
+            "node": "test_retrieval.py::test_invalid_candidate_does_not_replace_a_valid_repository",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_source_update_keeps_existing_quarantine",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_content_change_without_version_bump_is_rejected",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_update_performs_live_verification_by_default",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_recovery_never_releases_quarantine_automatically",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_release_refuses_changed_sources_and_preserves_the_block",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_release_rejects_a_bundle_changed_during_the_live_check",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_failed_atomic_state_write_preserves_old_quarantine",
+            "status": "PASS"
+          },
+          {
+            "node": "test_retrieval.py::test_concurrent_state_writer_is_rejected_without_overwrite",
+            "status": "PASS"
+          }
+        ]
+      },
+      "code_commit": "a6b5c896de70c4f672bfc18903ae34d5e329a4e7",
+      "tester": "Codex automated pytest execution",
+      "executed_at": "2026-11-02T12:56:46+00:00"
+    }
+  ]
+}
