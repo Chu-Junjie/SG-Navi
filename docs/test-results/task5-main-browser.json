@@ -1,0 +1,35 @@
+{
+  "scope": "real_browser_api_rag_referral_flow",
+  "synthetic_facts": true,
+  "supported_legal_path_checked": false,
+  "passed": false,
+  "checks": [
+    {
+      "case_type": "rental_deposit",
+      "passed": false,
+      "clarification": true,
+      "followup_focus": true,
+      "referral": true,
+      "evidence_count": 0,
+      "source_version": "kb-2026-11-01.1",
+      "edit_resubmitted": true,
+      "api_posts": 3,
+      "transport_passed": true,
+      "error": "Referral does not expose verified source context for UI display"
+    },
+    {
+      "case_type": "consumer_complaint",
+      "passed": false,
+      "clarification": true,
+      "followup_focus": true,
+      "referral": true,
+      "evidence_count": 0,
+      "source_version": "kb-2026-11-01.1",
+      "edit_resubmitted": true,
+      "api_posts": 3,
+      "transport_passed": true,
+      "error": "Referral does not expose verified source context for UI display"
+    }
+  ],
+  "javascript_exceptions": 0
+}

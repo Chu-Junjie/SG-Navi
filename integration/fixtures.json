@@ -1,0 +1,22 @@
+{
+  "rental_deposit": {
+    "rule_id": "SCT_RESIDENTIAL_SCOPE",
+    "answers": {
+      "dispute_with": "landlord", "premises_type": "residential",
+      "tenancy_duration_months": 12, "claim_amount_sgd": 123,
+      "relevant_event_date": "2026-10-01", "respondent_in_singapore": true,
+      "agency_agreement_signed": false, "resolution_attempted": false,
+      "documents_available": true
+    }
+  },
+  "consumer_complaint": {
+    "rule_id": "SCT_GOODS_SERVICES_SCOPE",
+    "answers": {
+      "purchase_type": "goods", "purchase_purpose": "personal",
+      "supplier_registered_in_sg": true, "supplier_location": "Singapore",
+      "problem_type": "defective goods", "purchase_date": "2026-10-01",
+      "claim_amount_sgd": 123, "resolution_attempted": false,
+      "documents_available": true
+    }
+  }
+}

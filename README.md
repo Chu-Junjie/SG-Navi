@@ -2,7 +2,7 @@
 
 Group 6 project for English Rental Deposit and Consumer Complaint navigation.
 
-Tasks 1-4 provide a working development baseline: Flask APIs, schema-generated mock forms, shared contracts, source preparation, conservative backend logic and independent evidence retrieval/citation checks. See [Task 4 acceptance](docs/task4-checklist.md) for verified results. Connecting the real modules into complete source-backed flows remains Task 5.
+Tasks 1-4 provide a working development baseline: Flask APIs, schema-generated mock forms, shared contracts, source preparation, conservative backend logic and independent evidence retrieval/citation checks. See [Task 4 acceptance](docs/task4-checklist.md). Task 5 has connected the real frontend/API/RAG call chain; source-version reporting and source presentation remain open. See [the integration record](docs/task5-integration.md) before claiming complete source-backed flows.
 
 ## Team and repository
 
@@ -54,6 +54,16 @@ For independent RAG usage:
 
 [RAG Task 4 instructions](rag/TASK4.md) document the retrieval response, citation validation, quarantine and source update procedures.
 
+## Task 5 local integration
+
+The coordinator's same-origin configuration serves the real frontend and backend in one process:
+
+```powershell
+.\.venv\Scripts\python.exe -m flask --app integration.app run --host 127.0.0.1 --port 5000
+```
+
+Open http://127.0.0.1:5000/task5-flow.html. Run `python -m integration.checks` for real Backend/RAG diagnostics, and optionally `node integration/browser_check.mjs http://127.0.0.1:5000` for actual browser requests (Node 22+ and Edge). A nonzero diagnostic exit records an unresolved connection, version or source-display issue; it is not a completed Task 5 acceptance. [The integration record](docs/task5-integration.md) lists exact tested commits, results, owner follow-ups and the combined test command. The two module owners can work in parallel; acceptance proceeds Backend + RAG, then Frontend + Backend.
+
 ## Run the baseline and contract tests
 
 From the repository root after installing dependencies:
@@ -88,7 +98,7 @@ requirements.txt
 
 The frontend forms, backend logic and RAG module are merged through PRs #23-25. See [the task board](docs/task-board.md) and [Task 4 acceptance](docs/task4-checklist.md). The 2026-11-02 combined audit passed 278 tests and 2 subtests, 24 browser case/status/width combinations and the five-page live source check. [RAG instructions](rag/README.md) explain source validation and import.
 
-The API exposes GET /api/health, GET /api/case-types, GET /api/version and POST /api/navigate. Normal navigation requests use conservative scope/clarification behavior with mock version identifiers. Source-based legal eligibility rules remain disabled. The earlier four-state fixture viewer remains available at http://127.0.0.1:8000/mock-preview.html when the frontend static server is running.
+The API exposes GET /api/health, GET /api/case-types, GET /api/version and POST /api/navigate. Normal navigation requests use conservative scope/clarification behavior and call real RAG for source context after required facts are supplied. Source-based legal eligibility rules remain disabled; referrals currently keep retrieved Evidence internal. Version endpoint consistency and visible sources are tracked in Task 5. The earlier four-state fixture viewer remains available at http://127.0.0.1:8000/mock-preview.html when the frontend static server is running.
 
 ## Collaboration and follow-up
 
