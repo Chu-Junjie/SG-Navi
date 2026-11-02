@@ -64,7 +64,9 @@ class Task5IntegrationTests(unittest.TestCase):
         validate(final, "navigate_response")
         self.assertEqual(final["status"], "REFER_TO_OFFICIAL")
         self.assertIsNone(final["action_card"])
-        self.assertEqual(final["evidence"], [])
+        self.assertIsInstance(final["evidence"], list)
+        self.assertTrue(all(record["review_status"] == "verified" for record in final["evidence"]))
+        self.assertTrue(all(record["source_version"] == final["source_version"] for record in final["evidence"]))
         edit = self.request("rental_deposit", dict(supplied, claim_amount_sgd=800))
         self.assertEqual(edit["status"], "REFER_TO_OFFICIAL")
 
@@ -82,6 +84,8 @@ class Task5IntegrationTests(unittest.TestCase):
         final = self.request("consumer_complaint", supplied)
         validate(final, "navigate_response")
         self.assertEqual(final["status"], "REFER_TO_OFFICIAL")
+        self.assertIsNone(final["action_card"])
+        self.assertTrue(all(record["review_status"] == "verified" for record in final["evidence"]))
         boundary = self.request("consumer_complaint", dict(supplied, purchase_purpose="business"))
         self.assertEqual(boundary["status"], "REFER_TO_OFFICIAL")
         self.assertTrue(boundary["warnings"])
@@ -109,9 +113,11 @@ class Task5IntegrationTests(unittest.TestCase):
         page = (FRONTEND / "task5-flow.html").read_text(encoding="utf-8")
         self.assertIn('fetch("/api/navigate"', script)
         self.assertIn('response.action_card.citations.map(id => map.get(id))', script)
-        self.assertIn('entry.review_status !== "verified"', script)
-        self.assertIn('url.hostname.endsWith(".invalid")', script)
-        self.assertIn('response.source_version.startsWith("mock")', script)
+        self.assertIn('SGNaviVerifiedSources.renderReferralSources', script)
+        helper = (FRONTEND / "js" / "verified-sources.js").read_text(encoding="utf-8")
+        self.assertIn('record.review_status !== "verified"', helper)
+        self.assertIn('".invalid"', helper)
+        self.assertIn('/^mock/i.test(response.source_version.trim())', helper)
         self.assertIn('link.rel = "noopener noreferrer"', script)
         self.assertIn("function focusField", script)
         self.assertIn('state.drafts[kind]', script)
@@ -122,6 +128,8 @@ class Task5IntegrationTests(unittest.TestCase):
         self.assertIn('id="edit-answers"', page)
         self.assertIn('id="questions"', page)
         self.assertIn('id="card"', page)
+        self.assertIn('id="verified-source-context"', page)
+        self.assertIn('src="./js/verified-sources.js"', page)
 
 
 if __name__ == "__main__":

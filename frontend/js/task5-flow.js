@@ -79,7 +79,8 @@
   function clearResult(message = "Edit answers and select Check case to request another response.") {
     $("status").textContent = "No current result";
     $("verification").textContent = message;
-    ["questions", "warnings", "card"].forEach(id => clear($(id)));
+    ["questions", "warnings", "card", "verified-source-list"].forEach(id => clear($(id)));
+    $("verified-source-context").hidden = true;
   }
   function edited() {
     cancelStale();
@@ -180,21 +181,13 @@
     window.setTimeout(() => select.closest(".field")?.classList.remove("highlight"), 1800);
   }
   function evidenceFor(response) {
-    if (response.status !== "SUPPORTED_PATH" || !response.action_card ||
-        !Array.isArray(response.evidence) || !response.evidence.length ||
-        !Array.isArray(response.action_card.citations) || !response.action_card.citations.length ||
-        typeof response.source_version !== "string" || response.source_version.startsWith("mock")) return null;
-    const map = new Map();
-    for (const entry of response.evidence) {
-      if (!entry || entry.review_status !== "verified" ||
-          entry.source_version !== response.source_version || typeof entry.evidence_id !== "string") continue;
-      try {
-        const url = new URL(entry.url);
-        if (!["http:", "https:"].includes(url.protocol) || url.username || url.password ||
-            url.hostname.endsWith(".invalid") || url.hostname === "localhost") continue;
-        map.set(entry.evidence_id, { record: entry, href: url.href });
-      } catch (_) { /* Invalid source links must not appear. */ }
-    }
+    if (response.status !== "SUPPORTED_PATH" || !response.action_card) return null;
+    const records = SGNaviVerifiedSources.selectVerifiedSources(response);
+    if (!records) return null;
+    const map = new Map(records.map(source => [
+      source.evidence_id,
+      { record: { source_id: source.source_id, evidence_id: source.evidence_id }, href: source.href }
+    ]));
     const matched = response.action_card.citations.map(id => map.get(id));
     return matched.every(Boolean) ? matched : null;
   }
@@ -247,7 +240,8 @@
     return response.warnings.length > 0;
   }
   function renderResponse(response) {
-    ["questions", "warnings", "card"].forEach(id => clear($(id)));
+    ["questions", "warnings", "card", "verified-source-list"].forEach(id => clear($(id)));
+    $("verified-source-context").hidden = true;
     $("status").textContent = response.status;
     const evidence = evidenceFor(response);
     $("verification").textContent = evidence
@@ -275,6 +269,13 @@
       for (const warning of response.warnings) if (typeof warning === "string") add($("warnings"), "p", warning);
     }
     if (response.status === "REFER_TO_OFFICIAL") {
+      $("verified-source-context").hidden = false;
+      const hasSources = SGNaviVerifiedSources.renderReferralSources(
+        $("verified-source-list"), response, document
+      );
+      $("verification").textContent = hasSources
+        ? "Verified source context is available for independent checking, not a legal eligibility decision or a recommended route."
+        : "Needs verification — no valid referral source links were supplied by the backend.";
       add($("questions"), "p", "The backend could not confirm a supported path. You can edit your answers and check again.");
     }
     if (response.status === "ERROR") {
@@ -299,6 +300,7 @@
     const controller = new AbortController();
     state.pending = controller;
     $("submit").disabled = true;
+    clearResult("Checking the latest answers with the backend…");
     $("status").textContent = "Checking…";
     $("verification").textContent = "Sending answers to the same-origin backend.";
     const timeout = setTimeout(() => controller.abort(), 10000);
