@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#203449">
+  <meta name="description" content="SG Navi Task 4: synthetic mock forms for Rental Deposit and Consumer Complaint.">
+  <title>SG Navi | Case Forms · Mock Preview</title>
+  <link rel="stylesheet" href="./css/task4-forms.css">
+  <script src="./js/task4-forms.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell head-inner">
+      <a class="brand" href="./index.html" aria-label="SG Navi home"><span class="brand-symbol" aria-hidden="true">◈</span> SG Navi</a>
+      <span class="header-subtitle">CASE FORM PREVIEW · TASK 4</span>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">Guidance starts with clarity</p>
+      <h1 id="page-title">Tell us what you know.</h1>
+      <p>Choose a case type, provide the facts you have, or mark a field as unknown. You can edit any answer and resubmit.</p>
+      <div class="demo-notice" role="note"><strong>Mock API only.</strong> Responses are synthetic fixtures selected for interface testing, not legal decisions, verified official evidence, eligibility assessments, or filing advice. Please do not enter personal or real dispute data.</div>
+    </section>
+    <div class="layout">
+      <section class="card" aria-labelledby="form-title">
+        <div class="card-head"><div><p class="kicker">01 · INPUT</p><h2 id="form-title">Case details</h2></div><span class="chip">Editable</span></div>
+        <div class="case-select"><label for="case-type">Case type</label>
+          <select id="case-type"><option value="rental_deposit">Rental Deposit</option><option value="consumer_complaint">Consumer Complaint</option></select>
+        </div>
+        <p class="field-help">For each field choose <strong>Provide answer</strong>, <strong>Unknown</strong>, <strong>Not provided (null)</strong>, or <strong>Skip field</strong>. An unanswered yes/no is never treated as “No”.</p>
+        <form id="case-form" novalidate>
+          <div id="dynamic-fields" class="field-grid" aria-live="polite"></div>
+          <div class="submit-area">
+            <p class="validation-summary" id="form-summary" role="status" aria-live="polite"></p>
+            <button class="primary" id="submit-form" type="submit">Preview mock response <span aria-hidden="true">→</span></button>
+          </div>
+        </form>
+      </section>
+      <section class="card result-card" aria-labelledby="results-title">
+        <div class="card-head"><div><p class="kicker">02 · RESULT</p><h2 id="results-title">Action Card</h2></div><span class="chip chip-mock">SYNTHETIC</span></div>
+        <div class="mock-select"><label for="mock-status">Demonstration response status</label>
+          <select id="mock-status">
+            <option value="NEED_CLARIFICATION">NEED_CLARIFICATION</option>
+            <option value="SUPPORTED_PATH">SUPPORTED_PATH</option>
+            <option value="REFER_TO_OFFICIAL">REFER_TO_OFFICIAL</option>
+            <option value="ERROR">ERROR</option>
+          </select>
+          <p>This selection controls a test fixture, not a recommendation derived from your answers.</p>
+        </div>
+        <div class="result-meta" aria-live="polite"><span id="result-status" class="status-pill">NOT REQUESTED</span><span id="result-message">Submit the form to display a synthetic response.</span></div>
+        <p id="evidence-alert" class="evidence-alert">Needs verification — no official evidence has been received.</p>
+        <div id="question-panel" class="detail-panel" aria-live="polite"></div>
+        <div id="warning-panel" class="detail-panel" aria-live="polite"></div>
+        <div id="card-sections" class="result-sections" aria-label="Seven Action Card sections"></div>
+      </section>
+    </div>
+  </main>
+  <footer class="shell site-footer">SG Navi · Group 6 · Student development prototype · Not legal advice</footer>
+</body>
+</html>
