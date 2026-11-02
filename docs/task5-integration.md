@@ -1,6 +1,6 @@
 # Task 5 integration coordination
 
-Status: **In Progress — coordinator setup ready for review; team gate not accepted.**
+Status: **Technical integration stage passed.** See the [Task 5 acceptance](task5-checklist.md) for the final audit of main `913304e`, resolved issues and remaining boundaries. Earlier failures below are preserved as historical evidence.
 Task 4 closeout PR #26 merged as `421370ded2ae3b0479e754c080c2c0752a67b2d5`.
 
 Chu Junjie owns this integration configuration, diagnostics and issue coordination.
@@ -44,7 +44,7 @@ entries, so open the Task 5 page directly. This is a local development setup.
 ## Repeat the checks
 
 ```powershell
-python -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q
+python -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q
 python -m shared.validate_contracts
 python -m rag.import_knowledge_base
 python -m integration.checks
@@ -78,14 +78,14 @@ These diagnostics do not certify legal eligibility, source freshness through a
 new live publisher fetch, or all exception paths. No normal request is expected
 to manufacture SUPPORTED_PATH while eligibility rules remain disabled.
 
-## Observed results — 2026-11-02
+## Historical integration results — 2026-11-02
 
 Tested environment: Windows, Python 3.14.6, Node 24.18.0 and headless Microsoft Edge.
 
 | Code under test | Check | Actual result |
 | --- | --- | --- |
-| Latest main `4468d2775e10c069456772ba7c7ab2a5ef5a6237` (#27 and final #28 merged) + coordinator files | Final full pytest | **316 passed, 5 subtests passed in 32.67s** |
-| Same latest main + coordinator files | Final Backend/RAG and real-browser diagnostics | Both real RAG calls pass; version agreement fails. Both browser flows clarify, focus questions, refer and resubmit edits over 3 real API calls, without JS exceptions; public Evidence is empty and sources cannot be displayed |
+| Historical main `4468d2775e10c069456772ba7c7ab2a5ef5a6237` (#27 and final #28 merged) + coordinator files | Initial coordinator full pytest | **316 passed, 5 subtests passed in 32.67s** |
+| Same historical main + coordinator files | Backend/RAG and real-browser diagnostics | Both real RAG calls pass; version agreement fails. Both browser flows clarify, focus questions, refer and resubmit edits over 3 real API calls, without JS exceptions; public Evidence is empty and sources cannot be displayed |
 | Main `1790c77b860d1443734b8d876b6db47331961282` (frontend #27 merged) + coordinator files | Full pytest command above | **297 passed, 5 subtests passed in 29.31s** |
 | Same coordinator configuration | Existing shared examples; checked source import | All 11 examples passed; 5 sources / 26 passages / 26 mappings / 5 templates passed |
 | Coordinator development origin | Real HTTP smoke check | `/`, health, version, form, JS and both input schemas returned 200; Task 5 form delivery also covered by configuration tests and the candidate browser run |
@@ -101,7 +101,7 @@ that real retrieval occurs. This resolved the empty-Evidence assertion without a
 frontend test edit. Final PR #28 [CI run 41423256101](https://github.com/Chu-Junjie/SG-Navi/actions/runs/41423256101)
 passed. Green CI does not supply the absent source display.
 
-Latest-main machine-readable results:
+Historical main machine-readable results (superseded by the closeout audit):
 [backend/RAG](test-results/task5-main-backend-rag.json),
 [browser](test-results/task5-main-browser.json).
 Historical candidate results, retained to explain the actual integration finding:
@@ -112,16 +112,17 @@ must confirm that change. No new live source capture or complete Task 6 suite
 was run, and no supported legal Action Card or official citation click-through
 was claimed. These are actual automated checks, not another member's manual review.
 
-## Owner follow-ups
+## Owner issue resolution
 
 | Issue | Owner | Required next result |
 | --- | --- | --- |
-| [#29](https://github.com/Chu-Junjie/SG-Navi/issues/29) | ZhengZaikun | `/api/version` source version agrees with real RAG/navigation; explicit version behavior for safe fallback responses |
-| [#30](https://github.com/Chu-Junjie/SG-Navi/issues/30) | Guanyu-Lu + ZhengZaikun | Agree source exposure and presentation; make validated contextual source URLs accessible on referrals without implying eligibility. Current backend hides source records and the renderer only links supported cards |
+| [#29](https://github.com/Chu-Junjie/SG-Navi/issues/29) | ZhengZaikun | Resolved by #34; final diagnostic confirms `/api/version`, navigation and RAG agree |
+| [#30](https://github.com/Chu-Junjie/SG-Navi/issues/30) | Guanyu-Lu + ZhengZaikun | Resolved by #36/#37; both real browser scenarios show validated referral source context, without eligibility claims |
 | [#31](https://github.com/Chu-Junjie/SG-Navi/issues/31) | Resolved by backend #28 | Historical empty-Evidence test mismatch resolved; final-head CI passed. Closed with the distinct source-display gap retained in #30 |
 
 The backend supplies real retrieval and keeps findings conservative; FOUND means
-source context is available, not legal eligibility. Frontend #27 and backend #28
-are merged. Source-version agreement (#29), source presentation (#30), owner fixes
-with peer review, affected reruns and the final acceptance decision remain
-outstanding. Task 5 and Issue #5 stay open; Tasks 6-7 have not started.
+source context is available, not legal eligibility. The final owner fixes have
+peer approvals and successful CI, and both previously failing diagnostics now
+pass on merged main. The [acceptance record](task5-checklist.md) gives the exact
+UTF-8-mode regression command, final results, browser evidence and remaining
+limits. Task 5 closes on merge of that reviewed closeout; Tasks 6-7 have not started.

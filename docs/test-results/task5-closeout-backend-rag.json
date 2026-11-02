@@ -1,0 +1,54 @@
+{
+  "mode": "in_process_wsgi_and_real_rag",
+  "synthetic_facts": true,
+  "browser_e2e_checked": false,
+  "passed": true,
+  "checks": [
+    {
+      "check": "rental_deposit:direct_rag_and_citations",
+      "passed": true,
+      "details": {
+        "retrieval_status": "FOUND",
+        "evidence_ids": [
+          "SCT-ELIG-RESIDENTIAL"
+        ]
+      }
+    },
+    {
+      "check": "consumer_complaint:direct_rag_and_citations",
+      "passed": true,
+      "details": {
+        "retrieval_status": "FOUND",
+        "evidence_ids": [
+          "SCT-ELIG-GOODS"
+        ]
+      }
+    },
+    {
+      "check": "rental_deposit:backend_to_real_rag",
+      "passed": true,
+      "details": {
+        "navigation_status": "REFER_TO_OFFICIAL",
+        "retrieval_status": "FOUND",
+        "rag_calls": 1
+      }
+    },
+    {
+      "check": "consumer_complaint:backend_to_real_rag",
+      "passed": true,
+      "details": {
+        "navigation_status": "REFER_TO_OFFICIAL",
+        "retrieval_status": "FOUND",
+        "rag_calls": 1
+      }
+    },
+    {
+      "check": "source_version_consistency",
+      "passed": true,
+      "details": {
+        "source_version": "kb-2026-11-01.1",
+        "rule_version": "mock-1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "scope": "real_browser_api_rag_referral_flow",
+  "synthetic_facts": true,
+  "supported_legal_path_checked": false,
+  "passed": true,
+  "checks": [
+    {
+      "case_type": "rental_deposit",
+      "passed": true,
+      "clarification": true,
+      "followup_focus": true,
+      "referral": true,
+      "evidence_count": 2,
+      "source_version": "kb-2026-11-01.1",
+      "edit_resubmitted": true,
+      "api_posts": 3,
+      "transport_passed": true,
+      "context_sources_visible": true
+    },
+    {
+      "case_type": "consumer_complaint",
+      "passed": true,
+      "clarification": true,
+      "followup_focus": true,
+      "referral": true,
+      "evidence_count": 2,
+      "source_version": "kb-2026-11-01.1",
+      "edit_resubmitted": true,
+      "api_posts": 3,
+      "transport_passed": true,
+      "context_sources_visible": true
+    }
+  ],
+  "javascript_exceptions": 0,
+  "extra_checks": {
+    "mobile_390_sources_visible": true,
+    "edit_clears_stale_sources": true,
+    "unknown_preserved_and_clarified": true,
+    "false_preserved_and_referred": true,
+    "business_scope_safe": true,
+    "blocked_backend_request_safe": true,
+    "retry_preserves_answers": true
+  }
+}
