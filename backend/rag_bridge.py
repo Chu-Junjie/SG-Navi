@@ -4,6 +4,7 @@ A FOUND retrieval means that *source text exists*, not that a legal route applie
 No Task 3 rules are enabled; normal API responses never assert SUPPORTED_PATH.
 """
 import logging
+from urllib.parse import urlsplit
 
 from jsonschema.exceptions import ValidationError
 
@@ -80,3 +81,34 @@ def retrieve_checked(case_type, rule_ids, facts, *, expected_version):
     except Exception:
         LOGGER.exception("RAG retrieval service raised an unexpected exception")
         return "ERROR", []
+
+
+def referral_source_context(records, *, expected_version):
+    """Expose only the *entire* validated source list as research context.
+
+    This is a second presentation guard after retrieve_checked() performed
+    contract, canonical-source and quarantine checks. It cannot assert that a
+    claimant is eligible and cannot create an Action Card or citations.
+    """
+    if not isinstance(records, list) or not records:
+        return []
+    output = []
+    for item in records:
+        if not isinstance(item, dict):
+            return []
+        try:
+            validate(item, "evidence")
+            url = urlsplit(item["url"])
+            host = (url.hostname or "").lower()
+            if (url.scheme != "https" or not host or url.username or url.password
+                    or host in {"localhost", "127.0.0.1", "::1"}
+                    or host.endswith((".invalid", ".test", ".example", ".localhost"))
+                    or item["review_status"] != "verified"
+                    or item["source_version"] != expected_version):
+                return []
+        except (TypeError, ValueError, KeyError, ValidationError):
+            return []
+        output.append(dict(item))
+    if len({item["evidence_id"] for item in output}) != len(output):
+        return []
+    return output
