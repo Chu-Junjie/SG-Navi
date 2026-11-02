@@ -8,7 +8,7 @@ from copy import deepcopy
 from backend.rules import load_rule_configurations
 from rag.import_knowledge_base import load_knowledge_base
 from shared.validate_contracts import validate
-from backend.rag_bridge import retrieve_checked, rule_ids_for_context
+from backend.rag_bridge import retrieve_checked, rule_ids_for_context, referral_source_context
 
 API_VERSION = "1.0"
 MOCK_RULE_VERSION = "mock-1"
@@ -117,10 +117,15 @@ def evaluate(case_type, answers, *, simulate_supported=False, mock_evidence=None
             return envelope("REFER_TO_OFFICIAL", warnings=[
                 "Verified evidence is missing or unavailable. Confirm the situation directly with official sources."
             ], source_version=kb["source_version"])
-        return envelope("REFER_TO_OFFICIAL", warnings=[
-            "Real RAG evidence was retrieved and validated, but eligibility has not been assessed.",
-            "Please read the linked source material and confirm the applicable process."
-        ], source_version=kb["source_version"])
+        safe_sources = referral_source_context(records, expected_version=source_version)
+        if not safe_sources:
+            return envelope("REFER_TO_OFFICIAL", warnings=[
+                "Source context could not be safely displayed. Verify guidance with official services."
+            ], source_version=source_version)
+        return envelope("REFER_TO_OFFICIAL", evidence=safe_sources, warnings=[
+            "Verified source references are provided for research context only, not an eligibility decision.",
+            "Please check the linked official source pages and confirm the applicable procedure."
+        ], source_version=source_version)
 
     record = deepcopy(mock_evidence if mock_evidence is not None else SYNTHETIC_EVIDENCE)
     try:
