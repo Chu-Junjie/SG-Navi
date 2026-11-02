@@ -8,6 +8,7 @@ from copy import deepcopy
 from backend.rules import load_rule_configurations
 from rag.import_knowledge_base import load_knowledge_base
 from shared.validate_contracts import validate
+from backend.rag_bridge import retrieve_checked, rule_ids_for_context
 
 API_VERSION = "1.0"
 MOCK_RULE_VERSION = "mock-1"
@@ -34,10 +35,10 @@ SYNTHETIC_EVIDENCE = {
     "rule_ids": ["mock-rule-task4-1"],
     "url": "https://example.invalid/task4-fixture",
     "review_status": "verified",
-    "source_version": MOCK_SOURCE_VERSION,
+    "source_version": source_version or MOCK_SOURCE_VERSION,
 }
 
-def envelope(status, questions=None, warnings=None, evidence=None, action_card=None):
+def envelope(status, questions=None, warnings=None, evidence=None, action_card=None, source_version=None):
     result = {
         "api_version": API_VERSION,
         "rule_version": MOCK_RULE_VERSION,
@@ -101,11 +102,24 @@ def evaluate(case_type, answers, *, simulate_supported=False, mock_evidence=None
     if questions:
         return envelope("NEED_CLARIFICATION", questions=questions)
 
-    # No actual Task 3 rule was enabled: always defer in normal runtime.
+    # Task 5: real RAG is used for *source context*, not legal rule activation.
     if not simulate_supported:
-        return envelope("REFER_TO_OFFICIAL", warnings=[
-            "No eligibility route has been verified by this development build; please check the relevant official source."
-        ])
+        rule_ids = rule_ids_for_context(case_type, configs)
+        result, records = retrieve_checked(
+            case_type, rule_ids, answers, expected_version=kb["source_version"]
+        )
+        if result == "ERROR":
+            return envelope("ERROR", warnings=[
+                "Evidence retrieval is temporarily unavailable. No decision can be made."
+            ], source_version=kb["source_version"])
+        if result != "FOUND":
+            return envelope("REFER_TO_OFFICIAL", warnings=[
+                "Verified evidence is missing or unavailable. Confirm the situation directly with official sources."
+            ], source_version=kb["source_version"])
+        return envelope("REFER_TO_OFFICIAL", evidence=records, warnings=[
+            "Relevant official-source excerpts were found, but eligibility has not been assessed.",
+            "Please read the linked source material and confirm the applicable process."
+        ], source_version=kb["source_version"])
 
     record = deepcopy(mock_evidence if mock_evidence is not None else SYNTHETIC_EVIDENCE)
     try:
