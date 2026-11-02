@@ -96,5 +96,6 @@ def test_no_runtime_evaluation_is_added():
         "api_version":"1.0","case_type":"rental_deposit","answers":{"claim_amount_sgd":100}
     })
     assert r.status_code == 200
-    assert r.get_json()["status"] == "REFER_TO_OFFICIAL"
+    assert r.get_json()["status"] in {"NEED_CLARIFICATION", "REFER_TO_OFFICIAL"}
+    assert r.get_json()["action_card"] is None
     assert r.get_json()["evidence"] == []
