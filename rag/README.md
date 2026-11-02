@@ -1,6 +1,6 @@
-# Task 3 source preparation
+# Source preparation and evidence retrieval
 
-This package registers the five specified official-publisher pages, short original excerpts, editorial summaries, rule-to-evidence links and conditional action templates. It provides validation and import utilities. It does not implement retrieval, a Rule Engine or /api/navigate integration.
+This package contains the reviewed source bundle, validation/import utilities, Rule ID retrieval, citation validation and source quarantine operations. [Task 4 usage](TASK4.md) documents the runtime evidence boundary and update workflow. A Rule Engine and /api/navigate integration remain with their assigned owners and Tasks.
 
 ## Run
 
@@ -58,5 +58,5 @@ Offline review checks establish internal consistency, not the authenticity of a 
 - Guanyu-Lu should use the cited templates to map the two case flows and seven Action Card sections. The templates are content building blocks, not new Action Card API fields.
 - Case-specific facts such as prior resolution attempts and document availability are not automatically eligibility conditions. Immigration/criminal boundaries and any other checks lacking indexed evidence remain unverified and disabled until supported. The map contains only checks with actual Evidence IDs.
 - Keep landlord tenancy issues, agency contract disputes and agent-conduct complaints separate. CASE's description of overseas partnerships does not make cross-border cases part of SG Navi's project scope.
-- Future retrieval, citation assembly, conflicts/quarantine updates and index rebuilding belong to the later RAG implementation. This utility only prepares and validates source inputs.
-- Existing CI runs contracts, backend and frontend checks. The CI owner should add `python -m pytest tests/rag -v`; local RAG results must not be described as CI results.
+- Task 4 adds retrieval, citation checks and a separate quarantine state file without altering the five source files or enabling legal rules. FTS5 is unnecessary for the current exact-ID lookup; no search index is maintained.
+- Existing CI runs contracts, backend, frontend and tests/rag/. Task 4 tests are included by that existing configuration. Backend/RAG integration remains for Task 5.
