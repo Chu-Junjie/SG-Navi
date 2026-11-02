@@ -28,6 +28,8 @@ Offline checks are the default. `--verify-live` reads the five source URLs, requ
 
 The source directory contains exactly these five files. Version `kb-2026-11-01.1` identifies this checked bundle. It is distinct from Task 2's synthetic mock-1 version. Any reviewed content revision needs an explicit version and review-log update; the importer does not silently renew or promote sources.
 
+A documented recheck showing only site banners or footer changes can append a same-evidence-version review entry with the newly checked page fingerprint. Original excerpt digests and review history must remain intact. Changes to evidence text or its policy context require a content/version review instead. The 2026-11-02 CEA rechecks follow the former procedure; strict fingerprint verification remains enabled.
+
 ## Source registry
 
 | Source ID | Official-publisher page |
