@@ -28,10 +28,10 @@
     /* Desktop: a wider, consistently aligned content column. */
     .shell { width: min(1216px, calc(100% - 88px)); margin-inline: auto; }
     .site-header { background: var(--white); border-bottom: 1px solid #e6eeee; }
-    .header-inner { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--navy); }
-    .brand-mark { display: block; width: 51px; height: 51px; flex: none; }
-    .brand-name { font-size: 1.65rem; font-weight: 800; letter-spacing: -.055em; line-height: 1; }
+    .header-inner { min-height: 100px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; flex: none; text-decoration: none; color: var(--navy); }
+    /* Show the complete, team-supplied compass and wordmark as one asset. */
+    .brand-logo { display: block; height: 72px; width: auto; max-width: min(46vw, 220px); object-fit: contain; }
     .header-tag { color: #647b86; font-size: .78rem; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; }
 
     /* Keep the team-approved skyline as a local static asset. */
@@ -105,9 +105,8 @@
     /* Tablet and phone: restore normal document flow and compress the hero/cards. */
     @media (max-width: 700px) {
       .shell { width: calc(100% - 36px); }
-      .header-inner { min-height: 68px; }
-      .brand-mark { width: 43px; height: 43px; }
-      .brand-name { font-size: 1.35rem; }
+      .header-inner { min-height: 76px; }
+      .brand-logo { height: 52px; max-width: min(64vw, 174px); }
       .header-tag { display: none; }
       .hero {
         padding: 39px 0 42px;
@@ -162,14 +161,7 @@
   <header class="site-header">
     <div class="shell header-inner">
       <a class="brand" href="./index.html" aria-label="SG Navi home">
-        <!-- Scalable compass mark refined from the team-provided SG Navi logo. -->
-        <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" role="img" aria-label="SG Navi compass logo">
-          <circle cx="44" cy="44" r="38" fill="#fff" stroke="#203449" stroke-width="5"/>
-          <path d="M27 56 36 30 44 44Z" fill="#203449"/>
-          <path d="M36 30 61 18 44 44Z" fill="#42858c"/>
-          <circle cx="44" cy="44" r="3.4" fill="#fff"/>
-        </svg>
-        <span class="brand-name">SG Navi</span>
+        <img class="brand-logo" src="./assets/sg-navi-logo.webp" width="879" height="300" alt="SG Navi" decoding="async">
       </a>
       <span class="header-tag">Singapore · Service Navigation</span>
     </div>
