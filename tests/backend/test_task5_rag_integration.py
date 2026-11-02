@@ -39,7 +39,8 @@ def test_real_rag_source_context_without_eligibility_conclusion(client, case, an
     data = navigate(client, case, answers)
     assert data["status"] == "REFER_TO_OFFICIAL"
     assert data["action_card"] is None and not data["questions"]
-    assert data["evidence"] == [] and data["warnings"]
+    assert data["evidence"] and data["warnings"]
+    assert all(x["review_status"] == "verified" and x["source_version"] == data["source_version"] for x in data["evidence"])
     assert data["source_version"] == load_knowledge_base()["source_version"]
     # Retrieved Evidence is validated internally, not displayed as an unsupported route.
 
