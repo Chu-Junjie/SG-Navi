@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-02",
+  "timezone": "Asia/Singapore",
+  "main_commit": "913304e48dd3164d7369d38c1767ac915d644e6b",
+  "scope": "technical integration of source-context and conservative referral flows",
+  "auditor": "Codex automated checks",
+  "synthetic_facts_only": true,
+  "environment": {"os": "Windows", "python": "3.14.6", "node": "24.18.0", "browser": "Microsoft Edge headless"},
+  "initial_regression": {
+    "command": "python -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q",
+    "exit_code": 1,
+    "failed": 1,
+    "passed": 345,
+    "subtests_passed": 7,
+    "warnings": 1,
+    "seconds": 37.29,
+    "cause": "Windows GBK decoder failed to read UTF-8 Node output in frontend/tests/test_verified_sources_runner.py"
+  },
+  "final_regression": {
+    "command": "python -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q",
+    "exit_code": 0,
+    "passed": 346,
+    "subtests_passed": 7,
+    "seconds": 33.46
+  },
+  "shared_examples": {"command": "python -m shared.validate_contracts", "exit_code": 0, "passed": 11},
+  "source_import": {"command": "python -m rag.import_knowledge_base", "exit_code": 0, "sources": 5, "passages": 26, "rule_mappings": 26, "templates": 5},
+  "rag_version_diagnostic": {"command": "python -m integration.checks", "exit_code": 0, "passed_checks": 5},
+  "browser": {"command": "node integration/browser_check.mjs http://127.0.0.1:5055", "exit_code": 0, "scenarios_passed": 2},
+  "extra_browser": {"command": "node instance/task5-closeout-extra.mjs http://127.0.0.1:5055", "script_location": "local ignored instance directory; reproduction interactions in task5-checklist.md", "exit_code": 0, "extra_checks_passed": 7, "mobile_capture_visually_inspected": true},
+  "versions": {"api_version": "1.0", "rule_version": "mock-1", "source_version": "kb-2026-11-01.1"},
+  "not_performed": ["fresh dependency installation", "new live publisher capture", "external source-link click-through", "real supported legal pathway", "complete formal Task 6 matrix", "all members' clean-environment installs"],
+  "changed_runtime_or_owner_modules": false
+}

@@ -2,7 +2,7 @@
 
 Group 6 project for English Rental Deposit and Consumer Complaint navigation.
 
-Tasks 1-4 provide a working development baseline: Flask APIs, schema-generated mock forms, shared contracts, source preparation, conservative backend logic and independent evidence retrieval/citation checks. See [Task 4 acceptance](docs/task4-checklist.md). Task 5 has connected the real frontend/API/RAG call chain; source-version reporting and source presentation remain open. See [the integration record](docs/task5-integration.md) before claiming complete source-backed flows.
+Tasks 1-4 provide a working development baseline: Flask APIs, schema-generated mock forms, shared contracts, source preparation, conservative backend logic and independent evidence retrieval/citation checks. Task 5 connects the real frontend/API/RAG call chain with consistent versions and visible verified source context. See [Task 5 acceptance](docs/task5-checklist.md) for real browser results and the remaining boundary: legal eligibility rules stay disabled.
 
 ## Team and repository
 
@@ -62,7 +62,13 @@ The coordinator's same-origin configuration serves the real frontend and backend
 .\.venv\Scripts\python.exe -m flask --app integration.app run --host 127.0.0.1 --port 5000
 ```
 
-Open http://127.0.0.1:5000/task5-flow.html. Run `python -m integration.checks` for real Backend/RAG diagnostics, and optionally `node integration/browser_check.mjs http://127.0.0.1:5000` for actual browser requests (Node 22+ and Edge). A nonzero diagnostic exit records an unresolved connection, version or source-display issue; it is not a completed Task 5 acceptance. [The integration record](docs/task5-integration.md) lists exact tested commits, results, owner follow-ups and the combined test command. The two module owners can work in parallel; acceptance proceeds Backend + RAG, then Frontend + Backend.
+Open http://127.0.0.1:5000/task5-flow.html. Run `python -m integration.checks` for real Backend/RAG diagnostics, and optionally `node integration/browser_check.mjs http://127.0.0.1:5000` for actual browser requests (Node 22+ and Edge). Both diagnostics passed on audited main `913304e`. [Task 5 acceptance](docs/task5-checklist.md) records 346 tests and 7 subtests passed, real source links in both scenarios, owner fixes and exact commands. A nonzero diagnostic exit still indicates a failure that must be investigated.
+
+For the complete local suite on Windows, use UTF-8 mode so the Python test reader can decode Node output:
+
+```powershell
+.\.venv\Scripts\python.exe -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q
+```
 
 ## Run the baseline and contract tests
 
@@ -72,7 +78,7 @@ From the repository root after installing dependencies:
 .\.venv\Scripts\python.exe -m shared.validate_contracts
 .\.venv\Scripts\python.exe -m rag.import_knowledge_base
 .\.venv\Scripts\python.exe -m pytest tests/contracts tests/backend tests/rag -v
-.\.venv\Scripts\python.exe -m unittest discover -s frontend/tests -v
+.\.venv\Scripts\python.exe -X utf8 -m unittest discover -s frontend/tests -v
 ```
 
 The 2026-10-31 audit of baseline commit `743f609cdfc0bdfac4e3c7bd9ed839f65615d9bb` passed 3 backend tests and 3 homepage structure tests. A temporary real HTTP server returned 200 for `/` and `/api/health`. Backend PR #10's CI passed. These are results from the audited environment, not proof that all three members independently ran the project or that the audit executed browser JavaScript.
@@ -98,7 +104,7 @@ requirements.txt
 
 The frontend forms, backend logic and RAG module are merged through PRs #23-25. See [the task board](docs/task-board.md) and [Task 4 acceptance](docs/task4-checklist.md). The 2026-11-02 combined audit passed 278 tests and 2 subtests, 24 browser case/status/width combinations and the five-page live source check. [RAG instructions](rag/README.md) explain source validation and import.
 
-The API exposes GET /api/health, GET /api/case-types, GET /api/version and POST /api/navigate. Normal navigation requests use conservative scope/clarification behavior and call real RAG for source context after required facts are supplied. Source-based legal eligibility rules remain disabled; referrals currently keep retrieved Evidence internal. Version endpoint consistency and visible sources are tracked in Task 5. The earlier four-state fixture viewer remains available at http://127.0.0.1:8000/mock-preview.html when the frontend static server is running.
+The API exposes GET /api/health, GET /api/case-types, GET /api/version and POST /api/navigate. Normal navigation requests use conservative scope/clarification behavior and call real RAG for source context after required facts are supplied. Valid referrals expose checked Evidence links with the real source version; unavailable or invalid sources remain hidden. Source-based legal eligibility rules remain disabled and no eligible legal route is asserted. The earlier four-state fixture viewer remains available at http://127.0.0.1:8000/mock-preview.html when the frontend static server is running.
 
 ## Collaboration and follow-up
 
