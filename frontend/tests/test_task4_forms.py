@@ -59,7 +59,7 @@ class Task4FormTests(unittest.TestCase):
         self.assertIn("source_version.startsWith(\"mock\")", self.js)
         self.assertIn('url.hostname.endsWith(".invalid")', self.js)
         self.assertIn("Needs verification", self.js)
-        for token in ("SCT_", "CEA_", "CASE_", "claim_amount_sgd",
+        for token in ("SCT_", "CEA_", "CASE-", "claim_amount_sgd",
                       "tenancy_duration_months", "https://www."):
             self.assertNotIn(token, self.js)
 
