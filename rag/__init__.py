@@ -1,1 +1,1 @@
-"""Source preparation utilities. Runtime retrieval is implemented in a later Task."""
+"""Source preparation, evidence retrieval and citation checks for SG Navi."""
