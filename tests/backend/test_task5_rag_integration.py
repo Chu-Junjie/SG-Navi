@@ -111,7 +111,7 @@ def test_out_of_scope_never_retrieves(client):
 
 def test_source_version_mismatch_fails_closed(client):
     real = load_knowledge_base()["source_version"]
-    with patch("backend.rag_bridge.retrieve_checked",return_value=("INVALID", [])):
+    with patch("backend.rules.engine.retrieve_checked",return_value=("INVALID", [])):
         data=navigate(client,"rental_deposit",RENTAL)
     assert data["source_version"]==real and data["evidence"]==[]
 
