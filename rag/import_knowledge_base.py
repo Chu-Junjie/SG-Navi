@@ -134,6 +134,14 @@ def load_knowledge_base(directory=DEFAULT_KB):
             "rules": rules, "templates": templates, "review_log": reviews}
 
 
+def current_reviews(source, reviews):
+    """Select proof for the source's recorded current identity, never a past review."""
+    return [row for row in reviews.values() if row["source_id"] == source["source_id"]
+            and row["new_version"] == source["version"] and row["review_status"] == "verified"
+            and row["reviewed_at"] == source["reviewed_at"]
+            and row["reviewed_by"] == source["reviewed_by"]]
+
+
 def _validate_records(sources, passages, rules, templates, reviews, version):
     for review in reviews.values():
         require(review["source_id"] in sources, "review log: unknown source")
@@ -160,10 +168,12 @@ def _validate_records(sources, passages, rules, templates, reviews, version):
         require(source["version"] == version, "source version differs from bundle version")
         if source["status"] == "verified":
             timestamp(source["reviewed_at"], "source review")
-            matches = [row for row in reviews.values() if row["source_id"] == source["source_id"]
-                       and row["new_version"] == source["version"] and row["review_status"] == "verified"
-                       and row["reviewed_at"] == source["reviewed_at"] and row["reviewed_by"] == source["reviewed_by"]]
+            matches = current_reviews(source, reviews)
             require(matches, "verified source needs a matching successful review record")
+            signatures = {(row["content_sha256"], tuple(sorted(zip(
+                row["evidence_ids"].split(";"), row["excerpt_sha256s"].split(";")))))
+                          for row in matches}
+            require(len(signatures) == 1, "conflicting current source review records")
 
     for passage in passages.values():
         source = sources.get(passage.get("source_id"))
@@ -184,9 +194,8 @@ def _validate_records(sources, passages, rules, templates, reviews, version):
         if passage["review_status"] == "verified":
             require(source["status"] == "verified", "verified passage cannot use an unreviewed or quarantined source")
             require(any(dict(zip(row["evidence_ids"].split(";"), row["excerpt_sha256s"].split(";"))).get(passage["evidence_id"]) == passage["excerpt_sha256"]
-                        for row in reviews.values() if row["source_id"] == source["source_id"]
-                        and row["new_version"] == version and row["review_status"] == "verified"),
-                    "verified passage not recorded in source review")
+                        for row in current_reviews(source, reviews)),
+                    "verified passage not recorded in current source review")
         for rule_id in passage["rule_ids"]:
             require(rule_id in rules and passage["evidence_id"] in rules[rule_id].get("evidence_ids", []), "passage rule lacks reciprocal mapping")
 
@@ -232,8 +241,7 @@ def verify_live_sources(bundle):
         official_url(source["url"])
         current = capture(source["url"])
         require(current["http_status"] == 200 and current["url"] == source["url"], "live source failed or redirected; review required")
-        matching = [row for row in bundle["review_log"].values() if row["source_id"] == source["source_id"]
-                    and row["new_version"] == source["version"] and row["review_status"] == "verified"]
+        matching = current_reviews(source, bundle["review_log"])
         require(matching and any(row["content_sha256"] == current["content_sha256"] for row in matching),
                 f"{source['source_id']}: content changed; review and version update required")
         excerpts = [p for p in bundle["passages"].values() if p["source_id"] == source["source_id"]]

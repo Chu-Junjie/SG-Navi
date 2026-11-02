@@ -11,7 +11,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
-from rag.import_knowledge_base import DEFAULT_KB, KnowledgeBaseError, load_knowledge_base, nonblank, read_json, timestamp
+from rag.import_knowledge_base import DEFAULT_KB, KnowledgeBaseError, current_reviews, load_knowledge_base, nonblank, read_json, timestamp
 from rag.source_review import capture, normalize_space
 
 DEFAULT_STATE = DEFAULT_KB.parents[1] / "instance" / "rag_quarantine.json"
@@ -54,9 +54,17 @@ class EvidenceRepository:
         ensure(isinstance(state["blocked_sources"], dict) and isinstance(state["events"], list), "Invalid quarantine state structure")
         for source_id, entry in state["blocked_sources"].items():
             self._check_event(entry, source_id, bundle, blocked=True)
+        replayed = {}
         for entry in state["events"]:
             ensure(isinstance(entry, dict), "Invalid source event")
-            self._check_event(entry, entry.get("source_id"), bundle, blocked=False)
+            source_id = entry.get("source_id")
+            self._check_event(entry, source_id, bundle, blocked=False)
+            if entry["action"] == "quarantine":
+                replayed[source_id] = {key: entry[key] for key in ("actor", "reason", "at", "source_version")}
+            else:
+                ensure(source_id in replayed, "Release event has no preceding quarantine")
+                del replayed[source_id]
+        ensure(replayed == state["blocked_sources"], "Quarantine state differs from its event history")
         return state
 
     @staticmethod
@@ -136,9 +144,7 @@ class EvidenceRepository:
         current = capture(source["url"])
         if current["http_status"] != 200 or current["url"] != source["url"]:
             return "UNAVAILABLE"
-        reviews = [row for row in bundle["review_log"].values() if row["source_id"] == source_id
-                   and row["new_version"] == source["version"] and row["review_status"] == "verified"
-                   and row["reviewed_at"] == source["reviewed_at"] and row["reviewed_by"] == source["reviewed_by"]]
+        reviews = current_reviews(source, bundle["review_log"])
         if not any(row["content_sha256"] == current["content_sha256"] for row in reviews):
             return "CHANGED"
         text = normalize_space(current["text"])

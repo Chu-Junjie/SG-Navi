@@ -2,6 +2,8 @@
 
 This package contains the reviewed source bundle, validation/import utilities, Rule ID retrieval, citation validation and source quarantine operations. [Task 4 usage](TASK4.md) documents the runtime evidence boundary and update workflow. A Rule Engine and /api/navigate integration remain with their assigned owners and Tasks.
 
+[Task 6 integrity checks](TASK6.md) document current-review proof binding, quarantine event replay and the reproducible RAG-01–12 runner. [The actual RAG results](../docs/task6-rag-results.md) include observed failures, fixes and source checks; full team Task 6 acceptance remains separate.
+
 ## Run
 
 From the repository root, using Python 3.12 or newer:

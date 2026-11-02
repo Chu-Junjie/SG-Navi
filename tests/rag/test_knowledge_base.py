@@ -193,7 +193,7 @@ def test_edited_excerpt_cannot_reuse_the_old_review_digest(kb_dir):
         rows[0]["text"] = "Unreviewed replacement text"
         rows[0]["excerpt_sha256"] = hashlib.sha256(rows[0]["text"].encode()).hexdigest()
     change_passages(kb_dir, edit)
-    with pytest.raises(KnowledgeBaseError, match="not recorded in source review"):
+    with pytest.raises(KnowledgeBaseError, match="not recorded in current source review"):
         load_knowledge_base(kb_dir)
 
 
@@ -261,7 +261,10 @@ def test_live_verification_accepts_only_matching_content_and_present_excerpts(mo
     original = copy.deepcopy(bundle)
     def fake_capture(url):
         source = next(s for s in bundle["sources"].values() if s["url"] == url)
-        review = next(r for r in bundle["review_log"].values() if r["source_id"] == source["source_id"])
+        review = next(r for r in bundle["review_log"].values() if r["source_id"] == source["source_id"]
+                      and r["new_version"] == source["version"]
+                      and r["reviewed_at"] == source["reviewed_at"]
+                      and r["reviewed_by"] == source["reviewed_by"])
         text = " ".join(p["text"] for p in bundle["passages"].values() if p["source_id"] == source["source_id"])
         return {"url": url, "http_status": 200, "content_sha256": review["content_sha256"], "text": text}
     monkeypatch.setattr(importer, "capture", fake_capture)
