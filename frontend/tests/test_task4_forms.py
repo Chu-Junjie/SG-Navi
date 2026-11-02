@@ -47,7 +47,6 @@ class Task4FormTests(unittest.TestCase):
         self.assertIn("answers[caseType]=next", self.js)
         self.assertIn('raw==="__unknown__"', self.js)
         self.assertIn('raw==="__null__"', self.js)
-        self.assertIn('raw==="false"', self.js.replace("raw===\"true\"","raw===\"false\"") if False else self.js) if False else None
         self.assertIn('raw==="true"', self.js)
         self.assertIn('n<lower', self.js)
         self.assertIn('d.toISOString().slice(0,10)!==raw', self.js)
