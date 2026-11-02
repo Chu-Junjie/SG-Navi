@@ -76,31 +76,32 @@ def evaluate(case_type, answers, *, simulate_supported=False, mock_evidence=None
     """
     kb = load_knowledge_base() if kb is None else kb
     configs = load_rule_configurations(kb=kb) if configs is None else configs
+    source_version = kb["source_version"]
     category = "rental" if case_type == "rental_deposit" else "consumer"
     checks = configs[category]["checks"] + configs["boundary"]["checks"]
     if any(check["runtime_enabled"] is not False or check["threshold"] is not None for check in checks):
-        return envelope("ERROR", warnings=["Unexpected activated or unverified rules."])
+        return envelope("ERROR", warnings=["Unexpected activated or unverified rules."], source_version=source_version)
 
     # These are project-scope exclusions, not official legal eligibility findings.
     if case_type == "rental_deposit" and str(answers.get("premises_type", "")).lower() in ("commercial", "industrial"):
         return envelope("REFER_TO_OFFICIAL", warnings=[
             "Commercial or industrial premises are outside SG Navi's rental-deposit pilot. Confirm options with an official source."
-        ])
+        ], source_version=source_version)
     if case_type == "consumer_complaint":
         if str(answers.get("purchase_purpose", "")).lower() == "business":
             return envelope("REFER_TO_OFFICIAL", warnings=[
                 "Business-purpose purchases are outside this project's consumer pilot. Confirm with an official source."
-            ])
+            ], source_version=source_version)
         if answers.get("supplier_registered_in_sg") is False:
             return envelope("REFER_TO_OFFICIAL", warnings=[
                 "Supplier registration was reported as false; SG Navi cannot confirm a supported channel."
-            ])
+            ], source_version=source_version)
 
     questions = [_question(field, label, input_type)
                  for field, label, input_type in QUESTION_FIELDS[case_type]
                  if field not in answers or unknown(answers[field])]
     if questions:
-        return envelope("NEED_CLARIFICATION", questions=questions)
+        return envelope("NEED_CLARIFICATION", questions=questions, source_version=source_version)
 
     # Task 5: real RAG is used for *source context*, not legal rule activation.
     if not simulate_supported:
