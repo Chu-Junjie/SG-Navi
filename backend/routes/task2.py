@@ -70,9 +70,9 @@ def navigate():
     try:
         validate(payload, "navigate_request")
     except ValidationError:
-        return send(response("ERROR", warnings=["Invalid request: check api_version, case_type and answers."]), code=400)
+        return send(response("ERROR", warnings=["Invalid request: check api_version, case_type and answers."], source_version=source_version), code=400)
     if not answers_validator(payload["case_type"]).is_valid(payload["answers"]):
-        return send(response("ERROR", warnings=["Invalid answers for the selected case type."]), code=400)
+        return send(response("ERROR", warnings=["Invalid answers for the selected case type."], source_version=source_version), code=400)
     try:
         return send(evaluate(payload["case_type"], payload["answers"]))
     except (ValueError, OSError, KeyError):
