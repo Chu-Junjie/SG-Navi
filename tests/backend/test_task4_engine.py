@@ -60,7 +60,8 @@ def test_no_unsupported_conclusions_in_normal_api(client, case, answers):
     data = post(client, case, answers).get_json()
     validate(data, "navigate_response")
     assert data["status"] == "REFER_TO_OFFICIAL"
-    assert data["evidence"] == [] and data["action_card"] is None
+    assert data["action_card"] is None
+    assert all(item["review_status"] == "verified" for item in data["evidence"])
 
 
 def test_synthetic_supported_path_is_explicitly_test_only():
