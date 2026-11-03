@@ -1,0 +1,20 @@
+{
+  "candidate_commit": "d629033b27f9eb5a9d0998b7d55304ae86ffe528",
+  "checked_at_utc": "2026-11-03T03:42:45+00:00",
+  "git_status_porcelain": "",
+  "tracked_and_visible_untracked_clean": true,
+  "module_checks": [
+    {
+      "command": ".venv/Scripts/python.exe -m shared.validate_contracts",
+      "exit_code": 0,
+      "stdout": "PASS rental_deposit_request.json (navigate_request)\nPASS consumer_complaint_request.json (navigate_request)\nPASS need_clarification_response.json (navigate_response)\nPASS supported_path_response.json (navigate_response)\nPASS refer_to_official_response.json (navigate_response)\nPASS error_response.json (navigate_response)\nPASS health_response.json (health_response)\nPASS case_types_response.json (case_types_response)\nPASS version_response.json (version_response)\nPASS retrieval_request.json (retrieval_request)\nPASS retrieval_response.json (retrieval_response)\n",
+      "stderr": ""
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m integration.checks",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"in_process_wsgi_and_real_rag\",\n  \"synthetic_facts\": true,\n  \"browser_e2e_checked\": false,\n  \"passed\": true,\n  \"checks\": [\n    {\n      \"check\": \"rental_deposit:direct_rag_and_citations\",\n      \"passed\": true,\n      \"details\": {\n        \"retrieval_status\": \"FOUND\",\n        \"evidence_ids\": [\n          \"SCT-ELIG-RESIDENTIAL\"\n        ]\n      }\n    },\n    {\n      \"check\": \"consumer_complaint:direct_rag_and_citations\",\n      \"passed\": true,\n      \"details\": {\n        \"retrieval_status\": \"FOUND\",\n        \"evidence_ids\": [\n          \"SCT-ELIG-GOODS\"\n        ]\n      }\n    },\n    {\n      \"check\": \"rental_deposit:backend_to_real_rag\",\n      \"passed\": true,\n      \"details\": {\n        \"navigation_status\": \"REFER_TO_OFFICIAL\",\n        \"retrieval_status\": \"FOUND\",\n        \"rag_calls\": 1\n      }\n    },\n    {\n      \"check\": \"consumer_complaint:backend_to_real_rag\",\n      \"passed\": true,\n      \"details\": {\n        \"navigation_status\": \"REFER_TO_OFFICIAL\",\n        \"retrieval_status\": \"FOUND\",\n        \"rag_calls\": 1\n      }\n    },\n    {\n      \"check\": \"source_version_consistency\",\n      \"passed\": true,\n      \"details\": {\n        \"source_version\": \"kb-2026-11-01.1\",\n        \"rule_version\": \"mock-1\"\n      }\n    }\n  ]\n}\n",
+      "stderr": ""
+    }
+  ]
+}

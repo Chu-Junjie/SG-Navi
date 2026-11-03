@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-03",
+  "timezone": "Asia/Singapore",
+  "candidate_commit": "d629033b27f9eb5a9d0998b7d55304ae86ffe528",
+  "technical_verdict": "PASS_WITH_LIMITS",
+  "freeze_verdict": "NOT_READY_FOR_FREEZE",
+  "owner_deliverable": "integration_acceptance.md",
+  "scope": "Chu Junjie technical acceptance; other owners release/demo evidence remains separate",
+  "clean_environment": {
+    "automated_owner_workspace": "coordinator Windows environment, fresh GitHub clone and isolated Python venv",
+    "installation_exit": 0,
+    "suite_exit": 0,
+    "passed": 375,
+    "subtests_passed": 7,
+    "seconds": 50.56,
+    "skipped": 0,
+    "real_browser_cases_passed": 8,
+    "fresh_operating_system_or_node_install": false
+  },
+  "member_environment_records": [
+    {
+      "member": "Chu-Junjie",
+      "status": "AUTOMATED_CLEAN_PYTHON_ENVIRONMENT_PASS",
+      "evidence": "task7-clean-install.json, task7-resolved-environment.json, task7-clean-suite.json"
+    },
+    {
+      "member": "ZhengZaikun",
+      "status": "NOT_PROVIDED_IN_REVIEWED_EVIDENCE"
+    },
+    {
+      "member": "Guanyu-Lu",
+      "status": "NOT_PROVIDED_IN_REVIEWED_EVIDENCE"
+    }
+  ],
+  "pre_freeze_gaps": [
+    {
+      "id": "F1",
+      "owner": [
+        "ZhengZaikun",
+        "Guanyu-Lu"
+      ],
+      "status": "EVIDENCE_PENDING",
+      "required": "Independent clean-environment install/start/test records for the other two members; preserve exact commands and candidate commit"
+    },
+    {
+      "id": "F2",
+      "owner": [
+        "Guanyu-Lu"
+      ],
+      "status": "EVIDENCE_PENDING",
+      "required": "Candidate-specific Rental and Consumer demonstrations/screenshots, seven sections, safe errors, source links and mobile presentation; distinguish disabled legal-Card scope"
+    },
+    {
+      "id": "F3",
+      "owner": [
+        "ZhengZaikun"
+      ],
+      "status": "HANDOVER_PENDING",
+      "required": "Reviewed release handover with exact final commit, verified deployment/recovery procedure and CI provenance; existing README install/start was validated here"
+    }
+  ],
+  "post_acceptance_release_action": {
+    "owner": "ZhengZaikun",
+    "requested_tag": "v0.9.0-rc1",
+    "current_tag_seen": false,
+    "instruction": "Create candidate tag/release only after outstanding acceptance evidence is reconciled; no tag or release created by this audit"
+  },
+  "versions": {
+    "api_version": "1.0",
+    "rule_version": "mock-1",
+    "source_version": "kb-2026-11-01.1"
+  },
+  "governance": {
+    "pr46_merge_commit": "d629033b27f9eb5a9d0998b7d55304ae86ffe528",
+    "owner_authorized_deferred_peer_review": true,
+    "actual_pr46_review_records_at_merge": [],
+    "retrospective_review_evidence": "PENDING",
+    "no_approved_review_fabricated": true,
+    "scope": "Current Task 6 closeout and Task 7 documentation continuation; factual evidence requirements remain intact"
+  },
+  "limits": [
+    "Legal rules disabled and real supported legal Action Cards unavailable; Task 6 E2E-01/02 remain LIMITED",
+    "Exact Rule-ID RAG has no FTS5/vector index; semantic/legal entailment is not automatically determined",
+    "Targeted tracked-file scan is bounded to named paths and detector shapes",
+    "Anonymous GitHub API rate limit prevented release and exact merge-push CI enumeration; remote tags and PR-head CI were checked separately",
+    "Final candidate tag/commit is not frozen; later code/dependency changes need affected retests"
+  ],
+  "canonical_source_files_changed": false,
+  "new_live_source_review_records_written": false,
+  "release_or_tag_created": false,
+  "audit_records": [
+    "task7-clean-install.json",
+    "task7-resolved-environment.json",
+    "task7-clean-suite.json",
+    "task7-clean-results.json",
+    "task7-clean-startup.json",
+    "task7-contracts-and-rag.json",
+    "task7-live-source-check.json",
+    "task7-static-audit.json",
+    "task7-tag-check.json",
+    "task7-github-metadata.json"
+  ]
+}

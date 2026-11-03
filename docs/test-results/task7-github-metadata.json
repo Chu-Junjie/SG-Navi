@@ -1,0 +1,52 @@
+{
+  "checked_at_utc": "2026-11-03T03:35:17+00:00",
+  "candidate_commit": "d629033b27f9eb5a9d0998b7d55304ae86ffe528",
+  "queries": {
+    "tags": {
+      "url": "https://api.github.com/repos/Chu-Junjie/SG-Navi/tags?per_page=100",
+      "status": "UNVERIFIED",
+      "error_type": "HTTPError"
+    },
+    "releases": {
+      "url": "https://api.github.com/repos/Chu-Junjie/SG-Navi/releases?per_page=100",
+      "status": "UNVERIFIED",
+      "error_type": "HTTPError"
+    },
+    "candidate_workflows": {
+      "url": "https://api.github.com/repos/Chu-Junjie/SG-Navi/actions/runs?head_sha=d629033b27f9eb5a9d0998b7d55304ae86ffe528&per_page=100",
+      "status": "UNVERIFIED",
+      "error_type": "HTTPError"
+    }
+  },
+  "anonymous_api_observation": {
+    "status": "UNVERIFIED",
+    "http_status": 403,
+    "rate_limit_remaining": "0",
+    "retry_after": null
+  },
+  "additional_observations": {
+    "recorded_at_utc": "2026-11-03T03:45:53+00:00",
+    "repository_visibility": {
+      "value": "public",
+      "source": "authenticated GitHub get_repo connector"
+    },
+    "remote_tags": {
+      "source": "git ls-remote --tags origin",
+      "report": "task7-tag-check.json",
+      "exit_code": 0,
+      "observed_refs": []
+    },
+    "html_fallback": {
+      "releases_url": "https://github.com/Chu-Junjie/SG-Navi/releases",
+      "candidate_checks_url": "https://github.com/Chu-Junjie/SG-Navi/commit/d629033b27f9eb5a9d0998b7d55304ae86ffe528/checks",
+      "result": "Both web fetches returned cache-miss errors; no release or merge-push CI conclusion is inferred"
+    },
+    "known_pr_ci": {
+      "pr": 46,
+      "head_sha": "d1a508516fb5b1212a37c3b81a31b6b75d45d808",
+      "run_id": 41571369561,
+      "conclusion": "success",
+      "source": "authenticated GitHub connector; this is PR-head evidence, not a claimed push-run query result"
+    }
+  }
+}

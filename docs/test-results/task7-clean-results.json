@@ -1,0 +1,109 @@
+{
+  "junit_testcases": 375,
+  "failed": [],
+  "skipped": [],
+  "browser": {
+    "passed": true,
+    "javascript_exceptions": 0,
+    "checks": [
+      {
+        "id": "FE-01",
+        "name": "Rental initial form + backend clarification",
+        "expected": "9 schema controls, real NEED_CLARIFICATION and keyboard-focusable follow-up",
+        "result": "PASS",
+        "actual": {
+          "status": "NEED_CLARIFICATION",
+          "fields": 9,
+          "focus": true
+        }
+      },
+      {
+        "id": "FE-02",
+        "name": "Consumer initial form + backend clarification",
+        "expected": "9 consumer controls, real NEED_CLARIFICATION",
+        "result": "PASS",
+        "actual": {
+          "status": "NEED_CLARIFICATION",
+          "fields": 9
+        }
+      },
+      {
+        "id": "FE-03",
+        "name": "Unknown, false and absent amount stay separate",
+        "expected": "unknown string, false boolean, null amount, clarification instead of a guessed amount",
+        "result": "PASS",
+        "actual": {
+          "status": "NEED_CLARIFICATION",
+          "amount": null,
+          "unknown": "unknown",
+          "falseValue": false
+        }
+      },
+      {
+        "id": "FE-04",
+        "name": "Complete rental + edit, refresh and preserve previous answers",
+        "expected": "real referral, source stale links removed on edit, revised amount sent, draft survives switch",
+        "result": "PASS",
+        "actual": {
+          "status": "REFER_TO_OFFICIAL",
+          "source_links_initial": 2,
+          "amount_after_edit": 456,
+          "draft_preserved": true
+        }
+      },
+      {
+        "id": "FE-05",
+        "name": "Number/date basic input validation",
+        "expected": "invalid or negative inputs block real POST and show validation; correction permits submit",
+        "result": "PASS",
+        "actual": {
+          "invalid_requests_sent": 0,
+          "repaired_status": "NEED_CLARIFICATION"
+        }
+      },
+      {
+        "id": "FE-06",
+        "name": "Consumer real referral, seven card blocks and verified source URLs",
+        "expected": "backend-linked sources clickable; no invented legal Action Card",
+        "result": "PASS",
+        "actual": {
+          "status": "REFER_TO_OFFICIAL",
+          "verified_links": 2,
+          "seven_sections": 7
+        }
+      },
+      {
+        "id": "FE-07",
+        "name": "Simulated API network failure then recover",
+        "expected": "blocked request shows safe error and clears stale links; retry preserves answers",
+        "result": "PASS",
+        "actual": {
+          "offline": "Service unavailable",
+          "retry": "REFER_TO_OFFICIAL",
+          "answers_preserved": true
+        }
+      },
+      {
+        "id": "FE-08",
+        "name": "Mobile width and physical keyboard navigation",
+        "expected": "390px and 320px no horizontal overflow; Tab reaches first form select",
+        "result": "PASS",
+        "actual": {
+          "viewports": [
+            {
+              "width": 390,
+              "scroll": 390,
+              "client": 390
+            },
+            {
+              "width": 320,
+              "scroll": 320,
+              "client": 320
+            }
+          ],
+          "tab_focus": "input-dispute_with"
+        }
+      }
+    ]
+  }
+}

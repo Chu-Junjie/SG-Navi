@@ -1,0 +1,15 @@
+{
+  "candidate_commit": "d629033b27f9eb5a9d0998b7d55304ae86ffe528",
+  "finished_at_utc": "2026-11-03T03:37:06.0637923+00:00",
+  "command": ".venv/Scripts/python.exe -X utf8 -m rag.import_knowledge_base --verify-live",
+  "exit_code": 0,
+  "started_at_utc": "2026-11-03T03:37:00.8233247+00:00",
+  "output": [
+    "LIVE courts-sct-eligibility: HTTP 200, 6 excerpts checked",
+    "LIVE courts-sct-filing: HTTP 200, 5 excerpts checked",
+    "LIVE cea-dispute-resolution: HTTP 200, 5 excerpts checked",
+    "LIVE cea-complaint: HTTP 200, 4 excerpts checked",
+    "LIVE case-complaint: HTTP 200, 6 excerpts checked",
+    "PASS kb-2026-11-01.1: 5 sources, 26 passages, 26 rule mappings, 5 templates"
+  ]
+}
