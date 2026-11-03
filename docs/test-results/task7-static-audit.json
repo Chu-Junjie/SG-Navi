@@ -1,0 +1,109 @@
+{
+  "audited_at_utc": "2026-11-03T03:35:51+00:00",
+  "candidate_commit": "d629033b27f9eb5a9d0998b7d55304ae86ffe528",
+  "prior_tested_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+  "changed_paths_since_task6_runtime_audit": [
+    "README.md",
+    "docs/task-board.md",
+    "docs/task6-checklist.md",
+    "docs/task6-rag-results.md",
+    "docs/test-results/task6-closeout-audit.json",
+    "docs/test-results/task6-closeout-be-e2e.json",
+    "docs/test-results/task6-closeout-fe.json",
+    "docs/test-results/task6-closeout-live.json",
+    "docs/test-results/task6-closeout-rag.json"
+  ],
+  "runtime_dependency_test_ci_changes_since_task6": [],
+  "component_git_trees": {
+    "backend": "77d32b9e22a3deeacaadb3ed1f024c6439091b04",
+    "frontend": "52677c6a76042bad0ba70ddc065667af098086f8",
+    "rag": "fd3c37927572f58e013e6e8bbf26e8237e0353b8",
+    "shared": "537949de56679baac507a4cd48462e7d8e5159b0",
+    "integration": "47e859fb71143d1b68d637eabd2c0287881f78ec",
+    "tests": "cda688a071b66643b3b8a9ffe5d8ff049f47d765",
+    ".github": "4156a5c5f9cb0d941dde66ec1f049a969f4fa1d3"
+  },
+  "critical_files": {
+    "requirements.txt": {
+      "git_blob": "d4ddf92169e72bae4bb513b34a9308e44e941590",
+      "sha256_git_content": "035f6a11f818aed442c527d0b23f09b0a0365273fc29dace247d40dddfe09d66"
+    },
+    "tests/contracts/requirements.txt": {
+      "git_blob": "f4d0a8ec6f365498ffb9e0b619418edbf9f26979",
+      "sha256_git_content": "e8df3e9657f40ed73d22fb25a746fbbca1fafd3040339425683dfb3a3914079c"
+    },
+    "shared/api_contract.json": {
+      "git_blob": "56dc21c4f62818198a9af5f2974fdc96cab85078",
+      "sha256_git_content": "6023e96322a58c98cd64ee140a5ada867befe7d42366e77fb522de4151d7f0c0"
+    },
+    "shared/schemas/evidence_schema.json": {
+      "git_blob": "5b4b3a1470bd5f08af174acb651f07e5a39f50ac",
+      "sha256_git_content": "925b8ad0067115f1762efca4d815d2ed81eecd8c05f67a77b524cab3db124dcd"
+    },
+    "rag/knowledge_base/action_templates.json": {
+      "git_blob": "d9b5590fa69e88d694710a4b73228eb68acdd7c3",
+      "sha256_git_content": "99d526a1dcb0edfb5dda5a6525d23686fe277bd373049bd3e4dd80b82878c06c"
+    },
+    "rag/knowledge_base/passages.jsonl": {
+      "git_blob": "ec2dff272ceabd8b5b2efa6f3817564305e2fdb3",
+      "sha256_git_content": "062f901d7daae3dbfcdfbabab83bf0391dbc64ac4e146010db38fc8bdf3738aa"
+    },
+    "rag/knowledge_base/rule_evidence_map.json": {
+      "git_blob": "409d6f6e11b6641426b13d18f17335e50dad9a23",
+      "sha256_git_content": "03330e142831d6015b8298653ad90b256264012278a438cbfced1b68c2c6706e"
+    },
+    "rag/knowledge_base/source_review_log.csv": {
+      "git_blob": "507af8fb4001a24a414308ba89add61a760fd570",
+      "sha256_git_content": "1e82ad0224d648609b1da1b725960500fbb0870f4094fc29f90a1408ed78bb8c"
+    },
+    "rag/knowledge_base/sources.csv": {
+      "git_blob": "4385df0c044c747e329484d7bd810900a5d77106",
+      "sha256_git_content": "40a91cfbf9688e6a809192413000c72eee694d15baefc705bbff57b1b14a6e20"
+    }
+  },
+  "knowledge": {
+    "source_version": "kb-2026-11-01.1",
+    "sources": 5,
+    "passages": 26,
+    "rules": 26,
+    "templates": 5,
+    "review_rows": 7,
+    "source_statuses": {
+      "courts-sct-eligibility": "verified",
+      "courts-sct-filing": "verified",
+      "cea-dispute-resolution": "verified",
+      "cea-complaint": "verified",
+      "case-complaint": "verified"
+    },
+    "review_methods": [
+      "automated_live_page_and_excerpt_check"
+    ],
+    "review_identities": [
+      "Codex automated page and excerpt check"
+    ],
+    "all_rag_rules_disabled": true
+  },
+  "backend_rule_config": {
+    "checks": 25,
+    "all_disabled": true,
+    "all_thresholds_null": true
+  },
+  "targeted_tracked_file_audit": {
+    "tracked_files": 145,
+    "text_files_scanned": 142,
+    "sensitive_path_matches": [],
+    "secret_shape_matches": [],
+    "scope": "Tracked files and the listed detector shapes only; match values are never logged. Synthetic fixtures used by actual test runs are identified separately; no exhaustive privacy/security guarantee."
+  },
+  "dependency_specs": {
+    "requirements.txt": [
+      "Flask>=3.0,<4.0",
+      "pytest>=8.0,<10.0"
+    ],
+    "tests/contracts/requirements.txt": [
+      "-r ../../requirements.txt",
+      "jsonschema>=4.22,<5.0",
+      "referencing>=0.35,<1.0"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "exit_code": 0,
+  "output_tail": [
+    "........................................................................ [ 57%]",
+    "................................................................. [ 74%]",
+    "........................................................................ [ 94%]",
+    "......................                                                   [100%]",
+    "375 passed, 7 subtests passed in 50.56s"
+  ],
+  "checkout_commit": "d629033b27f9eb5a9d0998b7d55304ae86ffe528",
+  "command": ".venv/Scripts/python.exe -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q --junitxml=instance/task7-clean-suite.xml -o junit_logging=out-err -o junit_log_passing_tests=true",
+  "started_at_utc": "2026-11-03T03:36:59.3034812+00:00",
+  "finished_at_utc": "2026-11-03T03:37:52.8713753+00:00"
+}

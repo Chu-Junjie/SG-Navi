@@ -1,0 +1,48 @@
+{
+  "tested_at_utc": "2026-11-03T03:40:09.8615850+00:00",
+  "candidate_commit": "d629033b27f9eb5a9d0998b7d55304ae86ffe528",
+  "startup_command": ".venv/Scripts/python.exe -m flask --app integration.app run --host 127.0.0.1 --port 5057",
+  "requests": [
+    {
+      "path": "/",
+      "status_code": 200
+    },
+    {
+      "path": "/api/health",
+      "status_code": 200
+    },
+    {
+      "path": "/api/case-types",
+      "status_code": 200
+    },
+    {
+      "path": "/api/version",
+      "status_code": 200
+    },
+    {
+      "path": "/task5-flow.html",
+      "status_code": 200
+    },
+    {
+      "path": "/js/task5-flow.js",
+      "status_code": 200
+    },
+    {
+      "path": "/js/verified-sources.js",
+      "status_code": 200
+    },
+    {
+      "path": "/schemas/rental_deposit_input.schema.json",
+      "status_code": 200
+    },
+    {
+      "path": "/schemas/consumer_complaint_input.schema.json",
+      "status_code": 200
+    }
+  ],
+  "actual_version": {
+    "api_version": "1.0",
+    "rule_version": "mock-1",
+    "source_version": "kb-2026-11-01.1"
+  }
+}

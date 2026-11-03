@@ -1,0 +1,15 @@
+{
+  "command": ".venv/Scripts/python.exe -m pip install -r tests/contracts/requirements.txt --disable-pip-version-check",
+  "checkout_commit": "d629033b27f9eb5a9d0998b7d55304ae86ffe528",
+  "started_at_utc": "2026-11-03T03:33:22.8529006+00:00",
+  "exit_code": 0,
+  "output_tail": [
+    "Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)",
+    "Installing collected packages: rpds-py, pygments, pluggy, packaging, markupsafe, itsdangerous, iniconfig, colorama, click, blinker, attrs, werkzeug, referencing, pytest, jinja2, jsonschema-specifications, Flask, jsonschema",
+    "",
+    "Successfully installed Flask-3.1.3 attrs-26.1.0 blinker-1.9.0 click-8.5.0 colorama-0.4.6 iniconfig-2.3.1 itsdangerous-2.2.0 jinja2-3.1.6 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 markupsafe-3.0.4 packaging-26.3 pluggy-1.7.0 pygments-2.21.0 pytest-9.2.0 referencing-0.37.0 rpds-py-2026.9.1 werkzeug-3.1.9"
+  ],
+  "finished_at_utc": "2026-11-03T03:33:59.0243832+00:00",
+  "workspace_relative_clone_path": "task7-clean-install",
+  "path_note": "Local workspace prefix omitted from the published record; raw install log remains in the clone ignored instance directory."
+}

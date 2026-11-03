@@ -6,6 +6,8 @@ Tasks 1-4 provide a working development baseline: Flask APIs, schema-generated m
 
 [Task 6 acceptance](docs/task6-checklist.md) records the combined 2026-11-03 audit: **375 tests and 7 subtests passed**, including the actual FE browser runner. All 38 formal IDs have records: **36 PASS, 2 LIMITED** because genuine supported legal Action Cards remain unavailable. Task 7 candidate acceptance is separate.
 
+[Task 7 technical acceptance](integration_acceptance.md) records a new GitHub clone, isolated dependency installation, actual startup and **375 tests / 7 subtests passed** on candidate `d629033`. The coordinator's assessment is complete with limits; candidate freezing still needs the other member-environment records, demonstrations and release/recovery handover. No rc1 tag or release was created by the coordinator. Documentation peer review proceeds under the owner's explicit deferral, recorded separately from actual approval evidence.
+
 ## Team and repository
 
 | Member | GitHub login | Responsibility | Verified access |
