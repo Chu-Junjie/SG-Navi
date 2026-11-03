@@ -24,5 +24,7 @@ jobs:
         run: python -m shared.validate_contracts
       - name: Run backend and contract tests
         run: python -m pytest tests/contracts tests/backend tests/rag tests/integration -v
+      - name: Smoke-test production Gunicorn WSGI on loopback
+        run: python tests/backend/run_task7_wsgi_smoke.py
       - name: Run frontend tests
         run: python -m unittest discover -s frontend/tests -v

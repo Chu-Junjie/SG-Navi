@@ -8,6 +8,7 @@ SG Navi has a real Flask → RAG → browser integration. It asks for missing fa
 - **Task 6:** accepted **with limits**; [evidence](docs/task6-checklist.md) (38 IDs: 36 PASS, E2E-01/02 LIMITED).
 - **Task 7:** handover in progress; [coordinator assessment](integration_acceptance.md) currently says **NOT READY FOR FREEZE**. The candidate-specific [Rental and Consumer browser demo](frontend/TASK7_CANDIDATE_DEMO.md) and screenshots are recorded; team member-specific fresh install records and final release-owner handover/approval still need reconciliation.
 - **Release/recovery procedures:** [Task 7 release handover](docs/task7-release-handover.md). Do not create `v0.9.0-rc1` or call it released before final coordinator approval.
+- **Public Flask API deployment:** [Render proposal, security, CORS, persistent disk, remote probe and frontend handoff](docs/task7-public-backend.md). This is a reviewed-code/CI preparation only: no paid service or public HTTPS API has been provisioned until the owner authorizes hosting. GitHub Pages is still static and unchanged.
 
 Repository: https://github.com/Chu-Junjie/SG-Navi
 
