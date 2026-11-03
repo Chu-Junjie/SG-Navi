@@ -1,0 +1,276 @@
+{
+  "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+  "scope": "Actual backend WSGI and loopback HTTP, distinct from real-browser FE checks",
+  "test_results": [
+    {
+      "test_id": "BE-01",
+      "input": "GET health, case types, version",
+      "expected": "Schema-compliant 200; active source version and disabled rule version",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_be_matrix::test_be_01_api_health_case_types_and_version"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "BE-02",
+      "input": "Complete Rental and Consumer synthetic facts",
+      "expected": "Both use verified source context, not supported eligibility",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_be_matrix::test_be_02_both_real_rag_routes_obey_contract_and_do_not_assert_eligibility"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "BE-03",
+      "input": "Bad API version, bad case, non-object answers, unexpected key, invalid JSON/MIME",
+      "expected": "Reject with contract-valid 400/415 errors",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_be_matrix::test_be_03_contract_and_json_errors_are_rejected"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "BE-04",
+      "input": "Missing, null or unknown Rental/Consumer questions",
+      "expected": "Clarify; preserve unknown vs false, no RAG",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_be_matrix::test_be_04_missing_null_unknown_are_not_false_or_assumed"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "BE-05",
+      "input": "Commercial/industrial Rental; business Consumer; unregistered supplier",
+      "expected": "Out of pilot: safe referral, no RAG",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_be_matrix::test_be_05_outside_pilot_scope_defers_without_source_or_guess"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "BE-06",
+      "input": "Negative/non-numeric amounts and unknown field",
+      "expected": "400 `ERROR`, no inferred amount",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_be_matrix::test_be_06_amount_type_range_and_extra_fields_are_validated"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "BE-07",
+      "input": "Version cross-check; synthetic unreadable source/quarantine state",
+      "expected": "Current source version or 503 unavailable, no Evidence",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_be_matrix::test_be_07_version_consistency_and_unavailable_bundle_fail_closed"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "BE-08",
+      "input": "RAG `NO_RESULTS` / `ERROR` / exception (synthetic injected)",
+      "expected": "Safe referral/error, no fabricated source",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_be_matrix::test_be_08_missing_and_failed_retrieval_fail_safely"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "BE-09",
+      "input": "Malformed retrieval response, unknown RAG status, invalid citation",
+      "expected": "No invalid citation output",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_be_matrix::test_be_09_invalid_schema_version_and_citation_are_not_released"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "BE-10",
+      "input": "All disabled rule checks; attempted HTTP simulation override",
+      "expected": "No enabled legal path; unsafe override rejected 400",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_be_matrix::test_be_10_disabled_rules_and_simulation_cannot_escape_over_http"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "E2E-01",
+      "input": "Load Task 5 HTML; Rental empty \u2192 complete landlord/residential/123 \u2192 amount edit 456",
+      "expected": "Clarify, real API/RAG, safe source links in Evidence metadata; no fake advice",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_e2e_http::test_e2e_01_rental_http_questions_real_sources_and_edit"
+      },
+      "acceptance_result": "LIMITED",
+      "limitation": "Supported legal Action Card unavailable; real clarification/source-context/referral transport passed",
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "E2E-02",
+      "input": "Consumer empty \u2192 goods/personal/registered/123 \u2192 amount edit 456",
+      "expected": "Same sequence with real Consumer sources",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_e2e_http::test_e2e_02_consumer_http_questions_real_sources_and_edit"
+      },
+      "acceptance_result": "LIMITED",
+      "limitation": "Supported legal Action Card unavailable; real clarification/source-context/referral transport passed",
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "E2E-03",
+      "input": "Rental amount null and `unknown`",
+      "expected": "Clarify rather than guess",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_e2e_http::test_e2e_03_missing_amount_or_unknown_never_guesses"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "E2E-04",
+      "input": "Rental dispute_with null and `unknown`",
+      "expected": "Clarify landlord vs agent before routing",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_e2e_http::test_e2e_04_unknown_landlord_or_agent_is_clarified"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "E2E-05",
+      "input": "Consumer purchase_purpose=`business`",
+      "expected": "Out-of-scope referral",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_e2e_http::test_e2e_05_business_purchase_fails_closed"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "E2E-06",
+      "input": "Consumer supplier_registered_in_sg=`false`",
+      "expected": "Out-of-pilot referral",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_e2e_http::test_e2e_06_supplier_outside_singapore_pilot"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "E2E-07",
+      "input": "Injected `INVALID` and `NO_RESULTS` evidence",
+      "expected": "Do not expose fabricated or unverified sources",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_e2e_http::test_e2e_07_invalid_or_mismatched_evidence_never_exposed"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    },
+    {
+      "test_id": "E2E-08",
+      "input": "Injected backend RAG exception; then retry",
+      "expected": "Safe error and recovery",
+      "actual": {
+        "pytest_result": "PASS",
+        "testcase": "tests.backend.test_task6_e2e_http::test_e2e_08_backend_rag_failure_yields_safe_error"
+      },
+      "acceptance_result": "PASS",
+      "limitation": null,
+      "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+      "tester": "Codex coordinator rerun of ZhengZaikun owner HTTP/backend tests",
+      "executed_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+      "bug_issue": null
+    }
+  ]
+}

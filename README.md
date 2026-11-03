@@ -4,6 +4,8 @@ Group 6 project for English Rental Deposit and Consumer Complaint navigation.
 
 Tasks 1-4 provide a working development baseline: Flask APIs, schema-generated mock forms, shared contracts, source preparation, conservative backend logic and independent evidence retrieval/citation checks. Task 5 connects the real frontend/API/RAG call chain with consistent versions and visible verified source context. See [Task 5 acceptance](docs/task5-checklist.md) for real browser results and the remaining boundary: legal eligibility rules stay disabled.
 
+[Task 6 acceptance](docs/task6-checklist.md) records the combined 2026-11-03 audit: **375 tests and 7 subtests passed**, including the actual FE browser runner. All 38 formal IDs have records: **36 PASS, 2 LIMITED** because genuine supported legal Action Cards remain unavailable. Task 7 candidate acceptance is separate.
+
 ## Team and repository
 
 | Member | GitHub login | Responsibility | Verified access |
@@ -69,6 +71,8 @@ For the complete local suite on Windows, use UTF-8 mode so the Python test reade
 ```powershell
 .\.venv\Scripts\python.exe -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q
 ```
+
+FE-01–08 require Node 22+ and an installed Chromium/Edge/Chrome browser. Missing runtimes are explicitly reported as skipped/NOT RUN and must not be counted as FE acceptance. The audited Windows run had no skipped tests. [Frontend reproduction](frontend/TASK6_FE_RESULTS.md) and [backend/HTTP E2E records](docs/task6-backend-e2e-results.md) explain the separate test scopes.
 
 ## Run the baseline and contract tests
 

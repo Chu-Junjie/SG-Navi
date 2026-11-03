@@ -1,0 +1,298 @@
+{
+  "date": "2026-11-03",
+  "timezone": "Asia/Singapore",
+  "main_commit": "49cc19f6c9d957a256fe2024d700fab0f6d215f4",
+  "decision": "PASS_WITH_LIMITS for the technical testing stage; legal Action Card unavailable in E2E-01/02",
+  "tester": "Codex coordinator rerun of merged owner tests",
+  "synthetic_facts_only": true,
+  "environment": {
+    "python": "3.14.6",
+    "platform": "win32",
+    "node": "v24.18.0",
+    "browser_executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  "suite": {
+    "exit_code": 0,
+    "finished_at_utc": "2026-11-03T03:06:27.2651372+00:00",
+    "output_tail": [
+      "........................................................................ [ 57%]",
+      "................................................................. [ 74%]",
+      "........................................................................ [ 94%]",
+      "......................                                                   [100%]",
+      "375 passed, 7 subtests passed in 56.10s"
+    ],
+    "started_at_utc": "2026-11-03T03:05:26.8593414+00:00",
+    "command": "python -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q --junitxml=instance/task6-closeout-suite.xml -o junit_logging=out-err -o junit_log_passing_tests=true",
+    "passed": 375,
+    "subtests_passed": 7,
+    "seconds": 56.1,
+    "junit_cases": 375,
+    "skipped": 0,
+    "failed": 0
+  },
+  "formal_counts": {
+    "PASS": 36,
+    "LIMITED": 2,
+    "FAIL": 0,
+    "NOT_RUN": 0,
+    "total": 38
+  },
+  "formal_results": [
+    {
+      "test_id": "FE-01",
+      "result": "PASS"
+    },
+    {
+      "test_id": "FE-02",
+      "result": "PASS"
+    },
+    {
+      "test_id": "FE-03",
+      "result": "PASS"
+    },
+    {
+      "test_id": "FE-04",
+      "result": "PASS"
+    },
+    {
+      "test_id": "FE-05",
+      "result": "PASS"
+    },
+    {
+      "test_id": "FE-06",
+      "result": "PASS"
+    },
+    {
+      "test_id": "FE-07",
+      "result": "PASS"
+    },
+    {
+      "test_id": "FE-08",
+      "result": "PASS"
+    },
+    {
+      "test_id": "BE-01",
+      "result": "PASS"
+    },
+    {
+      "test_id": "BE-02",
+      "result": "PASS"
+    },
+    {
+      "test_id": "BE-03",
+      "result": "PASS"
+    },
+    {
+      "test_id": "BE-04",
+      "result": "PASS"
+    },
+    {
+      "test_id": "BE-05",
+      "result": "PASS"
+    },
+    {
+      "test_id": "BE-06",
+      "result": "PASS"
+    },
+    {
+      "test_id": "BE-07",
+      "result": "PASS"
+    },
+    {
+      "test_id": "BE-08",
+      "result": "PASS"
+    },
+    {
+      "test_id": "BE-09",
+      "result": "PASS"
+    },
+    {
+      "test_id": "BE-10",
+      "result": "PASS"
+    },
+    {
+      "test_id": "E2E-01",
+      "result": "LIMITED"
+    },
+    {
+      "test_id": "E2E-02",
+      "result": "LIMITED"
+    },
+    {
+      "test_id": "E2E-03",
+      "result": "PASS"
+    },
+    {
+      "test_id": "E2E-04",
+      "result": "PASS"
+    },
+    {
+      "test_id": "E2E-05",
+      "result": "PASS"
+    },
+    {
+      "test_id": "E2E-06",
+      "result": "PASS"
+    },
+    {
+      "test_id": "E2E-07",
+      "result": "PASS"
+    },
+    {
+      "test_id": "E2E-08",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-01",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-02",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-03",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-04",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-05",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-06",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-07",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-08",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-09",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-10",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-11",
+      "result": "PASS"
+    },
+    {
+      "test_id": "RAG-12",
+      "result": "PASS"
+    }
+  ],
+  "component_results": {
+    "FE": {
+      "passed": 8,
+      "javascript_exceptions": 0
+    },
+    "BE": {
+      "passed": 10
+    },
+    "E2E": {
+      "technical_passed": 8,
+      "acceptance_passed": 6,
+      "acceptance_limited": 2
+    },
+    "RAG": {
+      "groups_passed": 12,
+      "suite": {
+        "passed": 121,
+        "failed": 0,
+        "not_run": 0
+      },
+      "summary": [
+        "121 passed in 30.78s"
+      ],
+      "canonical_unchanged": true
+    }
+  },
+  "contract_examples": {
+    "command": "python -m shared.validate_contracts",
+    "exit_code": 0,
+    "passed": 11
+  },
+  "rag_version_diagnostic": {
+    "command": "python -m integration.checks",
+    "exit_code": 0,
+    "passed_checks": 5
+  },
+  "live_sources": {
+    "command": "python -X utf8 -m rag.import_knowledge_base --verify-live",
+    "exit_code": 0,
+    "http_200": 5,
+    "excerpts_matched": 26,
+    "new_review_records_written": false
+  },
+  "windows_portability": {
+    "command": "python -m pytest frontend/tests/test_verified_sources_runner.py -q",
+    "exit_code": 0,
+    "passed": 1,
+    "seconds": 0.63,
+    "issue": 38,
+    "issue_closed": true
+  },
+  "owner_prs": [
+    {
+      "number": 43,
+      "head": "5c0f0751b53752a7c43df492176a3676879e7427",
+      "peer_approvals": [
+        "Guanyu-Lu",
+        "ZhengZaikun"
+      ],
+      "successful_ci": 41450161128
+    },
+    {
+      "number": 44,
+      "head": "0201666ef27737c7b369d32b8aac0d87c27c2a3b",
+      "peer_approvals": [
+        "Chu-Junjie",
+        "ZhengZaikun"
+      ],
+      "successful_ci": 41453749559
+    },
+    {
+      "number": 45,
+      "head": "337111e6be3a7d077bef97c9e89a1b20bbdd431b",
+      "peer_approvals": [
+        "Guanyu-Lu",
+        "Chu-Junjie"
+      ],
+      "successful_ci": 41461907004
+    }
+  ],
+  "issue_audit": {
+    "open_issues_returned": [
+      6,
+      7
+    ],
+    "closed_defects_verified": [
+      38,
+      41,
+      42
+    ],
+    "open_defect_issues_returned": []
+  },
+  "versions": {
+    "api_version": "1.0",
+    "rule_version": "mock-1",
+    "source_version": "kb-2026-11-01.1"
+  },
+  "not_performed": [
+    "real supported legal eligibility/Action Card",
+    "browser opening outgoing publisher tabs",
+    "all members fresh installs",
+    "Task 7 freeze/tag/deployment"
+  ],
+  "changed_runtime_modules": false
+}
