@@ -19,7 +19,8 @@ class HomepageTests(unittest.TestCase):
     def test_only_two_task1_topics(self):
         matches = re.findall(r'data-case="([^"]+)"', self.html)
         self.assertEqual(matches, ["Rental Deposit", "Consumer Complaint"])
-        self.assertEqual(self.html.count("Flow coming soon"), 2)
+        self.assertEqual(self.html.count("Open guided form"), 2)
+        self.assertIn('window.location.assign("./task5-flow.html?case_type=" + caseType)', self.html)
         self.assertNotIn('action="/api/navigate"', self.html)
 
     def test_health_status_uses_real_request(self):

@@ -352,6 +352,10 @@
       }
       if (!SECTIONS.every(key => owns(card.properties || {}, key) && owns(labels.action_card || {}, key)))
         throw Error("Card schema mismatch");
+      const requestedCase = new URLSearchParams(window.location.search).get("case_type");
+      if (Object.prototype.hasOwnProperty.call(CASES, requestedCase)) {
+        $("case-type").value = requestedCase;
+      }
       switchCase();
       $("notice").textContent = "Ready. Responses come from the real /api/navigate endpoint.";
     } catch (_) {
