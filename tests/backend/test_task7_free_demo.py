@@ -1,28 +1,38 @@
 """Free (ephemeral) deployment safeguards; not a persistent-storage test."""
-import pytest
+import importlib
+import os
 from unittest.mock import patch
 
+import pytest
 
-def test_demo_must_acknowledge_ephemeral_source_state(monkeypatch):
+
+@pytest.fixture(scope="module")
+def free_demo_module():
+    # The WSGI module intentionally fails fast without explicit ephemeral ack.
+    # Give it that acknowledgement only for its first import in this fixture.
+    with patch.dict(os.environ, {
+        "SG_NAVI_FREE_DEMO_ACK": "1", "SG_NAVI_REQUIRE_PERSISTENCE": "0"
+    }):
+        return importlib.import_module("backend.free_demo")
+
+
+def test_demo_must_acknowledge_ephemeral_source_state(monkeypatch, free_demo_module):
     monkeypatch.delenv("SG_NAVI_FREE_DEMO_ACK", raising=False)
-    from backend.free_demo import create_free_demo_app
     with pytest.raises(RuntimeError, match="ephemeral"):
-        create_free_demo_app()
+        free_demo_module.create_free_demo_app()
 
 
-def test_demo_never_overrides_persistence_requirement(monkeypatch):
+def test_demo_never_overrides_persistence_requirement(monkeypatch, free_demo_module):
     monkeypatch.setenv("SG_NAVI_FREE_DEMO_ACK", "1")
     monkeypatch.setenv("SG_NAVI_REQUIRE_PERSISTENCE", "1")
-    from backend.free_demo import create_free_demo_app
     with pytest.raises(RuntimeError, match="persistent-state"):
-        create_free_demo_app()
+        free_demo_module.create_free_demo_app()
 
 
-def test_demo_serves_contract_apis_debug_off_and_small_post_limit(monkeypatch):
+def test_demo_serves_contract_apis_debug_off_and_small_post_limit(monkeypatch, free_demo_module):
     monkeypatch.setenv("SG_NAVI_FREE_DEMO_ACK", "1")
     monkeypatch.setenv("SG_NAVI_REQUIRE_PERSISTENCE", "0")
-    from backend.free_demo import create_free_demo_app
-    app = create_free_demo_app()
+    app = free_demo_module.create_free_demo_app()
     assert not app.debug
     assert app.config["MAX_CONTENT_LENGTH"] == 32768
     c = app.test_client()
@@ -33,10 +43,9 @@ def test_demo_serves_contract_apis_debug_off_and_small_post_limit(monkeypatch):
                   content_type="application/json").status_code == 413
 
 
-def test_demo_bad_source_quarantine_fails_closed(monkeypatch):
+def test_demo_bad_source_quarantine_fails_closed(monkeypatch, free_demo_module):
     monkeypatch.setenv("SG_NAVI_FREE_DEMO_ACK", "1")
     monkeypatch.setenv("SG_NAVI_REQUIRE_PERSISTENCE", "0")
-    from backend.free_demo import create_free_demo_app
     with patch("backend.free_demo.EvidenceRepository.snapshot", side_effect=ValueError("invalid state")):
         with pytest.raises(ValueError, match="invalid state"):
-            create_free_demo_app()
+            free_demo_module.create_free_demo_app()
