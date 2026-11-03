@@ -1,119 +1,120 @@
-# SG Navi
+# SG Navi — developer setup and candidate handover
 
-Group 6 project for English Rental Deposit and Consumer Complaint navigation.
+**Group 6 · English Rental Deposit / Consumer Complaint prototype**
 
-Tasks 1-4 provide a working development baseline: Flask APIs, schema-generated mock forms, shared contracts, source preparation, conservative backend logic and independent evidence retrieval/citation checks. Task 5 connects the real frontend/API/RAG call chain with consistent versions and visible verified source context. See [Task 5 acceptance](docs/task5-checklist.md) for real browser results and the remaining boundary: legal eligibility rules stay disabled.
+SG Navi has a real Flask → RAG → browser integration. It asks for missing facts and provides **verified source context**, but it **does not determine legal eligibility**: all runtime legal rules remain disabled, and the normal result is `REFER_TO_OFFICIAL` with `action_card: null`. The seven visible card sections are fallback / verification messages, **not a supported legal Action Card**. Do not present the app as legal advice or a production filing service.
 
-[Task 6 acceptance](docs/task6-checklist.md) records the combined 2026-11-03 audit: **375 tests and 7 subtests passed**, including the actual FE browser runner. All 38 formal IDs have records: **36 PASS, 2 LIMITED** because genuine supported legal Action Cards remain unavailable. Task 7 candidate acceptance is separate.
+- **Task 5:** accepted; [evidence](docs/task5-checklist.md).
+- **Task 6:** accepted **with limits**; [evidence](docs/task6-checklist.md) (38 IDs: 36 PASS, E2E-01/02 LIMITED).
+- **Task 7:** handover in progress; [coordinator assessment](integration_acceptance.md) currently says **NOT READY FOR FREEZE**. The candidate-specific [Rental and Consumer browser demo](frontend/TASK7_CANDIDATE_DEMO.md) and screenshots are recorded; team member-specific fresh install records and final release-owner handover/approval still need reconciliation.
+- **Release/recovery procedures:** [Task 7 release handover](docs/task7-release-handover.md). Do not create `v0.9.0-rc1` or call it released before final coordinator approval.
 
-[Task 7 technical acceptance](integration_acceptance.md) records a new GitHub clone, isolated dependency installation, actual startup and **375 tests / 7 subtests passed** on candidate `d629033`. The coordinator's assessment is complete with limits; candidate freezing still needs the other member-environment records, demonstrations and release/recovery handover. No rc1 tag or release was created by the coordinator. Documentation peer review proceeds under the owner's explicit deferral, recorded separately from actual approval evidence.
+Repository: https://github.com/Chu-Junjie/SG-Navi
 
-## Team and repository
+## Ownership
 
-| Member | GitHub login | Responsibility | Verified access |
-| --- | --- | --- | --- |
-| Chu Junjie | `Chu-Junjie` | Repository administration, shared contracts, RAG, integration | Admin |
-| Zheng Zaikun | `ZhengZaikun` | Backend, tests, dependencies and CI | Write |
-| Lu Guanyu | `Guanyu-Lu` | Frontend and frontend tests | Write |
+| Developer | Module |
+| --- | --- |
+| Chu Junjie (`Chu-Junjie`) | RAG, sources, shared contract, integration technical acceptance |
+| Zheng Zaikun (`ZhengZaikun`) | Flask backend, backend/E2E tests, dependencies, CI, release documentation |
+| Lu Guanyu (`Guanyu-Lu`) | Frontend, frontend tests, candidate demonstrations |
 
-Repository: [Chu-Junjie/SG-Navi](https://github.com/Chu-Junjie/SG-Navi). It is public by the owner's explicit decision. Task 1 was accepted for baseline development on 2026-10-31; see [the acceptance record](docs/task1-checklist.md) for verified results and remaining limitations.
+Respect [AGENTS.md](AGENTS.md): use feature branch → PR → peer review → merge; do not change another owner's module without coordination. Never commit secrets, `.env`, real disputes or user data.
 
-## Install and run on Windows
+## Prerequisites
 
-Use Python 3.12 or newer and Git. From PowerShell:
+- Git and **Python 3.12+**.
+- For actual FE browser test execution: **Node.js 22+ and Chromium / Edge / Chrome**. Without them, some browser tests may skip; a green subset is **not** an FE acceptance claim.
+- No API key, live production credentials, database server, `.env`, or npm dependency installation is required for the audited **local development** workflow.
+- The project uses `requirements.txt` and `tests/contracts/requirements.txt`; the latter includes the former. Version ranges are not an exact lockfile. An executed resolved-package snapshot is in [Task 7 coordinator's records](docs/test-results/task7-resolved-environment.json).
+
+## Fresh clone → isolated install (Windows PowerShell)
+
+Use a new folder for independent Task 7 environment evidence. Do not reuse an old virtual environment:
 
 ```powershell
 git clone https://github.com/Chu-Junjie/SG-Navi.git
 cd SG-Navi
+git rev-parse HEAD
 py -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r tests/contracts/requirements.txt
-.\.venv\Scripts\python.exe -m flask --app backend.app run --host 127.0.0.1 --port 5000
 ```
 
-Open [the homepage](http://127.0.0.1:5000/). It displays SG Navi, Rental Deposit and Consumer Complaint placeholder entries, and a health status fetched from the same Flask service. The placeholders do not yet open complete case flows. The health indicator should show Online when its request succeeds; use Refresh to check again.
+To reproduce an **exact** reviewed commit, use `git checkout --detach <approved-sha>` before creating the environment. The coordinator's original clean-install audit used `d629033b27f9eb5a9d0998b7d55304ae86ffe528`. The later frontend navigation/demo fixes merged in `ba8c992f03d426108fdb1e1aac375e9320b92244`; **neither SHA is an approved rc1 release target**. A final commit must be selected after all Task 7 evidence is reconciled.
 
-In a second PowerShell window, verify the backend:
+On macOS/Linux, replace the venv commands with:
 
-```powershell
-Invoke-RestMethod http://127.0.0.1:5000/api/health
+```bash
+python3 -m venv .venv
+./.venv/bin/python -m pip install -r tests/contracts/requirements.txt
 ```
 
-The response is `{"status":"ok"}`. Stop the development server with Ctrl+C. No API key or `.env` is required for this baseline. A static server for `frontend/` alone does not provide `/api/health`; use Flask for the integrated page and health endpoint.
+## Run the actual integrated web app
 
-## Preview Task 4 forms
-
-In another terminal, serve the frontend prototype and open [the form preview](http://127.0.0.1:8000/task4-forms.html):
-
-```powershell
-.\.venv\Scripts\python.exe -m http.server 8000 --directory frontend
-```
-
-Select Rental Deposit or Consumer Complaint, edit answers and choose one of the four Mock API statuses. The page preserves unknown/null/false values and shows the seven Action Card sections. Synthetic source examples stay marked Needs verification. This prototype loads fixture JSON; it is an independent Task 4 demonstration rather than a full API/RAG flow.
-
-For independent RAG usage:
-
-```powershell
-.\.venv\Scripts\python.exe -m rag.retriever rental_deposit --rule-id SCT_RESIDENTIAL_SCOPE
-```
-
-[RAG Task 4 instructions](rag/TASK4.md) document the retrieval response, citation validation, quarantine and source update procedures.
-
-## Task 5 local integration
-
-The coordinator's same-origin configuration serves the real frontend and backend in one process:
+From the repo root, with the Python environment installed:
 
 ```powershell
 .\.venv\Scripts\python.exe -m flask --app integration.app run --host 127.0.0.1 --port 5000
 ```
 
-Open http://127.0.0.1:5000/task5-flow.html. Run `python -m integration.checks` for real Backend/RAG diagnostics, and optionally `node integration/browser_check.mjs http://127.0.0.1:5000` for actual browser requests (Node 22+ and Edge). Both diagnostics passed on audited main `913304e`. [Task 5 acceptance](docs/task5-checklist.md) records 346 tests and 7 subtests passed, real source links in both scenarios, owner fixes and exact commands. A nonzero diagnostic exit still indicates a failure that must be investigated.
+Open **http://127.0.0.1:5000/**, choose **Rental Deposit** or **Consumer Complaint**, or directly open **http://127.0.0.1:5000/task5-flow.html**. This is a **local Flask development server**, not a production deployment. Keep the host on `127.0.0.1`; do not publicly expose the debug/dev server or submit real dispute facts.
 
-For the complete local suite on Windows, use UTF-8 mode so the Python test reader can decode Node output:
+In a *second* PowerShell window:
 
 ```powershell
-.\.venv\Scripts\python.exe -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q
+Invoke-RestMethod http://127.0.0.1:5000/api/health
+Invoke-RestMethod http://127.0.0.1:5000/api/version
+Invoke-WebRequest http://127.0.0.1:5000/task5-flow.html
 ```
 
-FE-01–08 require Node 22+ and an installed Chromium/Edge/Chrome browser. Missing runtimes are explicitly reported as skipped/NOT RUN and must not be counted as FE acceptance. The audited Windows run had no skipped tests. [Frontend reproduction](frontend/TASK6_FE_RESULTS.md) and [backend/HTTP E2E records](docs/task6-backend-e2e-results.md) explain the separate test scopes.
+Expected health response: `{"status":"ok"}`. At the audited source snapshot, API fields are `api_version: 1.0`, `rule_version: mock-1`, and `source_version: kb-2026-11-01.1`. Check the actual returned values on your commit; do not write those versions into a new release without comparing them. Stop Flask with Ctrl+C.
 
-## Run the baseline and contract tests
+For Linux/macOS use `./.venv/bin/python -m flask --app integration.app run --host 127.0.0.1 --port 5000`.
 
-From the repository root after installing dependencies:
+## Run verification
+
+In a separate terminal at repository root:
 
 ```powershell
 .\.venv\Scripts\python.exe -m shared.validate_contracts
 .\.venv\Scripts\python.exe -m rag.import_knowledge_base
-.\.venv\Scripts\python.exe -m pytest tests/contracts tests/backend tests/rag -v
-.\.venv\Scripts\python.exe -X utf8 -m unittest discover -s frontend/tests -v
+.\.venv\Scripts\python.exe -m integration.checks
+.\.venv\Scripts\python.exe -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q
 ```
 
-The 2026-10-31 audit of baseline commit `743f609cdfc0bdfac4e3c7bd9ed839f65615d9bb` passed 3 backend tests and 3 homepage structure tests. A temporary real HTTP server returned 200 for `/` and `/api/health`. Backend PR #10's CI passed. These are results from the audited environment, not proof that all three members independently ran the project or that the audit executed browser JavaScript.
+`shared.validate_contracts` checks all shared example contracts. `rag.import_knowledge_base` verifies the five-file source package offline; `integration.checks` makes real backend/RAG calls without launching a browser. Full pytest includes frontend tests, which require the browser prerequisites for complete FE coverage; **inspect skipped/failed counts**.
 
-## Current baseline layout
+Optional actual browser diagnostic, with the integrated Flask server already running:
 
-```text
-backend/                 Flask app and health route
-frontend/                Homepage and structure tests
-tests/backend/           Backend tests
-tests/contracts/         Shared contract tests
-shared/                  Canonical contracts, examples and validator
-rag/                     Source preparation, knowledge files and import validator
-tests/rag/               Source ingestion tests
-docs/                    Setup instructions, acceptance record and task board
-.github/ISSUE_TEMPLATE/  Task 1-7 templates
-.github/workflows/       Task 1 CI
-.github/pull_request_template.md
-AGENTS.md
-requirements.txt
-.gitignore
+```powershell
+node integration/browser_check.mjs http://127.0.0.1:5000
 ```
 
-The frontend forms, backend logic and RAG module are merged through PRs #23-25. See [the task board](docs/task-board.md) and [Task 4 acceptance](docs/task4-checklist.md). The 2026-11-02 combined audit passed 278 tests and 2 subtests, 24 browser case/status/width combinations and the five-page live source check. [RAG instructions](rag/README.md) explain source validation and import.
+Optional *live* publisher check (requires real internet access; page changes can cause a truthful failure; does not renew review records):
 
-The API exposes GET /api/health, GET /api/case-types, GET /api/version and POST /api/navigate. Normal navigation requests use conservative scope/clarification behavior and call real RAG for source context after required facts are supplied. Valid referrals expose checked Evidence links with the real source version; unavailable or invalid sources remain hidden. Source-based legal eligibility rules remain disabled and no eligible legal route is asserted. The earlier four-state fixture viewer remains available at http://127.0.0.1:8000/mock-preview.html when the frontend static server is running.
+```powershell
+.\.venv\Scripts\python.exe -m rag.import_knowledge_base --verify-live
+```
 
-## Collaboration and follow-up
+The GitHub [tests workflow](.github/workflows/test.yml) installs dependencies on Python 3.12, validates the shared examples, runs contracts/backend/RAG/integration pytest, then frontend unittest. **The default GitHub workflow alone is not a claim that every FE browser test or every team member's clean install ran.** The coordinator's actual Task 7 isolated Windows run reported **375 passed, 7 subtests** on the audited earlier candidate; Guanyu's later [candidate browser run](frontend/TASK7_CANDIDATE_DEMO.md) reported 18/18 steps. Those runs are different from a member's independent install and from tests of any future final tagged SHA.
 
-Read [AGENTS.md](AGENTS.md). Work on a feature branch, stay within your module, open a PR and request another developer's review before merging. Never commit secrets or real dispute data.
+## Record your own clean-environment evidence
 
-Enforced branch protection and required CI checks remain follow-up improvements; the last audit found `main` unprotected. Independent member environment records have not all been supplied. These limitations do not block the owner's agreed Task 1 baseline closeout. The repository task table is verified; a native GitHub Project has not been verified.
+Each team member should follow the same commands in **their own fresh clone/venv**, and record:
+
+`Tester | OS | Python/Node/browser versions | Exact HEAD SHA | Clone/venv/install exit codes | App start + API/page HTTP statuses | Full suite pass/fail/skip | Executed At (UTC) | Known limitations`
+
+Save local logs under `instance/` (gitignored); share only non-sensitive evidence with the team. A [copyable reporting template](docs/task7-member-verification-template.md) is provided. **Do not mark an unperformed member run as PASS.**
+
+## Source operations, rollback and release
+
+- [Release, rollback, service recovery and state backup](docs/task7-release-handover.md)
+- [RAG update, quarantine and verified source handling](rag/TASK4.md) and [Task 6 source integrity](rag/TASK6.md)
+- [Task 6 BE/E2E test records](docs/task6-backend-e2e-results.md)
+- [Task 7 acceptance and remaining evidence](integration_acceptance.md)
+
+The five canonical files under `rag/knowledge_base/` and **operational** `instance/rag_quarantine.json` are not interchangeable: preserve the quarantine/history file across rollback or restart. If source state becomes invalid, let the app fail closed; never delete the state file just to restore results.
+
+## Development-only historical previews
+
+The Task 4 fixture page (`frontend/task4-forms.html`) and mock previews are retained for historical testing. They use Mock data and **are not the Task 7 candidate**. Launch the live integrated `/` or `/task5-flow.html` paths above for any real evaluation.
