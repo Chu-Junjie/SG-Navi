@@ -1,8 +1,8 @@
 # Task 6 — Chu Junjie's RAG acceptance
 
-Status: **RAG-01–12 passed on the fix branch; owner PR requires peer review and
-merge. Team Task 6 stays In Progress.** Task 5 closeout #39 is merged and Issue #5
-is closed. No frontend/backend or formal E2E completion is claimed here.
+Status: **Historical RAG owner record; PR #43 is merged and #41/#42 are closed.**
+The audit below preserves its original 2026-11-02 baseline/results. The combined
+2026-11-03 FE/BE/RAG/E2E decision is in [Task 6 acceptance](task6-checklist.md).
 
 Audit baseline: main `a6b5c896de70c4f672bfc18903ae34d5e329a4e7` plus this RAG fix,
 2026-11-02. The [machine record](test-results/task6-rag-results.json) binds the exact
@@ -111,4 +111,5 @@ Full Windows tests use Python UTF-8 mode as in Task 5's documented configuration
   CI execution must be checked on the owner PR. The matrix report is generated
   locally; no CI workflow edit or another member's environment pass is claimed.
 
-Task 7 has not started. Issues #41/#42 close only when the reviewed fix PR merges.
+Task 7 has not started. Issues #41/#42 were closed by the reviewed #43 merge;
+the separate team closeout record does not replace the historical evidence here.
