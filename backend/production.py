@@ -7,7 +7,6 @@ import os
 from pathlib import Path
 
 from backend.app import create_app
-from backend.cors import configure_cors
 from rag.repository import EvidenceRepository, DEFAULT_STATE
 
 
@@ -30,7 +29,6 @@ def create_production_app():
     app = create_app()
     app.debug = False
     app.config["TESTING"] = False
-    configure_cors(app)
     return app
 
 
