@@ -11,7 +11,10 @@ from rag.repository import EvidenceRepository, DEFAULT_STATE
 
 
 def create_production_app():
-    if os.environ.get("SG_NAVI_REQUIRE_PERSISTENCE") == "1":
+    setting = os.environ.get("SG_NAVI_REQUIRE_PERSISTENCE")
+    if setting not in (None, "0", "1"):
+        raise RuntimeError("SG_NAVI_REQUIRE_PERSISTENCE must be 0 or 1")
+    if os.environ.get("RENDER") == "true" or setting == "1":
         expected = Path(__file__).resolve().parents[1] / "instance"
         if DEFAULT_STATE.parent.resolve() != expected:
             raise RuntimeError("RAG quarantine state path is not the configured instance directory")
