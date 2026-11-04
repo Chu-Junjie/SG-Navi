@@ -1,12 +1,12 @@
 # Task 7 — Guanyu Windows independent environment verification (2026-11-04)
 
-**Record type:** Member-reported, actual local Windows execution evidence for Issue #7. This records terminal output and manual observations supplied by **Lu Guanyu (`Guanyu-Lu`)**, not execution performed by the project coordinator or by GitHub Actions. **Disposition: PASS WITH LIMITATIONS (member local checks); coordinator acceptance PENDING.**
+**Record type:** Member-reported, actual local Windows execution evidence for Issue #7. This records terminal output and manual observations supplied by **`Guanyu-Lu`**, not execution performed by the project coordinator or by GitHub Actions. **Disposition: PASS WITH LIMITATIONS (member local checks); coordinator acceptance PENDING.**
 
 ## Test identity and scope
 
 | Field | Recorded observation |
 | --- | --- |
-| Tester / account | Lu Guanyu / `Guanyu-Lu` |
+| Tester / account | `Guanyu-Lu` |
 | Date | 2026-11-04 (local web-server log); exact UTC test start/end not captured |
 | OS | Windows with PowerShell; edition, build and architecture not separately recorded |
 | Repository | `https://github.com/Chu-Junjie/SG-Navi` |
@@ -14,7 +14,7 @@
 | **Exact tested HEAD** | **`9ad3b92c63c696aa8dd6b16a6bfedcfa383972a9`** |
 | Clone | Actual fresh `git clone` completed, 933 objects received; worktree clean at the end |
 | Git | `2.45.1.windows.1` |
-| Python | `3.14.10`, isolated project `.venv` under the D: drive; base interpreter `D:\Programs\Python314` |
+| Python | `3.14.10`, project-local `.venv`; base interpreter: isolated Python installation (installation path withheld) |
 | Isolation evidence | `sys.prefix` reported the project's `.venv`; `sys.base_prefix` reported the separate Python 3.14 installation |
 | Node.js | Not installed; Node-dependent tests **NOT RUN** locally |
 | Browser | Microsoft Edge used for manual interactions; executable path/version not recorded |
@@ -22,7 +22,7 @@
 | Dependency integrity | `pip check`: `No broken requirements found.` |
 | API wire versions | `api_version=1.0`, `rule_version=mock-1`, `source_version=kb-2026-11-01.1` |
 
-The user reported that the separate pre-existing Python 3.11 installation remained the default. This local test did not require a system-wide Python replacement, API keys, database server, or `npm install`. Python `.venv` isolates dependencies but is **not** an OS security sandbox.
+The tester reported that the pre-existing Python 3.11 installation remained the default. This local test did not require a system-wide Python replacement, API keys, database server, or `npm install`. Python `.venv` isolates dependencies but is **not** an OS security sandbox.
 
 ## Actual commands and observed results
 
@@ -32,7 +32,7 @@ From the fresh local checkout (commands reproduced for audit, **not** rerun by t
 | --- | --- | --- |
 | Fresh clone | `git clone https://github.com/Chu-Junjie/SG-Navi.git` | Completed; Git objects downloaded, clean checkout |
 | Commit identity | `git rev-parse HEAD` | `9ad3b92c63c696aa8dd6b16a6bfedcfa383972a9` |
-| Isolated environment | `D:\Programs\Python314\python.exe -m venv .venv` | Created; `.venv\Scripts\python.exe --version` returned `Python 3.14.10` |
+| Isolated environment | Executed `python.exe -m venv .venv` using the separately installed Python 3.14 executable (local executable path redacted) | Created; `.venv\Scripts\python.exe --version` returned `Python 3.14.10` |
 | Dependency installation | `.venv\Scripts\python.exe -m pip install --only-binary=:all: --no-cache-dir -r tests/contracts/requirements.txt` | `Successfully installed` all 19 resolved distributions |
 | Package consistency | `.venv\Scripts\python.exe -m pip check` | `No broken requirements found.` |
 | Module import | `.venv\Scripts\python.exe -c "import flask, pytest, jsonschema; print('SG NAVI Python dependencies OK')"` | `SG NAVI Python dependencies OK` |
