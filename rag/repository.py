@@ -40,15 +40,31 @@ class EvidenceRepository:
         self.directory = Path(directory).resolve()
         self.state_file = Path(state_file).resolve()
         ensure(not self.state_file.is_relative_to(self.directory), "Quarantine state must be outside the five-file source directory")
+        # Custom files for tests and independent snapshots remain file-backed.
+        # Public/default state uses Postgres when its private DSN is configured.
+        self._pgstore = None
+        if (self.directory == Path(DEFAULT_KB).resolve()
+                and self.state_file == Path(DEFAULT_STATE).resolve()
+                and os.environ.get("SG_NAVI_STATE_DATABASE_URL")):
+            from rag.postgres_state import PostgresStateStore
+            self._pgstore = PostgresStateStore(os.environ["SG_NAVI_STATE_DATABASE_URL"])
 
     def _state(self, bundle):
-        try:
-            with self.state_file.open(encoding="utf-8") as stream:
-                state = read_json(stream.read())
-        except FileNotFoundError:
-            return {"format_version": 1, "blocked_sources": {}, "events": []}
-        except (OSError, ValueError) as error:
-            raise RepositoryError("Quarantine state cannot be read") from error
+        if self._pgstore is not None:
+            state = self._pgstore.read()
+            if state is None:
+                state = {"format_version": 1, "blocked_sources": {}, "events": []}
+        else:
+            try:
+                with self.state_file.open(encoding="utf-8") as stream:
+                    state = read_json(stream.read())
+            except FileNotFoundError:
+                state = {"format_version": 1, "blocked_sources": {}, "events": []}
+            except (OSError, ValueError) as error:
+                raise RepositoryError("Quarantine state cannot be read") from error
+        return self._validate_state(state, bundle)
+
+    def _validate_state(self, state, bundle):
         ensure(isinstance(state, dict) and set(state) == {"format_version", "blocked_sources", "events"}, "Invalid quarantine state fields")
         ensure(type(state["format_version"]) is int and state["format_version"] == 1, "Unsupported quarantine state version")
         ensure(isinstance(state["blocked_sources"], dict) and isinstance(state["events"], list), "Invalid quarantine state structure")
@@ -93,6 +109,10 @@ class EvidenceRepository:
 
     @contextmanager
     def _locked_state(self):
+        if self._pgstore is not None:
+            with self._pgstore.locked():
+                yield
+            return
         self.state_file.parent.mkdir(parents=True, exist_ok=True)
         lock = self.state_file.with_name(self.state_file.name + ".lock")
         try:
@@ -106,6 +126,9 @@ class EvidenceRepository:
             lock.unlink()
 
     def _save(self, state):
+        if self._pgstore is not None:
+            self._pgstore.save(state)
+            return
         temporary = None
         try:
             with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=self.state_file.parent,
@@ -190,6 +213,32 @@ class EvidenceRepository:
             self._save(state)
         return copy.deepcopy(state)
 
+    def backup_state(self, *, label):
+        """Create and validate a durable, append-only backup without source release."""
+        ensure(self._pgstore is not None, "Backup requires configured PostgreSQL persistence")
+        bundle = _load(self.directory)
+        self._state(bundle)  # Fail closed on existing invalid history before backup.
+        backup_id = self._pgstore.backup(label)
+        restored = self._pgstore.inspect_backup(backup_id)
+        self._validate_state(restored, bundle)
+        return {"backup_id": backup_id, "label": label, "verified": True}
+
+    def restore_state(self, backup_id, *, confirm=False):
+        """Operator-only recovery; takes a pre-restore backup in the same transaction."""
+        ensure(self._pgstore is not None, "Restore requires configured PostgreSQL persistence")
+        ensure(type(backup_id) is int and backup_id > 0, "Positive backup ID required")
+        bundle = _load(self.directory)
+        self._state(bundle)  # Never overwrite unreadable current history.
+        payload = self._pgstore.restore(
+            backup_id,
+            validate_state=lambda state: self._validate_state(state, bundle),
+            confirm=confirm,
+        )
+        self._validate_state(payload, bundle)
+        return {"restored_backup_id": backup_id, "verified": True,
+                "blocked_source_count": len(payload["blocked_sources"]),
+                "event_count": len(payload["events"])}
+
     def update_from(self, directory, *, verify_live=True):
         """Switch this repository instance to a complete checked candidate directory."""
         candidate_path = Path(directory).resolve()
@@ -213,7 +262,10 @@ class EvidenceRepository:
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("state", "quarantine", "release", "check-live"))
+    parser.add_argument("command", choices=("state", "quarantine", "release", "check-live", "backup", "restore"))
+    parser.add_argument("--backup-label")
+    parser.add_argument("--backup-id", type=int)
+    parser.add_argument("--confirm-restore", action="store_true")
     parser.add_argument("--source")
     parser.add_argument("--actor")
     parser.add_argument("--reason")
@@ -228,6 +280,10 @@ def main(argv=None):
             result = repository.check_live_sources(actor=args.actor)
         elif args.command == "quarantine":
             result = repository.quarantine_source(args.source, actor=args.actor, reason=args.reason)
+        elif args.command == "backup":
+            result = repository.backup_state(label=args.backup_label)
+        elif args.command == "restore":
+            result = repository.restore_state(args.backup_id, confirm=args.confirm_restore)
         else:
             result = repository.release_source(args.source, actor=args.actor, reason=args.reason)
         print(json.dumps(result, indent=2))
