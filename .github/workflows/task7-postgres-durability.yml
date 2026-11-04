@@ -1,0 +1,58 @@
+name: task7-postgres-durability
+
+on:
+  push:
+    branches: [feat/task7-postgres-quarantine-state]
+  workflow_dispatch:
+
+jobs:
+  disposable-postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: sgnavi_ci
+          POSTGRES_PASSWORD: synthetic-only-not-for-production
+          POSTGRES_DB: sgnavi_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U sgnavi_ci -d sgnavi_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      SG_NAVI_TEST_EPHEMERAL_POSTGRES: "1"
+      SG_NAVI_POSTGRES_TEST_DSN: postgresql://sgnavi_ci:synthetic-only-not-for-production@127.0.0.1:5432/sgnavi_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fresh virtual environment and actual dependency installation
+        run: |
+          set -euo pipefail
+          python --version
+          git rev-parse HEAD
+          python -m venv .venv-durability
+          .venv-durability/bin/python -m pip install -r tests/contracts/requirements.txt
+          .venv-durability/bin/python -m pip freeze > task7-postgres-deps.txt
+      - name: Test real PostgreSQL quarantine, restart, backup, restore, fail-closed
+        run: |
+          set -euo pipefail
+          .venv-durability/bin/python -m pytest tests/backend/test_task7_pg_real_durability.py -vv -s --junitxml=task7-postgres-junit.xml > task7-postgres-actual.log 2>&1 || {
+            cat task7-postgres-actual.log
+            exit 1
+          }
+          cat task7-postgres-actual.log
+      - name: Preserve actual database-test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: task7-postgres-durability-test
+          path: |
+            task7-postgres-deps.txt
+            task7-postgres-junit.xml
+            task7-postgres-actual.log
+          retention-days: 30
