@@ -13,7 +13,7 @@
 
   function isGitHubPages(location) {
     return Boolean(location && typeof location.hostname === "string" &&
-      location.hostname.toLowerCase().endsWith(".github.io") &&
+      location.hostname.toLowerCase() === "chu-junjie.github.io" &&
       typeof location.pathname === "string" &&
       (location.pathname === "/SG-Navi" || location.pathname.startsWith("/SG-Navi/")));
   }
