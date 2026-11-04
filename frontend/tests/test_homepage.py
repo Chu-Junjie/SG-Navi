@@ -24,7 +24,9 @@ class HomepageTests(unittest.TestCase):
         self.assertNotIn('action="/api/navigate"', self.html)
 
     def test_health_status_uses_real_request(self):
-        self.assertIn('fetch("/api/health"', self.html)
+        self.assertIn('SGNaviApiConfig.resolve("/api/health", window.location)', self.html)
+        self.assertIn('fetch(apiEndpoint', self.html)
+        self.assertIn('src="./js/api-config.js"', self.html)
         self.assertIn('response.ok', self.html)
         self.assertIn('statusPanel.dataset.state = "offline"', self.html)
         self.assertIn('statusPanel.dataset.state = "online"', self.html)

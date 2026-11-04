@@ -111,7 +111,9 @@ class Task5IntegrationTests(unittest.TestCase):
     def test_bad_legal_evidence_and_no_hardcoded_channels(self):
         script = (FRONTEND / "js/task5-flow.js").read_text(encoding="utf-8")
         page = (FRONTEND / "task5-flow.html").read_text(encoding="utf-8")
-        self.assertIn('fetch("/api/navigate"', script)
+        self.assertIn('SGNaviApiConfig.resolve("/api/navigate", window.location)', script)
+        self.assertIn('fetch(endpoint', script)
+        self.assertIn('src="./js/api-config.js"', page)
         self.assertIn('response.action_card.citations.map(id => map.get(id))', script)
         self.assertIn('SGNaviVerifiedSources.renderReferralSources', script)
         helper = (FRONTEND / "js" / "verified-sources.js").read_text(encoding="utf-8")

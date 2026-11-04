@@ -226,6 +226,7 @@
   </main>
   <footer class="site-footer shell">SG Navi · Group 6 · A student project for procedural navigation in Singapore</footer>
 
+  <script src="./js/api-config.js"></script>
   <script>
     "use strict";
     const statusPanel = document.getElementById("api-status");
@@ -239,8 +240,13 @@
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 5000);
       try {
-        // Same-origin endpoint. Task 1 does not require an invented backend or a mock success.
-        const response = await fetch("/api/health", {
+        const apiEndpoint = SGNaviApiConfig.resolve("/api/health", window.location);
+        if (!apiEndpoint) {
+          statusText.textContent = "Public API not configured · waiting for verified HTTPS backend";
+          statusPanel.dataset.state = "offline";
+          return;
+        }
+        const response = await fetch(apiEndpoint, {
           method: "GET", cache: "no-store", headers: { Accept: "application/json" }, signal: controller.signal
         });
         if (!response.ok) throw new Error("HTTP " + response.status);
