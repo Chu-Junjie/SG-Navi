@@ -57,6 +57,35 @@ class PostgresStateStore:
                         backed_up_at TIMESTAMPTZ NOT NULL DEFAULT now()
                     )
                 """)
+                db.execute("""
+                    CREATE TABLE IF NOT EXISTS sgnavi_quarantine_metadata (
+                        metadata_key TEXT PRIMARY KEY,
+                        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+                    )
+                """)
+                # A missing row is legal only during first initialization.
+                # An initialized DB with missing state must fail closed.
+                db.execute("SELECT pg_advisory_xact_lock(%s)", (_LOCK_ID,))
+                marker = db.execute(
+                    "SELECT metadata_key FROM sgnavi_quarantine_metadata WHERE metadata_key=%s",
+                    (_ROW_ID,),
+                ).fetchone()
+                state = db.execute(
+                    "SELECT state_key FROM sgnavi_quarantine_state WHERE state_key=%s",
+                    (_ROW_ID,),
+                ).fetchone()
+                if marker and not state:
+                    raise DurableStateError("Initialized quarantine state row is missing")
+                if not marker:
+                    if not state:
+                        db.execute("""
+                            INSERT INTO sgnavi_quarantine_state (state_key, state_json)
+                            VALUES (%s, %s::jsonb)
+                        """, (_ROW_ID, '{"format_version":1,"blocked_sources":{},"events":[]}'))
+                    db.execute(
+                        "INSERT INTO sgnavi_quarantine_metadata (metadata_key) VALUES (%s)",
+                        (_ROW_ID,),
+                    )
         except psycopg.Error:
             raise DurableStateError("Could not prepare durable quarantine state") from None
 
@@ -74,7 +103,9 @@ class PostgresStateStore:
                         "SELECT state_json::text FROM sgnavi_quarantine_state WHERE state_key = %s",
                         (_ROW_ID,),
                     ).fetchone()
-            return json.loads(result[0]) if result else None
+            if not result:
+                raise DurableStateError("Persistent quarantine row is missing")
+            return json.loads(result[0])
         except (psycopg.Error, ValueError, TypeError):
             raise DurableStateError("Persistent quarantine state cannot be read") from None
 
