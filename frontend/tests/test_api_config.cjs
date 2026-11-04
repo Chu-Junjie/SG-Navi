@@ -6,11 +6,12 @@ const {resolve, normalisePublicOrigin, isGitHubPages, isPublicConfigured} = requ
 const pages = {protocol:"https:", hostname:"chu-junjie.github.io",pathname:"/SG-Navi/frontend/task5-flow.html"};
 const local = {protocol:"http:",hostname:"127.0.0.1",pathname:"/task5-flow.html"};
 
-test("unconfigured GitHub Pages refuses to send case facts to relative /api",()=>{
+test("verified deployed demo origin is used on GitHub Pages, never the Pages hostname",()=>{
  assert.equal(isGitHubPages(pages),true);
- assert.equal(isPublicConfigured(),false);
+ assert.equal(isPublicConfigured(),true);
  for(const path of ["/api/navigate","/api/health","/api/version","/api/case-types"])
-   assert.equal(resolve(path,pages),null);
+   assert.equal(resolve(path,pages),"https://sg-navi-api-free-demo.onrender.com"+path);
+ assert.equal(resolve("/api/navigate",pages,""),null);
 });
 test("local Flask same-origin routes are preserved unchanged",()=>{
  assert.equal(isGitHubPages(local),false);
