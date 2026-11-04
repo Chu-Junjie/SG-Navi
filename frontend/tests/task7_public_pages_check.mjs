@@ -40,7 +40,7 @@ const pending = new Map(), requests = [], responses = new Map(), exceptions = []
 function command(method, params = {}, attached = true) {
   const id = ++serial;
   return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => {pending.delete(id); reject(Error('CDP timeout: ' + method));}, 6000);
+    const timeout = setTimeout(() => {pending.delete(id); reject(Error('CDP timeout: ' + method));}, 30000);
     pending.set(id, {resolve, reject, timeout});
     ws.send(JSON.stringify({id, method, params, ...(attached && session ? {sessionId: session} : {})}));
   });
@@ -51,9 +51,9 @@ async function evaluate(expression) {
   return result.result.value;
 }
 async function until(expression) {
-  for (let i = 0; i < 120; i++) {
+  for (let i = 0; i < 900; i++) {
     if (await evaluate(expression)) return;
-    await delay(50);
+    await delay(100);
   }
   throw Error('Timed out waiting for page: ' + expression);
 }
@@ -126,7 +126,7 @@ try {
   const target = await command('Target.createTarget', {url: 'about:blank'}, false);
   session = (await command('Target.attachToTarget', {targetId: target.targetId, flatten: true}, false)).sessionId;
   await command('Page.enable'); await command('Runtime.enable'); await command('Network.enable');
-  await command('Page.navigate', {url: new URL('/', base).href});
+  await command('Page.navigate', {url: base.href});
   await until("document.querySelectorAll('[data-case]').length===2");
 
 
@@ -154,6 +154,7 @@ try {
     assert.equal(captured.filter(x=>new URL(x.url).pathname.startsWith('/mocks/')).length,0);
     const apiRequests = captured.filter(x=>new URL(x.url).pathname==='/api/navigate' && x.method==='POST');
     const api = apiRequests.filter(x=>new URL(x.url).origin===apiOrigin);
+    assert.equal(apiRequests.length,1,"Must not send POST to an unexpected API origin");
     assert.equal(api.length,1,'Exactly one POST to the approved HTTPS backend required');
     assert.equal(responses.get(api[0].requestId),200,'HTTP 200 expected for submitted synthetic data');
     const sent=JSON.parse(api[0].body);

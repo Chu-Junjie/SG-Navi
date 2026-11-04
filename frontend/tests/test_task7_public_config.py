@@ -16,7 +16,7 @@ class Task7PublicConfigTests(unittest.TestCase):
         self.assertIn('src="./js/api-config.js"', form)
         self.assertIn('SGNaviApiConfig.resolve("/api/navigate", window.location)', flow)
         self.assertIn('SGNaviApiConfig.resolve("/api/health", window.location)', home)
-        self.assertIn('const HTTPS_API_ORIGIN = "";', config)
+        self.assertIn('const HTTPS_API_ORIGIN = "https://sg-navi-api-free-demo.onrender.com";', config)
         self.assertNotIn("https://ACTUAL-", config)
         self.assertIn('"API not configured"', flow)
 
