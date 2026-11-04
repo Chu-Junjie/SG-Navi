@@ -25,7 +25,7 @@ def create_production_app():
     has_database = bool(state_dsn and state_dsn.strip())
 
     if is_free_demo and setting == "1" and not has_database:
-        raise RuntimeError("Free demo with mandatory persistence needs a real state database")
+        raise RuntimeError("Free ephemeral demo conflicts with required persistence unless a real state database is configured")
 
     if has_database:
         from rag.postgres_state import PostgresStateStore
