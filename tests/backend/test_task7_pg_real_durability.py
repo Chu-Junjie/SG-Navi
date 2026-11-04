@@ -29,6 +29,8 @@ def transient_database():
     with psycopg.connect(dsn) as conn:
         conn.execute("DELETE FROM sgnavi_quarantine_backups")
         conn.execute("DELETE FROM sgnavi_quarantine_state")
+        conn.execute("DELETE FROM sgnavi_quarantine_metadata")
+    store.prepare()
     previous = {key: os.environ.get(key) for key in (
         "SG_NAVI_STATE_DATABASE_URL", "SG_NAVI_FREE_DEMO",
         "SG_NAVI_REQUIRE_PERSISTENCE", "RENDER",
@@ -43,6 +45,7 @@ def transient_database():
     with psycopg.connect(dsn) as conn:
         conn.execute("DELETE FROM sgnavi_quarantine_backups")
         conn.execute("DELETE FROM sgnavi_quarantine_state")
+        conn.execute("DELETE FROM sgnavi_quarantine_metadata")
     for key, value in previous.items():
         if value is None:
             os.environ.pop(key, None)
@@ -166,4 +169,6 @@ def test_actual_postgres_corrupt_event_fails_closed(transient_database):
     finally:
         # Disposable CI database only. Never delete real quarantines to fix errors.
         with psycopg.connect(os.environ["SG_NAVI_POSTGRES_TEST_DSN"]) as conn:
-            conn.execute("DELETE FROM sgnavi_quarantine_state")
+            conn.execute("""UPDATE sgnavi_quarantine_state
+                            SET state_json = '{"format_version":1,"blocked_sources":{},"events":[]}'::jsonb
+                            WHERE state_key = 'quarantine-v1'""")
