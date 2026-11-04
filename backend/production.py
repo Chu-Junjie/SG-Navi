@@ -1,8 +1,9 @@
-"""Production WSGI entrypoint with an explicitly limited, ephemeral free demo.
+"""Production WSGI entrypoint.
 
-Permanent public services still REQUIRE a real writable persistent mount.
-SG_NAVI_FREE_DEMO=1 is only for synthetic-data API connectivity testing;
-it does not preserve quarantine history over Render restarts or deploys.
+The public free demo can remain explicitly ephemeral for synthetic connectivity
+tests, or use an independently hosted PostgreSQL state database with audited
+quarantine transactions. Durable state is fail-closed: there is no fallback to
+ephemeral files if the configured database is unavailable.
 """
 import os
 from pathlib import Path
@@ -18,15 +19,21 @@ def create_production_app():
         raise RuntimeError("SG_NAVI_REQUIRE_PERSISTENCE must be 0 or 1")
     if free not in (None, "0", "1"):
         raise RuntimeError("SG_NAVI_FREE_DEMO must be 0 or 1")
-    is_free_demo = free == "1"
-    if is_free_demo and setting == "1":
-        raise RuntimeError("Free ephemeral demo conflicts with required persistent state")
 
-    if is_free_demo:
-        # Fail closed on invalid canonical bundle or corrupt existing state;
-        # never wipe state to make the public demo start.
+    is_free_demo = free == "1"
+    state_dsn = os.environ.get("SG_NAVI_STATE_DATABASE_URL")
+    has_database = bool(state_dsn and state_dsn.strip())
+
+    if is_free_demo and setting == "1" and not has_database:
+        raise RuntimeError("Free demo with mandatory persistence needs a real state database")
+
+    if has_database:
+        from rag.postgres_state import PostgresStateStore
+        # Prepare tables and validate existing source-history before exposing API.
+        # Database faults terminate startup rather than using local temp state.
+        PostgresStateStore(state_dsn).prepare()
         EvidenceRepository().snapshot()
-    elif os.environ.get("RENDER") == "true" or setting == "1":
+    elif os.environ.get("RENDER") == "true" and not is_free_demo or setting == "1":
         expected = Path(__file__).resolve().parents[1] / "instance"
         if DEFAULT_STATE.parent.resolve() != expected:
             raise RuntimeError("RAG quarantine state path is not the configured instance directory")
@@ -38,6 +45,9 @@ def create_production_app():
         if not os.access(expected, os.W_OK | os.X_OK):
             raise RuntimeError("Persistent quarantine directory is not writable")
         EvidenceRepository().snapshot()
+    elif is_free_demo:
+        # Explicitly nonpersistent mode: synthetic transport demo only.
+        EvidenceRepository().snapshot()
 
     app = create_app()
     app.debug = False
@@ -46,10 +56,9 @@ def create_production_app():
     if is_free_demo:
         @app.after_request
         def free_mode_disclosure(response):
-            if response.path if False else False:
-                pass
-            # Response headers do not change the shared JSON contract.
-            response.headers["X-SG-Navi-Deployment-Mode"] = "ephemeral-free-demo"
+            response.headers["X-SG-Navi-Deployment-Mode"] = (
+                "postgres-backed-free-demo" if has_database else "ephemeral-free-demo"
+            )
             return response
 
     return app
