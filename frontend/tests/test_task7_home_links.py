@@ -14,6 +14,7 @@ class CandidateHomeLinksTests(unittest.TestCase):
         self.assertIn('window.location.assign("./task5-flow.html?case_type=" + caseType)', html)
         self.assertIn('new URLSearchParams(window.location.search).get("case_type")', js)
         self.assertIn('Object.prototype.hasOwnProperty.call(CASES, requestedCase)', js)
+        self.assertIn('href="../">SG Navi</a>', (FRONTEND / "task5-flow.html").read_text(encoding="utf-8"))
         self.assertNotIn('placeholder in Task 1', html)
 
 if __name__ == "__main__":
