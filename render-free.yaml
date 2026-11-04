@@ -1,0 +1,25 @@
+# SG Navi temporary public API proof-of-concept ONLY.
+# Does not meet Task 7 durable RAG quarantine-state acceptance requirements.
+# Free services are ephemeral and may suspend; do NOT use this as the rc1 release.
+# Kept separate from the production paid Render Blueprint (render.yaml).
+services:
+  - type: web
+    name: sg-navi-api-free-demo
+    runtime: python
+    region: singapore
+    plan: free
+    repo: https://github.com/Chu-Junjie/SG-Navi
+    branch: feat/task7-free-public-api-demo
+    autoDeployTrigger: off
+    buildCommand: pip install -r requirements.txt && python -m rag.import_knowledge_base
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 30 backend.free_demo:app
+    healthCheckPath: /api/health
+    envVars:
+      - key: SG_NAVI_FREE_DEMO_ACK
+        value: "1"
+      - key: SG_NAVI_REQUIRE_PERSISTENCE
+        value: "0"
+      - key: SG_NAVI_CORS_ORIGINS
+        value: https://chu-junjie.github.io
+      - key: PYTHON_VERSION
+        value: "3.12.9"
