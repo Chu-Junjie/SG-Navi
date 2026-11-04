@@ -40,15 +40,31 @@ class EvidenceRepository:
         self.directory = Path(directory).resolve()
         self.state_file = Path(state_file).resolve()
         ensure(not self.state_file.is_relative_to(self.directory), "Quarantine state must be outside the five-file source directory")
+        # Custom files for tests and independent snapshots remain file-backed.
+        # Public/default state uses Postgres when its private DSN is configured.
+        self._pgstore = None
+        if (self.directory == Path(DEFAULT_KB).resolve()
+                and self.state_file == Path(DEFAULT_STATE).resolve()
+                and os.environ.get("SG_NAVI_STATE_DATABASE_URL")):
+            from rag.postgres_state import PostgresStateStore
+            self._pgstore = PostgresStateStore(os.environ["SG_NAVI_STATE_DATABASE_URL"])
 
     def _state(self, bundle):
-        try:
-            with self.state_file.open(encoding="utf-8") as stream:
-                state = read_json(stream.read())
-        except FileNotFoundError:
-            return {"format_version": 1, "blocked_sources": {}, "events": []}
-        except (OSError, ValueError) as error:
-            raise RepositoryError("Quarantine state cannot be read") from error
+        if self._pgstore is not None:
+            state = self._pgstore.read()
+            if state is None:
+                state = {"format_version": 1, "blocked_sources": {}, "events": []}
+        else:
+            try:
+                with self.state_file.open(encoding="utf-8") as stream:
+                    state = read_json(stream.read())
+            except FileNotFoundError:
+                state = {"format_version": 1, "blocked_sources": {}, "events": []}
+            except (OSError, ValueError) as error:
+                raise RepositoryError("Quarantine state cannot be read") from error
+        return self._validate_state(state, bundle)
+
+    def _validate_state(self, state, bundle):
         ensure(isinstance(state, dict) and set(state) == {"format_version", "blocked_sources", "events"}, "Invalid quarantine state fields")
         ensure(type(state["format_version"]) is int and state["format_version"] == 1, "Unsupported quarantine state version")
         ensure(isinstance(state["blocked_sources"], dict) and isinstance(state["events"], list), "Invalid quarantine state structure")
@@ -93,6 +109,10 @@ class EvidenceRepository:
 
     @contextmanager
     def _locked_state(self):
+        if self._pgstore is not None:
+            with self._pgstore.locked():
+                yield
+            return
         self.state_file.parent.mkdir(parents=True, exist_ok=True)
         lock = self.state_file.with_name(self.state_file.name + ".lock")
         try:
@@ -106,6 +126,9 @@ class EvidenceRepository:
             lock.unlink()
 
     def _save(self, state):
+        if self._pgstore is not None:
+            self._pgstore.save(state)
+            return
         temporary = None
         try:
             with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=self.state_file.parent,
