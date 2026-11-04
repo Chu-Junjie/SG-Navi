@@ -1,0 +1,23 @@
+# Free test service ONLY. The production-grade Blueprint remains render.yaml.
+# This free service has NO durable disk. It MUST NOT satisfy Task 7 persistence.
+services:
+  - type: web
+    name: sg-navi-api-free-demo
+    runtime: python
+    region: singapore
+    plan: free
+    repo: https://github.com/Chu-Junjie/SG-Navi
+    branch: feat/task7-free-render-demo
+    autoDeployTrigger: off
+    buildCommand: pip install -r requirements.txt && python -m rag.import_knowledge_base
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 30 backend.production:app
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.9"
+      - key: SG_NAVI_FREE_DEMO
+        value: "1"
+      - key: SG_NAVI_REQUIRE_PERSISTENCE
+        value: "0"
+      - key: SG_NAVI_CORS_ORIGINS
+        value: https://chu-junjie.github.io

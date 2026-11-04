@@ -37,9 +37,9 @@ def _request(base, path, *, method="GET", payload=None, headers=None):
     request = Request(base + path, data=wire, headers=h, method=method)
     try:
         with urlopen(request, timeout=25) as response:
-            return response.status, dict(response.headers.items()), response.read()
+            return response.status, {key.lower(): value for key, value in response.headers.items()}, response.read()
     except HTTPError as error:
-        return error.code, dict(error.headers.items()), error.read()
+        return error.code, {key.lower(): value for key, value in error.headers.items()}, error.read()
 
 
 def run(base):
@@ -62,7 +62,7 @@ def run(base):
             raise ValueError(f"Expected HTTP {expected_code}, got {code}")
         data = json.loads(body)
         validate(data, definition)
-        if headers.get("Access-Control-Allow-Origin") != ORIGIN:
+        if headers.get("access-control-allow-origin") != ORIGIN:
             raise ValueError("Required GitHub Pages CORS origin missing")
         return data
 
@@ -104,13 +104,13 @@ def run(base):
             code, headers, _ = _request(base, "/api/navigate", method="OPTIONS",
                 headers={"Origin": ORIGIN, "Access-Control-Request-Method": "POST",
                          "Access-Control-Request-Headers": "content-type"})
-            if code != 204 or headers.get("Access-Control-Allow-Origin") != ORIGIN:
+            if code != 204 or headers.get("access-control-allow-origin") != ORIGIN:
                 raise ValueError(f"CORS preflight failed ({code})")
-            if "POST" not in headers.get("Access-Control-Allow-Methods", ""):
+            if "POST" not in headers.get("access-control-allow-methods", ""):
                 raise ValueError("POST not in allow-methods")
-            if "content-type" not in headers.get("Access-Control-Allow-Headers", "").lower():
+            if "content-type" not in headers.get("access-control-allow-headers", "").lower():
                 raise ValueError("Content-Type missing from allow-headers")
-            return {"http": code, "origin": headers["Access-Control-Allow-Origin"]}
+            return {"http": code, "origin": headers["access-control-allow-origin"]}
 
         attempt(case_type + ": OPTIONS preflight", preflight)
 
@@ -155,7 +155,7 @@ def run(base):
         code, headers, _ = _request(base, "/api/navigate", method="OPTIONS",
             headers={"Origin": "https://other.example.org",
                      "Access-Control-Request-Method": "POST"})
-        if code != 403 or headers.get("Access-Control-Allow-Origin"):
+        if code != 403 or headers.get("access-control-allow-origin"):
             raise ValueError("Unapproved Origin can preflight the public service")
         return {"http": code, "origin_allowed": False}
 

@@ -1,0 +1,71 @@
+name: task7-free-clean-environment-audit
+
+on:
+  push:
+    branches: [feat/task7-free-render-demo]
+  workflow_dispatch:
+
+jobs:
+  clean-install-and-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fresh independent Git clone
+        run: |
+          set -euo pipefail
+          git clone --no-checkout "https://github.com/Chu-Junjie/SG-Navi.git" candidate
+          git -C candidate checkout --detach "$GITHUB_SHA"
+          echo "DEPLOY_TEST_SHA=$(git -C candidate rev-parse HEAD)" >> "$GITHUB_ENV"
+          git -C candidate status --short
+      - name: Create an isolated Python environment and install requirements
+        run: |
+          set -euo pipefail
+          python3 --version
+          node --version
+          python3 -m venv candidate/.venv
+          candidate/.venv/bin/python -m pip install --disable-pip-version-check -r candidate/tests/contracts/requirements.txt
+          candidate/.venv/bin/python -m pip freeze > candidate/task7-resolved-dependencies.txt
+          cat candidate/task7-resolved-dependencies.txt
+      - name: Run real installed unit/integration tests
+        working-directory: candidate
+        run: |
+          set -euo pipefail
+          .venv/bin/python -m shared.validate_contracts
+          .venv/bin/python -m rag.import_knowledge_base
+          .venv/bin/python -m integration.checks > task7-rag-checks.json
+          .venv/bin/python -m pytest tests/contracts tests/backend tests/rag tests/integration -v --junitxml=task7-pytest.xml
+          .venv/bin/python -X utf8 -m unittest discover -s frontend/tests -v
+      - name: Start WSGI Gunicorn in real free demo mode and send HTTP requests
+        working-directory: candidate
+        env:
+          SG_NAVI_FREE_DEMO: "1"
+          SG_NAVI_REQUIRE_PERSISTENCE: "0"
+          SG_NAVI_CORS_ORIGINS: https://chu-junjie.github.io
+          RENDER: "true"
+        run: |
+          set -euo pipefail
+          .venv/bin/gunicorn --bind 127.0.0.1:5057 --workers 1 --threads 4 --timeout 30 backend.production:app > task7-local-wsgi.log 2>&1 &
+          PID=$!
+          trap 'kill "$PID" || true' EXIT
+          for i in $(seq 1 50); do
+            if curl --silent --fail http://127.0.0.1:5057/api/health > task7-local-health.json; then break; fi
+            sleep 0.5
+          done
+          curl --fail --show-error --silent -H 'Origin: https://chu-junjie.github.io' -D task7-local-headers.txt http://127.0.0.1:5057/api/version > task7-local-version.json
+          curl --fail --show-error --silent -X OPTIONS -H 'Origin: https://chu-junjie.github.io' -H 'Access-Control-Request-Method: POST' -H 'Access-Control-Request-Headers: content-type' -D task7-local-preflight.txt http://127.0.0.1:5057/api/navigate
+          grep -iq 'access-control-allow-origin: https://chu-junjie.github.io' task7-local-headers.txt
+          grep -iq 'HTTP/1.1 204' task7-local-preflight.txt
+          grep -iq 'access-control-allow-origin: https://chu-junjie.github.io' task7-local-preflight.txt
+          cat task7-local-health.json task7-local-version.json
+      - name: Save actual fresh environment evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: task7-free-clean-install
+          path: |
+            candidate/task7-resolved-dependencies.txt
+            candidate/task7-rag-checks.json
+            candidate/task7-pytest.xml
+            candidate/task7-local-*.json
+            candidate/task7-local-*.txt
+            candidate/task7-local-wsgi.log
+          retention-days: 30

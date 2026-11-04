@@ -1,0 +1,48 @@
+name: task7-free-public-https-smoke
+
+on:
+  push:
+    branches: [feat/task7-free-render-demo]
+  workflow_dispatch:
+
+jobs:
+  public-https-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install actual API test requirements
+        run: python -m pip install -r tests/contracts/requirements.txt
+      - name: Verify real Render HTTPS service and save actual results
+        env:
+          BASE_URL: https://sg-navi-api-free-demo.onrender.com
+          DEPLOYED_SHA: 635ded120e4dfa3196b6c30b3b162c9d77dd5cf5
+        run: |
+          set -euo pipefail
+          printf 'Workflow checkout SHA: %s\nActual deployed Render SHA (reported by provider): %s\n' "$GITHUB_SHA" "$DEPLOYED_SHA" > task7-remote-meta.txt
+          # Allow slow Render Free cold-start/build; do not mark success unless actual HTTPS checks pass.
+          healthy=0
+          for i in $(seq 1 28); do
+            if curl --silent --show-error --fail --max-time 20 "$BASE_URL/api/health" > task7-remote-health.json; then
+              healthy=1
+              break
+            fi
+            sleep 10
+          done
+          if test "$healthy" -ne 1; then
+            echo 'FAIL: remote health still unavailable' >&2
+            exit 1
+          fi
+          python -m backend.smoke_public --base-url "$BASE_URL" | tee task7-remote-smoke.json
+          python -c "import json; r=json.load(open('task7-remote-smoke.json')); assert r['passed']; print('Remote HTTPS checks passed:',len(r['checks']))"
+      - name: Upload genuine remote smoke result (including on failure)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: task7-free-remote-https-evidence
+          path: |
+            task7-remote-*.json
+            task7-remote-meta.txt
+          retention-days: 30
