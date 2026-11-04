@@ -1,0 +1,127 @@
+{
+  "scope": "real_remote_https_wire_smoke",
+  "base_url": "https://sg-navi-api-free-demo.onrender.com",
+  "executed_at": "2026-11-04T06:41:12.209382+00:00",
+  "synthetic_facts": true,
+  "passed": true,
+  "checks": [
+    {
+      "name": "GET /api/version",
+      "passed": true,
+      "actual": {
+        "api_version": "1.0",
+        "rule_version": "mock-1",
+        "source_version": "kb-2026-11-01.1"
+      }
+    },
+    {
+      "name": "GET /api/health",
+      "passed": true,
+      "actual": {
+        "http": 200,
+        "body": {
+          "status": "ok"
+        }
+      }
+    },
+    {
+      "name": "GET /api/case-types",
+      "passed": true,
+      "actual": {
+        "api_version": "1.0",
+        "case_types": [
+          "rental_deposit",
+          "consumer_complaint"
+        ]
+      }
+    },
+    {
+      "name": "rental_deposit: OPTIONS preflight",
+      "passed": true,
+      "actual": {
+        "http": 204,
+        "origin": "https://chu-junjie.github.io"
+      }
+    },
+    {
+      "name": "rental_deposit: POST real source referral",
+      "passed": true,
+      "actual": {
+        "http": 200,
+        "status": "REFER_TO_OFFICIAL",
+        "source_version": "kb-2026-11-01.1",
+        "evidence_ids": [
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-AMOUNT"
+        ],
+        "action_card_is_null": true
+      }
+    },
+    {
+      "name": "consumer_complaint: OPTIONS preflight",
+      "passed": true,
+      "actual": {
+        "http": 204,
+        "origin": "https://chu-junjie.github.io"
+      }
+    },
+    {
+      "name": "consumer_complaint: POST real source referral",
+      "passed": true,
+      "actual": {
+        "http": 200,
+        "status": "REFER_TO_OFFICIAL",
+        "source_version": "kb-2026-11-01.1",
+        "evidence_ids": [
+          "CASE-PERSONAL",
+          "CASE-SG-SUPPLIER"
+        ],
+        "action_card_is_null": true
+      }
+    },
+    {
+      "name": "POST missing facts safely clarify",
+      "passed": true,
+      "actual": {
+        "status": "NEED_CLARIFICATION",
+        "questions": [
+          "dispute_with",
+          "premises_type",
+          "claim_amount_sgd"
+        ]
+      }
+    },
+    {
+      "name": "POST invalid contract safely rejected",
+      "passed": true,
+      "actual": {
+        "http": 400,
+        "status": "ERROR"
+      }
+    },
+    {
+      "name": "OPTIONS unauthorized Origin rejected",
+      "passed": true,
+      "actual": {
+        "http": 403,
+        "origin_allowed": false
+      }
+    }
+  ],
+  "limits": [
+    "No forced RAG/source failure injection against the public service",
+    "Persistent-disk restart and rollback require separate provider evidence",
+    "No browser UI/outgoing source tab acceptance or legal supported Action Card"
+  ],
+  "provider": "Render",
+  "service_id": "srv-dbld56on74is739q3oc0",
+  "deploy_id": "dep-dbld57on74is739q3prg",
+  "deployed_commit_sha": "635ded120e4dfa3196b6c30b3b162c9d77dd5cf5",
+  "verification_workflow_sha": "e22ce642f79c482461ddd32185f1e509d1dcd31d",
+  "verification_run_url": "https://github.com/Chu-Junjie/SG-Navi/actions/runs/41787144159",
+  "evidence_artifact_url": "https://github.com/Chu-Junjie/SG-Navi/actions/runs/41787144159/artifacts/13301946588",
+  "persistent_disk": false,
+  "quarantine_survival_after_restart": "NOT VERIFIED: unsupported on Render Free; not a Task 7 acceptance PASS",
+  "actual_recovery_and_restore": "NOT RUN",
+  "external_browser_pages_e2e": "NOT RUN"
+}
