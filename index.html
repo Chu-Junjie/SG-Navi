@@ -180,7 +180,7 @@
     <section class="shell main-section" aria-labelledby="choices-heading">
       <div class="section-head">
         <h2 id="choices-heading">Choose a topic</h2>
-        <p>Both flows are being developed</p>
+        <p>Both prototype flows are available for exploration</p>
       </div>
       <div class="choices">
         <button class="choice" type="button" data-case="Rental Deposit">
@@ -192,7 +192,7 @@
             <span class="choice-arrow" aria-hidden="true">↗</span>
           </span>
           <span class="choice-description">Explore guidance for concerns about a residential rental deposit, including disputes involving a landlord or property agent.</span>
-          <span class="choice-label">Flow coming soon</span>
+          <span class="choice-label">Open guided form</span>
         </button>
         <button class="choice" type="button" data-case="Consumer Complaint">
           <span class="choice-top">
@@ -203,10 +203,10 @@
             <span class="choice-arrow" aria-hidden="true">↗</span>
           </span>
           <span class="choice-description">Explore a starting point for personal consumer complaints about goods or services from businesses in Singapore.</span>
-          <span class="choice-label">Flow coming soon</span>
+          <span class="choice-label">Open guided form</span>
         </button>
       </div>
-      <p class="selection-note" id="selection-note" role="status" aria-live="polite">Select a topic to see its current availability.</p>
+      <p class="selection-note" id="selection-note" role="status" aria-live="polite">Select a topic to open a guided form. Use synthetic information only.</p>
       <section class="status-panel" id="api-status" data-state="checking" aria-label="Backend API connection">
         <div class="status-main">
           <span class="server-icon" aria-hidden="true">
@@ -226,6 +226,7 @@
   </main>
   <footer class="site-footer shell">SG Navi · Group 6 · A student project for procedural navigation in Singapore</footer>
 
+  <script src="./frontend/js/api-config.js"></script>
   <script>
     "use strict";
     const statusPanel = document.getElementById("api-status");
@@ -239,8 +240,13 @@
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 5000);
       try {
-        // Same-origin endpoint. Task 1 does not require an invented backend or a mock success.
-        const response = await fetch("/api/health", {
+        const endpoint = SGNaviApiConfig.resolve("/api/health", window.location);
+        if (!endpoint) {
+          statusPanel.dataset.state = "offline";
+          statusText.textContent = "Public API not configured · waiting for a verified HTTPS backend";
+          return;
+        }
+        const response = await fetch(endpoint, {
           method: "GET", cache: "no-store", headers: { Accept: "application/json" }, signal: controller.signal
         });
         if (!response.ok) throw new Error("HTTP " + response.status);
@@ -264,8 +270,13 @@
     }
     document.querySelectorAll("[data-case]").forEach((button) => {
       button.addEventListener("click", () => {
-        document.getElementById("selection-note").textContent =
-          button.dataset.case + " is a placeholder in Task 1. The form will be added in a later task.";
+        const caseType = button.dataset.case === "Rental Deposit" ? "rental_deposit" :
+          button.dataset.case === "Consumer Complaint" ? "consumer_complaint" : null;
+        if (caseType) {
+          document.getElementById("selection-note").textContent =
+            "Opening " + button.dataset.case + " guided form…";
+          window.location.assign("./frontend/task5-flow.html?case_type=" + caseType);
+        }
       });
     });
     refreshButton.addEventListener("click", checkApiHealth);
