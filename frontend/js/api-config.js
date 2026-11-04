@@ -5,10 +5,11 @@
   if (typeof module === "object" && module.exports) module.exports = api;
   if (root) root.SGNaviApiConfig = api;
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
-  // Intentionally empty until Zheng provides the VERIFIED real HTTPS API origin.
-  // After coordination, set an ORIGIN, e.g. https://<actual-host>, with no /api suffix.
+  // Actual free Render HTTPS demo verified by backend owner on 2026-11-04.
+  // This is a temporary, EPHEMERAL test service (no persistent quarantine disk).
+  // Deploy SHA 635ded120e4dfa3196b6c30b3b162c9d77dd5cf5; never treat as RC1.
   // This is a public endpoint, NOT a credential, token, local IP or example URL.
-  const HTTPS_API_ORIGIN = "";
+  const HTTPS_API_ORIGIN = "https://sg-navi-api-free-demo.onrender.com";
   const API_PATHS = new Set(["/api/health", "/api/navigate", "/api/version", "/api/case-types"]);
 
   function isGitHubPages(location) {
