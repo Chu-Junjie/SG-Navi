@@ -20,7 +20,7 @@ _LOCK_ID = 74903971042
 _ROW_ID = "quarantine-v1"
 
 
-class DurableStateError(RuntimeError):
+class DurableStateError(ValueError):
     """Remote state cannot safely be read or written; fail closed."""
 
 
@@ -34,7 +34,7 @@ class PostgresStateStore:
     def _connect(self):
         try:
             return psycopg.connect(self._dsn, connect_timeout=7)
-        except psycopg.Error as exc:
+        except psycopg.Error:
             # Do not render a driver error: it can contain host/credentials.
             raise DurableStateError("Persistent quarantine database is unavailable") from None
 
