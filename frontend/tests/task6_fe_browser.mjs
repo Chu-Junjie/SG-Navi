@@ -79,13 +79,15 @@ const result = {
 };
 try {
   let address;
-  for (let i = 0; i < 200; i++) {
+  // GitHub-hosted Chromium may take more than 10 seconds to expose the CDP port.
+  // This only extends browser startup; assertions/real API outcomes remain strict.
+  for (let i = 0; i < 400; i++) {
     if (launchError) throw launchError;
     try {address = (await fs.readFile(path.join(profile, 'DevToolsActivePort'), 'utf8')).trim().split(/\r?\n/); break;} catch {}
     if (browser.exitCode !== null && browser.exitCode !== 0) throw Error('Browser launch failed: ' + browserLog);
-    await delay(50);
+    await delay(100);
   }
-  assert.ok(address, 'Browser DevTools endpoint available');
+  assert.ok(address, 'Browser DevTools endpoint not available: ' + browserLog);
   ws = new WebSocket(`ws://127.0.0.1:${address[0]}${address[1]}`);
   await new Promise((resolve, reject) => {
     ws.addEventListener('open', resolve, {once: true});

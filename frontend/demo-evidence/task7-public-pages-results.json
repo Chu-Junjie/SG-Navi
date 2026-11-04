@@ -1,0 +1,427 @@
+{
+  "scope": "task7_public_pages_real_browser",
+  "synthetic_facts": true,
+  "verified_official_path_claimed": false,
+  "is_production_release": false,
+  "run_started_at_utc": "2026-11-04T07:26:26.914Z",
+  "pages_url": "https://chu-junjie.github.io/SG-Navi/",
+  "api_origin": "https://sg-navi-api-free-demo.onrender.com",
+  "executed_commit": "99bec00b7a5ce3925d07898d41ac1905f6180bef",
+  "cases": [
+    {
+      "case_type": "rental_deposit",
+      "steps": [
+        {
+          "id": "01",
+          "action": "Start on candidate homepage; select topic",
+          "expected": "Real health online; card opens correct real form",
+          "result": "PASS",
+          "actual": {
+            "health": "Online",
+            "before": {
+              "path": "/SG-Navi/",
+              "label": "Open guided form"
+            },
+            "after": {
+              "caseType": "rental_deposit",
+              "path": "/SG-Navi/frontend/task5-flow.html"
+            }
+          }
+        },
+        {
+          "id": "02",
+          "action": "Submit all Not provided",
+          "expected": "Real NEED_CLARIFICATION; 9 schema fields; seven unavailable sections",
+          "result": "PASS",
+          "actual": {
+            "request_case": "rental_deposit",
+            "status": "NEED_CLARIFICATION",
+            "question_ids": [
+              "dispute_with",
+              "premises_type",
+              "claim_amount_sgd"
+            ],
+            "seven_sections": 7
+          }
+        },
+        {
+          "id": "03",
+          "action": "Follow backend questions, enter nine synthetic case facts",
+          "expected": "Question jumps to matching input; backend gets actual edited fields",
+          "result": "PASS",
+          "actual": {
+            "first_question_label": "Is your dispute with the landlord or an agent?",
+            "focused_field": "input-dispute_with",
+            "entered_synthetic_fields": [
+              "dispute_with",
+              "premises_type",
+              "tenancy_duration_months",
+              "claim_amount_sgd",
+              "relevant_event_date",
+              "respondent_in_singapore",
+              "agency_agreement_signed",
+              "resolution_attempted",
+              "documents_available"
+            ]
+          }
+        },
+        {
+          "id": "04",
+          "action": "Submit complete facts to actual backend and RAG",
+          "expected": "REFER_TO_OFFICIAL; seven sections; reviewed source links; not legal eligibility",
+          "result": "PASS",
+          "actual": {
+            "status": "REFER_TO_OFFICIAL",
+            "rule_version": "mock-1",
+            "source_version": "kb-2026-11-01.1",
+            "evidence": [
+              {
+                "evidence_id": "SCT-ELIG-RESIDENTIAL",
+                "source_id": "courts-sct-eligibility",
+                "review_status": "verified",
+                "source_version": "kb-2026-11-01.1",
+                "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim"
+              },
+              {
+                "evidence_id": "SCT-ELIG-AMOUNT",
+                "source_id": "courts-sct-eligibility",
+                "review_status": "verified",
+                "source_version": "kb-2026-11-01.1",
+                "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim"
+              }
+            ],
+            "clickable_links": [
+              {
+                "href": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+                "target": "_blank",
+                "rel": "noopener noreferrer",
+                "text": "courts-sct-eligibility — open source reference"
+              },
+              {
+                "href": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+                "target": "_blank",
+                "rel": "noopener noreferrer",
+                "text": "courts-sct-eligibility — open source reference"
+              }
+            ],
+            "card_sections": [
+              "Case summary",
+              "Potential channels",
+              "Conditions",
+              "Steps",
+              "Document checklist",
+              "Unresolved questions",
+              "Citations"
+            ],
+            "disclaimer": "These backend-provided source references are for independent research only. Verified metadata does not establish legal eligibility, recommend a filing channel, or guarantee a result."
+          }
+        },
+        {
+          "id": "05",
+          "action": "Capture actual desktop screenshot",
+          "expected": "1440px browser screenshot including evidence and seven blocks",
+          "result": "PASS",
+          "actual": {
+            "name": "public-pages-rental_deposit-desktop-1440.jpg",
+            "bytes": 182919,
+            "viewport": 1440,
+            "scrollWidth": 1425,
+            "clientWidth": 1425,
+            "bodyHeight": 1876,
+            "sourceVisible": true
+          }
+        },
+        {
+          "id": "06",
+          "action": "Check mobile and capture screenshot",
+          "expected": "390px screenshot and 320px no horizontal overflow",
+          "result": "PASS",
+          "actual": {
+            "mobile": {
+              "name": "public-pages-rental_deposit-mobile-390.jpg",
+              "bytes": 170621,
+              "viewport": 390,
+              "scrollWidth": 390,
+              "clientWidth": 390,
+              "bodyHeight": 4135,
+              "sourceVisible": true
+            },
+            "small_phone": {
+              "width": 320,
+              "scroll": 320,
+              "client": 320
+            }
+          }
+        },
+        {
+          "id": "07",
+          "action": "Edit answer and re-submit",
+          "expected": "Old evidence disappears until fresh backend response; changed amount sent",
+          "result": "PASS",
+          "actual": {
+            "edited_amount": 456,
+            "status": "REFER_TO_OFFICIAL",
+            "source_count": 2
+          }
+        },
+        {
+          "id": "08",
+          "action": "Block backend call then restore",
+          "expected": "Service unavailable; stale links removed; answer retained; retry successful",
+          "result": "PASS",
+          "actual": {
+            "offline": "Service unavailable",
+            "preserved_amount": 456,
+            "retry_status": "REFER_TO_OFFICIAL"
+          }
+        },
+        {
+          "id": "09",
+          "action": "Click header return to homepage",
+          "expected": "Candidate form return link reaches actual homepage",
+          "result": "PASS",
+          "actual": {
+            "pathname": "/SG-Navi/"
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case_type": "consumer_complaint",
+      "steps": [
+        {
+          "id": "01",
+          "action": "Start on candidate homepage; select topic",
+          "expected": "Real health online; card opens correct real form",
+          "result": "PASS",
+          "actual": {
+            "health": "Online",
+            "before": {
+              "path": "/SG-Navi/",
+              "label": "Open guided form"
+            },
+            "after": {
+              "caseType": "consumer_complaint",
+              "path": "/SG-Navi/frontend/task5-flow.html"
+            }
+          }
+        },
+        {
+          "id": "02",
+          "action": "Submit all Not provided",
+          "expected": "Real NEED_CLARIFICATION; 9 schema fields; seven unavailable sections",
+          "result": "PASS",
+          "actual": {
+            "request_case": "consumer_complaint",
+            "status": "NEED_CLARIFICATION",
+            "question_ids": [
+              "purchase_type",
+              "purchase_purpose",
+              "supplier_registered_in_sg",
+              "claim_amount_sgd"
+            ],
+            "seven_sections": 7
+          }
+        },
+        {
+          "id": "03",
+          "action": "Follow backend questions, enter nine synthetic case facts",
+          "expected": "Question jumps to matching input; backend gets actual edited fields",
+          "result": "PASS",
+          "actual": {
+            "first_question_label": "What goods or services are involved?",
+            "focused_field": "input-purchase_type",
+            "entered_synthetic_fields": [
+              "purchase_type",
+              "purchase_purpose",
+              "supplier_registered_in_sg",
+              "supplier_location",
+              "problem_type",
+              "purchase_date",
+              "claim_amount_sgd",
+              "resolution_attempted",
+              "documents_available"
+            ]
+          }
+        },
+        {
+          "id": "04",
+          "action": "Submit complete facts to actual backend and RAG",
+          "expected": "REFER_TO_OFFICIAL; seven sections; reviewed source links; not legal eligibility",
+          "result": "PASS",
+          "actual": {
+            "status": "REFER_TO_OFFICIAL",
+            "rule_version": "mock-1",
+            "source_version": "kb-2026-11-01.1",
+            "evidence": [
+              {
+                "evidence_id": "CASE-PERSONAL",
+                "source_id": "case-complaint",
+                "review_status": "verified",
+                "source_version": "kb-2026-11-01.1",
+                "url": "https://www.case.org.sg/submit-a-complaint/"
+              },
+              {
+                "evidence_id": "CASE-SG-SUPPLIER",
+                "source_id": "case-complaint",
+                "review_status": "verified",
+                "source_version": "kb-2026-11-01.1",
+                "url": "https://www.case.org.sg/submit-a-complaint/"
+              }
+            ],
+            "clickable_links": [
+              {
+                "href": "https://www.case.org.sg/submit-a-complaint/",
+                "target": "_blank",
+                "rel": "noopener noreferrer",
+                "text": "case-complaint — open source reference"
+              },
+              {
+                "href": "https://www.case.org.sg/submit-a-complaint/",
+                "target": "_blank",
+                "rel": "noopener noreferrer",
+                "text": "case-complaint — open source reference"
+              }
+            ],
+            "card_sections": [
+              "Case summary",
+              "Potential channels",
+              "Conditions",
+              "Steps",
+              "Document checklist",
+              "Unresolved questions",
+              "Citations"
+            ],
+            "disclaimer": "These backend-provided source references are for independent research only. Verified metadata does not establish legal eligibility, recommend a filing channel, or guarantee a result."
+          }
+        },
+        {
+          "id": "05",
+          "action": "Capture actual desktop screenshot",
+          "expected": "1440px browser screenshot including evidence and seven blocks",
+          "result": "PASS",
+          "actual": {
+            "name": "public-pages-consumer_complaint-desktop-1440.jpg",
+            "bytes": 182965,
+            "viewport": 1440,
+            "scrollWidth": 1425,
+            "clientWidth": 1425,
+            "bodyHeight": 1876,
+            "sourceVisible": true
+          }
+        },
+        {
+          "id": "06",
+          "action": "Check mobile and capture screenshot",
+          "expected": "390px screenshot and 320px no horizontal overflow",
+          "result": "PASS",
+          "actual": {
+            "mobile": {
+              "name": "public-pages-consumer_complaint-mobile-390.jpg",
+              "bytes": 168562,
+              "viewport": 390,
+              "scrollWidth": 390,
+              "clientWidth": 390,
+              "bodyHeight": 4185,
+              "sourceVisible": true
+            },
+            "small_phone": {
+              "width": 320,
+              "scroll": 320,
+              "client": 320
+            }
+          }
+        },
+        {
+          "id": "07",
+          "action": "Edit answer and re-submit",
+          "expected": "Old evidence disappears until fresh backend response; changed amount sent",
+          "result": "PASS",
+          "actual": {
+            "edited_amount": 456,
+            "status": "REFER_TO_OFFICIAL",
+            "source_count": 2
+          }
+        },
+        {
+          "id": "08",
+          "action": "Block backend call then restore",
+          "expected": "Service unavailable; stale links removed; answer retained; retry successful",
+          "result": "PASS",
+          "actual": {
+            "offline": "Service unavailable",
+            "preserved_amount": 456,
+            "retry_status": "REFER_TO_OFFICIAL"
+          }
+        },
+        {
+          "id": "09",
+          "action": "Click header return to homepage",
+          "expected": "Candidate form return link reaches actual homepage",
+          "result": "PASS",
+          "actual": {
+            "pathname": "/SG-Navi/"
+          }
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "public-pages-rental_deposit-desktop-1440.jpg",
+      "bytes": 182919,
+      "case_type": "rental_deposit",
+      "viewport": "desktop",
+      "metrics": {
+        "viewport": 1440,
+        "scrollWidth": 1425,
+        "clientWidth": 1425,
+        "bodyHeight": 1876,
+        "sourceVisible": true
+      }
+    },
+    {
+      "name": "public-pages-rental_deposit-mobile-390.jpg",
+      "bytes": 170621,
+      "case_type": "rental_deposit",
+      "viewport": "mobile",
+      "metrics": {
+        "viewport": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "bodyHeight": 4135,
+        "sourceVisible": true
+      }
+    },
+    {
+      "name": "public-pages-consumer_complaint-desktop-1440.jpg",
+      "bytes": 182965,
+      "case_type": "consumer_complaint",
+      "viewport": "desktop",
+      "metrics": {
+        "viewport": 1440,
+        "scrollWidth": 1425,
+        "clientWidth": 1425,
+        "bodyHeight": 1876,
+        "sourceVisible": true
+      }
+    },
+    {
+      "name": "public-pages-consumer_complaint-mobile-390.jpg",
+      "bytes": 168562,
+      "case_type": "consumer_complaint",
+      "viewport": "mobile",
+      "metrics": {
+        "viewport": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "bodyHeight": 4185,
+        "sourceVisible": true
+      }
+    }
+  ],
+  "javascript_exceptions": 0,
+  "passed": true
+}
