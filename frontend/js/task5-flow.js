@@ -290,6 +290,12 @@
       $("status").textContent = "Input validation";
       return;
     }
+    const endpoint = SGNaviApiConfig.resolve("/api/navigate", window.location);
+    if (!endpoint) {
+      clearResult("Public API is not configured. Waiting for a verified HTTPS API Base URL; no case details were sent.");
+      $("status").textContent = "API not configured";
+      return;
+    }
     const request = {
       api_version: "1.0",
       case_type: $("case-type").value,
@@ -302,10 +308,10 @@
     $("submit").disabled = true;
     clearResult("Checking the latest answers with the backend…");
     $("status").textContent = "Checking…";
-    $("verification").textContent = "Sending answers to the same-origin backend.";
+    $("verification").textContent = "Sending answers to the configured backend.";
     const timeout = setTimeout(() => controller.abort(), 10000);
     try {
-      const response = await fetch("/api/navigate", {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(request),
@@ -357,7 +363,9 @@
         $("case-type").value = requestedCase;
       }
       switchCase();
-      $("notice").textContent = "Ready. Responses come from the real /api/navigate endpoint.";
+      $("notice").textContent = SGNaviApiConfig.resolve("/api/navigate", window.location)
+        ? "Ready. Responses come from the real /api/navigate endpoint."
+        : "Public API not configured. Forms may be previewed, but submission is disabled until Zheng supplies a verified HTTPS API origin.";
     } catch (_) {
       $("notice").textContent = "Unable to load input schemas or mapping files. Use the frontend integration server.";
       $("submit").disabled = true;
