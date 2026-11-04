@@ -213,6 +213,32 @@ class EvidenceRepository:
             self._save(state)
         return copy.deepcopy(state)
 
+    def backup_state(self, *, label):
+        """Create and validate a durable, append-only backup without source release."""
+        ensure(self._pgstore is not None, "Backup requires configured PostgreSQL persistence")
+        bundle = _load(self.directory)
+        self._state(bundle)  # Fail closed on existing invalid history before backup.
+        backup_id = self._pgstore.backup(label)
+        restored = self._pgstore.inspect_backup(backup_id)
+        self._validate_state(restored, bundle)
+        return {"backup_id": backup_id, "label": label, "verified": True}
+
+    def restore_state(self, backup_id, *, confirm=False):
+        """Operator-only recovery; takes a pre-restore backup in the same transaction."""
+        ensure(self._pgstore is not None, "Restore requires configured PostgreSQL persistence")
+        ensure(type(backup_id) is int and backup_id > 0, "Positive backup ID required")
+        bundle = _load(self.directory)
+        self._state(bundle)  # Never overwrite unreadable current history.
+        payload = self._pgstore.restore(
+            backup_id,
+            validate_state=lambda state: self._validate_state(state, bundle),
+            confirm=confirm,
+        )
+        self._validate_state(payload, bundle)
+        return {"restored_backup_id": backup_id, "verified": True,
+                "blocked_source_count": len(payload["blocked_sources"]),
+                "event_count": len(payload["events"])}
+
     def update_from(self, directory, *, verify_live=True):
         """Switch this repository instance to a complete checked candidate directory."""
         candidate_path = Path(directory).resolve()
@@ -236,7 +262,10 @@ class EvidenceRepository:
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("state", "quarantine", "release", "check-live"))
+    parser.add_argument("command", choices=("state", "quarantine", "release", "check-live", "backup", "restore"))
+    parser.add_argument("--backup-label")
+    parser.add_argument("--backup-id", type=int)
+    parser.add_argument("--confirm-restore", action="store_true")
     parser.add_argument("--source")
     parser.add_argument("--actor")
     parser.add_argument("--reason")
@@ -251,6 +280,10 @@ def main(argv=None):
             result = repository.check_live_sources(actor=args.actor)
         elif args.command == "quarantine":
             result = repository.quarantine_source(args.source, actor=args.actor, reason=args.reason)
+        elif args.command == "backup":
+            result = repository.backup_state(label=args.backup_label)
+        elif args.command == "restore":
+            result = repository.restore_state(args.backup_id, confirm=args.confirm_restore)
         else:
             result = repository.release_source(args.source, actor=args.actor, reason=args.reason)
         print(json.dumps(result, indent=2))
