@@ -25,7 +25,7 @@ function Run-Stage {
   $exitCode = 0
   try {
     $global:LASTEXITCODE = 0
-    & $Work
+    & $Work | Out-Host
     if ($LASTEXITCODE -ne 0) { $exitCode = [int]$LASTEXITCODE }
   } catch {
     Write-Host ('ERROR: ' + $_.Exception.Message)
@@ -72,7 +72,7 @@ try {
   $started = Run-Stage 'local Flask start and health' {
     $stdout = Join-Path $dir 'flask-stdout.txt'
     $stderr = Join-Path $dir 'flask-stderr.txt'
-    $server = Start-Process -FilePath $python -ArgumentList @(
+    $script:server = Start-Process -FilePath $python -ArgumentList @(
       '-m','flask','--app','integration.app','run','--host','127.0.0.1','--port','5055'
     ) -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -WindowStyle Hidden
     $healthy = $false
