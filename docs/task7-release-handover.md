@@ -1,6 +1,11 @@
 # Task 7 — internal candidate release and handover
 
-**Technical acceptance: PASS WITH LIMITS. Publication: PENDING post-merge checks.**
+**Technical acceptance: PASS WITH LIMITS. Published internal prerelease: [v0.9.0-rc1](https://github.com/Chu-Junjie/SG-Navi/releases/tag/v0.9.0-rc1).**
+
+Exact frozen merge: **f6076524223c5ef60b5a6b4433123d4792137f2c**.
+Matching Render deployment **dep-dbm67n3bc2fs73aqeup0** became Live;
+public API **10/10** and actual Pages browser **18/18** passed, zero JS errors.
+[Final release proof and evidence ZIP checksum](test-results/task7-final-release-20261105.json).
 
 On 2026-11-05 the owner delegated the remaining backend, frontend, integration
 and release work to the coordinator and authorized merging without waiting for
@@ -16,19 +21,20 @@ Zheng's missing personal results remain unfilled rather than invented.
   both synthetic navigation POSTs passed. [Machine record](test-results/task7-final-candidate-20261105.json).
 - Separate actual disposable PostgreSQL CI: [42014879380](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42014879380), **3 passed in 4.93s**.
 - Actual local browser: Rental and Consumer, **18/18 technical steps**, four
-  desktop/mobile screenshots, zero JS exceptions. Final public execution is
-  recorded separately after deployment.
+  desktop/mobile screenshots, zero JS exceptions. Separate final public
+  execution passed 1 pytest in 11.31s, 18/18 steps, with four actual images
+  attached to the release evidence ZIP.
 - Five official URLs and all 26 excerpts/current full-page hashes matched the
   recorded independent snapshot. Separate requests can still time out; previous
   runner CASE 403 is a known access limitation. Failed checks remain failures.
 - API **1.0**, rule **mock-1**, source **kb-2026-11-01.1**; five corpus files,
   five sources, 26 passages/mappings, five templates, nine review rows. No legal
   rule is enabled, normal `action_card` is null.
-- Intended immutable tag: **v0.9.0-rc1**, created only after merge and final
-  public verification. The actual tag/release metadata pins the merge commit;
-  a checked-in document cannot contain its own future merge SHA.
+- Immutable tag **v0.9.0-rc1** was published after merge and final public
+  verification at **f6076524223c5ef60b5a6b4433123d4792137f2c**. Later
+  documentation-only commits preserve the frozen code and do not move the tag.
 
-## Reproduce after the candidate tag is published
+## Reproduce the published candidate
 
 These commands use the existing verified installation/start interface. The exact
 executed fresh-checkout commands and results are in the machine record above.

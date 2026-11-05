@@ -1,0 +1,181 @@
+{
+  "recorded_at": "2026-11-05T11:16:17.999838+00:00",
+  "release": {
+    "release_url": "https://github.com/Chu-Junjie/SG-Navi/releases/tag/v0.9.0-rc1",
+    "release_id": 435102659,
+    "published_at": "2026-11-05T11:14:51Z",
+    "prerelease": true,
+    "tag": "v0.9.0-rc1",
+    "tag_commit_verified": "f6076524223c5ef60b5a6b4433123d4792137f2c",
+    "asset_url": "https://github.com/Chu-Junjie/SG-Navi/releases/download/v0.9.0-rc1/task7-rc1-evidence.zip",
+    "asset_bytes": 559746,
+    "asset_sha256": "1f4cae7be8c7defef352149a9d9c2f170b7c02c74e1cdfa77b64aa7dfc549ec6",
+    "verified_at": "2026-11-05T11:14:56.058922+00:00"
+  },
+  "accepted_candidate": {
+    "accepted_merge_sha": "f6076524223c5ef60b5a6b4433123d4792137f2c",
+    "tested_implementation_sha": "2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87",
+    "runtime_test_dependency_ci_objects_equal": true,
+    "objects": {
+      "backend": "9cebcdabfb0b4f0057ab22700abe09b8fa58fb2c",
+      "frontend": "13b1e85b6c4348e7d156d6dc4e1f6162c2f5e4a4",
+      "rag": "3411f1286343ec6aa545c35965e16dfd4a5c01c9",
+      "shared": "39da0972689f7fc2b390df20dfa0fd5237f146c5",
+      "integration": "47e859fb71143d1b68d637eabd2c0287881f78ec",
+      "tests": "e035ae9b1b53b836a62b5135a55e433689d5c5d7",
+      ".github/workflows": "4238a4b1a803cef2de60153bed95c7ac25f6ec23",
+      "requirements.txt": "9a51dc8774b115fd6af80b238d6244214e778da7",
+      "index.html": "8c0469367b6ccc8dd3521659c83a7a70fb25aa3a"
+    },
+    "created_at": "2026-11-05T11:10:07.213758+00:00",
+    "tag": "v0.9.0-rc1",
+    "scope": "owner-authorized solo internal source-context/referral demo; known limits recorded in acceptance",
+    "render": {
+      "service_id": "srv-dbluspoae00c73fqp4v0",
+      "deploy_id": "dep-dbm67n3bc2fs73aqeup0",
+      "sha": "f6076524223c5ef60b5a6b4433123d4792137f2c",
+      "status": "live",
+      "finished_at": "2026-11-05T11:10:25.110136Z",
+      "health_check_path": "/api/health",
+      "plan": "free"
+    },
+    "public_api": {
+      "passed": 10,
+      "total": 10
+    },
+    "public_browser": {
+      "passed": 18,
+      "total": 18,
+      "pytest_seconds": 11.31,
+      "javascript_exceptions": 0,
+      "screenshots": 4
+    },
+    "merge_workflows": [
+      {
+        "id": 42016612866,
+        "name": "source-freshness-read-only",
+        "head_sha": "f6076524223c5ef60b5a6b4433123d4792137f2c",
+        "status": "completed",
+        "conclusion": "failure",
+        "html_url": "https://github.com/Chu-Junjie/SG-Navi/actions/runs/42016612866"
+      },
+      {
+        "id": 42016613044,
+        "name": "task7-junjie-render-neon-https-smoke",
+        "head_sha": "f6076524223c5ef60b5a6b4433123d4792137f2c",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/Chu-Junjie/SG-Navi/actions/runs/42016613044"
+      },
+      {
+        "id": 42016612912,
+        "name": "task7-postgres-durability",
+        "head_sha": "f6076524223c5ef60b5a6b4433123d4792137f2c",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/Chu-Junjie/SG-Navi/actions/runs/42016612912"
+      },
+      {
+        "id": 42016613003,
+        "name": "tests",
+        "head_sha": "f6076524223c5ef60b5a6b4433123d4792137f2c",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/Chu-Junjie/SG-Navi/actions/runs/42016613003"
+      },
+      {
+        "id": 42016612433,
+        "name": "pages build and deployment",
+        "head_sha": "f6076524223c5ef60b5a6b4433123d4792137f2c",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/Chu-Junjie/SG-Navi/actions/runs/42016612433"
+      }
+    ],
+    "known_source_monitor_failure": {
+      "run_id": 42016612866,
+      "case_http_status": 403,
+      "other_four_sources": "unchanged",
+      "not_reclassified_as_pass": true
+    },
+    "original_three_personal_environment_gate": "NOT FULLY EVIDENCED; owner-authorized single-operator closeout"
+  },
+  "actual_executor": "Codex on Chu Junjie coordinator Windows computer; owner delegated all remaining roles",
+  "public_browser": {
+    "scope": "task7_public_pages_real_browser",
+    "run_started_at_utc": "2026-11-05T11:11:08.565Z",
+    "executed_commit": "f6076524223c5ef60b5a6b4433123d4792137f2c",
+    "pages_url": "https://chu-junjie.github.io/SG-Navi/",
+    "api_origin": "https://sg-navi-api-junjie.onrender.com",
+    "pytest_passed": 1,
+    "pytest_seconds": 11.31,
+    "technical_steps": 18,
+    "javascript_exceptions": 0,
+    "passed": true,
+    "screenshots": [
+      {
+        "name": "public-pages-rental_deposit-desktop-1440.jpg",
+        "bytes": 177547,
+        "case_type": "rental_deposit",
+        "viewport": "desktop",
+        "metrics": {
+          "viewport": 1440,
+          "scrollWidth": 1425,
+          "clientWidth": 1425,
+          "bodyHeight": 2026,
+          "sourceVisible": true
+        },
+        "sha256": "5510e1a5a041e3e74aad45105dc370ff9e82f18c5d05c4e9c92d5f4541c78847"
+      },
+      {
+        "name": "public-pages-rental_deposit-mobile-390.jpg",
+        "bytes": 162737,
+        "case_type": "rental_deposit",
+        "viewport": "mobile",
+        "metrics": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "bodyHeight": 3921,
+          "sourceVisible": true
+        },
+        "sha256": "cd3bb60915b6645bdf2a40582969b64b821c296a9e451de686b055a42c67541d"
+      },
+      {
+        "name": "public-pages-consumer_complaint-desktop-1440.jpg",
+        "bytes": 184506,
+        "case_type": "consumer_complaint",
+        "viewport": "desktop",
+        "metrics": {
+          "viewport": 1440,
+          "scrollWidth": 1425,
+          "clientWidth": 1425,
+          "bodyHeight": 2066,
+          "sourceVisible": true
+        },
+        "sha256": "52f0cc8d674b87964ba872ee1a82d0e3975a01cefefca3e5565bb2ca8e9bf25f"
+      },
+      {
+        "name": "public-pages-consumer_complaint-mobile-390.jpg",
+        "bytes": 166806,
+        "case_type": "consumer_complaint",
+        "viewport": "mobile",
+        "metrics": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "bodyHeight": 4012,
+          "sourceVisible": true
+        },
+        "sha256": "01c57665fee2fa0483ddecf7adc85265193baf2a48d27325398f603b661beba4"
+      }
+    ]
+  },
+  "source_disposition": "Independent five-source snapshot matched; cloud CASE 403 unresolved and accepted as a known limit for the static internal demo. Source workflow remains failed/strict; no hash/review/rule promotion.",
+  "personal_environment_disposition": "Original three-person final run evidence NOT FULLY EVIDENCED. Explicit owner-authorized single-operator closeout; no Zheng personal pass is invented.",
+  "issue_disposition": {
+    "7": "Internal candidate delivery complete within owner-authorized scope; not all original guide gates claimed passed",
+    "63": "Content drift repaired and access triage complete; external runner restriction remains a known limit, closed as not_planned rather than fixed"
+  },
+  "production_release": false
+}

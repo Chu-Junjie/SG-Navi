@@ -4,7 +4,7 @@
 
 **Owner-authorized closeout update (2026-11-05):** The owner subsequently delegated all remaining engineering work to this coordinator and authorized merging without another approval. A new independent clone/venv on the coordinator's Windows computer installed successfully, passed `pip check`, ran **481 passed / 4 skipped / 13 subtests**, and started the documented Flask CLI with both real synthetic API journeys. [Actual executor, SHA, commands and results](test-results/task7-final-candidate-20261105.json). This completes delegated engineering verification for the limited internal candidate; it does **not** fill Zheng's personal transcript below or prove three distinct computers were tested. That original gate remains incompletely evidenced and is disclosed in the final acceptance.
 
-Zheng should provide his **personally executed** Windows PowerShell results with the actual Git/Python versions. For a repeat run, use the following template. Start in a new directory where a folder named `SG-Navi-Zheng-clean` does not already exist.
+The following is retained as an optional retrospective personal-evidence template; it is not an outstanding task under the owner's revised single-operator closeout scope. If Zheng later supplies **personally executed** Windows PowerShell results, record the actual Git/Python versions without replacing them with coordinator/CI results. For a repeat run, start in a new directory where `SG-Navi-Zheng-clean` does not already exist.
 
 ## Step 1 — Fresh clone and identify exact source
 

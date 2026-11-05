@@ -60,7 +60,7 @@ py -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r tests/contracts/requirements.txt
 ```
 
-To reproduce an exact candidate, use `git checkout --detach <accepted-sha>` before creating the environment. The final fresh-clone implementation audit used `2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87`: 481 passed, 4 skipped, 13 subtests; actual install/start and resolved dependencies are in [the machine record](docs/test-results/task7-final-candidate-20261105.json). The post-acceptance `v0.9.0-rc1` tag will pin the merged delivery, including final documentation. Read the actual tag/release record for the exact commit rather than assuming a branch name proves deployment.
+To reproduce the published internal candidate, use `git checkout --detach v0.9.0-rc1` before creating the environment. [The prerelease](https://github.com/Chu-Junjie/SG-Navi/releases/tag/v0.9.0-rc1) pins **f6076524223c5ef60b5a6b4433123d4792137f2c**. Its runtime/test/dependency/CI Git objects match the fresh-clone implementation audit `2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87`: 481 passed, 4 skipped, 13 subtests; [actual install/start and resolved packages](docs/test-results/task7-final-candidate-20261105.json). [Final public/deploy/release evidence](docs/test-results/task7-final-release-20261105.json) includes API 10/10 and real Pages browser 18/18. Later documentation-only commits do not move the tag.
 
 On macOS/Linux, replace the venv commands with:
 
