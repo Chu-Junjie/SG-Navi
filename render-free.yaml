@@ -1,7 +1,10 @@
+# HISTORICAL NONPERSISTENT DEMO — NOT THE CURRENT DEPLOYMENT.
+# Do not sync this Blueprint for the active account or as a Task 7 release.
+# Current free + Neon reference: render.yaml (existing API-created Render service).
 # SG Navi temporary public API proof-of-concept ONLY.
 # Does not meet Task 7 durable RAG quarantine-state acceptance requirements.
 # Free services are ephemeral and may suspend; do NOT use this as the rc1 release.
-# Kept separate from the production paid Render Blueprint (render.yaml).
+# Historical file only. Paid alternative is render.starter.yaml; current free reference is render.yaml.
 services:
   - type: web
     name: sg-navi-api-free-demo
