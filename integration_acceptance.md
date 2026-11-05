@@ -1,6 +1,51 @@
 # SG Navi — Task 7 integration acceptance
 
-**Technical result: PASS WITH LIMITS. Candidate freeze: NOT READY.**
+## Current assessment — 2026-11-05
+
+**Technical fixes: PASS WITH LIMITS. Final freeze: PENDING MEMBER DETAILS AND FINAL VERSION RECONCILIATION.**
+
+This section supersedes the outstanding-item list in the historical 11-03 audit
+below. The current delivery remains an English source-context/referral demo;
+legal eligibility rules are disabled and normal `action_card` is null.
+
+Readiness and hosted-WSGI checkpoint: **3994850f29a04356c3a708daee56815294278895**,
+delivered through [PR #64](https://github.com/Chu-Junjie/SG-Navi/pull/64). The final
+archive format 2 adds Windows/Linux newline portability; its actual code digest
+and fresh hosted restore are recorded in the recovery proof. The PR's exact
+merged SHA and subsequent public checks must be read from its final GitHub
+record; a documentation commit is not silently described as deployed.
+
+| Item | Actual evidence and current disposition |
+| --- | --- |
+| Critical dependency readiness | **FIXED**. Health now checks the same source/state dependency as navigation; a dependency failure returns 503/unavailable, not 200/ok. Both actual homepage scripts require exact ok. Four new regressions first failed, then passed. Normal API 1.0 success payload is unchanged; failure example added. |
+| Official source freshness | **PASS**. Five live HTTP 200 responses and all 26 excerpts matched. Both CEA old body hashes were reconstructed exactly by replacing only two footer dates; two genuine automated review rows were appended. Historical rows, evidence text and source version remain unchanged. [Proof](docs/test-results/task7-source-recheck-20261105.json). |
+| RAG corpus | Five files, five sources, 26 passages/mappings, five templates, now **nine** historical/current review rows. API 1.0 / rule mock-1 / source kb-2026-11-01.1. No human or official legal approval is claimed. |
+| Readiness/archive regressions | **13 passed** in the final targeted local run; dependency failure/recovery, malformed homepage responses, wrong keys, tampering, mismatched corpus/version/history, exclusive file creation and Windows/Linux newline portability covered. |
+| Full local implementation suite | **466 passed, 4 skipped, 13 subtests in 48.21s** on the complete implementation, including the health-error example. The three PG skips were separately executed in real CI; the opt-in published-browser check is recorded separately. [Machine record](docs/test-results/task7-remediation-20261105.json). |
+| Actual PostgreSQL CI | [Run 42004044526](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42004044526): **3 passed in 4.06s**. Real disposable PostgreSQL, separate Gunicorn starts, transaction/restore, corrupt-state rejection and encrypted external restore. Ordinary CI [42004044454](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42004044454) also succeeded. |
+| Actual hosted nonempty persistence | **PASS in isolation**. Free Render test service srv-dbm4v2rbc2fs738b2in0 ran the same SHA through two real deployments; one quarantine event/source remained byte-for-byte identical in the isolated Neon branch. [Provider/deploy/state proof](docs/test-results/task7-hosted-recovery-20261105.json). Production state was untouched. |
+| Off-provider encrypted recovery | **PASS in isolation**. Authenticated encrypted archive exported to the coordinator Windows machine, then restored into a separate freshly created hosted database. Wrong key left the empty target unchanged. The real keygen/export/wrong-target/confirmed-restore CLI commands also passed. This is a state snapshot, not a complete provider disaster-recovery system or scheduled backup service. |
+| Guanyu frontend/public evidence | **DELIVERED WITH LIMITS** via merged #54–57: actual public browser 18/18, four screenshots, and member-reported Windows 430 pass / 4 skipped / 7 subtests. The personal skips remain NOT RUN locally; later public CI is separate. |
+| Zheng personal environment | **USER REPORTS EXECUTED; DETAILS PENDING** as of 11-05. User confirmed execution and will supply actual SHA, commands/results and counts. It is not yet recorded as pass/fail; no personal execution is attributed to CI or this coordinator. [Current record](docs/task7-zheng-personal-check.md). |
+| Review / scope | User explicitly authorized this cross-module remediation while retaining PR workflow. Guanyu supplied a real APPROVED review on the implementation. Deferred-review authorization is preserved without inventing Zheng approval. |
+| Actual Render health configuration | Owner set the existing public service Health Check Path to `/api/health`; subsequent read-only Render inspection confirmed that exact value, with service plan still Free and auto-deploy still enabled. |
+
+The public deployment is now Render Free + Neon PostgreSQL, not the historical
+ephemeral demo or expiring Render test database. See the updated
+[active runbook](docs/task7-junjie-render-neon-integration.md) and
+[operator recovery procedure](docs/task7-state-recovery.md).
+
+Remaining freeze actions: receive Zheng's actual execution details; reconcile
+the final merged/deployed code and current evidence; then the release owner may
+create `v0.9.0-rc1` on the exact accepted commit. No tag or release is created
+by these technical fixes. Source/transport success does not implement legal
+eligibility or a supported legal Action Card. Provider free-tier availability,
+physical-device testing and external-publisher-tab navigation are not expanded
+into claims by this assessment.
+
+## Historical assessment — 2026-11-03 (retained audit trail)
+
+**Historical technical result: PASS WITH LIMITS. At that time: NOT READY.**
 
 Chu Junjie's assessment is complete for the evidence available on **2026-11-03**.
 The fixed candidate installs, starts and passes the full suite in a fresh Python

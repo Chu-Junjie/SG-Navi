@@ -1,5 +1,10 @@
 # Task 7 — Actual Render Free HTTPS backend deploy (technical demo only)
 
+> Historical 11-04 ephemeral-service record. The current Pages API is
+> sg-navi-api-junjie with Neon persistence. Actual isolated hosted restart and
+> encrypted recovery now passed; see [the current runbook](task7-junjie-render-neon-integration.md)
+> and [recovery proof](task7-state-recovery.md). Preserve the dated observations below.
+
 **Execution date:** 2026-11-04 UTC. **Status: PUBLIC HTTPS API VERIFIED (10/10), FREE NONPERSISTENT DEMO ONLY. NOT READY FOR TASK 7 FREEZE.**
 
 ## Verified provider/service identity

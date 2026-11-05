@@ -1,5 +1,10 @@
 # Task 7 — PostgreSQL quarantine durability verification and hosted handover
 
+> Historical 11-04 CI/expiring-Render-database record. The active service now
+> uses Neon; actual isolated hosted restart and encrypted external recovery
+> passed on 11-05. See [the current runbook](task7-junjie-render-neon-integration.md)
+> and [recovery proof](task7-state-recovery.md), preserving the dated evidence below.
+
 **Author:** ZhengZaikun (Backend + recovery), review required from Chu-Junjie (RAG source owner).  
 **Date:** 2026-11-04 UTC.  
 **Status:** **LOCAL / CI REAL POSTGRES PASS; RENDER HOSTED STATE NOT YET CONFIGURED; TASK 7 NOT READY FOR FREEZE.**

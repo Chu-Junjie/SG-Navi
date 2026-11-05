@@ -8,7 +8,7 @@ from cryptography.fernet import Fernet
 
 from rag.import_knowledge_base import DEFAULT_KB
 from rag.repository import EvidenceRepository, RepositoryError
-from rag.state_archive import export_archive, restore_archive, write_new
+from rag.state_archive import corpus_digests, export_archive, restore_archive, write_new
 
 
 class IsolatedStore:
@@ -83,3 +83,13 @@ def test_archive_and_key_creation_never_overwrite_existing_files(tmp_path):
     assert target.read_bytes() == b"original"
     with pytest.raises(RepositoryError):
         write_new(tmp_path / "unsafe.txt", b"private", ".key")
+
+
+def test_same_corpus_recovers_across_windows_and_linux_newlines(archive):
+    repo, key, token, expected = archive
+    previous = corpus_digests(repo.directory)
+    for path in repo.directory.iterdir():
+        path.write_bytes(path.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n"))
+    assert corpus_digests(repo.directory) == previous
+    assert restore_archive(repo, token, key, confirm=True)["restored"]
+    assert repo.source_state() == expected

@@ -19,7 +19,9 @@ from rag.repository import EvidenceRepository, RepositoryError
 
 
 def corpus_digests(directory):
-    return {name: hashlib.sha256((Path(directory) / name).read_bytes()).hexdigest()
+    # Git checkouts may use CRLF on Windows and LF on Render. Bind the exact
+    # UTF-8 text with canonical LF endings, not the checkout's newline choice.
+    return {name: hashlib.sha256((Path(directory) / name).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
             for name in sorted(FILES)}
 
 
@@ -30,7 +32,7 @@ def export_archive(repository, key):
     state = repository.source_state()
     if corpus_digests(repository.directory) != digests:
         raise RepositoryError("Knowledge changed during export; retry")
-    payload = {"format_version": 1, "created_at": datetime.now(timezone.utc).isoformat(),
+    payload = {"format_version": 2, "created_at": datetime.now(timezone.utc).isoformat(),
                "source_version": bundle["source_version"], "corpus_sha256": digests, "state": state}
     return Fernet(key).encrypt(json.dumps(payload, ensure_ascii=False).encode("utf-8"))
 
@@ -46,7 +48,7 @@ def restore_archive(repository, token, key, *, confirm=False):
     except (InvalidToken, ValueError, UnicodeError, TypeError):
         raise RepositoryError("Archive authentication or decoding failed") from None
     fields = {"format_version", "created_at", "source_version", "corpus_sha256", "state"}
-    if not isinstance(payload, dict) or set(payload) != fields or type(payload["format_version"]) is not int or payload["format_version"] != 1:
+    if not isinstance(payload, dict) or set(payload) != fields or type(payload["format_version"]) is not int or payload["format_version"] != 2:
         raise RepositoryError("Unsupported archive format")
     timestamp(payload["created_at"], "archive creation")
     bundle = load_knowledge_base(repository.directory)
