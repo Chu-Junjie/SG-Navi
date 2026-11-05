@@ -61,7 +61,7 @@ test("DOM renderer uses safe links, metadata, disclaimer; clears previous conten
   assert.equal(link.tag,"a");assert.equal(link.target,"_blank");
   assert.equal(link.rel,"noopener noreferrer");
   assert.equal(link.href,"https://www.judiciary.gov.sg/");
-  assert.match(container.children[0].children[0].children[1].textContent,/Source version:/);
+  assert.match(container.children[0].children[0].children[1].textContent,/official website/);
   assert.equal(renderReferralSources(container, referral([]),doc),false);
   assert.equal(container.children.length,1);
   assert.match(container.children[0].textContent,/Needs verification/);
