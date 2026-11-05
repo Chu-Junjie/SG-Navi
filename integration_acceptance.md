@@ -2,7 +2,9 @@
 
 ## Current assessment — 2026-11-05
 
-**Technical fixes: PASS WITH LIMITS. Final freeze: PENDING MEMBER DETAILS AND FINAL VERSION RECONCILIATION.**
+**Technical fixes: PASS WITH LIMITS. Final freeze: BLOCKED BY LIVE SOURCE ACCESS AND PENDING MEMBER DETAILS.**
+
+**Post-merge access alert (2026-11-05, after 10:07 UTC):** The actual public API and browser tests passed on merged code, but source monitoring failed on two attempts. The runner received identical HTTP-200 content without any of the 11 reviewed court excerpts, and CASE returned 403 in the first attempt. Independent local retries timed out on both court pages while CASE matched. This is **unverified current access**, not proof of changed legal rules. Earlier successful captures remain dated evidence. [Issue #63](https://github.com/Chu-Junjie/SG-Navi/issues/63) is reopened; never accept an error page as new source evidence.
 
 This section supersedes the outstanding-item list in the historical 11-03 audit
 below. The current delivery remains an English source-context/referral demo;
@@ -18,7 +20,7 @@ record; a documentation commit is not silently described as deployed.
 | Item | Actual evidence and current disposition |
 | --- | --- |
 | Critical dependency readiness | **FIXED**. Health now checks the same source/state dependency as navigation; a dependency failure returns 503/unavailable, not 200/ok. Both actual homepage scripts require exact ok. Four new regressions first failed, then passed. Normal API 1.0 success payload is unchanged; failure example added. |
-| Official source freshness | **PASS**. Five live HTTP 200 responses and all 26 excerpts matched. Both CEA old body hashes were reconstructed exactly by replacing only two footer dates; two genuine automated review rows were appended. Historical rows, evidence text and source version remain unchanged. [Proof](docs/test-results/task7-source-recheck-20261105.json). |
+| Official source freshness | **PASS at the recorded earlier capture; latest access UNVERIFIED (see alert above)**. Five live HTTP 200 responses and all 26 excerpts matched. Both CEA old body hashes were reconstructed exactly by replacing only two footer dates; two genuine automated review rows were appended. Historical rows, evidence text and source version remain unchanged. [Proof](docs/test-results/task7-source-recheck-20261105.json). |
 | RAG corpus | Five files, five sources, 26 passages/mappings, five templates, now **nine** historical/current review rows. API 1.0 / rule mock-1 / source kb-2026-11-01.1. No human or official legal approval is claimed. |
 | Readiness/archive regressions | **13 passed** in the final targeted local run; dependency failure/recovery, malformed homepage responses, wrong keys, tampering, mismatched corpus/version/history, exclusive file creation and Windows/Linux newline portability covered. |
 | Full local implementation suite | **466 passed, 4 skipped, 13 subtests in 48.21s** on the complete implementation, including the health-error example. The three PG skips were separately executed in real CI; the opt-in published-browser check is recorded separately. [Machine record](docs/test-results/task7-remediation-20261105.json). |
@@ -35,7 +37,7 @@ ephemeral demo or expiring Render test database. See the updated
 [active runbook](docs/task7-junjie-render-neon-integration.md) and
 [operator recovery procedure](docs/task7-state-recovery.md).
 
-Remaining freeze actions: receive Zheng's actual execution details; reconcile
+Remaining freeze actions: re-establish actual official-page access and strict live verification; receive Zheng's actual execution details; reconcile
 the final merged/deployed code and current evidence; then the release owner may
 create `v0.9.0-rc1` on the exact accepted commit. No tag or release is created
 by these technical fixes. Source/transport success does not implement legal
