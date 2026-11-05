@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.error import HTTPError
@@ -13,7 +14,7 @@ from rag.import_knowledge_base import (
 from rag.source_review import capture, normalize_space
 
 
-def audit_source(source, bundle, *, fetch=capture):
+def _audit_once(source, bundle, *, fetch):
     """Compare a live official page with its current signed-off review."""
     official_url(source["url"])
     result = {
@@ -55,6 +56,35 @@ def audit_source(source, bundle, *, fetch=capture):
         if isinstance(error, HTTPError):
             result["http_status"] = error.code
         return result
+
+
+def audit_source(source, bundle, *, fetch=capture, attempts=3, pause=time.sleep):
+    """Retry transient transport failures only; retain every attempt's outcome.
+
+    A redirect, changed body or missing excerpt is a final review result. Even
+    after a successful retry, the full existing hash/excerpt checks must pass.
+    Forbidden/not-found responses are not retried or reclassified as success.
+    """
+    if not isinstance(attempts, int) or isinstance(attempts, bool) or not 1 <= attempts <= 3:
+        raise ValueError("attempts must be an integer from 1 to 3")
+    history = []
+    for number in range(1, attempts + 1):
+        result = _audit_once(source, bundle, fetch=fetch)
+        history.append({"attempt": number, **{
+            key: result[key] for key in ("status", "http_status", "error_type")
+            if key in result
+        }})
+        transient = result.get("error_type") in {
+            "TimeoutError", "URLError", "ConnectionError", "ConnectionResetError",
+            "ConnectionAbortedError", "ConnectionRefusedError", "OSError",
+        }
+        if result.get("error_type") == "HTTPError":
+            transient = result.get("http_status") in {408, 429, 500, 502, 503, 504}
+        if result["status"] != "fetch_error" or not transient or number == attempts:
+            result["attempt_count"] = number
+            result["attempt_history"] = history
+            return result
+        pause(number)  # Bounded 1s/2s backoff; never changes reviewed records.
 
 
 def run(directory=DEFAULT_KB, *, fetch=capture):
