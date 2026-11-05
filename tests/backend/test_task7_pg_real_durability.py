@@ -172,3 +172,28 @@ def test_actual_postgres_corrupt_event_fails_closed(transient_database):
             conn.execute("""UPDATE sgnavi_quarantine_state
                             SET state_json = '{"format_version":1,"blocked_sources":{},"events":[]}'::jsonb
                             WHERE state_key = 'quarantine-v1'""")
+
+
+def test_actual_postgres_encrypted_external_restore_round_trip(transient_database):
+    """An archive outside PG restores exact nonempty state with a pre-restore backup."""
+    from cryptography.fernet import Fernet
+    from rag.repository import EvidenceRepository
+    from rag.state_archive import export_archive, restore_archive
+
+    repo = EvidenceRepository()
+    baseline = repo.backup_state(label="ci_external_baseline")
+    expected = repo.quarantine_source(
+        "cea-complaint", actor="Task7DisposableCI", reason="encrypted_external_recovery_test")
+    key = Fernet.generate_key()
+    token = export_archive(repo, key)
+    repo.restore_state(baseline["backup_id"], confirm=True)
+    before = repo.source_state()
+    with pytest.raises(ValueError, match="authentication"):
+        restore_archive(repo, token, Fernet.generate_key(), confirm=True)
+    assert repo.source_state() == before
+    result = restore_archive(repo, token, key, confirm=True)
+    assert result["restored"] and result["event_count"] == len(expected["events"])
+    assert repo.source_state() == expected
+    assert _run_state() == expected
+    print("PG_ENCRYPTED_ARCHIVE_PASS", json.dumps({"exact_state_restored": True,
+        "wrong_key_preserved_state": True, "event_count": len(expected["events"])}))

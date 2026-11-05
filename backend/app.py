@@ -8,6 +8,7 @@ from flask import Flask, jsonify, send_from_directory
 
 from backend.routes.task2 import api as task2_api
 from backend.cors import configure_cors
+from backend.versioning import current_source_version, SourceVersionUnavailable
 
 
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
@@ -21,6 +22,12 @@ def create_app() -> Flask:
 
     @app.get("/api/health")
     def health():
+        # Readiness includes the same validated corpus and durable state used by
+        # navigation. A running process alone must not make the homepage say ready.
+        try:
+            current_source_version()
+        except SourceVersionUnavailable:
+            return jsonify({"status": "unavailable"}), 503
         return jsonify({"status": "ok"}), 200
 
     @app.get("/")

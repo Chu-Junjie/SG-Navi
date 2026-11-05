@@ -265,10 +265,11 @@
       ]
     },
     "health_response": {
+      "description": "HTTP 200 with status ok means critical source/state validation succeeded; HTTP 503 with unavailable means not ready. No dependency details are exposed.",
       "type": "object",
       "properties": {
         "status": {
-          "const": "ok"
+          "enum": ["ok", "unavailable"]
         }
       },
       "required": [
