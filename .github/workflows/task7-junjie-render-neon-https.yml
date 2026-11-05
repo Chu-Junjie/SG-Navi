@@ -1,0 +1,51 @@
+name: task7-junjie-render-neon-https-smoke
+
+on:
+  push:
+    branches: [feat/task7-own-render-neon-integration]
+  workflow_dispatch:
+
+jobs:
+  public-https-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install API validation requirements
+        run: python -m pip install -r tests/contracts/requirements.txt
+      - name: Probe actual new HTTPS service and database-backed mode
+        env:
+          BASE_URL: https://sg-navi-api-junjie.onrender.com
+        run: |
+          set -euo pipefail
+          healthy=0
+          for i in $(seq 1 18); do
+            if curl --silent --show-error --fail --max-time 25               --header 'Origin: https://chu-junjie.github.io'               --dump-header task7-junjie-headers.txt               --output task7-junjie-health.json               "$BASE_URL/api/health"; then
+              healthy=1
+              break
+            fi
+            sleep 10
+          done
+          if [ "$healthy" -ne 1 ]; then
+            echo 'FAIL: new Render API never returned HTTP 200' >&2
+            exit 1
+          fi
+          if ! grep -qi '^x-sg-navi-deployment-mode: postgres-backed-free-demo' task7-junjie-headers.txt; then
+            echo 'FAIL: backend did not disclose database-backed mode' >&2
+            exit 1
+          fi
+          python -m backend.smoke_public --base-url "$BASE_URL" | tee task7-junjie-smoke.json
+          python -c "import json; r=json.load(open('task7-junjie-smoke.json')); assert r['passed']; print('Real HTTPS checks passed:', len(r['checks']))"
+      - name: Upload actual verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: task7-junjie-render-neon-https
+          path: |
+            task7-junjie-health.json
+            task7-junjie-smoke.json
+            task7-junjie-headers.txt
+          retention-days: 30
