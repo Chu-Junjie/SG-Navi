@@ -67,7 +67,8 @@ def test_source_freshness_is_readonly_and_requires_review():
     assert "schedule:" in workflow
     assert "source-freshness-audit.log" in workflow
     assert "Never auto-update review timestamps" in workflow
-    assert "--output" not in workflow
+    assert "rag.import_knowledge_base --output" not in workflow
+    assert "source-freshness-report.json" in workflow
 
 
 def test_no_unreviewed_legal_rules_enabled_by_hosting_fix():
