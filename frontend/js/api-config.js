@@ -5,11 +5,10 @@
   if (typeof module === "object" && module.exports) module.exports = api;
   if (root) root.SGNaviApiConfig = api;
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
-  // New Render Free service created for this repo on 2026-11-05.
-  // Deployed main commit 98f72a6685e494061c84e10ef71226ed9758a743; browser E2E pending.
-  // Currently an EPHEMERAL demo: Neon persistence is not configured or accepted.
-  // This origin is public and contains no secret or database connection string.
-  // This is a public endpoint, NOT a credential, token, local IP or example URL.
+  // Junjie's reviewed Render Free service (Singapore), linked to main.
+  // Neon PostgreSQL was attached privately on 2026-11-05; hosted recovery and
+  // end-to-end release acceptance are tracked separately in Task 7.
+  // The public API origin is NOT a credential or a database connection string.
   const HTTPS_API_ORIGIN = "https://sg-navi-api-junjie.onrender.com";
   const API_PATHS = new Set(["/api/health", "/api/navigate", "/api/version", "/api/case-types"]);
 
