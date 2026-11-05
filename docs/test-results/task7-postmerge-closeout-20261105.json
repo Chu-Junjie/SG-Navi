@@ -1,0 +1,46 @@
+{
+  "recorded_at": "2026-11-05T10:26:06.160565+00:00",
+  "runtime_merge_sha": "f4da092c6b519d2007eee9be371d88a2f1cdbfb6",
+  "render_live_deploy": "dep-dbm5akm8bjmc739is1p0",
+  "render_health_check_path": "/api/health",
+  "merged_runtime_equal_to_tested_pr": true,
+  "postmerge_api_checks": {
+    "passed": 10,
+    "total": 10
+  },
+  "postmerge_real_public_browser": {
+    "pytest_passed": 1,
+    "seconds": 10.25,
+    "scenarios": 2,
+    "technical_steps": 18
+  },
+  "exact_merge_workflows": {
+    "ordinary_success": 42008029125,
+    "postgres_success": 42008028970,
+    "public_https_success": 42008028999,
+    "pages_success": 42008028218,
+    "source_freshness_failure_two_attempts": 42008028854
+  },
+  "latest_official_access": "UNVERIFIED; not evidence of a legal change",
+  "observed_source_failures": {
+    "first_ci": {
+      "court_http": 200,
+      "all_11_court_excerpts_missing": true,
+      "same_unexpected_body_sha256": "d5bff40c42c8c11b5c0c987507f967ba4d6aed29844fce34de7089ed9c50c757",
+      "case_http": 403,
+      "cea_sources": "unchanged"
+    },
+    "independent_local_retry": {
+      "both_court_pages": "TimeoutError",
+      "case": "HTTP 200, unchanged",
+      "cea_sources": "unchanged"
+    },
+    "real_browser_court_probe": "CDP timeout; no official response established"
+  },
+  "no_review_promotion_or_hash_rewrite_for_failed_fetches": true,
+  "remaining": [
+    "Restore genuine official-page access and strict live-source verification",
+    "Zheng user-reported run: exact SHA/commands/counts still not supplied",
+    "Final freeze/tag after evidence reconciliation only"
+  ]
+}
