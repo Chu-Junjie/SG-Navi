@@ -2,7 +2,15 @@
 
 ## Final candidate assessment — 2026-11-05
 
-**Internal technical acceptance: PASS WITH LIMITS. Final merge, public deployment verification and rc1 publication: PENDING.**
+**Internal technical acceptance: PASS WITH LIMITS. Owner-authorized single-operator candidate delivery: COMPLETE.**
+
+Published [v0.9.0-rc1 prerelease](https://github.com/Chu-Junjie/SG-Navi/releases/tag/v0.9.0-rc1)
+pins **f6076524223c5ef60b5a6b4433123d4792137f2c**, the actual merge of #66.
+Render deploy **dep-dbm67n3bc2fs73aqeup0** became Live on that exact SHA.
+Post-deploy public API **10/10** and real Pages browser **18/18** passed;
+four actual screenshots and raw results are attached to the release.
+[Final release/provider/CI/evidence identities](docs/test-results/task7-final-release-20261105.json).
+The tag remains immutable; later documentation-only commits do not move it.
 
 The owner explicitly authorized taking over all three members' remaining work,
 merging without waiting for another approval, and completing the handover. This
@@ -14,9 +22,9 @@ invented. The original three-person environment gate is **NOT FULLY EVIDENCED**.
 
 | Acceptance item | Actual result |
 | --- | --- |
-| Fixed implementation | `2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87`, [PR #66](https://github.com/Chu-Junjie/SG-Navi/pull/66). Final documentation changes preserve these runtime/test/dependency identities; the release tag will identify the exact accepted merge. |
+| Fixed implementation | `2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87`, [PR #66](https://github.com/Chu-Junjie/SG-Navi/pull/66). Accepted merge/tag: `f6076524223c5ef60b5a6b4433123d4792137f2c`; runtime/test/dependency/CI Git objects exactly match the tested implementation. |
 | Fresh install and full tests | New public Git clone and new isolated Windows venv; install and `pip check` exit 0. **481 passed, 4 skipped, 13 subtests in 51.12s**. Python 3.14.6 / Node 24.18.0 / Edge. [Commands, resolved packages, component Git objects and actual results](docs/test-results/task7-final-candidate-20261105.json). |
-| Skipped tests | Three disposable-PG checks were not run locally; separate real PG CI [42014879380](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42014879380) passed **3 in 4.93s**. Opt-in public Pages test was not run in this suite; final public execution is recorded separately after deployment. Ordinary implementation CI [42014879146](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42014879146) succeeded. |
+| Skipped tests | Three disposable-PG checks were not run locally; separate real PG CI [42014879380](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42014879380) passed **3 in 4.93s**. Opt-in public Pages test was run separately after final deployment: **1 passed in 11.31s, 18/18 steps**, zero JS exceptions. Exact-merge ordinary/PG/public HTTPS/Pages runs all succeeded; IDs are in the final release record. |
 | Documented startup | Fresh-venv `python -m flask --app integration.app run --host 127.0.0.1 --port 61737` actually started; five page/API GETs and both synthetic navigation POSTs returned 200. Actual versions: API 1.0 / rule mock-1 / source kb-2026-11-01.1. Child process stopped after checks. |
 | Frontend final verification | Actual local candidate browser test passed both nine-step journeys: **18/18**, four real desktop/mobile screenshots, zero JS exceptions. Frontend is byte-identical to the already tested #64 implementation; this new execution is the coordinator's delegated verification. Existing Guanyu member evidence remains separate. |
 | Source-owner decision | **Accept the independently matched static snapshot for this limited demo.** At 2026-11-05T10:55:40Z, five HTTP 200 responses, all 26 excerpts and current full-page hashes matched; no corpus/review/trust-state mutation. The separate single-attempt live importer subsequently timed out. Earlier cloud CASE retrieval failed; that cloud check is not called passed. These transport limits do not establish a legal change. |
@@ -36,8 +44,10 @@ hashes and review timestamps must never be changed to accept a network error.
 
 [Active release handover](docs/task7-release-handover.md) records reproduction,
 deployment and recovery. The immutable tag/release and post-merge public results
-must be read from their actual GitHub/provider records before marking delivery
-complete. The earlier assessments below are retained historical snapshots.
+are verified in the final release record above. Delivery is complete only for
+the stated internal demo scope; the original guide's three-person gate and the
+cloud CASE restriction are not described as passed or fixed. The earlier
+assessments below are retained historical snapshots.
 
 ## Earlier 2026-11-05 assessment — superseded by the final assessment above
 

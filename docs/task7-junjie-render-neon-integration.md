@@ -115,9 +115,12 @@ unexecuted tasks. Use the updated root acceptance for the current disposition.
 4. Arrange off-provider encrypted exports and a restoration drill in a safe
    location. The in-database `sgnavi_quarantine_backups` table is **not**
    sufficient protection against project deletion, lockout or provider outage.
-5. Record independent team environment checks, source approval and release
-   owner signoff in [Issue #7](https://github.com/Chu-Junjie/SG-Navi/issues/7).
-   Do not tag `v0.9.0-rc1` or claim a production filing tool until accepted.
+5. Record actual executors, source decisions and release authorization in
+   [Issue #7](https://github.com/Chu-Junjie/SG-Navi/issues/7). The owner authorized
+   single-operator closeout; the original three-person final environment gate
+   remains incompletely evidenced. The accepted internal `v0.9.0-rc1` prerelease
+   pins f6076524223c5ef60b5a6b4433123d4792137f2c; [final proof](test-results/task7-final-release-20261105.json).
+   This does not authorize a production filing-tool or legal-eligibility claim.
 
 ## Evidence-grounded feature boundary
 
