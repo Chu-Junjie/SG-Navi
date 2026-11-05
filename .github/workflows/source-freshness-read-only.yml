@@ -10,6 +10,7 @@ on:
     paths:
       - 'rag/knowledge_base/**'
       - 'rag/source_review.py'
+      - 'rag/freshness_report.py'
       - 'rag/import_knowledge_base.py'
       - '.github/workflows/source-freshness-read-only.yml'
 
@@ -32,8 +33,12 @@ jobs:
           set -euo pipefail
           printf 'source_review_sha=%s\nrun_time_utc=%s\n' "$GITHUB_SHA" "$(date -u +%FT%TZ)" > source-freshness-meta.txt
           result=0
-          python -m rag.import_knowledge_base --verify-live > source-freshness-audit.log 2>&1 || result=$?
-          cat source-freshness-audit.log
+          python -m rag.import_knowledge_base > source-freshness-offline.log 2>&1 || result=$?
+          if [ "$result" -eq 0 ]; then
+            python -m rag.freshness_report --output source-freshness-report.json > source-freshness-audit.log 2>&1 || result=$?
+          fi
+          cat source-freshness-offline.log
+          if [ -f source-freshness-audit.log ]; then cat source-freshness-audit.log; fi
           if [ "$result" -ne 0 ]; then
             echo 'REVIEW REQUIRED: official page changed, could not be fetched, or checked excerpts no longer matched.'
             echo 'Never auto-update review timestamps, hashes, evidence, or legal rules.'
@@ -46,6 +51,8 @@ jobs:
           name: sg-navi-source-freshness
           path: |
             source-freshness-meta.txt
+            source-freshness-offline.log
             source-freshness-audit.log
+            source-freshness-report.json
           retention-days: 30
           if-no-files-found: warn
