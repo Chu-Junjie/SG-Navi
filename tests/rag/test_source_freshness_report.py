@@ -64,3 +64,16 @@ def test_network_failure_requires_review_without_exposing_remote_contents():
     assert report["status"] == "fetch_error"
     assert report["error_type"] == "OSError"
     assert "sample-failure" not in str(report)
+
+
+def test_http_error_reports_status_without_copying_server_message():
+    from urllib.error import HTTPError
+
+    def fail(_):
+        raise HTTPError(URL, 403, "access denied: do not log arbitrary text", hdrs=None, fp=None)
+
+    report = audit_source(SOURCE, BUNDLE, fetch=fail)
+    assert report["status"] == "fetch_error"
+    assert report["error_type"] == "HTTPError"
+    assert report["http_status"] == 403
+    assert "access denied" not in str(report)
