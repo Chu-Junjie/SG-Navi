@@ -1,25 +1,31 @@
-# Task 7 proposal only. Applying this Blueprint provisions paid resources.
-# Do not create/sync on Render without approval of the plan and disk charges.
+# SG Navi — current FREE default Blueprint reference (Render + external Neon).
+# Existing service sg-navi-api-junjie was created using Render's Web Service API;
+# changing this file DOES NOT automatically alter the running service.
+# Avoid creating another Blueprint/service unless the owner intentionally does so.
+# A database URL is REQUIRED privately: no credentials are ever committed.
+# Free plan can sleep and is quota-limited, with no guaranteed lifetime/SLA.
 services:
   - type: web
-    name: sg-navi-api
+    name: sg-navi-api-junjie
     runtime: python
     region: singapore
-    plan: starter
+    plan: free
     repo: https://github.com/Chu-Junjie/SG-Navi
     branch: main
-    autoDeployTrigger: off
+    autoDeployTrigger: commit
+    healthCheckPath: /api/health
     buildCommand: pip install -r requirements.txt && python -m rag.import_knowledge_base
     startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 30 backend.production:app
-    healthCheckPath: /api/health
-    disk:
-      name: sg-navi-quarantine
-      mountPath: /opt/render/project/src/instance
-      sizeGB: 1
     envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.9"
+      - key: SG_NAVI_FREE_DEMO
+        value: "1"
       - key: SG_NAVI_REQUIRE_PERSISTENCE
         value: "1"
       - key: SG_NAVI_CORS_ORIGINS
         value: https://chu-junjie.github.io
-      - key: PYTHON_VERSION
-        value: "3.12.9"
+      # Prompt only when CREATING a new Blueprint; never commits or logs the DSN.
+      # On existing services, update this secret directly in Render Environment.
+      - key: SG_NAVI_STATE_DATABASE_URL
+        sync: false

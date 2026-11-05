@@ -1,0 +1,28 @@
+# HISTORICAL PAID ALTERNATIVE. DO NOT apply without owner approval and budget.
+# Render Starter + persistent disk incurs charges. Not used by Junjie's
+# Free Web Service + external Neon PostgreSQL setup.
+# Task 7 proposal only. Applying this Blueprint provisions paid resources.
+# Do not create/sync on Render without approval of the plan and disk charges.
+services:
+  - type: web
+    name: sg-navi-api
+    runtime: python
+    region: singapore
+    plan: starter
+    repo: https://github.com/Chu-Junjie/SG-Navi
+    branch: main
+    autoDeployTrigger: off
+    buildCommand: pip install -r requirements.txt && python -m rag.import_knowledge_base
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 30 backend.production:app
+    healthCheckPath: /api/health
+    disk:
+      name: sg-navi-quarantine
+      mountPath: /opt/render/project/src/instance
+      sizeGB: 1
+    envVars:
+      - key: SG_NAVI_REQUIRE_PERSISTENCE
+        value: "1"
+      - key: SG_NAVI_CORS_ORIGINS
+        value: https://chu-junjie.github.io
+      - key: PYTHON_VERSION
+        value: "3.12.9"

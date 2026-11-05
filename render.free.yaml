@@ -1,4 +1,7 @@
-# Free test service ONLY. The production-grade Blueprint remains render.yaml.
+# HISTORICAL NONPERSISTENT DEMO — NOT THE CURRENT DEPLOYMENT.
+# Do not sync this Blueprint for the active account or as a Task 7 release.
+# Current free + Neon reference: render.yaml (existing API-created Render service).
+# Historical isolated free test; current free + Neon reference is render.yaml.
 # This free service has NO durable disk. It MUST NOT satisfy Task 7 persistence.
 services:
   - type: web
