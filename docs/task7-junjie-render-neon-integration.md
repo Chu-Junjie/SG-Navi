@@ -67,9 +67,11 @@ changes; no hosting provider guarantees indefinite availability or backups.
   An external pass must be read from the **actual workflow run**, not inferred
   from its definition. The remote SHA is not proven by HTTP alone.
 - `source-freshness-read-only.yml`: weekly fetch and fingerprint/excerpt checks
-  of all five official URLs. Any failure must be triaged as changed content,
-  network failure or endpoint issue. It never alters review records or promotes
-  new source content automatically.
+  of all five official URLs, with per-source JSON. Any failure must be triaged
+  as changed content, network failure or endpoint issue. It never alters review
+  records or promotes new source content automatically. GitHub can automatically
+  disable scheduled workflows in public repos after 60 days of inactivity;
+  check Actions settings and re-enable if necessary.
 
 ### Manual independent checks
 
