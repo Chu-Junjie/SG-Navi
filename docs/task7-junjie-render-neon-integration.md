@@ -1,51 +1,126 @@
-# SG Navi — Junjie Render Free + Neon PostgreSQL integration
+# SG Navi — current free deployment, evidence and recovery gates
 
-Status (2026-11-05): **Render new service LIVE with Neon database connection configured and initialized.** Public HTTP/browser end-to-end and actual nonempty quarantine write → redeploy/reload persistence and offsite recovery checks remain **PENDING**. This is a controlled demo, not a legal-advice service or an accepted Task 7 release.
+**Authoritative current-architecture reference, as observed on 2026-11-05.**
+The application is publicly demonstrated, but Task 7 candidate freeze and legal
+eligibility decisions remain **NOT APPROVED**. Older Render handovers document
+historical experiments; do not use their URLs, expiring database or old branches
+for the current deployment.
 
-## Repository and deployment ownership
+## Active resources
 
-- Source: https://github.com/Chu-Junjie/SG-Navi (branch `main`).
-- New Render service: `sg-navi-api-junjie` (Free, Singapore), service `srv-dbluspoae00c73fqp4v0`.
-- Dashboard: https://dashboard.render.com/web/srv-dbluspoae00c73fqp4v0
-- API origin: https://sg-navi-api-junjie.onrender.com
-- Deployed SHA after Neon connection: `98f72a6685e494061c84e10ef71226ed9758a743` (initial build reused same reviewed main code). Neon-enabled deploy ID `dep-dblv8a6c6qcc73ffdn80` reports `live`.
-- Render auto-deploy on `main` is on. A draft PR alone does not deploy.
-- Browser frontend: https://chu-junjie.github.io/SG-Navi/ (GitHub Pages).
-- Do not confuse the new service with the historical `sg-navi-api-free-demo` in another Render workspace. No migration from that account is assumed or authorised.
+| Component | Actual reference | Observed state |
+| --- | --- | --- |
+| Source | https://github.com/Chu-Junjie/SG-Navi | Public `main`, reviewed squash merge `71ad87d726d8d4a3264bd23003ed39969f8b4516` |
+| Site | https://chu-junjie.github.io/SG-Navi/ | Pages publish job passed on that SHA |
+| Render backend | https://sg-navi-api-junjie.onrender.com | New service `srv-dbluspoae00c73fqp4v0`, Free, Singapore, auto-deploy on `main`; last observed Live on `71ad87d` |
+| Render dashboard | https://dashboard.render.com/web/srv-dbluspoae00c73fqp4v0 | Owned by Junjie's currently connected `My Workspace` |
+| Neon | `my-first-project`, project `damp-scene-05807412` | Free v3 plan, Singapore (`aws-ap-southeast-1`), PostgreSQL 18, branch `production`, database `neondb` |
+| Durable state tables | `sgnavi_quarantine_state`, `sgnavi_quarantine_metadata`, `sgnavi_quarantine_backups` | Created by Render app startup; 1 initial state row + 1 metadata row + 0 backup rows as observed 2026-11-05 |
 
-## Actual app runtime
+The site is static; browsers call the separate HTTPS Flask API.
+The app's read-only official evidence bundle contains five reviewed source
+records, 26 passages, 26 rule mappings and five conditional templates.
+The database stores quarantine/review state, **not** the checked-in knowledge
+corpus or a history of user dispute submissions.
 
-The service was created with:
-- Python runtime, region Singapore, plan `free`, full repo root as build context.
-- Build: `pip install -r requirements.txt && python -m rag.import_knowledge_base`
-- Start: `gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 30 backend.production:app`
-- `PYTHON_VERSION=3.12.9`
-- `SG_NAVI_CORS_ORIGINS=https://chu-junjie.github.io` (origin, no path).
-- `SG_NAVI_FREE_DEMO=1`, `SG_NAVI_REQUIRE_PERSISTENCE=1` after Neon was attached; Render secret `SG_NAVI_STATE_DATABASE_URL` was set through Render's environment API (not committed).
+## Render runtime and secrets
 
-Render reported both the initial and Neon-connected deploys as Live; build logs reported the checked knowledge corpus: five sources, 26 passages, 26 mappings, five templates. With the new Neon DSN, the app automatically initialized and validated the three PostgreSQL tables. This does **not** prove new public browser flows, a nonempty state persisted across restarts, or off-service disaster recovery. The Free instance can sleep and has usage limits. No fixed Web Service expiry does not mean a guarantee of permanent availability.
+The existing service was created via Render API, not by applying the root
+Blueprint. The root `render.yaml` is a free-plan reproducibility reference.
+**Do not create or sync an additional Blueprint without examining the intended
+resources and costs.**
 
-## Neon database (connected privately; additional acceptance pending)
+- Region `singapore`, service plan `free`, runtime `python`, branch `main`.
+- Build `pip install -r requirements.txt && python -m rag.import_knowledge_base`.
+- Start `gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 30 backend.production:app`.
+- `PYTHON_VERSION=3.12.9`.
+- `SG_NAVI_CORS_ORIGINS=https://chu-junjie.github.io`.
+- `SG_NAVI_FREE_DEMO=1`: public demo disclosure, no production/legal release claim.
+- `SG_NAVI_REQUIRE_PERSISTENCE=1`: fail closed when state cannot be persisted.
+- `SG_NAVI_STATE_DATABASE_URL`: **only a Render secret**; its value comes from
+  Neon and must never appear in this repository, PRs, issues, CI logs or chats.
 
-Neon is a managed **PostgreSQL database**. The GitHub repository is the source code, **not** the database; no database password or connection URL belongs in GitHub, commits, CI logs, Issues, PRs, or chat.
+The Neon connection was configured privately on 2026-11-05 and triggered
+a Render deployment; Render reported it Live. The app created the above tables
+on Neon. The connection URL supplied by Neon used a **pooled hostname**. Real
+transaction/advisory-lock logic must continue to be regression-tested when
+provider settings change. No credentials are exposed by this document.
 
-1. In https://console.neon.tech/ create a Free PostgreSQL project, e.g. `sg-navi`. Select Singapore if offered; record the actual region. A GitHub integration is optional for tooling and does not replace a PostgreSQL connection.
-2. In Neon Console select the project and **Connect**. Obtain the project's **direct** PostgreSQL connection string (disable connection pooling for this initial low-concurrency deployment to simplify connection and advisory-lock testing). Keep its supplied TLS parameters, including `sslmode=require`.
-3. In the **new Render** dashboard, open **Environment**. Add secret `SG_NAVI_STATE_DATABASE_URL` with the actual Neon PostgreSQL URL. Update `SG_NAVI_REQUIRE_PERSISTENCE=1`. Keep `SG_NAVI_FREE_DEMO=1` until the demo is independently accepted, along with `SG_NAVI_CORS_ORIGINS=https://chu-junjie.github.io`.
-4. Apply changes together; Render will redeploy. `backend.production` connects to Postgres and `PostgresStateStore.prepare()` creates/validates the quarantine tables at startup. On missing/invalid connection it fails closed; **do not** switch persistence off just to make the service green.
-5. Verify the actual deploy SHA, Live status, that the HTTP response header `X-SG-Navi-Deployment-Mode` reports `postgres-backed-free-demo`, and run the external API smoke script `python -m backend.smoke_public --base-url https://sg-navi-api-junjie.onrender.com` using synthetic inputs only.
-6. With authorisation and an operator-controlled process, check persisted quarantine history across a **real** hosted restart, then validated backup/recovery. Do not make a public state-mutation endpoint or claim disaster recovery from an in-database-only backup.
+A missing or unreachable database causes `backend.production` startup to fail
+rather than switching to ephemeral files. **Do not disable this protection to
+make the deployment look healthy.** Free plans have quotas, idle sleep and policy
+changes; no hosting provider guarantees indefinite availability or backups.
 
-Neon Free does not have a fixed trial end date as of the preparation date, but provider policy, quota and inactivity rules may change. Backup/export off-provider is needed for long-term protection; this document does not claim one exists.
+## Automated quality gates
 
-## Frontend integration PR and acceptance
+- `test.yml`: ordinary contract, backend, RAG, local WSGI and frontend tests.
+  **Green does not mean optional PostgreSQL or remote browser tests ran.**
+- `task7-postgres-durability.yml`: real disposable PostgreSQL 18 in GitHub
+  Actions; verifies nonempty quarantine, separate Gunicorn process restarts,
+  backup/restore and corrupt-history fail-closed. This is independent of Neon
+  and never mutates its live data.
+- `task7-junjie-render-neon-https.yml`: live API requests against the actual
+  Render hostname on `main` push, weekly scheduled run or manual dispatch.
+  Checks the database-backed mode header and the 10-check synthetic API smoke.
+  Scheduled/manual tests also run real published Pages in Chromium for the
+  Rental Deposit and Consumer Complaint flows and save screenshots.
+  An external pass must be read from the **actual workflow run**, not inferred
+  from its definition. The remote SHA is not proven by HTTP alone.
+- `source-freshness-read-only.yml`: weekly fetch and fingerprint/excerpt checks
+  of all five official URLs. Any failure must be triaged as changed content,
+  network failure or endpoint issue. It never alters review records or promotes
+  new source content automatically.
 
-This candidate PR changes only the deployment-owned public API origin in `frontend/js/api-config.js`; it does not add credentials or legal rules. Frontend owner `Guanyu-Lu` must review before merge. After merge, verify actual **GitHub Pages** browser flows for rental deposits and consumer complaints, missing facts, retry and invalid input, links, CORS, and mobile width. Until these tests pass, keep Task 7 final release/RC1 claims blocked.
+### Manual independent checks
 
-Remote diagnostics:
-- `GET https://sg-navi-api-junjie.onrender.com/api/health`
-- `GET https://sg-navi-api-junjie.onrender.com/api/version`
-- `GET https://sg-navi-api-junjie.onrender.com/api/case-types`
-- `OPTIONS/POST https://sg-navi-api-junjie.onrender.com/api/navigate` with the allowlisted GitHub Pages origin.
+```bash
+python -m backend.smoke_public --base-url https://sg-navi-api-junjie.onrender.com
+python -m rag.import_knowledge_base --verify-live
+```
 
-**Open gates:** New public API HTTP smoke / real browser validation; nonempty hosted quarantine persistence and backup/recovery testing; source-currentness, frontend owner review and final coordinator acceptance. Neon and Render are already connected, but a perpetual-availability guarantee is impossible on free services.
+An actual public smoke run must check `GET /api/health`,
+`GET /api/version`, `GET /api/case-types`, both synthetic
+`POST /api/navigate` scenarios, missing/invalid facts and CORS preflights.
+Expected demo header is `X-SG-Navi-Deployment-Mode:
+postgres-backed-free-demo`. Do not treat a status code alone as acceptance.
+
+## Remaining hosted acceptance and recovery
+
+1. Obtain independent successful **post-merge** public API workflow evidence
+   from the deployed service, and a real published Pages browser run. Review
+   actual evidence and reported caveats.
+2. Verify **nonempty state** survives a real hosted restart without writing
+   synthetic quarantine to the live `production` database. Use an **isolated
+   Neon branch/role or disposable test database** and an approved operator
+   procedure. CI on disposable Postgres proves app logic but not host wiring.
+3. Test guarded backup/restore and fail-closed behavior in a disposable
+   environment. Do not expose an administrative HTTP mutation endpoint,
+   paste credentials, or reset/poison the production branch.
+4. Arrange off-provider encrypted exports and a restoration drill in a safe
+   location. The in-database `sgnavi_quarantine_backups` table is **not**
+   sufficient protection against project deletion, lockout or provider outage.
+5. Record independent team environment checks, source approval and release
+   owner signoff in [Issue #7](https://github.com/Chu-Junjie/SG-Navi/issues/7).
+   Do not tag `v0.9.0-rc1` or claim a production filing tool until accepted.
+
+## Evidence-grounded feature boundary
+
+All legal decision thresholds / eligibility checks remain intentionally
+disabled. `rule_version: mock-1` and `REFER_TO_OFFICIAL` with
+`action_card: null` mean visitors receive official research context, **not**
+a legal route or eligibility determination. Enabling rules requires separate
+official-source evidence, explicit source-to-check mapping, human review,
+negative/boundary tests and team approval; it is **not** a deployment fix.
+
+## Historical deployment files
+
+- `render.yaml`: current Free + Neon **reference** Blueprint.
+- `render.starter.yaml`: archived paid Starter/disk design, not authorized.
+- `render.free.yaml` and `render-free.yaml`: older **nonpersistent**
+  `sg-navi-api-free-demo` proposals in another workspace; do not apply.
+- `docs/task7-postgres-durability-handover.md`: dated evidence about an old
+  expiring Render Free PostgreSQL test instance. It is **not** the current Neon
+  project and its 30-day expiry does not apply to the new Neon database.
+
+No real user dispute data or credentials should be committed or submitted
+as part of any public acceptance test.
