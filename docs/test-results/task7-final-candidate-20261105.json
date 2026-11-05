@@ -1,0 +1,465 @@
+{
+  "recorded_at": "2026-11-05T11:04:23.217668+00:00",
+  "implementation_sha": "2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87",
+  "pr": "https://github.com/Chu-Junjie/SG-Navi/pull/66",
+  "actual_executor": "Codex on Chu Junjie coordinator Windows computer",
+  "owner_authorization": "Owner explicitly delegated all remaining member work and authorized merge without waiting for approval on 2026-11-05.",
+  "original_three_personal_environment_gate": "NOT FULLY EVIDENCED; owner-authorized single-operator internal-candidate closeout. Zheng personal results remain unprovided, never substituted with this run.",
+  "fresh_environment": {
+    "checked_at": "2026-11-05T10:58:21.844485+00:00",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "sha": "2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87",
+    "fresh_clone": true,
+    "fresh_venv": true,
+    "install_exit": 0,
+    "pip_check_exit": 0
+  },
+  "actual_commands": [
+    "git clone --no-checkout --single-branch --branch fix/task7-final-candidate-closeout https://github.com/Chu-Junjie/SG-Navi.git task7-final-clean-20261105",
+    "git checkout --detach 2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87",
+    "python -m venv .venv",
+    ".\\.venv\\Scripts\\python.exe -m pip install -r tests/contracts/requirements.txt --disable-pip-version-check",
+    ".\\.venv\\Scripts\\python.exe -m pip check",
+    ".\\.venv\\Scripts\\python.exe -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q -rs --junitxml=instance/final-suite.xml"
+  ],
+  "resolved_dependencies": [
+    "attrs==26.1.0",
+    "blinker==1.9.0",
+    "cffi==2.1.1",
+    "click==8.5.0",
+    "colorama==0.4.6",
+    "cryptography==50.0.2",
+    "Flask==3.1.3",
+    "gunicorn==23.0.0",
+    "iniconfig==2.3.1",
+    "itsdangerous==2.2.0",
+    "Jinja2==3.1.6",
+    "jsonschema==4.26.0",
+    "jsonschema-specifications==2025.9.1",
+    "MarkupSafe==3.0.4",
+    "packaging==26.3",
+    "pluggy==1.7.0",
+    "psycopg==3.3.8",
+    "psycopg-binary==3.3.8",
+    "pycparser==3.12",
+    "Pygments==2.21.0",
+    "pytest==9.2.0",
+    "referencing==0.37.0",
+    "rpds-py==2026.9.1",
+    "tzdata==2026.6",
+    "Werkzeug==3.1.9"
+  ],
+  "full_suite": {
+    "passed": 481,
+    "skipped": 4,
+    "subtests_passed": 13,
+    "seconds": 51.12,
+    "exit_code": 0,
+    "junit_testcase_elements": 485,
+    "junit_sha256": "dad994960fa41f38020e0090c68aa000cd08c155fcc8fe026f361ab88da71185",
+    "skips": [
+      "Three disposable PostgreSQL checks (separately passed in actual CI)",
+      "One opt-in public Pages browser check (NOT RUN in this suite; final public execution recorded separately)"
+    ]
+  },
+  "fresh_flask_startup": {
+    "checked_at": "2026-11-05T11:00:32.338483+00:00",
+    "sha": "2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87",
+    "actor": "Codex on Chu Junjie coordinator Windows computer",
+    "command": [
+      "D:\\桌面\\CP3102\\SG Navi\\task7-final-clean-20261105\\.venv\\Scripts\\python.exe",
+      "-m",
+      "flask",
+      "--app",
+      "integration.app",
+      "run",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "61737"
+    ],
+    "synthetic_facts_only": true,
+    "http": [
+      {
+        "path": "/",
+        "method": "GET",
+        "http": 200
+      },
+      {
+        "path": "/task5-flow.html",
+        "method": "GET",
+        "http": 200
+      },
+      {
+        "path": "/api/health",
+        "method": "GET",
+        "http": 200,
+        "body": {
+          "status": "ok"
+        }
+      },
+      {
+        "path": "/api/version",
+        "method": "GET",
+        "http": 200,
+        "body": {
+          "api_version": "1.0",
+          "rule_version": "mock-1",
+          "source_version": "kb-2026-11-01.1"
+        }
+      },
+      {
+        "path": "/api/case-types",
+        "method": "GET",
+        "http": 200
+      },
+      {
+        "path": "/api/navigate",
+        "method": "POST",
+        "http": 200,
+        "case_type": "rental_deposit",
+        "status": "REFER_TO_OFFICIAL",
+        "action_card": null,
+        "evidence_count": 2
+      },
+      {
+        "path": "/api/navigate",
+        "method": "POST",
+        "http": 200,
+        "case_type": "consumer_complaint",
+        "status": "REFER_TO_OFFICIAL",
+        "action_card": null,
+        "evidence_count": 2
+      }
+    ],
+    "passed": true,
+    "child_process_stopped": true
+  },
+  "local_candidate_browser": {
+    "pytest_case_passed": true,
+    "scenarios": 2,
+    "technical_steps": 18,
+    "javascript_exceptions": 0,
+    "physical_device_test": false,
+    "legal_supported_action_card": false,
+    "screenshots": [
+      {
+        "name": "consumer_complaint-desktop-1440.jpg",
+        "bytes": 184506,
+        "sha256": "52f0cc8d674b87964ba872ee1a82d0e3975a01cefefca3e5565bb2ca8e9bf25f"
+      },
+      {
+        "name": "consumer_complaint-mobile-390.jpg",
+        "bytes": 166806,
+        "sha256": "01c57665fee2fa0483ddecf7adc85265193baf2a48d27325398f603b661beba4"
+      },
+      {
+        "name": "rental_deposit-desktop-1440.jpg",
+        "bytes": 177547,
+        "sha256": "5510e1a5a041e3e74aad45105dc370ff9e82f18c5d05c4e9c92d5f4541c78847"
+      },
+      {
+        "name": "rental_deposit-mobile-390.jpg",
+        "bytes": 162737,
+        "sha256": "cd3bb60915b6645bdf2a40582969b64b821c296a9e451de686b055a42c67541d"
+      }
+    ]
+  },
+  "implementation_ci": {
+    "ordinary": {
+      "run_id": 42014879146,
+      "conclusion": "success"
+    },
+    "real_postgres": {
+      "run_id": 42014879380,
+      "conclusion": "success",
+      "passed": 3,
+      "seconds": 4.93
+    }
+  },
+  "source_freshness": {
+    "scope": "live_source_freshness_read_only",
+    "checked_at": "2026-11-05T10:55:40.401334+00:00",
+    "source_version": "kb-2026-11-01.1",
+    "sources": [
+      {
+        "source_id": "courts-sct-eligibility",
+        "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-05T10:55:38+00:00",
+        "observed_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+        "excerpt_count": 6,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "courts-sct-filing",
+        "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-05T10:55:39+00:00",
+        "observed_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea",
+        "excerpt_count": 5,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "cea-dispute-resolution",
+        "url": "https://www.cea.gov.sg/consumers/engaging-a-property-agent/dispute-resolution/",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-05T10:55:39+00:00",
+        "observed_sha256": "b723dc5c8456bc7780f00b569e7ce59ce0e6799fabb237d204b497aa4529b9dc",
+        "excerpt_count": 5,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "cea-complaint",
+        "url": "https://www.cea.gov.sg/submit-complaint/",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-05T10:55:39+00:00",
+        "observed_sha256": "59e16e01f72f053b2766fc9686fce58d04e9d1ce59fcd08beb434c19fab9405a",
+        "excerpt_count": 4,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "case-complaint",
+        "url": "https://www.case.org.sg/submit-a-complaint/",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-05T10:55:40+00:00",
+        "observed_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+        "excerpt_count": 6,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      }
+    ],
+    "passed": true,
+    "review_required": [],
+    "no_changes_to_review_records": true
+  },
+  "retained_failed_source_observations": {
+    "prior_independent_audit": {
+      "scope": "live_source_freshness_read_only",
+      "checked_at": "2026-11-05T10:45:16.625085+00:00",
+      "source_version": "kb-2026-11-01.1",
+      "sources": [
+        {
+          "source_id": "courts-sct-eligibility",
+          "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+          "review_version": "kb-2026-11-01.1",
+          "status": "unchanged",
+          "recorded_review_status": "verified",
+          "http_status": 200,
+          "retrieved_at": "2026-11-05T10:44:47+00:00",
+          "observed_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+          "excerpt_count": 6,
+          "missing_evidence_ids": [],
+          "recorded_hash_matched": true
+        },
+        {
+          "source_id": "courts-sct-filing",
+          "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+          "review_version": "kb-2026-11-01.1",
+          "status": "fetch_error",
+          "recorded_review_status": "verified",
+          "error_type": "TimeoutError"
+        },
+        {
+          "source_id": "cea-dispute-resolution",
+          "url": "https://www.cea.gov.sg/consumers/engaging-a-property-agent/dispute-resolution/",
+          "review_version": "kb-2026-11-01.1",
+          "status": "unchanged",
+          "recorded_review_status": "verified",
+          "http_status": 200,
+          "retrieved_at": "2026-11-05T10:45:15+00:00",
+          "observed_sha256": "b723dc5c8456bc7780f00b569e7ce59ce0e6799fabb237d204b497aa4529b9dc",
+          "excerpt_count": 5,
+          "missing_evidence_ids": [],
+          "recorded_hash_matched": true
+        },
+        {
+          "source_id": "cea-complaint",
+          "url": "https://www.cea.gov.sg/submit-complaint/",
+          "review_version": "kb-2026-11-01.1",
+          "status": "unchanged",
+          "recorded_review_status": "verified",
+          "http_status": 200,
+          "retrieved_at": "2026-11-05T10:45:15+00:00",
+          "observed_sha256": "59e16e01f72f053b2766fc9686fce58d04e9d1ce59fcd08beb434c19fab9405a",
+          "excerpt_count": 4,
+          "missing_evidence_ids": [],
+          "recorded_hash_matched": true
+        },
+        {
+          "source_id": "case-complaint",
+          "url": "https://www.case.org.sg/submit-a-complaint/",
+          "review_version": "kb-2026-11-01.1",
+          "status": "unchanged",
+          "recorded_review_status": "verified",
+          "http_status": 200,
+          "retrieved_at": "2026-11-05T10:45:16+00:00",
+          "observed_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+          "excerpt_count": 6,
+          "missing_evidence_ids": [],
+          "recorded_hash_matched": true
+        }
+      ],
+      "passed": false,
+      "review_required": [
+        "courts-sct-filing"
+      ],
+      "no_changes_to_review_records": true
+    },
+    "single_attempt_live_importer": {
+      "command": ".\\.venv\\Scripts\\python.exe -X utf8 -m rag.import_knowledge_base --verify-live",
+      "exit_code": 1,
+      "result": "The read operation timed out"
+    },
+    "previous_cloud_run": {
+      "run_id": 42008028854,
+      "conclusion": "failure",
+      "latest_attempt": "Both court pages and both CEA pages matched; CASE fetch_error. Earlier unexpected court bodies were never promoted."
+    }
+  },
+  "source_acceptance": "Accept the independently matched five-source snapshot for the static source-context internal demo; intermittent transport/runner 403 remains a documented operational limitation. Failed observations are not passed reviews.",
+  "component_git_objects": {
+    "backend": "9cebcdabfb0b4f0057ab22700abe09b8fa58fb2c",
+    "frontend": "13b1e85b6c4348e7d156d6dc4e1f6162c2f5e4a4",
+    "rag": "3411f1286343ec6aa545c35965e16dfd4a5c01c9",
+    "shared": "39da0972689f7fc2b390df20dfa0fd5237f146c5",
+    "integration": "47e859fb71143d1b68d637eabd2c0287881f78ec",
+    "tests": "e035ae9b1b53b836a62b5135a55e433689d5c5d7",
+    ".github/workflows": "4238a4b1a803cef2de60153bed95c7ac25f6ec23",
+    "index.html": "8c0469367b6ccc8dd3521659c83a7a70fb25aa3a",
+    "requirements.txt": "9a51dc8774b115fd6af80b238d6244214e778da7",
+    "tests/contracts/requirements.txt": "f4d0a8ec6f365498ffb9e0b619418edbf9f26979"
+  },
+  "critical_files": {
+    "requirements.txt": {
+      "git_blob": "9a51dc8774b115fd6af80b238d6244214e778da7",
+      "sha256_git_content": "856b8cbe38e8d1291c0f471fe7d3faf7709098f6342f4fb087c8470cae8f8f4c"
+    },
+    "tests/contracts/requirements.txt": {
+      "git_blob": "f4d0a8ec6f365498ffb9e0b619418edbf9f26979",
+      "sha256_git_content": "e8df3e9657f40ed73d22fb25a746fbbca1fafd3040339425683dfb3a3914079c"
+    },
+    "shared/api_contract.json": {
+      "git_blob": "d7575af556bf3282de47bbcb590837b7404d3fc4",
+      "sha256_git_content": "a4d7b360c6d5dbc84d0205fe005733b5c6a12b73f3dde8472c362cbecca480df"
+    },
+    "shared/schemas/evidence_schema.json": {
+      "git_blob": "5b4b3a1470bd5f08af174acb651f07e5a39f50ac",
+      "sha256_git_content": "925b8ad0067115f1762efca4d815d2ed81eecd8c05f67a77b524cab3db124dcd"
+    },
+    "rag/knowledge_base/sources.csv": {
+      "git_blob": "8e22b5f74abac31360b27dd51731f2cef717cfaf",
+      "sha256_git_content": "235016de9d5e908e5ca6cac1b6fb180302de0c5b82a0dd303210fc4bdf16177d"
+    },
+    "rag/knowledge_base/passages.jsonl": {
+      "git_blob": "ec2dff272ceabd8b5b2efa6f3817564305e2fdb3",
+      "sha256_git_content": "062f901d7daae3dbfcdfbabab83bf0391dbc64ac4e146010db38fc8bdf3738aa"
+    },
+    "rag/knowledge_base/rule_evidence_map.json": {
+      "git_blob": "409d6f6e11b6641426b13d18f17335e50dad9a23",
+      "sha256_git_content": "03330e142831d6015b8298653ad90b256264012278a438cbfced1b68c2c6706e"
+    },
+    "rag/knowledge_base/action_templates.json": {
+      "git_blob": "d9b5590fa69e88d694710a4b73228eb68acdd7c3",
+      "sha256_git_content": "99d526a1dcb0edfb5dda5a6525d23686fe277bd373049bd3e4dd80b82878c06c"
+    },
+    "rag/knowledge_base/source_review_log.csv": {
+      "git_blob": "0343af6a68908f086e357af9d891e60da3b498d1",
+      "sha256_git_content": "fc9417724320549752a24a326c3d0b99fa5906c0f3e725d168c0d71ff3e35c94"
+    }
+  },
+  "knowledge": {
+    "source_version": "kb-2026-11-01.1",
+    "sources": 5,
+    "passages": 26,
+    "mappings": 26,
+    "templates": 5,
+    "review_rows": 9,
+    "all_rag_rules_disabled": true
+  },
+  "backend_rule_config": {
+    "checks": 25,
+    "all_disabled": true,
+    "all_thresholds_null": true
+  },
+  "targeted_tracked_file_audit": {
+    "tracked_files": 230,
+    "detectors": [
+      "github_token",
+      "private_key",
+      "neon_password",
+      "aws_access_key"
+    ],
+    "secret_shape_matches": [],
+    "sensitive_path_matches": [],
+    "scope": "Named credential shapes and sensitive paths in current tracked files; not a comprehensive security guarantee."
+  },
+  "legal_boundary": {
+    "api_version": "1.0",
+    "rule_version": "mock-1",
+    "source_version": "kb-2026-11-01.1",
+    "normal_status": "REFER_TO_OFFICIAL",
+    "normal_action_card": null,
+    "production_release": false
+  }
+}

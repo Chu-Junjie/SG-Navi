@@ -2,6 +2,8 @@
 
 **Status: EXECUTED AS REPORTED BY THE USER on 2026-11-05; exact SHA, commands and observed results NOT PROVIDED YET.** The user confirmed that Zheng has executed the personal check and will supply the actual results. This is not a claim that it passed. The command sheet below is a reproduction template, not a transcript. CI/Render results must not be renamed as member-operated results. No passwords or PostgreSQL URL should be pasted into this document, GitHub, screenshots or chat.
 
+**Owner-authorized closeout update (2026-11-05):** The owner subsequently delegated all remaining engineering work to this coordinator and authorized merging without another approval. A new independent clone/venv on the coordinator's Windows computer installed successfully, passed `pip check`, ran **481 passed / 4 skipped / 13 subtests**, and started the documented Flask CLI with both real synthetic API journeys. [Actual executor, SHA, commands and results](test-results/task7-final-candidate-20261105.json). This completes delegated engineering verification for the limited internal candidate; it does **not** fill Zheng's personal transcript below or prove three distinct computers were tested. That original gate remains incompletely evidenced and is disclosed in the final acceptance.
+
 Zheng should provide his **personally executed** Windows PowerShell results with the actual Git/Python versions. For a repeat run, use the following template. Start in a new directory where a folder named `SG-Navi-Zheng-clean` does not already exist.
 
 ## Step 1 — Fresh clone and identify exact source
@@ -69,7 +71,7 @@ Both Rental and Consumer should be tested with synthetic inputs only (as in `tes
 | Actual checked-out SHA | NOT PROVIDED |
 | Python / venv / pip freeze | NOT PROVIDED |
 | Dependency install and pip check | NOT PROVIDED |
-| 11 shared contract samples | NOT PROVIDED |
+| Shared contract samples (currently 12) | NOT PROVIDED |
 | RAG source load and integration diagnostics | NOT PROVIDED |
 | pytest PASS / FAIL / SKIP / subtests | NOT PROVIDED |
 | Node/Chrome/Edge availability | NOT PROVIDED |

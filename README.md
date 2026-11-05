@@ -29,7 +29,7 @@ Repository: https://github.com/Chu-Junjie/SG-Navi
 - Real PostgreSQL transaction/restart/recovery tests on **disposable CI PostgreSQL**, never the user's production Neon: [`.github/workflows/task7-postgres-durability.yml`](.github/workflows/task7-postgres-durability.yml).
 - Weekly read-only official source freshness: [`.github/workflows/source-freshness-read-only.yml`](.github/workflows/source-freshness-read-only.yml). Failed checks need owner review; CI never silently accepts new text or edits the five reviewed files. **GitHub disables scheduled Actions in public repositories after 60 days without repository activity**; an owner must re-enable them as needed (see GitHub Actions settings).
 
-Do not enable currently disabled legal thresholds/rules without precise official evidence, human review and dedicated boundary tests. For now `rule_version: mock-1`, status `REFER_TO_OFFICIAL`, and `action_card: null` are intentional. Follow [Task 7 issue](https://github.com/Chu-Junjie/SG-Navi/issues/7) for unresolved member evidence, hosted recovery and final candidate signoff.
+Do not enable currently disabled legal thresholds/rules without precise official evidence, human review and dedicated boundary tests. For now `rule_version: mock-1`, status `REFER_TO_OFFICIAL`, and `action_card: null` are intentional. [Current Task 7 acceptance](integration_acceptance.md) accepts a limited internal candidate under the owner's single-operator handover authorization. The original three-person final-environment evidence is incomplete; source retrieval can time out or return runner-specific 403. Strict monitoring remains enabled. [Release handover](docs/task7-release-handover.md) identifies current release progress and known limits.
 
 ## Ownership
 
@@ -60,7 +60,7 @@ py -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r tests/contracts/requirements.txt
 ```
 
-To reproduce an **exact** reviewed commit, use `git checkout --detach <approved-sha>` before creating the environment. The coordinator's original clean-install audit used `d629033b27f9eb5a9d0998b7d55304ae86ffe528`. The later frontend navigation/demo fixes merged in `ba8c992f03d426108fdb1e1aac375e9320b92244`; **neither SHA is an approved rc1 release target**. A final commit must be selected after all Task 7 evidence is reconciled.
+To reproduce an exact candidate, use `git checkout --detach <accepted-sha>` before creating the environment. The final fresh-clone implementation audit used `2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87`: 481 passed, 4 skipped, 13 subtests; actual install/start and resolved dependencies are in [the machine record](docs/test-results/task7-final-candidate-20261105.json). The post-acceptance `v0.9.0-rc1` tag will pin the merged delivery, including final documentation. Read the actual tag/release record for the exact commit rather than assuming a branch name proves deployment.
 
 On macOS/Linux, replace the venv commands with:
 
