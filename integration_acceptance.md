@@ -1,6 +1,45 @@
 # SG Navi — Task 7 integration acceptance
 
-## Current assessment — 2026-11-05
+## Final candidate assessment — 2026-11-05
+
+**Internal technical acceptance: PASS WITH LIMITS. Final merge, public deployment verification and rc1 publication: PENDING.**
+
+The owner explicitly authorized taking over all three members' remaining work,
+merging without waiting for another approval, and completing the handover. This
+supersedes the earlier requirement to wait for Zheng's personal transcript for
+this **single-operator internal candidate**. It does not establish that all
+three members ran the final code on three computers. Zheng's actual personal
+SHA/commands/counts remain unprovided; no personal PASS or human approval is
+invented. The original three-person environment gate is **NOT FULLY EVIDENCED**.
+
+| Acceptance item | Actual result |
+| --- | --- |
+| Fixed implementation | `2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87`, [PR #66](https://github.com/Chu-Junjie/SG-Navi/pull/66). Final documentation changes preserve these runtime/test/dependency identities; the release tag will identify the exact accepted merge. |
+| Fresh install and full tests | New public Git clone and new isolated Windows venv; install and `pip check` exit 0. **481 passed, 4 skipped, 13 subtests in 51.12s**. Python 3.14.6 / Node 24.18.0 / Edge. [Commands, resolved packages, component Git objects and actual results](docs/test-results/task7-final-candidate-20261105.json). |
+| Skipped tests | Three disposable-PG checks were not run locally; separate real PG CI [42014879380](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42014879380) passed **3 in 4.93s**. Opt-in public Pages test was not run in this suite; final public execution is recorded separately after deployment. Ordinary implementation CI [42014879146](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42014879146) succeeded. |
+| Documented startup | Fresh-venv `python -m flask --app integration.app run --host 127.0.0.1 --port 61737` actually started; five page/API GETs and both synthetic navigation POSTs returned 200. Actual versions: API 1.0 / rule mock-1 / source kb-2026-11-01.1. Child process stopped after checks. |
+| Frontend final verification | Actual local candidate browser test passed both nine-step journeys: **18/18**, four real desktop/mobile screenshots, zero JS exceptions. Frontend is byte-identical to the already tested #64 implementation; this new execution is the coordinator's delegated verification. Existing Guanyu member evidence remains separate. |
+| Source-owner decision | **Accept the independently matched static snapshot for this limited demo.** At 2026-11-05T10:55:40Z, five HTTP 200 responses, all 26 excerpts and current full-page hashes matched; no corpus/review/trust-state mutation. The separate single-attempt live importer subsequently timed out. Earlier cloud CASE retrieval failed; that cloud check is not called passed. These transport limits do not establish a legal change. |
+| Transport fix | At most three transient transport attempts, with complete status/error-type history and 1s/2s backoff. HTTP 403, redirects, changed hashes and missing quotes are not retried into success. **21 deterministic source-monitor tests passed**, including exhaustion and no leaked error messages. Strict source checks remain enabled. |
+| Source / rule identities | Five corpus files, five sources, 26 passages/mappings, five templates, nine truthful review rows. All 26 RAG mappings and all 25 backend checks remain disabled; thresholds null. API 1.0 / rule mock-1 / source kb-2026-11-01.1. |
+| Persistence and recovery | Actual isolated hosted nonempty redeploy and authenticated off-provider encrypted restore from #64 remain valid: archive/state/runtime code and dependency specs are unchanged. [Operator procedure and real experiment](docs/task7-state-recovery.md). No production writes were used for the drill. |
+| Bounded tracked-file check | 230 tracked candidate files; zero sensitive-key/archive paths or matches for the four recorded credential shapes. Synthetic inputs only. This is a bounded inspection, not a comprehensive security guarantee. |
+| Review disposition | Owner explicitly waived waiting for another approval for this closeout. PR workflow is retained. No self-approval or fabricated teammate review. |
+
+This accepts the English Rental Deposit and Consumer Complaint **official-source
+context/referral demo**, with normal `REFER_TO_OFFICIAL` and `action_card: null`.
+It does not accept legal eligibility, a populated supported legal Action Card,
+production use, three-computer verification, physical-phone testing, successful
+external-publisher-tab navigation or guaranteed Free-tier availability. Source
+monitor failures remain visible and require future operational triage; source
+hashes and review timestamps must never be changed to accept a network error.
+
+[Active release handover](docs/task7-release-handover.md) records reproduction,
+deployment and recovery. The immutable tag/release and post-merge public results
+must be read from their actual GitHub/provider records before marking delivery
+complete. The earlier assessments below are retained historical snapshots.
+
+## Earlier 2026-11-05 assessment — superseded by the final assessment above
 
 **Technical fixes: PASS WITH LIMITS. Final freeze: BLOCKED BY LIVE SOURCE ACCESS AND PENDING MEMBER DETAILS.**
 
