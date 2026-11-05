@@ -8,9 +8,27 @@ SG Navi has a real Flask → RAG → browser integration. It asks for missing fa
 - **Task 6:** accepted **with limits**; [evidence](docs/task6-checklist.md) (38 IDs: 36 PASS, E2E-01/02 LIMITED).
 - **Task 7:** handover in progress; [coordinator assessment](integration_acceptance.md) currently says **NOT READY FOR FREEZE**. The candidate-specific [Rental and Consumer browser demo](frontend/TASK7_CANDIDATE_DEMO.md) and screenshots are recorded; team member-specific fresh install records and final release-owner handover/approval still need reconciliation.
 - **Release/recovery procedures:** [Task 7 release handover](docs/task7-release-handover.md). Do not create `v0.9.0-rc1` or call it released before final coordinator approval.
-- **Public Flask API deployment:** [Render proposal, security, CORS, persistent disk, remote probe and frontend handoff](docs/task7-public-backend.md). This is a reviewed-code/CI preparation only: no paid service or public HTTPS API has been provisioned until the owner authorizes hosting. GitHub Pages is still static and unchanged.
+- **Current public demo (2026-11-05):** [GitHub Pages](https://chu-junjie.github.io/SG-Navi/) → [Junjie's Render Free API](https://sg-navi-api-junjie.onrender.com) → Neon Free PostgreSQL (`my-first-project`, PG18/Singapore). The service was observed **Live** on the reviewed `main` commit `71ad87d`; the Neon state/metadata/backup tables were initialized. This is a conservative referral prototype, **not a production/legal-decision release**. See the [live setup and acceptance register](docs/task7-junjie-render-neon-integration.md), not the [older paid-disk proposal](docs/task7-public-backend.md).
 
 Repository: https://github.com/Chu-Junjie/SG-Navi
+
+## Current free deployment and operational checks
+
+| Component | Actual setup | Caveat |
+| --- | --- | --- |
+| GitHub Pages | https://chu-junjie.github.io/SG-Navi/ | Static frontend; `frontend/js/api-config.js` routes Pages to the separate API |
+| Render | https://sg-navi-api-junjie.onrender.com, Singapore, plan Free, branch `main`, auto-deploy on | Sleeps and has usage quotas; Live status is not a complete UI acceptance |
+| Neon | Free PostgreSQL 18, Singapore, project `my-first-project` | Private database URL is set only as the Render secret `SG_NAVI_STATE_DATABASE_URL` |
+| Status persistence | `SG_NAVI_REQUIRE_PERSISTENCE=1`, `SG_NAVI_FREE_DEMO=1` | Quarantine-state initialization verified; nonempty hosted restart/recovery and offsite backup still pending |
+
+**Do not create a new paid resource or sync another Blueprint while checking the existing service.** The root [`render.yaml`](render.yaml) now describes the Free + Neon architecture for reference; it is **not** automatically controlling the existing API-created Render service. The old paid disk configuration is archived at [`render.starter.yaml`](render.starter.yaml) and requires separate cost approval. Older `render.free.yaml` and `render-free.yaml` are historical nonpersistent demos, not current deployment recipes.
+
+- Latest local/CI suite: [`.github/workflows/test.yml`](.github/workflows/test.yml) (ordinary suite can skip optional external browser and PostgreSQL tests).
+- Live public API and published browser acceptance: [`.github/workflows/task7-junjie-render-neon-https.yml`](.github/workflows/task7-junjie-render-neon-https.yml). On `main` push checks the actual remote API; scheduled/manual runs include the published Pages browser. The public test is not equivalent to a verified source SHA on the remote host.
+- Real PostgreSQL transaction/restart/recovery tests on **disposable CI PostgreSQL**, never the user's production Neon: [`.github/workflows/task7-postgres-durability.yml`](.github/workflows/task7-postgres-durability.yml).
+- Weekly read-only official source freshness: [`.github/workflows/source-freshness-read-only.yml`](.github/workflows/source-freshness-read-only.yml). Failed checks need owner review; CI never silently accepts new text or edits the five reviewed files.
+
+Do not enable currently disabled legal thresholds/rules without precise official evidence, human review and dedicated boundary tests. For now `rule_version: mock-1`, status `REFER_TO_OFFICIAL`, and `action_card: null` are intentional. Follow [Task 7 issue](https://github.com/Chu-Junjie/SG-Navi/issues/7) for unresolved member evidence, hosted recovery and final candidate signoff.
 
 ## Ownership
 
