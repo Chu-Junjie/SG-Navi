@@ -15,7 +15,7 @@ permissions:
 
 concurrency:
   group: sg-navi-public-smoke-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   public-https-smoke:
