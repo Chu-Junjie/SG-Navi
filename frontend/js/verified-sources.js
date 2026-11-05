@@ -87,16 +87,21 @@
     for (const source of sources) {
       const item = doc.createElement("li");
       const link = doc.createElement("a");
-      link.textContent = source.source_id + " — open source reference";
+      const hostname = new URL(source.href).hostname.toLowerCase();
+      link.textContent = hostname === "www.judiciary.gov.sg"
+        ? "Singapore Courts — view official website"
+        : hostname === "www.case.org.sg"
+          ? "Consumers Association of Singapore (CASE) — view official website"
+          : hostname === "www.cea.gov.sg"
+            ? "Council for Estate Agencies (CEA) — view official website"
+            : "View official website";
       link.href = source.href;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       item.appendChild(link);
       const meta = doc.createElement("p");
       meta.className = "source-meta";
-      meta.textContent = "Evidence ID: " + source.evidence_id +
-        " · Source version: " + source.source_version +
-        " · Review status: " + source.review_status;
+      meta.textContent = "Please read the information on the official website and check whether it applies to you.";
       item.appendChild(meta);
       list.appendChild(item);
     }

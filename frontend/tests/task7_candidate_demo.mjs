@@ -201,11 +201,11 @@ try {
     const links=await evaluate("Array.from(document.querySelectorAll('#verified-source-list a[href]'),e=>({href:e.href,target:e.target,rel:e.rel,text:e.textContent}))");
     assert.equal(links.length,response.evidence.length);
     for(const evidence of response.evidence){
-      assert.ok(links.some(x=>x.href===new URL(evidence.url).href&&x.text.includes(evidence.source_id)),evidence.evidence_id);
+      assert.ok(links.some(x=>x.href===new URL(evidence.url).href&&x.text.includes('official website')),evidence.evidence_id);
     }
     assert.ok(links.every(x=>x.target==='_blank'&&x.rel.includes('noopener')&&x.rel.includes('noreferrer')));
     const disclaimer=await evaluate("document.querySelector('#verified-source-context .source-note').textContent");
-    assert.ok(disclaimer.includes('does not establish legal eligibility'));
+    assert.ok(disclaimer.includes('do not establish legal eligibility'));
     const cards=await evaluate("Array.from(document.querySelectorAll('#card .card-section'),x=>({name:x.querySelector('h3')?.textContent,text:x.textContent}))");
     assert.equal(cards.length,7);
     assert.ok(cards.some(x=>x.text.includes('Needs verification')),'Incomplete legal guidance must be marked');
