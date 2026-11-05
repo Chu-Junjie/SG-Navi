@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 FRONTEND = ROOT / "frontend"
 LIVE_BRANCH = "feat/task7-live-public-acceptance"
 PUBLIC_URL = "https://chu-junjie.github.io/SG-Navi/"
-API_URL = "https://sg-navi-api-free-demo.onrender.com"
+API_URL = "https://sg-navi-api-junjie.onrender.com"
 
 class Task7RealPublishedPagesTest(unittest.TestCase):
     def test_published_pages_rental_and_consumer(self):

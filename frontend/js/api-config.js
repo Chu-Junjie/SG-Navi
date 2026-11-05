@@ -5,11 +5,12 @@
   if (typeof module === "object" && module.exports) module.exports = api;
   if (root) root.SGNaviApiConfig = api;
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
-  // Actual free Render HTTPS demo verified by backend owner on 2026-11-04.
-  // This is a temporary, EPHEMERAL test service (no persistent quarantine disk).
-  // Deploy SHA 635ded120e4dfa3196b6c30b3b162c9d77dd5cf5; never treat as RC1.
+  // New Render Free service created for this repo on 2026-11-05.
+  // Deployed main commit 98f72a6685e494061c84e10ef71226ed9758a743; browser E2E pending.
+  // Currently an EPHEMERAL demo: Neon persistence is not configured or accepted.
+  // This origin is public and contains no secret or database connection string.
   // This is a public endpoint, NOT a credential, token, local IP or example URL.
-  const HTTPS_API_ORIGIN = "https://sg-navi-api-free-demo.onrender.com";
+  const HTTPS_API_ORIGIN = "https://sg-navi-api-junjie.onrender.com";
   const API_PATHS = new Set(["/api/health", "/api/navigate", "/api/version", "/api/case-types"]);
 
   function isGitHubPages(location) {
