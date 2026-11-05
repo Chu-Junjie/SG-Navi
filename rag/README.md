@@ -32,6 +32,40 @@ The source directory contains exactly these five files. Version `kb-2026-11-01.1
 
 A documented recheck showing only site banners or footer changes can append a same-evidence-version review entry with the newly checked page fingerprint. Original excerpt digests and review history must remain intact. Changes to evidence text or its policy context require a content/version review instead. The 2026-11-02 CEA rechecks follow the former procedure; strict fingerprint verification remains enabled.
 
+## Read-only weekly freshness audit
+
+A scheduled GitHub Actions job [source-freshness-read-only.yml](../.github/workflows/source-freshness-read-only.yml)
+checks the five official URLs without changing any knowledge records. Local
+equivalent (run with network access):
+
+```bash
+python -m rag.import_knowledge_base
+python -m rag.freshness_report --output instance/source-freshness-report.json
+```
+
+The JSON report records current page SHA256, source ID, excerpt matching,
+HTTP status and a status per source. It deliberately excludes the full
+downloaded page and never copies credentials, claims human review or changes
+`source_review_log.csv`.
+
+- `unchanged`: matching recorded fingerprint and all checked literal excerpts.
+- `page_changed_excerpts_present`: site content/layout changed, but the
+  previously reviewed quotations still appear; **manual contextual review
+  needed**, not automatic permission to refresh the fingerprint.
+- `missing_reviewed_excerpt`: at least one cited quotation has disappeared;
+  quarantine/review the affected source before making any eligibility claim.
+- `url_or_http_changed` or `fetch_error`: changed URL, response or network;
+  investigate without silently marking the source as current.
+
+**Observed 2026-11-05:** a first remote read-only audit reported
+`cea-dispute-resolution: content changed; review and version update required`.
+This is a *drift signal*, not proof that the law or excerpt changed. The
+coordinator must compare the current official content with the archived
+reviewed excerpts, record whether the change is material, obtain human review
+when appropriate, and only then update the five source records/version by PR.
+Until then no new eligibility rules are enabled. See
+[Task 7 integration guide](../docs/task7-junjie-render-neon-integration.md).
+ 
 ## Source registry
 
 | Source ID | Official-publisher page |
