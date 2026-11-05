@@ -1,0 +1,51 @@
+name: source-freshness-read-only
+
+# Detect source drift; never rewrite the reviewed five-file corpus automatically.
+on:
+  schedule:
+    - cron: '35 2 * * 1'
+  workflow_dispatch:
+  push:
+    branches: [main, feat/task7-free-hosting-hardening]
+    paths:
+      - 'rag/knowledge_base/**'
+      - 'rag/source_review.py'
+      - 'rag/import_knowledge_base.py'
+      - '.github/workflows/source-freshness-read-only.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-current-official-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install source validation dependencies
+        run: python -m pip install -r tests/contracts/requirements.txt
+      - name: Validate reviewed corpus and re-fetch official pages
+        run: |
+          set -euo pipefail
+          printf 'source_review_sha=%s\nrun_time_utc=%s\n' "$GITHUB_SHA" "$(date -u +%FT%TZ)" > source-freshness-meta.txt
+          result=0
+          python -m rag.import_knowledge_base --verify-live > source-freshness-audit.log 2>&1 || result=$?
+          cat source-freshness-audit.log
+          if [ "$result" -ne 0 ]; then
+            echo 'REVIEW REQUIRED: official page changed, could not be fetched, or checked excerpts no longer matched.'
+            echo 'Never auto-update review timestamps, hashes, evidence, or legal rules.'
+            exit 1
+          fi
+      - name: Preserve observed freshness evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sg-navi-source-freshness
+          path: |
+            source-freshness-meta.txt
+            source-freshness-audit.log
+          retention-days: 30
+          if-no-files-found: warn
