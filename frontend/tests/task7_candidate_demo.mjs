@@ -205,7 +205,7 @@ try {
     }
     assert.ok(links.every(x=>x.target==='_blank'&&x.rel.includes('noopener')&&x.rel.includes('noreferrer')));
     const disclaimer=await evaluate("document.querySelector('#verified-source-context .source-note').textContent");
-    assert.ok(disclaimer.includes('does not establish legal eligibility'));
+    assert.ok(disclaimer.includes('do not establish legal eligibility'));
     const cards=await evaluate("Array.from(document.querySelectorAll('#card .card-section'),x=>({name:x.querySelector('h3')?.textContent,text:x.textContent}))");
     assert.equal(cards.length,7);
     assert.ok(cards.some(x=>x.text.includes('Needs verification')),'Incomplete legal guidance must be marked');
