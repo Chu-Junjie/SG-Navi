@@ -5,6 +5,7 @@ import argparse
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.error import HTTPError
 
 from rag.import_knowledge_base import (
     DEFAULT_KB, current_reviews, load_knowledge_base, official_url
@@ -51,6 +52,8 @@ def audit_source(source, bundle, *, fetch=capture):
         # Never log full page contents, user data or credentials.
         result["status"] = "fetch_error"
         result["error_type"] = type(error).__name__
+        if isinstance(error, HTTPError):
+            result["http_status"] = error.code
         return result
 
 
