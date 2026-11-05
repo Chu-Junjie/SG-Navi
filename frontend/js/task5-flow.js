@@ -10,6 +10,15 @@
     "case_summary", "potential_channels", "conditions", "steps",
     "document_checklist", "unresolved_questions", "citations"
   ]);
+  const DISPLAY_SECTION_LABELS = Object.freeze({
+    case_summary: "Your situation",
+    potential_channels: "Where to get help",
+    conditions: "Things to check",
+    steps: "Possible next steps",
+    document_checklist: "Documents to prepare",
+    unresolved_questions: "Questions to consider",
+    citations: "Official references"
+  });
   const FACT_SECTIONS = new Set([
     "case_summary", "potential_channels", "conditions", "steps", "document_checklist", "citations"
   ]);
@@ -222,7 +231,7 @@
   function renderSection(key, value, evidence) {
     const section = document.createElement("section");
     section.className = "card-section";
-    add(section, "h3", state.labels?.action_card?.[key] || key);
+    add(section, "h3", DISPLAY_SECTION_LABELS[key] || state.labels?.action_card?.[key] || key);
     if (FACT_SECTIONS.has(key) && !evidence) {
       add(section, "p", "Needs verification — we cannot confirm this information from the available official sources.");
     } else if (value === null || value === undefined || value === "" ||
