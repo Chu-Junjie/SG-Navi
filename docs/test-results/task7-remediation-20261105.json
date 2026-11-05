@@ -1,0 +1,85 @@
+{
+  "executed_at": "2026-11-05T09:52:34.456458+00:00",
+  "scope": "actual task7 remediation checks; no personal member attestation",
+  "full_local_suite": {
+    "passed": 466,
+    "skipped": 4,
+    "subtests": 13,
+    "seconds": 48.21,
+    "junit_cases": 470,
+    "exit_code": 0,
+    "command": "python -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q -rs --junitxml=instance/remediation-final-suite-v2.xml",
+    "skip_scope": [
+      "3 disposable PostgreSQL tests executed separately in CI",
+      "1 opt-in live Pages test to be verified after production publish"
+    ]
+  },
+  "readiness_regression": {
+    "before": "4 failed in 2.62s",
+    "after": "4 passed in 1.85s"
+  },
+  "targeted_archive_and_readiness": {
+    "passed": 13,
+    "seconds": 3.67
+  },
+  "source_recheck": {
+    "http_200": 5,
+    "excerpts_matched": 26,
+    "footer_only_sources": 2,
+    "source_version": "kb-2026-11-01.1",
+    "review_log_rows": 9,
+    "actual_freshness_and_live_importer_exit_codes": [
+      0,
+      0
+    ]
+  },
+  "shared_examples": 12,
+  "ci": {
+    "ordinary": 42004044454,
+    "postgres": 42004044526,
+    "postgres_result": "3 passed in 4.06s"
+  },
+  "dependencies": [
+    "attrs==26.1.0",
+    "blinker==1.9.0",
+    "cffi==2.1.1",
+    "click==8.5.0",
+    "colorama==0.4.6",
+    "cryptography==50.0.2",
+    "Flask==3.1.3",
+    "gunicorn==23.0.0",
+    "iniconfig==2.3.1",
+    "itsdangerous==2.2.0",
+    "Jinja2==3.1.6",
+    "jsonschema==4.26.0",
+    "jsonschema-specifications==2025.9.1",
+    "MarkupSafe==3.0.4",
+    "packaging==26.3",
+    "pluggy==1.7.0",
+    "psycopg==3.3.8",
+    "psycopg-binary==3.3.8",
+    "pycparser==3.12",
+    "Pygments==2.21.0",
+    "pytest==9.2.0",
+    "referencing==0.37.0",
+    "rpds-py==2026.9.1",
+    "tzdata==2026.6",
+    "Werkzeug==3.1.9"
+  ],
+  "limits": [
+    "No legal eligibility rules enabled; action_card remains null",
+    "Zheng run user-reported executed; actual SHA/counts pending",
+    "No final release tag selected or created"
+  ],
+  "readiness_wsgi_checkpoint_sha": "3994850f29a04356c3a708daee56815294278895",
+  "tested_code_sha256": {
+    "backend/app.py": "b1fd2560ed2f0a3b85349d400d13ff56c878071093ce773738eec4153982c9a0",
+    "index.html": "349ade0efc9ca93367c8d2a20de278d840c5ca1036d78a5a534e4f2f771455e7",
+    "frontend/index.html": "0b6fa148737b7ee558667ffaadcb78a8ee86948973f657b3aeada112421c19a1",
+    "rag/postgres_state.py": "13eb5d8fe94f386af9ceb903c11431f38191eb1fce0053114e8c7474397e29ab",
+    "rag/state_archive.py": "029d11a1ce7420c0334b021be1491aa864992819f08ddac05a67b311394fcf1f",
+    "shared/api_contract.json": "a4d7b360c6d5dbc84d0205fe005733b5c6a12b73f3dde8472c362cbecca480df",
+    "requirements.txt": "856b8cbe38e8d1291c0f471fe7d3faf7709098f6342f4fb087c8470cae8f8f4c"
+  },
+  "confirmed_render_health_check_path": "/api/health"
+}

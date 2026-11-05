@@ -4,6 +4,7 @@
 !.env.example
 *.pem
 *.key
+*.sgnavi-backup
 
 # Python environments and caches
 .venv/

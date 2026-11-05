@@ -149,12 +149,11 @@ class PostgresStateStore:
                 db = self._transaction.get()
                 row = db.execute("""
                     INSERT INTO sgnavi_quarantine_backups (backup_label, state_json)
-                    VALUES (%s, COALESCE(
-                        (SELECT state_json FROM sgnavi_quarantine_state WHERE state_key = %s),
-                        '{"format_version":1,"blocked_sources":{},"events":[]}'::jsonb
-                    ))
+                    SELECT %s, state_json FROM sgnavi_quarantine_state WHERE state_key = %s
                     RETURNING backup_id
                 """, (label, _ROW_ID)).fetchone()
+                if row is None:
+                    raise DurableStateError("Cannot back up missing quarantine state")
                 return row[0]
         except psycopg.Error:
             raise DurableStateError("Quarantine backup failed") from None
@@ -189,15 +188,29 @@ class PostgresStateStore:
                 if not row:
                     raise DurableStateError("Quarantine backup was not found")
                 payload = json.loads(row[0])
-                validate_state(payload)  # RAG validates each event against current reviewed sources.
-                db.execute("""
-                    INSERT INTO sgnavi_quarantine_backups (backup_label, state_json)
-                    VALUES (%s, COALESCE(
-                        (SELECT state_json FROM sgnavi_quarantine_state WHERE state_key = %s),
-                        '{"format_version":1,"blocked_sources":{},"events":[]}'::jsonb
-                    ))
-                """, ("before_restore_" + str(backup_id), _ROW_ID))
-                self.save(payload)
+                self._apply_restore(payload, validate_state, "before_restore_" + str(backup_id))
             return payload
         except (psycopg.Error, ValueError, TypeError):
             raise DurableStateError("Quarantine restore failed; original state retained") from None
+
+    def _apply_restore(self, payload, validate_state, label):
+        """Caller holds the transaction lock; never replace unreadable current state."""
+        current = self.read()
+        validate_state(current)
+        validate_state(payload)
+        self._transaction.get().execute("""
+            INSERT INTO sgnavi_quarantine_backups (backup_label, state_json)
+            VALUES (%s, %s::jsonb)
+        """, (label, json.dumps(current, ensure_ascii=False)))
+        self.save(payload)
+
+    def restore_external(self, payload, *, validate_state, confirm=False):
+        """Operator-only import of an authenticated, corpus-matched off-provider archive."""
+        if not confirm:
+            raise DurableStateError("Restore requires explicit operator confirmation")
+        try:
+            with self.locked():
+                self._apply_restore(payload, validate_state, "before_external_restore")
+            return payload
+        except (psycopg.Error, ValueError, TypeError):
+            raise DurableStateError("External restore failed; original state retained") from None

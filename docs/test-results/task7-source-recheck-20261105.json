@@ -1,0 +1,70 @@
+{
+  "executed_at": "2026-11-05T09:23:59+00:00",
+  "scope": "actual automated page/excerpt review; no legal or human approval",
+  "source_version": "kb-2026-11-01.1",
+  "source_count": 5,
+  "passage_count": 26,
+  "canonical_passages_mappings_templates_unchanged": true,
+  "historical_review_rows_preserved": true,
+  "review_identity": "Codex automated page and excerpt check",
+  "sources": [
+    {
+      "source_id": "courts-sct-eligibility",
+      "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+      "http_status": 200,
+      "retrieved_at": "2026-11-05T09:21:48+00:00",
+      "excerpt_count": 6,
+      "missing_evidence_ids": [],
+      "observed_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+      "previous_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0"
+    },
+    {
+      "source_id": "courts-sct-filing",
+      "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+      "http_status": 200,
+      "retrieved_at": "2026-11-05T09:21:48+00:00",
+      "excerpt_count": 5,
+      "missing_evidence_ids": [],
+      "observed_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea",
+      "previous_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea"
+    },
+    {
+      "source_id": "cea-dispute-resolution",
+      "url": "https://www.cea.gov.sg/consumers/engaging-a-property-agent/dispute-resolution/",
+      "http_status": 200,
+      "retrieved_at": "2026-11-05T09:21:48+00:00",
+      "excerpt_count": 5,
+      "missing_evidence_ids": [],
+      "observed_sha256": "b723dc5c8456bc7780f00b569e7ce59ce0e6799fabb237d204b497aa4529b9dc",
+      "previous_sha256": "9e217370ae4c2fee5c0be38de70f8d1da14d2c08dbf2e57fddf9f07c9c28ead8",
+      "footer_replacements": 2,
+      "old_footer_date": "2 November 2026",
+      "new_footer_date": "5 November 2026",
+      "reconstructed_previous_digest_matches": true
+    },
+    {
+      "source_id": "cea-complaint",
+      "url": "https://www.cea.gov.sg/submit-complaint/",
+      "http_status": 200,
+      "retrieved_at": "2026-11-05T09:21:48+00:00",
+      "excerpt_count": 4,
+      "missing_evidence_ids": [],
+      "observed_sha256": "59e16e01f72f053b2766fc9686fce58d04e9d1ce59fcd08beb434c19fab9405a",
+      "previous_sha256": "f16eec9db1140111c918a76db9ca48d1c59141d03bbf28b0bf7b4f4b05b5e301",
+      "footer_replacements": 2,
+      "old_footer_date": "2 November 2026",
+      "new_footer_date": "5 November 2026",
+      "reconstructed_previous_digest_matches": true
+    },
+    {
+      "source_id": "case-complaint",
+      "url": "https://www.case.org.sg/submit-a-complaint/",
+      "http_status": 200,
+      "retrieved_at": "2026-11-05T09:21:48+00:00",
+      "excerpt_count": 6,
+      "missing_evidence_ids": [],
+      "observed_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+      "previous_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3"
+    }
+  ]
+}

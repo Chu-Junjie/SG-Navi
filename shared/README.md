@@ -66,10 +66,25 @@ Every Evidence record requires exactly `evidence_id`, `source_id`, `rule_ids`, `
 
 All examples are synthetic. `mock-*` IDs and versions, reserved `example.invalid` URLs and the mock `verified` value exercise validation branches only. They are not official passages, source reviews, usable citations or eligibility decisions. Do not import them into a production knowledge base. Schema validation cannot prove a source was really reviewed, that Evidence IDs are unique across a dataset, that versions agree across modules, or that citations match rules; those checks belong to the later evidence validator.
 
-## Handoff and remaining work
+## Readiness status (Task 7)
+
+`GET /api/health` validates the same checked source bundle and operational state
+used by navigation. It returns HTTP 200 with `{"status":"ok"}` when ready,
+or HTTP 503 with `{"status":"unavailable"}` when critical state cannot be
+validated. Both payloads use `health_response`; the two examples are in the
+manifest. No connection details or source-state contents appear in the response.
+Clients must require a successful HTTP status and the exact `ok` value before
+showing that submissions are available. API version 1.0 and the successful
+health payload are unchanged.
+
+## Historical Task 2 handoff
 
 Lu Guanyu owns the two input schemas and detailed Action Card schema. The shared envelope fixes the seven card names (`case_summary`, `potential_channels`, `conditions`, `steps`, `document_checklist`, `unresolved_questions`, `citations`); section contents are intentionally unconstrained until his schema is agreed. This PR does not claim full Action Card content validation. Refine or reference those schemas here after agreement instead of maintaining a second conflicting contract.
 
-Zheng Zaikun owns endpoint stubs and CI. `tests/contracts/requirements.txt` layers validator dependencies on the root requirements without changing his dependency file. The existing Task 1 workflow runs backend and homepage tests only. It does not yet install these extra dependencies or run the contract tests; the CI owner should add the install and validation commands above.
+Zheng Zaikun owns the backend and CI. `tests/contracts/requirements.txt` layers
+validator dependencies on the root requirements. Current CI installs them and
+validates the shared examples before the backend/RAG/frontend tests.
 
-Task 2 remains open until the other module owners use this contract, their corresponding schemas and Mock data pass it, and all three confirm the fields through review. Task 1's outstanding acceptance records are not automatically completed by this Task 2 work.
+The original Task 2 implementation/acceptance is historical. Current source,
+deployment and release decisions are recorded in the root
+`integration_acceptance.md`; these mock examples do not grant legal approval.

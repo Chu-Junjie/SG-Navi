@@ -1,8 +1,8 @@
-# Task 7 — Zheng personal Windows clean-install record (execution required)
+# Task 7 — Zheng personal Windows clean-install evidence (details pending)
 
-**Status: NOT RUN on Zheng's personal Windows PC.** This is an exact, reproducible command sheet, not an attestation. CI/Render results must not be renamed as member-operated results. No passwords or PostgreSQL URL should be pasted into this document, GitHub, screenshots or chat.
+**Status: EXECUTED AS REPORTED BY THE USER on 2026-11-05; exact SHA, commands and observed results NOT PROVIDED YET.** The user confirmed that Zheng has executed the personal check and will supply the actual results. This is not a claim that it passed. The command sheet below is a reproduction template, not a transcript. CI/Render results must not be renamed as member-operated results. No passwords or PostgreSQL URL should be pasted into this document, GitHub, screenshots or chat.
 
-The user should conduct this **personally** on Windows with PowerShell and Git/Python installed. Start in a new directory where a folder named `SG-Navi-Zheng-clean` does not already exist.
+Zheng should provide his **personally executed** Windows PowerShell results with the actual Git/Python versions. For a repeat run, use the following template. Start in a new directory where a folder named `SG-Navi-Zheng-clean` does not already exist.
 
 ## Step 1 — Fresh clone and identify exact source
 
@@ -63,18 +63,18 @@ Both Rental and Consumer should be tested with synthetic inputs only (as in `tes
 
 | Requirement | Actual observed result |
 | --- | --- |
-| Tester / computer | ZhengZaikun / NOT RUN |
-| OS and UTC/local time | NOT RUN |
-| Git clone exit status | NOT RUN |
-| Actual checked-out SHA | NOT RUN |
-| Python / venv / pip freeze | NOT RUN |
-| Dependency install and pip check | NOT RUN |
-| 11 shared contract samples | NOT RUN |
-| RAG source load and integration diagnostics | NOT RUN |
-| pytest PASS / FAIL / SKIP / subtests | NOT RUN |
-| Node/Chrome/Edge availability | NOT RUN |
-| Flask startup, shutdown and HTTP | NOT RUN |
-| Rental and Consumer synthetic API flow | NOT RUN |
+| Tester / computer | ZhengZaikun / NOT PROVIDED |
+| OS and UTC/local time | NOT PROVIDED |
+| Git clone exit status | NOT PROVIDED |
+| Actual checked-out SHA | NOT PROVIDED |
+| Python / venv / pip freeze | NOT PROVIDED |
+| Dependency install and pip check | NOT PROVIDED |
+| 11 shared contract samples | NOT PROVIDED |
+| RAG source load and integration diagnostics | NOT PROVIDED |
+| pytest PASS / FAIL / SKIP / subtests | NOT PROVIDED |
+| Node/Chrome/Edge availability | NOT PROVIDED |
+| Flask startup, shutdown and HTTP | NOT PROVIDED |
+| Rental and Consumer synthetic API flow | NOT PROVIDED |
 | Actual logs/screenshots directory | NOT PROVIDED |
 
 **Do not commit `.venv`, instance runtime state, personally identifying case data, or private database URLs.** Send only redacted execution logs/test counts to the coordinator and update this record after real testing.

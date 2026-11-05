@@ -28,6 +28,10 @@
     "definition": "health_response"
   },
   {
+    "file": "health_unavailable_response.json",
+    "definition": "health_response"
+  },
+  {
     "file": "case_types_response.json",
     "definition": "case_types_response"
   },

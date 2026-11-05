@@ -1,6 +1,12 @@
 # SG Navi — current free deployment, evidence and recovery gates
 
 **Authoritative current-architecture reference, as observed on 2026-11-05.**
+Current remediation and actual isolated hosted persistence/encrypted recovery
+are recorded in [PR #64](https://github.com/Chu-Junjie/SG-Navi/pull/64),
+[the recovery record](task7-state-recovery.md) and the updated root acceptance.
+The old pending recovery list below is superseded by these actual results;
+production state remains untouched. Zheng's user-reported personal run still
+needs exact execution details before final freeze.
 The application is publicly demonstrated, but Task 7 candidate freeze and legal
 eligibility decisions remain **NOT APPROVED**. Older Render handovers document
 historical experiments; do not use their URLs, expiring database or old branches
@@ -10,9 +16,9 @@ for the current deployment.
 
 | Component | Actual reference | Observed state |
 | --- | --- | --- |
-| Source | https://github.com/Chu-Junjie/SG-Navi | Public `main`, reviewed squash merge `71ad87d726d8d4a3264bd23003ed39969f8b4516` |
+| Source | https://github.com/Chu-Junjie/SG-Navi | Public `main`; remediation implementation 3994850f29a04356c3a708daee56815294278895 and final merge identity recorded in PR #64 |
 | Site | https://chu-junjie.github.io/SG-Navi/ | Pages publish job passed on that SHA |
-| Render backend | https://sg-navi-api-junjie.onrender.com | New service `srv-dbluspoae00c73fqp4v0`, Free, Singapore, auto-deploy on `main`; last observed Live on `71ad87d` |
+| Render backend | https://sg-navi-api-junjie.onrender.com | Service `srv-dbluspoae00c73fqp4v0`, Free, Singapore, auto-deploy on `main`; inspect the exact Live deploy, not a historical README SHA |
 | Render dashboard | https://dashboard.render.com/web/srv-dbluspoae00c73fqp4v0 | Owned by Junjie's currently connected `My Workspace` |
 | Neon | `my-first-project`, project `damp-scene-05807412` | Free v3 plan, Singapore (`aws-ap-southeast-1`), PostgreSQL 18, branch `production`, database `neondb` |
 | Durable state tables | `sgnavi_quarantine_state`, `sgnavi_quarantine_metadata`, `sgnavi_quarantine_backups` | Created by Render app startup; 1 initial state row + 1 metadata row + 0 backup rows as observed 2026-11-05 |
@@ -39,6 +45,9 @@ resources and costs.**
 - `SG_NAVI_REQUIRE_PERSISTENCE=1`: fail closed when state cannot be persisted.
 - `SG_NAVI_STATE_DATABASE_URL`: **only a Render secret**; its value comes from
   Neon and must never appear in this repository, PRs, issues, CI logs or chats.
+- The owner configured **Health Check Path `/api/health`** on the existing
+  service; Render read-back confirmed it. The application now checks critical
+  validated source/state readiness and returns 503/unavailable on failure.
 
 The Neon connection was configured privately on 2026-11-05 and triggered
 a Render deployment; Render reported it Live. The app created the above tables
@@ -86,7 +95,12 @@ An actual public smoke run must check `GET /api/health`,
 Expected demo header is `X-SG-Navi-Deployment-Mode:
 postgres-backed-free-demo`. Do not treat a status code alone as acceptance.
 
-## Remaining hosted acceptance and recovery
+## Recovery procedure and final acceptance
+
+The isolated nonempty hosted state and off-provider encrypted archive drill
+have now passed as described in [the current recovery procedure](task7-state-recovery.md).
+The following controls still apply to future maintenance; they are not all
+unexecuted tasks. Use the updated root acceptance for the current disposition.
 
 1. Obtain independent successful **post-merge** public API workflow evidence
    from the deployed service, and a real published Pages browser run. Review

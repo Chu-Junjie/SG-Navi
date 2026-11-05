@@ -254,8 +254,7 @@
         if (!contentType.toLowerCase().includes("application/json")) throw new Error("Not JSON");
         const payload = await response.json();
         if (!payload || typeof payload !== "object" || Array.isArray(payload)) throw new Error("Invalid health response");
-        if (payload.healthy === false || payload.ok === false ||
-            (typeof payload.status === "string" && ["error", "failed", "offline", "unhealthy", "down"].includes(payload.status.toLowerCase()))) {
+        if (payload.status !== "ok" || payload.healthy === false || payload.ok === false) {
           throw new Error("Backend reported an unhealthy state");
         }
         statusPanel.dataset.state = "online";

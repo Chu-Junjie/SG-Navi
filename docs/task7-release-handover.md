@@ -1,5 +1,12 @@
 # Task 7 — candidate deployment, backup, recovery and release handover
 
+> Historical local-only handover. Current public hosting, readiness and actual
+> isolated hosted/encrypted recovery are documented in
+> [the active runbook](task7-junjie-render-neon-integration.md),
+> [state recovery](task7-state-recovery.md), and the current section of
+> [integration acceptance](../integration_acceptance.md). The dated NOT PROVIDED
+> and no-host statements below describe the earlier snapshot, not today's status.
+
 **Owner:** Zheng Zaikun (backend/dependencies/CI/release documentation)  
 **Scope:** reproducible **local, loopback-only** candidate demonstration and handover.  
 **Status:** PRE-FREEZE PREPARATION; **do not create the v0.9.0-rc1 tag/release yet**. Owner's [technical assessment](../integration_acceptance.md) is PASS WITH LIMITS, NOT READY FOR FREEZE, pending independent member installs and final reconciliation. This document is a procedure, **not a claim** that remote deployment or rollback drills were performed.
