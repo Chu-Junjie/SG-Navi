@@ -215,7 +215,7 @@ try {
     for(const source of expected) assert.ok(linkData.some(x=>x.href===source));
     assert.ok(linkData.every(x=>x.target==='_blank' && x.rel.includes('noopener')));
     const note=await evaluate("document.getElementById('verified-source-context').textContent");
-    assert.ok(note.includes('does not establish legal eligibility'));
+    assert.ok(note.includes('do not establish legal eligibility'));
     return {status:r.response.status,verified_links:linkData.length,seven_sections:7};
   });
   await check('FE-07','Simulated API network failure then recover','blocked request shows safe error and clears stale links; retry preserves answers',async()=>{
