@@ -61,7 +61,8 @@ def test_actual_postgres_durability_runs_on_main_without_prod_dsn():
 
 def test_source_freshness_is_readonly_and_requires_review():
     workflow = content(".github/workflows/source-freshness-read-only.yml")
-    assert "python -m rag.import_knowledge_base --verify-live" in workflow
+    assert "python -m rag.freshness_report --output source-freshness-report.json" in workflow
+    assert "python -m rag.import_knowledge_base" in workflow
     assert "permissions:\n  contents: read" in workflow
     assert "schedule:" in workflow
     assert "source-freshness-audit.log" in workflow
