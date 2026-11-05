@@ -22,6 +22,34 @@
     return node;
   };
   const clear = node => node.replaceChildren();
+  // Keep wire statuses for integration checks; show readable explanations to visitors.
+  const STATUS_LABELS = Object.freeze({
+    NEED_CLARIFICATION: "A few more details needed",
+    SUPPORTED_PATH: "Information to review",
+    REFER_TO_OFFICIAL: "Check official information",
+    ERROR: "We could not complete the check",
+    "No current result": "Answers updated",
+    "Input validation": "Please check your answers",
+    "API not configured": "Checking is unavailable",
+    "Checking…": "Checking your answers…",
+    "Service unavailable": "Service temporarily unavailable"
+  });
+  function setStatus(value) {
+    $("status").textContent = value;
+    $("status-friendly").textContent = STATUS_LABELS[value] || "Your results";
+  }
+  function friendlyWarning(message) {
+    const known = {
+      "Verified source references are provided for research context only, not an eligibility decision.": "These links are for your own research. They do not determine whether you qualify for a legal process.",
+      "Please check the linked official source pages and confirm the applicable procedure.": "Please read the official websites to confirm what you can do next.",
+      "Verified evidence is missing or unavailable. Confirm the situation directly with official sources.": "We cannot confirm the information for this situation. Please check with an official organisation.",
+      "Source context could not be safely displayed. Verify guidance with official services.": "Official links are unavailable for this situation. Please check official guidance directly.",
+      "Evidence retrieval is temporarily unavailable. No decision can be made.": "We cannot check official information right now. Please try again later.",
+      "Supplier registration was reported as false; SG Navi cannot confirm a supported channel.": "We cannot confirm a suitable process for a supplier not registered in Singapore. Please check official guidance."
+    };
+    return known[message] || message;
+  }
+
   const owns = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
   const state = { schemas: {}, labels: null, card: null, drafts: Object.create(null), revision: 0, pending: null };
   const CASE_SCHEMA = {
@@ -76,8 +104,8 @@
     state.pending = null;
     $("submit").disabled = false;
   }
-  function clearResult(message = "Edit answers and select Check case to request another response.") {
-    $("status").textContent = "No current result";
+  function clearResult(message = "Change your answers and choose Check case to see an updated result.") {
+    setStatus("No current result");
     $("verification").textContent = message;
     ["questions", "warnings", "card", "verified-source-list"].forEach(id => clear($(id)));
     $("verified-source-context").hidden = true;
@@ -85,7 +113,7 @@
   function edited() {
     cancelStale();
     store(false);
-    clearResult("Answers changed. Submit again to receive an updated backend response.");
+    clearResult("Your answers have changed. Select Check case to see an updated result.");
   }
   function buildControl(field, definition, initial) {
     const parent = document.createElement("div");
@@ -196,10 +224,10 @@
     section.className = "card-section";
     add(section, "h3", state.labels?.action_card?.[key] || key);
     if (FACT_SECTIONS.has(key) && !evidence) {
-      add(section, "p", "Needs verification — supporting evidence was not supplied.");
+      add(section, "p", "Needs verification — we cannot confirm this information from the available official sources.");
     } else if (value === null || value === undefined || value === "" ||
                (Array.isArray(value) && value.length === 0)) {
-      add(section, "p", "Not provided by backend.");
+      add(section, "p", "No information is available for this section.");
     } else if (key === "citations") {
       const list = document.createElement("ul");
       for (const entry of evidence || []) {
@@ -217,11 +245,11 @@
       const list = document.createElement("ul");
       for (const entry of value) if (typeof entry === "string") add(list, "li", entry);
       if (list.children.length) section.appendChild(list);
-      else add(section, "p", "Not provided by backend.");
+      else add(section, "p", "No information is available for this section.");
     } else if (typeof value === "string") {
       add(section, "p", value);
     } else {
-      add(section, "p", "Unsupported response content — needs verification.");
+      add(section, "p", "We cannot show this information. Please check official guidance.");
     }
     $("card").appendChild(section);
   }
@@ -242,11 +270,11 @@
   function renderResponse(response) {
     ["questions", "warnings", "card", "verified-source-list"].forEach(id => clear($(id)));
     $("verified-source-context").hidden = true;
-    $("status").textContent = response.status;
+    setStatus(response.status);
     const evidence = evidenceFor(response);
     $("verification").textContent = evidence
-      ? "Backend supplied linked evidence metadata. Verify original sources before relying on a procedure."
-      : "Needs verification — no sufficient source-backed guidance is available.";
+      ? "Official reference links are available below. Check the original websites before taking action."
+      : "Needs verification — there is not enough confirmed information to guide your next steps.";
     if (response.status === "NEED_CLARIFICATION") {
       add($("questions"), "h3", "Please continue answering");
       for (const question of response.questions) {
@@ -259,14 +287,14 @@
           button.type = "button";
           button.addEventListener("click", () => focusField(question.id));
         } else {
-          add(row, "span", "This question is not in the agreed form; please verify the contract.");
+          add(row, "span", "This question is not available in the form. Please check an official source.");
         }
         $("questions").appendChild(row);
       }
     }
     if (Array.isArray(response.warnings) && response.warnings.length) {
-      add($("warnings"), "h3", "Backend messages");
-      for (const warning of response.warnings) if (typeof warning === "string") add($("warnings"), "p", warning);
+      add($("warnings"), "h3", "Important information");
+      for (const warning of response.warnings) if (typeof warning === "string") add($("warnings"), "p", friendlyWarning(warning));
     }
     if (response.status === "REFER_TO_OFFICIAL") {
       $("verified-source-context").hidden = false;
@@ -274,12 +302,12 @@
         $("verified-source-list"), response, document
       );
       $("verification").textContent = hasSources
-        ? "Verified source context is available for independent checking, not a legal eligibility decision or a recommended route."
-        : "Needs verification — no valid referral source links were supplied by the backend.";
-      add($("questions"), "p", "The backend could not confirm a supported path. You can edit your answers and check again.");
+        ? "Official reference links are available below. They do not confirm your legal eligibility or recommend where to file."
+        : "Needs verification — no reliable official links are available for this result.";
+      add($("questions"), "p", "We cannot confirm which legal process applies to your situation. You can change your answers or check the official websites below.");
     }
     if (response.status === "ERROR") {
-      add($("questions"), "p", "The request could not be completed. Your answers remain editable; try again or seek official confirmation.");
+      add($("questions"), "p", "We could not check your answers. They are still saved on this page. Please try again or check official guidance.");
     }
     const card = response.action_card || {};
     for (const section of SECTIONS) renderSection(section, card[section], evidence);
@@ -287,13 +315,13 @@
   async function submit() {
     if (!store(true)) {
       clearResult("Correct the highlighted fields. No request was sent.");
-      $("status").textContent = "Input validation";
+      setStatus("Input validation");
       return;
     }
     const endpoint = SGNaviApiConfig.resolve("/api/navigate", window.location);
     if (!endpoint) {
-      clearResult("Public API is not configured. Waiting for a verified HTTPS API Base URL; no case details were sent.");
-      $("status").textContent = "API not configured";
+      clearResult("The checking service is not available right now. Your answers have not been sent.");
+      setStatus("API not configured");
       return;
     }
     const request = {
@@ -306,9 +334,9 @@
     const controller = new AbortController();
     state.pending = controller;
     $("submit").disabled = true;
-    clearResult("Checking the latest answers with the backend…");
-    $("status").textContent = "Checking…";
-    $("verification").textContent = "Sending answers to the configured backend.";
+    clearResult("Checking your answers…");
+    setStatus("Checking…");
+    $("verification").textContent = "We are checking the information you provided.";
     const timeout = setTimeout(() => controller.abort(), 10000);
     try {
       const response = await fetch(endpoint, {
@@ -327,8 +355,8 @@
       $("request-preview").textContent = JSON.stringify(request, null, 2);
     } catch (_) {
       if (sequence !== state.revision) return;
-      clearResult("Service unavailable or invalid API response. Your answers are preserved. Please retry.");
-      $("status").textContent = "Service unavailable";
+      clearResult("We could not reach the checking service. Your answers are still here. Please try again.");
+      setStatus("Service unavailable");
     } finally {
       clearTimeout(timeout);
       if (sequence === state.revision) { state.pending = null; $("submit").disabled = false; }
@@ -337,7 +365,7 @@
   function switchCase() {
     cancelStale();
     renderForm();
-    clearResult("Choose or edit answers, then check the case using the backend.");
+    clearResult("Choose or change your answers, then select Check case.");
     $("validation").textContent = "";
   }
   async function initialize() {
@@ -364,10 +392,10 @@
       }
       switchCase();
       $("notice").textContent = SGNaviApiConfig.resolve("/api/navigate", window.location)
-        ? "Ready. Responses come from the real /api/navigate endpoint."
-        : "Public API not configured. Forms may be previewed, but submission is disabled until Zheng supplies a verified HTTPS API origin.";
+        ? "Ready. Choose a topic and answer the questions to get started."
+        : "The checking service is temporarily unavailable. You can still review the questions, but answers cannot be checked right now.";
     } catch (_) {
-      $("notice").textContent = "Unable to load input schemas or mapping files. Use the frontend integration server.";
+      $("notice").textContent = "We could not load the questions. Please refresh the page and try again.";
       $("submit").disabled = true;
     }
   }
