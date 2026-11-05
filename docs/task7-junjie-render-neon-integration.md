@@ -1,6 +1,6 @@
 # SG Navi — Junjie Render Free + Neon PostgreSQL integration
 
-Status (2026-11-05): **Render new service LIVE; Neon DATABASE NOT YET ATTACHED; public end-to-end and persistence checks PENDING.** This is a controlled demo, not a legal-advice service or an accepted Task 7 release.
+Status (2026-11-05): **Render new service LIVE with Neon database connection configured and initialized.** Public HTTP/browser end-to-end and actual nonempty quarantine write → redeploy/reload persistence and offsite recovery checks remain **PENDING**. This is a controlled demo, not a legal-advice service or an accepted Task 7 release.
 
 ## Repository and deployment ownership
 
@@ -8,7 +8,7 @@ Status (2026-11-05): **Render new service LIVE; Neon DATABASE NOT YET ATTACHED; 
 - New Render service: `sg-navi-api-junjie` (Free, Singapore), service `srv-dbluspoae00c73fqp4v0`.
 - Dashboard: https://dashboard.render.com/web/srv-dbluspoae00c73fqp4v0
 - API origin: https://sg-navi-api-junjie.onrender.com
-- First deployed SHA: `98f72a6685e494061c84e10ef71226ed9758a743`.
+- Deployed SHA after Neon connection: `98f72a6685e494061c84e10ef71226ed9758a743` (initial build reused same reviewed main code). Neon-enabled deploy ID `dep-dblv8a6c6qcc73ffdn80` reports `live`.
 - Render auto-deploy on `main` is on. A draft PR alone does not deploy.
 - Browser frontend: https://chu-junjie.github.io/SG-Navi/ (GitHub Pages).
 - Do not confuse the new service with the historical `sg-navi-api-free-demo` in another Render workspace. No migration from that account is assumed or authorised.
@@ -21,11 +21,11 @@ The service was created with:
 - Start: `gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 30 backend.production:app`
 - `PYTHON_VERSION=3.12.9`
 - `SG_NAVI_CORS_ORIGINS=https://chu-junjie.github.io` (origin, no path).
-- `SG_NAVI_FREE_DEMO=1`, `SG_NAVI_REQUIRE_PERSISTENCE=0` initially.
+- `SG_NAVI_FREE_DEMO=1`, `SG_NAVI_REQUIRE_PERSISTENCE=1` after Neon was attached; Render secret `SG_NAVI_STATE_DATABASE_URL` was set through Render's environment API (not committed).
 
-Render reported a Live deploy; build logs reported the checked knowledge corpus: five sources, 26 passages, 26 mappings, five templates. This does **not** prove new public browser flows, durable storage, or recovery. The Free instance can sleep and has usage limits. No fixed Web Service expiry does not mean a guarantee of permanent availability.
+Render reported both the initial and Neon-connected deploys as Live; build logs reported the checked knowledge corpus: five sources, 26 passages, 26 mappings, five templates. With the new Neon DSN, the app automatically initialized and validated the three PostgreSQL tables. This does **not** prove new public browser flows, a nonempty state persisted across restarts, or off-service disaster recovery. The Free instance can sleep and has usage limits. No fixed Web Service expiry does not mean a guarantee of permanent availability.
 
-## Neon database (must be configured privately)
+## Neon database (connected privately; additional acceptance pending)
 
 Neon is a managed **PostgreSQL database**. The GitHub repository is the source code, **not** the database; no database password or connection URL belongs in GitHub, commits, CI logs, Issues, PRs, or chat.
 
@@ -48,4 +48,4 @@ Remote diagnostics:
 - `GET https://sg-navi-api-junjie.onrender.com/api/case-types`
 - `OPTIONS/POST https://sg-navi-api-junjie.onrender.com/api/navigate` with the allowlisted GitHub Pages origin.
 
-**Open gates:** Neon account connection and database URL setup; new hosted persistence test; source-currentness and UI end-to-end test; frontend owner review; final coordinator acceptance.
+**Open gates:** New public API HTTP smoke / real browser validation; nonempty hosted quarantine persistence and backup/recovery testing; source-currentness, frontend owner review and final coordinator acceptance. Neon and Render are already connected, but a perpetual-availability guarantee is impossible on free services.
