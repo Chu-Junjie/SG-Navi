@@ -85,38 +85,68 @@
       "type": "object",
       "properties": {
         "claim_amount_sgd": {
-          "type": "number",
-          "minimum": 0
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "dispute_with": {
-          "enum": [
-            "landlord",
-            "agent",
-            null,
-            "unknown"
+          "type": [
+            "string",
+            "null"
           ]
         },
         "premises_type": {
-          "type": "string"
-        },
-        "purchase_type": {
-          "type": "string"
-        },
-        "purchase_purpose": {
-          "type": "string"
-        },
-        "supplier_registered_in_sg": {
           "type": [
-            "boolean",
             "string",
             "null"
           ]
         },
-        "tenancy_duration_months": {
+        "purchase_type": {
           "type": [
-            "number",
             "string",
             "null"
+          ]
+        },
+        "purchase_purpose": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "supplier_registered_in_sg": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tenancy_duration_months": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "relevant_event_date": {
@@ -126,31 +156,55 @@
           ]
         },
         "respondent_in_singapore": {
-          "type": [
-            "boolean",
-            "string",
-            "null"
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "agency_agreement_signed": {
-          "type": [
-            "boolean",
-            "string",
-            "null"
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "resolution_attempted": {
-          "type": [
-            "boolean",
-            "string",
-            "null"
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "documents_available": {
-          "type": [
-            "boolean",
-            "string",
-            "null"
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "supplier_location": {
