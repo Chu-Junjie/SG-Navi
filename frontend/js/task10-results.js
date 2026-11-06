@@ -142,7 +142,9 @@
     function showSource(source,focus) {
       viewer.replaceChildren();
       viewer.appendChild(create(doc,"p","Source reference · not an eligibility finding","evidence-eyebrow"));
-      viewer.appendChild(create(doc,"h3",source.publisher,"evidence-publisher"));
+      const publisherHeading = create(doc,"h3",source.publisher,"evidence-publisher");
+      publisherHeading.tabIndex = -1;
+      viewer.appendChild(publisherHeading);
       const metadata = create(doc,"dl",undefined,"source-metadata");
       const fields = [
         ["Source reference",source.sourceId],
