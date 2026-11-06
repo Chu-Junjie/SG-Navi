@@ -1,40 +1,32 @@
-"""Task 7 Pages entry regression checks (coordinator-authorized root-only change).
-
-Checks static wiring, not a claim that GitHub Pages has published this commit.
-"""
+"""Task 7 v1 legacy forms remain available; Task20 publicly migrates to intake first."""
 import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT=Path(__file__).resolve().parents[2]
 
 class PublicPagesRootEntryTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.html = (ROOT / "index.html").read_text(encoding="utf-8")
+        cls.html=(ROOT/"index.html").read_text(encoding="utf-8")
+    def test_root_starts_real_intake_instead_of_old_card_navigation(self):
+        self.assertIn('id="problem-submit"',self.html)
+        self.assertIn('id="problem-text"',self.html)
+        self.assertIn('src="./frontend/js/task15-flow.js"',self.html)
+        self.assertNotIn('class="choices"',self.html)
+        self.assertNotIn("Flow coming soon",self.html)
+    def test_real_https_resolver_and_legacy_routes_still_exist(self):
+        self.assertIn('<script src="./frontend/js/api-config.js"></script>',self.html)
+        self.assertIn('content="/api/health"',self.html)
+        script=(ROOT/"frontend/js/task15-flow.js").read_text(encoding="utf-8")
+        self.assertIn('SGNaviApiConfig.resolve(path,win.location)',script)
+        for route in ("/api/intake","/api/guidance"):
+            self.assertIn(route,script)
+    def test_relative_assets_and_both_existing_forms_are_available(self):
+        for path in ("frontend/js/api-config.js", "frontend/task5-flow.html",
+                     "frontend/task9-clarify.html",
+                     "frontend/schemas/rental_deposit_input.schema.json",
+                     "frontend/schemas/consumer_complaint_input.schema.json"):
+            self.assertTrue((ROOT/path).is_file())
 
-    def test_both_public_buttons_are_active(self):
-        self.assertIn('data-case="Rental Deposit"', self.html)
-        self.assertIn('data-case="Consumer Complaint"', self.html)
-        self.assertEqual(self.html.count('class="choice-label">Open guided form'), 2)
-        self.assertNotIn("Flow coming soon", self.html)
-        self.assertNotIn("placeholder in Task 1", self.html)
-        self.assertIn('caseType = button.dataset.case === "Rental Deposit" ? "rental_deposit"', self.html)
-        self.assertIn('button.dataset.case === "Consumer Complaint" ? "consumer_complaint"', self.html)
-        self.assertIn('window.location.assign("./frontend/task5-flow.html?case_type=" + caseType)', self.html)
-
-    def test_real_approved_api_health_resolver(self):
-        self.assertIn('<script src="./frontend/js/api-config.js"></script>', self.html)
-        self.assertIn('SGNaviApiConfig.resolve("/api/health", window.location)', self.html)
-        self.assertIn("fetch(endpoint", self.html)
-        self.assertNotIn('fetch("/api/health"', self.html)
-        self.assertIn('statusPanel.dataset.state = "offline"', self.html)
-        self.assertIn('statusPanel.dataset.state = "online"', self.html)
-
-    def test_relative_static_assets_and_both_form_paths_exist(self):
-        self.assertTrue((ROOT / "frontend" / "js" / "api-config.js").is_file())
-        self.assertTrue((ROOT / "frontend" / "task5-flow.html").is_file())
-        self.assertTrue((ROOT / "frontend" / "schemas" / "rental_deposit_input.schema.json").is_file())
-        self.assertTrue((ROOT / "frontend" / "schemas" / "consumer_complaint_input.schema.json").is_file())
-
-if __name__ == "__main__":
+if __name__=="__main__":
     unittest.main()
