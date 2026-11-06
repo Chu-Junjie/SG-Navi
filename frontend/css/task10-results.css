@@ -36,3 +36,25 @@
  .result{padding:18px}
 }
 @media(max-width:430px){.fact-grid,.source-metadata{grid-template-columns:1fr;gap:3px}.fact-grid dd,.source-metadata dd{margin-bottom:9px}}
+
+/* Task 12 research items: selectable links to the exact displayed source record. */
+.guidance-summary{line-height:1.65;font-size:.94rem;color:#31505d}
+.guidance-items{padding-left:22px;display:grid;gap:12px;margin:10px 0 20px}
+.guidance-items li{padding:9px 10px 11px;border:1px solid #e2eeee;border-radius:10px;line-height:1.6;overflow-wrap:anywhere}
+.guidance-items li>p{margin:0 0 8px}
+.claim-reference{font:inherit;font-size:.82rem;font-weight:750;border:1px solid #9cc5ce;color:#195e72;border-radius:9px;background:white;padding:7px 11px;cursor:pointer}
+.claim-reference:hover,.claim-reference[aria-pressed="true"]{background:#eaf5f5;border-color:#3e95a2}
+.claim-reference:focus-visible,.preparation-check input:focus-visible{outline:3px solid #248bad;outline-offset:3px}
+.preparation-check{display:flex;align-items:flex-start;gap:9px;line-height:1.6}
+.preparation-check input{margin-top:5px;flex:none}
+.guidance-citations{padding-left:20px;display:grid;gap:8px;overflow-wrap:anywhere}
+.guidance-citations .claim-reference{text-align:left;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.matched-evidence{border-bottom:1px solid #d7e7e8;margin-bottom:19px;padding-bottom:16px;overflow-wrap:anywhere}
+.source-excerpt{margin:8px 0 15px;border-left:3px solid #6faab1;padding:10px 14px;background:#f0f7f6;color:#1f4354;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
+.matched-evidence h4{color:#234758;margin:14px 0 6px;font-size:.85rem}
+.matched-evidence .source-metadata{overflow-wrap:anywhere}
+@media(max-width:700px){
+ .guidance-items{padding-left:17px}
+ .guidance-items li{padding:9px}
+ .matched-evidence{padding-bottom:12px}
+}
