@@ -71,6 +71,9 @@ def test_no_unsupported_inferences_for_rental_or_consumer(client):
     ("I lost my work permit and need employment advice.", "out_of_scope"),
     ("My landlord says it is about a criminal charge.", "out_of_scope"),
     ("Please help me.", "cannot_determine"),
+    ("I signed a lease for an apartment.", "cannot_determine"),
+    ("I bought a phone yesterday.", "cannot_determine"),
+    ("I want a refund.", "cannot_determine"),
     ("The weather is hot today.", "cannot_determine"),
 ])
 def test_ambiguous_out_of_scope_or_unrelated_never_forced(client, description, status):
@@ -79,6 +82,18 @@ def test_ambiguous_out_of_scope_or_unrelated_never_forced(client, description, s
     assert data["suggested_case_type"] is None
     assert data["candidate_facts"] == {}
     assert data["needs_confirmation"]
+
+
+def test_landlord_deposit_refund_is_not_forced_into_consumer_case(client):
+    data = intake(client, "My landlord will not refund my S$500 deposit.").get_json()
+    assert data["intake_status"] == "suggested"
+    assert data["suggested_case_type"] == "rental_deposit"
+
+
+def test_bad_precision_or_suffix_amount_is_not_assumed(client):
+    for value in ("SGD 50.123", "S$2k", "S$1,00", "S$50.999"):
+        data = intake(client, "My landlord kept a deposit of " + value).get_json()
+        assert "claim_amount_sgd" not in data["candidate_facts"]
 
 
 def test_explicit_landlord_agent_and_premises_conflicts_are_not_guessed(client):
