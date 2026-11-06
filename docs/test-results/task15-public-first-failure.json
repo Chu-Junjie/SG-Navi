@@ -1,0 +1,219 @@
+{
+  "scope": "task15_actual_published_pages",
+  "pages_url": "https://chu-junjie.github.io/SG-Navi/",
+  "api_origin": "https://sg-navi-api-junjie.onrender.com",
+  "synthetic_facts": true,
+  "executed_test_sha": "c30b1209ef2f92bd06066818dae6b06e9f18e38c",
+  "started_at_utc": "2026-11-06T13:45:55.104Z",
+  "cases": [
+    {
+      "case_type": "rental_deposit",
+      "steps": [
+        {
+          "id": "01",
+          "result": "PASS",
+          "actual": {
+            "real_intake": true,
+            "proposed_case": "rental_deposit",
+            "no_result_before_confirmation": true
+          }
+        },
+        {
+          "id": "02",
+          "result": "PASS",
+          "actual": {
+            "keyboard_confirmation": true,
+            "questions": [
+              "premises_type"
+            ]
+          }
+        },
+        {
+          "id": "03",
+          "result": "PASS",
+          "actual": {
+            "real_guidance_http": 200,
+            "result_id": "e9a45e052bfda5882d60ebd4",
+            "evidence_ids": [
+              "SCT-ELIG-AMOUNT",
+              "SCT-ELIG-RESIDENTIAL",
+              "SCT-ELIG-SERVICE",
+              "SCT-ELIG-TIME",
+              "SCT-FILE-DOCUMENTS",
+              "SCT-FILE-DOS",
+              "SCT-FILE-FEES",
+              "SCT-FILE-PORTAL",
+              "SCT-FILE-SERVICE"
+            ],
+            "seven_sections": 7,
+            "quotes_match_checked_corpus": true
+          }
+        },
+        {
+          "id": "04",
+          "result": "PASS",
+          "actual": {
+            "step": "steps:0",
+            "exact_evidence_id": "SCT-FILE-PORTAL",
+            "quote_sha256": "4e4e7e1d73c2182dab7a27eba823d53ad0e9e6dff6dbefecd7cfd72fc1f59443",
+            "original_url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim"
+          }
+        },
+        {
+          "id": "05",
+          "result": "PASS",
+          "actual": {
+            "desktop_and_mobile_screenshots": true,
+            "captured_claim": "conditions:0",
+            "min_width": 320
+          }
+        },
+        {
+          "id": "06",
+          "result": "PASS",
+          "actual": {
+            "old_result_invalidated": true,
+            "recomputed_result_id": "0a9f977899bbe521e54449d2"
+          }
+        },
+        {
+          "id": "07",
+          "result": "PASS",
+          "actual": {
+            "real_network_offline_error": true,
+            "recovery_preserved_answers": true
+          }
+        }
+      ],
+      "passed": false
+    }
+  ],
+  "edge_cases": [],
+  "screenshots": [
+    {
+      "name": "rental_deposit-1440.jpg",
+      "bytes": 228800,
+      "sha256": "9473cc5a282335a0aad61840a8d277d149a937696b6b9d63bbb9f4a1aca5dd90",
+      "viewport": 1440,
+      "metrics": {
+        "scroll": 1425,
+        "client": 1425,
+        "height": 3037
+      }
+    },
+    {
+      "name": "rental_deposit-390.jpg",
+      "bytes": 170848,
+      "sha256": "b4417f26a98b6dd48f9a423708f078815e2a42b68f62ab15a4966b0d8c7b5ab4",
+      "viewport": 390,
+      "metrics": {
+        "scroll": 390,
+        "client": 390,
+        "height": 4303
+      }
+    }
+  ],
+  "javascript_exceptions": 0,
+  "passed": false,
+  "limits": [
+    "Mobile emulation, not a physical phone",
+    "External publisher tabs not opened",
+    "No legal eligibility or production filing claim"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(relevant.every(r=>r.method==='POST'&&new URL(r.url).origin===apiOrigin&&!new URL(r.url).search))\n\n    at file:///D:/%E6%A1%8C%E9%9D%A2/CP3102/SG%20Navi/task15-integration-workspace/frontend/tests/task15_browser_check.mjs:62:176",
+  "diagnostic": {
+    "input_length": 64,
+    "active_id": "task15-result-title",
+    "submit_disabled": false,
+    "validation": "",
+    "review_hidden": true,
+    "ready": "true"
+  },
+  "api_request_paths": [
+    {
+      "path": "/api/health",
+      "method": "GET"
+    },
+    {
+      "path": "/api/intake",
+      "method": "POST"
+    },
+    {
+      "path": "/api/intake",
+      "method": "OPTIONS"
+    },
+    {
+      "path": "/api/intake/confirm",
+      "method": "POST"
+    },
+    {
+      "path": "/api/intake/confirm",
+      "method": "OPTIONS"
+    },
+    {
+      "path": "/api/guidance",
+      "method": "POST"
+    },
+    {
+      "path": "/api/guidance",
+      "method": "OPTIONS"
+    },
+    {
+      "path": "/api/intake/confirm",
+      "method": "POST"
+    },
+    {
+      "path": "/api/intake/confirm",
+      "method": "OPTIONS"
+    },
+    {
+      "path": "/api/guidance",
+      "method": "POST"
+    },
+    {
+      "path": "/api/guidance",
+      "method": "OPTIONS"
+    },
+    {
+      "path": "/api/intake/confirm",
+      "method": "POST"
+    },
+    {
+      "path": "/api/intake/confirm",
+      "method": "OPTIONS"
+    },
+    {
+      "path": "/api/guidance",
+      "method": "POST"
+    },
+    {
+      "path": "/api/guidance",
+      "method": "OPTIONS"
+    },
+    {
+      "path": "/api/intake/confirm",
+      "method": "POST"
+    },
+    {
+      "path": "/api/intake/confirm",
+      "method": "OPTIONS"
+    },
+    {
+      "path": "/api/intake/confirm",
+      "method": "POST"
+    },
+    {
+      "path": "/api/intake/confirm",
+      "method": "OPTIONS"
+    },
+    {
+      "path": "/api/guidance",
+      "method": "POST"
+    },
+    {
+      "path": "/api/guidance",
+      "method": "OPTIONS"
+    }
+  ],
+  "finished_at_utc": "2026-11-06T13:46:08.612Z"
+}

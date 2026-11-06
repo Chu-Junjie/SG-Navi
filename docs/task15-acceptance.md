@@ -96,12 +96,72 @@ because a brittle string assertion omitted the new initial `disabled` attribute.
 That assertion now requires the privacy-preserving initial disabled state.
 These failures are retained, not described as passing runs.
 
-Final local regression: **686 passed, four skipped, 15 subtests passed in
-115.14 seconds**, using the full command above. Three skips require disposable
+Final combined local regression after #85: **689 passed, four skipped, 15
+subtests passed in 121.92 seconds**, using the full command above. The earlier
+pre-#85 pass was 686/four/15 in 115.14 seconds. Three skips require disposable
 PostgreSQL; the fourth is the older opt-in public browser test. They are not
 counted as passes. All twelve shared v1 examples and `pip check` passed.
-PR/CI commit IDs and public deployment results are recorded in the closeout
-evidence after execution. Until that update, public acceptance is **PENDING**.
+The actual application delivery is [PR #86](https://github.com/Chu-Junjie/SG-Navi/pull/86).
+Tested combined head `ab17ed1807395def24d0116aafd99ff5d0ca3fee` passed
+[ordinary CI](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42227170134)
+(634 passed/three skipped, frontend 56 tests/one skipped) and
+[isolated PostgreSQL CI](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42227170029).
+The final merged application commit is `c30b1209ef2f92bd06066818dae6b06e9f18e38c`;
+its tree exactly matches the tested combined tree
+`3b744ddf1adc7c6af0840ebe5d37161f9ab6b2fb`. Its
+[main ordinary CI](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42227462585),
+[PG CI](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42227462518),
+[legacy HTTPS smoke](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42227462589)
+and [Pages publication](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42227461928)
+all succeeded.
+
+### Actual published acceptance and retained checker failure
+
+Render provider deploy `dep-dbmthq6c6qcc73bhpi20` reached **live** at
+`2026-11-06T13:41:45Z` on that exact merged application commit, health path
+`/api/health`, existing Free service, existing Neon-backed mode. No cloud setting,
+database state or secret was changed. The published Task 15 frontend bytes
+matched the checked file (LF SHA-256
+`48a789f100a4a438e53f7377787ebd7469da5b702ee7b19601c6597887333097`).
+
+[Actual public HTTP checks and selected request/response samples](test-results/task15-public-http.json)
+passed five checks at `2026-11-06T13:44:35Z`, including both real intake/confirm/
+guidance paths, nine/twelve exact quote records, stale revision rejection,
+unconfirmed rejection, Neon-backed mode and CORS. Samples are explicitly selected
+fields from actual responses with a full canonical-response digest.
+
+The [first public CI run](https://github.com/Chu-Junjie/SG-Navi/actions/runs/42227462719)
+**failed** after seven rental steps because the test driver incorrectly required
+every captured request to be POST. The same-origin local suite did not expose
+the browser's normal cross-origin OPTIONS preflight. Its genuine artifact
+`13506212895` and [workstation failure report](test-results/task15-public-first-failure.json)
+are preserved. This failure was not called an application or CORS success.
+
+The checker now separately validates data-bearing POSTs and empty-body OPTIONS
+preflights, with the same required API origin and no query parameters. It still
+rejects every other method/origin and requires three or more actual data calls.
+No application behavior, score, fixture or API reply was changed to pass it.
+The corrected driver passed the real same-origin regression again (one test in
+40.20 seconds).
+
+[Corrected actual public Edge report](test-results/task15-public-browser.json)
+passed at `2026-11-06T13:49:48Z`: **18 main journey steps, five boundaries,
+four actual desktop/mobile captures, zero JavaScript exceptions**. It includes
+real offline/25-second-timeout recovery, late-request cancellation, explicit
+unknown handling and exact selected-source verification. The report identifies
+the driver content hash and honestly labels the not-yet-committed harness as a
+working tree derived from the accepted application commit. All application bytes
+were already published. This is separate evidence from the failed CI run.
+
+The closeout PR publishes that tested harness correction and these reports;
+ordinary, disposable-PG and published-browser CI re-execute on its final commit.
+[Issue #75](https://github.com/Chu-Junjie/SG-Navi/issues/75) records their actual
+final run IDs, provider reconciliation and completion after those executions.
+Workflow artifacts contain the actual screenshots (public retention 30 days);
+their content hashes also remain in the committed reports. Local originals are
+under ignored `instance/task15-browser-public/`. No physical-phone test or
+outgoing publisher-tab navigation is claimed.
+
 Health=200 alone is insufficient. The public workflow waits for
 the exact checked frontend bytes and the new API before real browser testing.
 Its SHA identifies the test checkout; the Render provider record separately

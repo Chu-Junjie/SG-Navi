@@ -1,0 +1,144 @@
+{
+  "scope": "actual_public_task15_synthetic_wire",
+  "executed_at_utc": "2026-11-06T13:44:35.601595+00:00",
+  "base_url": "https://sg-navi-api-junjie.onrender.com",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Actual Neon-backed service health",
+      "passed": true,
+      "actual": {
+        "http": 200,
+        "deployment_mode": "postgres-backed-free-demo"
+      }
+    },
+    {
+      "name": "rental_deposit real intake -> confirm -> guidance and stale rejection",
+      "passed": true,
+      "actual": {
+        "intake": "suggested",
+        "guidance": "GUIDANCE_ONLY",
+        "evidence_count": 9,
+        "stale_revision_http": 400
+      }
+    },
+    {
+      "name": "consumer_complaint real intake -> confirm -> guidance and stale rejection",
+      "passed": true,
+      "actual": {
+        "intake": "suggested",
+        "guidance": "GUIDANCE_ONLY",
+        "evidence_count": 12,
+        "stale_revision_http": 400
+      }
+    },
+    {
+      "name": "Unconfirmed input rejected",
+      "passed": true,
+      "actual": {
+        "http": 400,
+        "empty_evidence": true
+      }
+    },
+    {
+      "name": "Unapproved CORS origin rejected",
+      "passed": true,
+      "actual": {
+        "http": 403
+      }
+    }
+  ],
+  "samples": [
+    {
+      "sample_kind": "selected_fields_from_actual_response",
+      "request": {
+        "guidance_version": "1.0",
+        "confirmed": true,
+        "case_type": "rental_deposit",
+        "confirmed_answers": {
+          "dispute_with": "landlord",
+          "premises_type": "residential",
+          "claim_amount_sgd": 2000
+        },
+        "confirmation_revision": "4dbebb6cccbdd922f3dd",
+        "query": "My landlord refuses to return my SGD 2000 deposit."
+      },
+      "response": {
+        "guidance_version": "1.0",
+        "rule_version": "mock-1",
+        "source_version": "kb-2026-11-01.1",
+        "context_version": "display-context-2026-11-06.1",
+        "confirmation_revision": "4dbebb6cccbdd922f3dd",
+        "result_id": "01058dd099413c532959e069",
+        "guidance_status": "GUIDANCE_ONLY",
+        "matched_evidence_ids": [
+          "SCT-ELIG-RESIDENTIAL"
+        ],
+        "action_card": null
+      },
+      "evidence_ids": [
+        "SCT-ELIG-AMOUNT",
+        "SCT-ELIG-RESIDENTIAL",
+        "SCT-ELIG-SERVICE",
+        "SCT-ELIG-TIME",
+        "SCT-FILE-DOCUMENTS",
+        "SCT-FILE-DOS",
+        "SCT-FILE-FEES",
+        "SCT-FILE-PORTAL",
+        "SCT-FILE-SERVICE"
+      ],
+      "response_canonical_json_sha256": "b79cd6af0e8a95ff7a175b3b7b71abf6df2ef4938c03e104e7e82bbc151551d2"
+    },
+    {
+      "sample_kind": "selected_fields_from_actual_response",
+      "request": {
+        "guidance_version": "1.0",
+        "confirmed": true,
+        "case_type": "consumer_complaint",
+        "confirmed_answers": {
+          "purchase_type": "goods",
+          "purchase_purpose": "personal",
+          "supplier_registered_in_sg": true,
+          "claim_amount_sgd": 140
+        },
+        "confirmation_revision": "7bc8586e89b938e30660",
+        "query": "I bought a faulty product but the seller refuses to refund me."
+      },
+      "response": {
+        "guidance_version": "1.0",
+        "rule_version": "mock-1",
+        "source_version": "kb-2026-11-01.1",
+        "context_version": "display-context-2026-11-06.1",
+        "confirmation_revision": "7bc8586e89b938e30660",
+        "result_id": "d99bd1c4fae9d081ee89ff60",
+        "guidance_status": "GUIDANCE_ONLY",
+        "matched_evidence_ids": [
+          "SCT-ELIG-GOODS",
+          "CASE-PERSONAL",
+          "CASE-SG-SUPPLIER"
+        ],
+        "action_card": null
+      },
+      "evidence_ids": [
+        "CASE-DOCUMENTS",
+        "CASE-OVERSEAS",
+        "CASE-PERSONAL",
+        "CASE-PROCESS-FEES",
+        "CASE-RENTAL-EXCLUDED",
+        "CASE-SG-SUPPLIER",
+        "SCT-ELIG-AMOUNT",
+        "SCT-ELIG-GOODS",
+        "SCT-ELIG-SERVICE",
+        "SCT-ELIG-TIME",
+        "SCT-FILE-DOCUMENTS",
+        "SCT-FILE-PORTAL"
+      ],
+      "response_canonical_json_sha256": "c46e2747373554e0873eb49e134d24515ca77c7ca1e27e250d6400475d58a2c7"
+    }
+  ],
+  "production_state_writes": 0,
+  "limits": [
+    "No forced production quarantine or database writes",
+    "Procedural research, not legal eligibility or filing authorization"
+  ]
+}
