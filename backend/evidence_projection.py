@@ -106,6 +106,25 @@ def project_display_evidence(case_type, guidance, *, expected_version,
             seen.update(ids)
     if not seen or not seen <= set(cited):
         raise DisplayEvidenceUnavailable("No individually supported claims")
+    # An Evidence ID alone cannot justify arbitrary wording. Match each claim
+    # and its exact supporting IDs to approved, reviewed editorial templates.
+    approved = {section: set() for section in SECTIONS}
+    for template in bundle["templates"].values():
+        if (template.get("case_type") != case_type
+                or template.get("review_status") != "verified"):
+            continue
+        all_ids = {eid for name in ("conditions", "steps", "document_checklist", "limitations")
+                   for item in template[name] for eid in item["evidence_ids"]}
+        approved["potential_channels"].add((
+            template["channel"] + " (conditional official source to check; not eligibility)",
+            tuple(sorted(all_ids))))
+        for name in ("conditions", "steps", "document_checklist"):
+            for item in template[name]:
+                approved[name].add((item["text"], tuple(sorted(item["evidence_ids"]))))
+    for section in SECTIONS:
+        for item in guidance[section]:
+            if (item["text"], tuple(sorted(item["evidence_ids"]))) not in approved[section]:
+                raise DisplayEvidenceUnavailable("Unreviewed claim or mismatched cited passage")
     # Some citations may be referenced by approved template limitations rather
     # than a step. They must STILL have a full current checked record.
     checked = [_checked_record(i, case_type, bundle, blocked) for i in cited]
