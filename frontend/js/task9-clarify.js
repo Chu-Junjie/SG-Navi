@@ -147,6 +147,7 @@
       retry.hidden = true;
       result.hidden = true;
       if (win.SGNaviTask10) win.SGNaviTask10.clear(doc);
+      if (win.SGNaviTask10Guidance) win.SGNaviTask10Guidance.clear(doc);
       warnings.replaceChildren();
       sources.replaceChildren();
       state.questionQueue = [];
