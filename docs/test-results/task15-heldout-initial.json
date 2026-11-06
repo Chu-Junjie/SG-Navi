@@ -1,0 +1,1755 @@
+{
+  "scoring_version": "task15-provenance-routing-1",
+  "case_set_version": "task15-heldout-1",
+  "frozen_cases_sha256": "1e118a331a3766a9f97f35a1005832daff9f50087a041eb6e1e6e65b73e50d29",
+  "run_at_utc": "2026-11-06T12:50:57.040418+00:00",
+  "scope": "In-process real Flask endpoints + current RAG/templates, synthetic manual-confirmation inputs; not external user research or legal validation",
+  "totals": {
+    "rental": {
+      "correct": 14,
+      "total": 15
+    },
+    "consumer": {
+      "correct": 15,
+      "total": 15
+    },
+    "boundary": {
+      "correct": 10,
+      "total": 10
+    }
+  },
+  "overall_correct": 39,
+  "procedural_assertions": {
+    "supported": 206,
+    "total": 206
+  },
+  "average_checklist_completeness": {
+    "rental": 0.9333333333333333,
+    "consumer": 1.0
+  },
+  "critical_failures": 0,
+  "gates": {
+    "rental_14_of_15": true,
+    "consumer_14_of_15": true,
+    "boundary_10_of_10": true,
+    "overall_38_of_40": true,
+    "procedural_support_95_percent": true,
+    "consequential_support_100_percent": true,
+    "rental_checklist_90_percent": true,
+    "consumer_checklist_90_percent": true,
+    "zero_observed_critical_failures": true
+  },
+  "engineering_gates_passed": true,
+  "legal_eligibility_assessed": false,
+  "production_state_writes": 0,
+  "external_urlopen_calls": 0,
+  "limits": [
+    "Provenance scores use approved editorial templates and exact quoted records, not an independent legal-entailment assessment.",
+    "The first execution is held out from the pre-existing intake code; later reruns after fixes are regression, not new unseen benchmarks.",
+    "Browser/public deployment gates are separate; all legal rule flags remain disabled."
+  ],
+  "cases": [
+    {
+      "case_id": "R01",
+      "group": "rental",
+      "input": "The owner of my rented apartment is withholding my security deposit.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "premises_type": "residential"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "84369c52e8fc6993a9f08f22",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "9998dc65c94264100760f695bf349b491496be71addb6a362edd60828aff2ab0"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R02",
+      "group": "rental",
+      "input": "I paid SGD 1800 as a tenancy deposit and it has not been returned.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "claim_amount_sgd": 1800.0
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "ad5658fd5a2b879b9a7740fa",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "26345b5938ec48e2298919e83d2488b79fdb0b32a22a25b3291b622824343e05"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R03",
+      "group": "rental",
+      "input": "My landlord kept the deposit after I moved out of the flat.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "dispute_with": "landlord",
+          "premises_type": "residential"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "8be5482e2916d54b54b96fdb",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "d82a7480b673b4be50d33943386ddc46ab85644d50c4bdae1fb8485b18468165"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R04",
+      "group": "rental",
+      "input": "I rented a room and cannot get the rent deposit back.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {},
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "34a48de82ac944df56fa0b0e",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "55eec734f0fff67050ff8a299396c7ad31c946ad49658dc6ac0ca6ec498dda9e"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R05",
+      "group": "rental",
+      "input": "My letting agent will not return a security deposit.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "dispute_with": "agent"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "637bce2de3061ff45f1bbdc1",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "CEA-DR-AGREEMENT",
+          "CEA-DR-ARBITRATION",
+          "CEA-DR-INDEPENDENCE",
+          "CEA-DR-MEDIATION",
+          "CEA-DR-TERMS"
+        ],
+        "actual_response_sha256": "99eb6ce9a278859957917aa4e8f67e7fa837e0d0133f3558bcc57d599cb7463e"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 4,
+      "assertions": 4,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R06",
+      "group": "rental",
+      "input": "Our estate agent is holding our rental deposit.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "dispute_with": "agent"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "2a9147ff8ae75919a64d88bb",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "CEA-DR-AGREEMENT",
+          "CEA-DR-ARBITRATION",
+          "CEA-DR-INDEPENDENCE",
+          "CEA-DR-MEDIATION",
+          "CEA-DR-TERMS"
+        ],
+        "actual_response_sha256": "3ec8fe57df4a263fe140718e1675814ec3f894b44615720a70e691985b703b81"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 4,
+      "assertions": 4,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R07",
+      "group": "rental",
+      "input": "The landlord deducted money from the deposit for alleged damage.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "dispute_with": "landlord"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "d9d92507223e823d0c3d34d8",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "83edb2705199cd4f798c7f6c3b6bac96e4eeb56d53ed46b34415061cffb3bb31"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R08",
+      "group": "rental",
+      "input": "My tenancy ended; the deposit remains unpaid.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {},
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "807cd9871db5c6ad2c50cac8",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "a98f5638a1137682f4244e7078d0938640cc3ed53f8c498bfa553e74396b8c99"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R09",
+      "group": "rental",
+      "input": "A security deposit for my lease is being withheld.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {},
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "988bed6bd9c979401b2cbefa",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "e915f7f1cb3ac6f83eed42177426937a43df008a4a5cfa4d06fc370314366073"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R10",
+      "group": "rental",
+      "input": "Please help with a rental bond the landlord has not repaid.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "dispute_with": "landlord"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "3947cb1527f83f282c620295",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "08f8c058be676aeaf0671c665a2c6fad7e55ce72d424dfe5dd5191deebb4c5ca"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R11",
+      "group": "rental",
+      "input": "We have a deposit dispute with our landlord.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "dispute_with": "landlord"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "3cc1bce868fbf7a9d2bae895",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "cc750fedb29c94eee1db82ff6fa5613bc22b61ab316057664e2535fc679b3766"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R12",
+      "group": "rental",
+      "input": "I want to complain about unlicensed estate-agent conduct involving my deposit.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "candidate_facts": {},
+        "guidance_http": null,
+        "guidance_status": "NOT_RUN_UNCONFIRMED",
+        "result_id": null,
+        "unresolved_fields": [],
+        "evidence_ids": [],
+        "actual_response_sha256": null
+      },
+      "routing_correct": false,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 0,
+      "assertions": 0,
+      "mandatory_checklist_completeness": 0.0,
+      "safe": true,
+      "passed": false,
+      "defect_ids": [
+        "T15-ROUTING-R12",
+        "T15-RESULT-R12"
+      ]
+    },
+    {
+      "case_id": "R13",
+      "group": "rental",
+      "input": "Landlord won't release my S$2,750 deposit.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "claim_amount_sgd": 2750.0
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "da0df6ec703e1d5a35af9ac9",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "c39feb24e2dd4ff304298063a70cb8440da269040f29af98257514498b5206cb"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R14",
+      "group": "rental",
+      "input": "The rental deposit for my HDB flat is still outstanding.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "premises_type": "residential"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "ae1269e43368370a6f5e1d96",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "46834522a12ae28dd1db997afd2265af5c32f5ca9d6e3d9a40246dc058a92f2b"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "R15",
+      "group": "rental",
+      "input": "My landlord says the deposit cannot be returned until next month.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "dispute_with": "landlord"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "d2e4835eb2be5ca94788e125",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "2841306952ca6997ee39fdfc077a26fc8a2ee2750dc4b4e73d391533d00f5c92"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C01",
+      "group": "consumer",
+      "input": "A shop sold me a broken laptop and refuses a refund.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "4ed3d6ddd7650857b996a142",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "9d0064209ee208837fb0297593e362e7ab78e9275c69e36009b23dc830fd05f8"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C02",
+      "group": "consumer",
+      "input": "I bought headphones for personal use; one side is faulty.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_purpose": "personal",
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "3fa93be88cfacfd3bc352eed",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "a9099efcac061bc398ce131882dff9336b1c2e63513061b702b4424a736e40ed"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C03",
+      "group": "consumer",
+      "input": "The product ordered from a retailer never arrived.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "8c3f95220fc85c51da23bc84",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "0dbc5f331d2d27cc2b74b2f652d2206eb0df4a76ca622b59a4a88398f1af6e2c"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C04",
+      "group": "consumer",
+      "input": "My new appliance is defective and the seller refuses to replace it.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "79e2f4fcb656abfabbcbd612",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "5ac5f458a5493eca88c1d6e204fe4f9c5146ba95b868f69e446a26836abc1279"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C05",
+      "group": "consumer",
+      "input": "The store will not refund a damaged item I purchased.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "810fa7f25370f612aa66eb30",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "4597f32d62f9059b904852a5697452e9ab3fa88763eef60d68680e296143f4f5"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C06",
+      "group": "consumer",
+      "input": "I want to complain about a faulty repair service I purchased.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "services"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "e9547692b933635adf0c3bd4",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "7878ed0154c35e565ecd8f446f1056b9c11c517bdc9562a1f455e6404a611b42"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C07",
+      "group": "consumer",
+      "input": "A merchant charged me for a product that was not delivered.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "5f3c9066c9c81595aa0dd47a",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "067e085f81f132db2575f3943cc6e5c142f6a8047c1d53458a79321fe897f440"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C08",
+      "group": "consumer",
+      "input": "I bought furniture for myself and it is broken.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_purpose": "personal",
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "3d71a3c71c9e675a0d03d290",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "6d3bd5e9298ffb99d34eb0f359c43f8e7a242c579b4134f30a060c3920d73d61"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C09",
+      "group": "consumer",
+      "input": "A subscription service I purchased will not issue the promised refund.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "services"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "074d8d282fb0e005d0401a38",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "da871f6713681729e4939727cd85a3476b6f7ccb76ae43b377ca3b1dd7c7593c"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C10",
+      "group": "consumer",
+      "input": "The seller refuses to refund my defective phone.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "564199d68f085f405a7427f4",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "d3c49df5804acff0f1a10c98c9f4959da0546e01981725e7015714e6c60f882d"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C11",
+      "group": "consumer",
+      "input": "My SGD 350 purchase turned out to be a faulty device.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "claim_amount_sgd": 350.0,
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "0e4a186b863c91d5152a8e35",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "16b9e81eeb916f765259cc9bb89733216fd400b777965b2c64c85b7b79d43102"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C12",
+      "group": "consumer",
+      "input": "A shop is refusing to replace the faulty goods I bought.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "4b0a049bb24a63d202cbdc3e",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "e4fd4ceba407c34e2e35cae45d163a650c81f9a99b2b419d6066213a70cdb4df"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C13",
+      "group": "consumer",
+      "input": "I purchased a cleaning service and want to complain about the poor service.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "services"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "cd26b16e9f44a170b273e5ba",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "91f7522d61242db78d2810b2e0c6e026e4a5d4ce4b07549c5aadeeed5a3f9cfb"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C14",
+      "group": "consumer",
+      "input": "The retailer rejected my warranty complaint about a broken product.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "423023850dc2725fd6f233d1",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "ca2899e520d73810e500288e8b86bfc95f81f433aca928afc4862d6a554815c2"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "C15",
+      "group": "consumer",
+      "input": "I bought an item for household use and the supplier will not refund it.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "c6d1f2774b465d3371f62116",
+        "unresolved_fields": [
+          "purchase_date"
+        ],
+        "evidence_ids": [
+          "CASE-DOCUMENTS",
+          "CASE-OVERSEAS",
+          "CASE-PERSONAL",
+          "CASE-PROCESS-FEES",
+          "CASE-RENTAL-EXCLUDED",
+          "CASE-SG-SUPPLIER",
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-GOODS",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-PORTAL"
+        ],
+        "actual_response_sha256": "0c3ea24fd379e46d22d79525e19011ceb96da601ea39e9e244651343505d458f"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 8,
+      "assertions": 8,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "B01",
+      "group": "boundary",
+      "input": "My employer owes salary from last month.",
+      "expected": {
+        "intake_status": "out_of_scope",
+        "case_type": null,
+        "guidance_status": null
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "out_of_scope",
+        "suggested_case_type": null,
+        "candidate_facts": {},
+        "guidance_http": null,
+        "guidance_status": "NOT_RUN_UNCONFIRMED",
+        "result_id": null,
+        "unresolved_fields": [],
+        "evidence_ids": [],
+        "actual_response_sha256": null
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 0,
+      "assertions": 0,
+      "mandatory_checklist_completeness": null,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "B02",
+      "group": "boundary",
+      "input": "My visa application was rejected and I want to appeal.",
+      "expected": {
+        "intake_status": "out_of_scope",
+        "case_type": null,
+        "guidance_status": null
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "out_of_scope",
+        "suggested_case_type": null,
+        "candidate_facts": {},
+        "guidance_http": null,
+        "guidance_status": "NOT_RUN_UNCONFIRMED",
+        "result_id": null,
+        "unresolved_fields": [],
+        "evidence_ids": [],
+        "actual_response_sha256": null
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 0,
+      "assertions": 0,
+      "mandatory_checklist_completeness": null,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "B03",
+      "group": "boundary",
+      "input": "I bought a faulty laptop for my business and want a refund.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "LIMITED_REFERRAL"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_purpose": "business",
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "LIMITED_REFERRAL",
+        "result_id": null,
+        "unresolved_fields": [],
+        "evidence_ids": [],
+        "actual_response_sha256": "54e82ddd367507d20de44b5d29992dd31acb3cc4d7c66afee509e75315ed3d7c"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 0,
+      "assertions": 0,
+      "mandatory_checklist_completeness": null,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "B04",
+      "group": "boundary",
+      "input": "I bought a faulty product from an overseas seller.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "consumer_complaint",
+        "guidance_status": "LIMITED_REFERRAL"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "candidate_facts": {
+          "purchase_type": "goods"
+        },
+        "guidance_http": 200,
+        "guidance_status": "LIMITED_REFERRAL",
+        "result_id": null,
+        "unresolved_fields": [
+          "supplier_registered_in_sg"
+        ],
+        "evidence_ids": [],
+        "actual_response_sha256": "02ab021326b1b78c2d899aa055d6ff2ef4214b3501638a62bdc6aca94161e64b"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 0,
+      "assertions": 0,
+      "mandatory_checklist_completeness": null,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "B05",
+      "group": "boundary",
+      "input": "The security deposit for our office rental has not been returned.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "LIMITED_REFERRAL"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "premises_type": "commercial"
+        },
+        "guidance_http": 200,
+        "guidance_status": "LIMITED_REFERRAL",
+        "result_id": null,
+        "unresolved_fields": [],
+        "evidence_ids": [],
+        "actual_response_sha256": "9a97dc5dd006f45515a7169e193c2ff43a260812971cb900167177d21a27d508"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 0,
+      "assertions": 0,
+      "mandatory_checklist_completeness": null,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "B06",
+      "group": "boundary",
+      "input": "My landlord kept the deposit and a shop sold me a faulty phone.",
+      "expected": {
+        "intake_status": "ambiguous",
+        "case_type": null,
+        "guidance_status": null
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "ambiguous",
+        "suggested_case_type": null,
+        "candidate_facts": {},
+        "guidance_http": null,
+        "guidance_status": "NOT_RUN_UNCONFIRMED",
+        "result_id": null,
+        "unresolved_fields": [],
+        "evidence_ids": [],
+        "actual_response_sha256": null
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 0,
+      "assertions": 0,
+      "mandatory_checklist_completeness": null,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "B07",
+      "group": "boundary",
+      "input": "Something went wrong and I need help.",
+      "expected": {
+        "intake_status": "cannot_determine",
+        "case_type": null,
+        "guidance_status": null
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "candidate_facts": {},
+        "guidance_http": null,
+        "guidance_status": "NOT_RUN_UNCONFIRMED",
+        "result_id": null,
+        "unresolved_fields": [],
+        "evidence_ids": [],
+        "actual_response_sha256": null
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 0,
+      "assertions": 0,
+      "mandatory_checklist_completeness": null,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "B08",
+      "group": "boundary",
+      "input": "My landlord is holding my deposit but I do not know the amount or tenancy length.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "GUIDANCE_ONLY"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "dispute_with": "landlord"
+        },
+        "guidance_http": 200,
+        "guidance_status": "GUIDANCE_ONLY",
+        "result_id": "582dd110b16c25f1c418f1ee",
+        "unresolved_fields": [
+          "tenancy_duration_months",
+          "claim_amount_sgd",
+          "relevant_event_date",
+          "respondent_in_singapore"
+        ],
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ],
+        "actual_response_sha256": "b65a0939b395edfe76882bbd254894afa1db96f6fee7aec45e9d1b98f2b1f7ff"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 6,
+      "assertions": 6,
+      "mandatory_checklist_completeness": 1.0,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "B09",
+      "group": "boundary",
+      "input": "Our landlord has retained the deposit.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "LIMITED_REFERRAL"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "dispute_with": "landlord"
+        },
+        "guidance_http": 200,
+        "guidance_status": "LIMITED_REFERRAL",
+        "result_id": null,
+        "unresolved_fields": [],
+        "evidence_ids": [],
+        "actual_response_sha256": "0d11b966b9e8000b7e4f645505e6cc4b99690e76c580b2dca676e36f34886170"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 0,
+      "assertions": 0,
+      "mandatory_checklist_completeness": null,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    },
+    {
+      "case_id": "B10",
+      "group": "boundary",
+      "input": "My landlord refuses to return my deposit.",
+      "expected": {
+        "intake_status": "suggested",
+        "case_type": "rental_deposit",
+        "guidance_status": "ERROR"
+      },
+      "actual_output_summary": {
+        "intake_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "candidate_facts": {
+          "dispute_with": "landlord"
+        },
+        "guidance_http": 503,
+        "guidance_status": "ERROR",
+        "result_id": null,
+        "unresolved_fields": [],
+        "evidence_ids": [],
+        "actual_response_sha256": "2d830fb4b258cd9f7f46bd4f84b8ceac2cb47b868d43372eb1b4af4d76b5aef5"
+      },
+      "routing_correct": true,
+      "bounded_fact_extraction": true,
+      "supported_assertions": 0,
+      "assertions": 0,
+      "mandatory_checklist_completeness": null,
+      "safe": true,
+      "passed": true,
+      "defect_ids": []
+    }
+  ]
+}

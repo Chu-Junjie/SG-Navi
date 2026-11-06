@@ -46,7 +46,7 @@ def _scope(case_type, answers):
         return False
     return True
 
-def _templates(case_type, answers, bundle):
+def _templates(case_type, answers, bundle, research_topic=None):
     if case_type == "rental_deposit":
         party = str(answers.get("dispute_with") or "").lower()
         if party == "landlord":
@@ -55,6 +55,8 @@ def _templates(case_type, answers, bundle):
             # A property agent's conduct complaint and agency contract dispute
             # are not automatically interchangeable; no unconfirmed route.
             names = {"agency-contract-review"} if answers.get("agency_agreement_signed") is True else set()
+            if research_topic == "agent_conduct":
+                names = {"agent-conduct-complaint"}
         else:
             names = set()
     else:
@@ -98,7 +100,7 @@ def _checked_passage(evidence_id, case_type, bundle, blocked):
         "excerpt_sha256": p["excerpt_sha256"],
     }
 
-def assemble(case_type, answers, *, repository=None):
+def assemble(case_type, answers, *, repository=None, research_topic=None):
     """Return limited conditional research guidance based on current checked state."""
     repository = repository or EvidenceRepository()
     bundle, blocked = repository.snapshot()
@@ -118,7 +120,9 @@ def assemble(case_type, answers, *, repository=None):
     if not _scope(case_type, relevant):
         response["limitations"].append("This situation is outside the current SG Navi pilot scope.")
         return response
-    selected = _templates(case_type, relevant, bundle)
+    if research_topic not in (None, "agent_conduct"):
+        raise ValueError("Unsupported research topic")
+    selected = _templates(case_type, relevant, bundle, research_topic)
     if not selected:
         response["limitations"].append(
             "Insufficient confirmed case details to select a source-backed research topic.")

@@ -26,5 +26,18 @@ jobs:
         run: python -m pytest tests/contracts tests/backend tests/rag tests/integration -v
       - name: Smoke-test production Gunicorn WSGI on loopback
         run: python tests/backend/run_task7_wsgi_smoke.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
       - name: Run frontend tests
         run: python -m unittest discover -s frontend/tests -v
+      - name: Preserve Task 15 actual regression and browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: task15-local-integration-evidence
+          path: |
+            instance/task15-ci-regression.json
+            instance/task15-browser-local/report.json
+            instance/task15-browser-local/*.jpg
+          if-no-files-found: warn

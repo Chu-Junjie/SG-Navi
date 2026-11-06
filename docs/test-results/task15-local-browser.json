@@ -1,0 +1,297 @@
+{
+  "scope": "task15_actual_local_flask_browser",
+  "pages_url": "http://127.0.0.1:52201/",
+  "api_origin": "http://127.0.0.1:52201",
+  "synthetic_facts": true,
+  "executed_test_sha": "manual-working-tree",
+  "started_at_utc": "2026-11-06T13:26:25.735Z",
+  "cases": [
+    {
+      "case_type": "rental_deposit",
+      "steps": [
+        {
+          "id": "01",
+          "result": "PASS",
+          "actual": {
+            "real_intake": true,
+            "proposed_case": "rental_deposit",
+            "no_result_before_confirmation": true
+          }
+        },
+        {
+          "id": "02",
+          "result": "PASS",
+          "actual": {
+            "keyboard_confirmation": true,
+            "questions": [
+              "premises_type"
+            ]
+          }
+        },
+        {
+          "id": "03",
+          "result": "PASS",
+          "actual": {
+            "real_guidance_http": 200,
+            "result_id": "e9a45e052bfda5882d60ebd4",
+            "evidence_ids": [
+              "SCT-ELIG-AMOUNT",
+              "SCT-ELIG-RESIDENTIAL",
+              "SCT-ELIG-SERVICE",
+              "SCT-ELIG-TIME",
+              "SCT-FILE-DOCUMENTS",
+              "SCT-FILE-DOS",
+              "SCT-FILE-FEES",
+              "SCT-FILE-PORTAL",
+              "SCT-FILE-SERVICE"
+            ],
+            "seven_sections": 7,
+            "quotes_match_checked_corpus": true
+          }
+        },
+        {
+          "id": "04",
+          "result": "PASS",
+          "actual": {
+            "step": "steps:0",
+            "exact_evidence_id": "SCT-FILE-PORTAL",
+            "quote_sha256": "4e4e7e1d73c2182dab7a27eba823d53ad0e9e6dff6dbefecd7cfd72fc1f59443",
+            "original_url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim"
+          }
+        },
+        {
+          "id": "05",
+          "result": "PASS",
+          "actual": {
+            "desktop_and_mobile_screenshots": true,
+            "captured_claim": "conditions:0",
+            "min_width": 320
+          }
+        },
+        {
+          "id": "06",
+          "result": "PASS",
+          "actual": {
+            "old_result_invalidated": true,
+            "recomputed_result_id": "0a9f977899bbe521e54449d2"
+          }
+        },
+        {
+          "id": "07",
+          "result": "PASS",
+          "actual": {
+            "real_network_offline_error": true,
+            "recovery_preserved_answers": true
+          }
+        },
+        {
+          "id": "08",
+          "result": "PASS",
+          "actual": {
+            "actual_api_requests": 10,
+            "correct_api_origin": "http://127.0.0.1:52201",
+            "no_raw_description_in_url": true,
+            "no_app_browser_storage": true
+          }
+        },
+        {
+          "id": "09",
+          "result": "PASS",
+          "actual": {
+            "explicit_unknown_preserved": true,
+            "no_question_loop": true,
+            "no_eligibility_claim": true
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case_type": "consumer_complaint",
+      "steps": [
+        {
+          "id": "01",
+          "result": "PASS",
+          "actual": {
+            "real_intake": true,
+            "proposed_case": "consumer_complaint",
+            "no_result_before_confirmation": true
+          }
+        },
+        {
+          "id": "02",
+          "result": "PASS",
+          "actual": {
+            "keyboard_confirmation": true,
+            "questions": [
+              "purchase_purpose",
+              "supplier_registered_in_sg",
+              "claim_amount_sgd"
+            ]
+          }
+        },
+        {
+          "id": "03",
+          "result": "PASS",
+          "actual": {
+            "real_guidance_http": 200,
+            "result_id": "d99bd1c4fae9d081ee89ff60",
+            "evidence_ids": [
+              "CASE-DOCUMENTS",
+              "CASE-OVERSEAS",
+              "CASE-PERSONAL",
+              "CASE-PROCESS-FEES",
+              "CASE-RENTAL-EXCLUDED",
+              "CASE-SG-SUPPLIER",
+              "SCT-ELIG-AMOUNT",
+              "SCT-ELIG-GOODS",
+              "SCT-ELIG-SERVICE",
+              "SCT-ELIG-TIME",
+              "SCT-FILE-DOCUMENTS",
+              "SCT-FILE-PORTAL"
+            ],
+            "seven_sections": 7,
+            "quotes_match_checked_corpus": true
+          }
+        },
+        {
+          "id": "04",
+          "result": "PASS",
+          "actual": {
+            "step": "steps:0",
+            "exact_evidence_id": "CASE-PROCESS-FEES",
+            "quote_sha256": "d91fc66bd10fb88f68064214bc9f12b8435354d325ef44360bdaaca6ebcd085e",
+            "original_url": "https://www.case.org.sg/submit-a-complaint/"
+          }
+        },
+        {
+          "id": "05",
+          "result": "PASS",
+          "actual": {
+            "desktop_and_mobile_screenshots": true,
+            "captured_claim": "conditions:0",
+            "min_width": 320
+          }
+        },
+        {
+          "id": "06",
+          "result": "PASS",
+          "actual": {
+            "old_result_invalidated": true,
+            "recomputed_result_id": "d7d982106b98eeff7c298239"
+          }
+        },
+        {
+          "id": "07",
+          "result": "PASS",
+          "actual": {
+            "real_network_offline_error": true,
+            "recovery_preserved_answers": true
+          }
+        },
+        {
+          "id": "08",
+          "result": "PASS",
+          "actual": {
+            "actual_api_requests": 14,
+            "correct_api_origin": "http://127.0.0.1:52201",
+            "no_raw_description_in_url": true,
+            "no_app_browser_storage": true
+          }
+        },
+        {
+          "id": "09",
+          "result": "PASS",
+          "actual": {
+            "explicit_unknown_preserved": true,
+            "no_question_loop": true,
+            "no_eligibility_claim": true
+          }
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "edge_cases": [
+    {
+      "id": "manual-routing-correction",
+      "passed": true,
+      "source_ids": [
+        "cea-complaint"
+      ],
+      "note": "Does not change the initial held-out score."
+    },
+    {
+      "id": "real-timeout-and-retry",
+      "passed": true,
+      "transport_latency_ms": 27000,
+      "app_timeout_ms": 25000
+    },
+    {
+      "id": "late-request-cancelled-on-edit",
+      "passed": true
+    },
+    {
+      "id": "unsupported-topic-not-forced",
+      "passed": true
+    },
+    {
+      "id": "raw-text-not-executed",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "rental_deposit-1440.jpg",
+      "bytes": 228800,
+      "sha256": "9473cc5a282335a0aad61840a8d277d149a937696b6b9d63bbb9f4a1aca5dd90",
+      "viewport": 1440,
+      "metrics": {
+        "scroll": 1425,
+        "client": 1425,
+        "height": 3037
+      }
+    },
+    {
+      "name": "rental_deposit-390.jpg",
+      "bytes": 170848,
+      "sha256": "b4417f26a98b6dd48f9a423708f078815e2a42b68f62ab15a4966b0d8c7b5ab4",
+      "viewport": 390,
+      "metrics": {
+        "scroll": 390,
+        "client": 390,
+        "height": 4303
+      }
+    },
+    {
+      "name": "consumer_complaint-1440.jpg",
+      "bytes": 248747,
+      "sha256": "4a2fbb3e66dc342c2bed2e0b316b2afc5ddf140f6a89a68afaedc69047baaf2c",
+      "viewport": 1440,
+      "metrics": {
+        "scroll": 1425,
+        "client": 1425,
+        "height": 3260
+      }
+    },
+    {
+      "name": "consumer_complaint-390.jpg",
+      "bytes": 187740,
+      "sha256": "4acf6135745ddbebb9f8cd26c82a67cc8f83b7dc200389154ac93636172212ef",
+      "viewport": 390,
+      "metrics": {
+        "scroll": 390,
+        "client": 390,
+        "height": 4676
+      }
+    }
+  ],
+  "javascript_exceptions": 0,
+  "passed": true,
+  "limits": [
+    "Mobile emulation, not a physical phone",
+    "External publisher tabs not opened",
+    "No legal eligibility or production filing claim"
+  ],
+  "finished_at_utc": "2026-11-06T13:27:00.901Z"
+}

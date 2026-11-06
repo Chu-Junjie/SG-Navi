@@ -1,0 +1,41 @@
+name: task15-public-mvp
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: task15-public-mvp
+  cancel-in-progress: true
+jobs:
+  published-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: python -m pip install -r tests/contracts/requirements.txt
+      - name: Wait for matching published frontend and real guidance API
+        run: python -m backend.smoke_guidance --wait-seconds 480 --output instance/task15-public-http.json
+      - name: Actual published Pages and Render browser journeys
+        env:
+          SG_NAVI_TEST_SHA: ${{ github.sha }}
+        run: node frontend/tests/task15_browser_check.mjs https://chu-junjie.github.io/SG-Navi/ "$(command -v google-chrome)" > instance/task15-public-browser.log 2>&1
+      - name: Preserve actual public evidence, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: task15-public-mvp-evidence
+          retention-days: 30
+          path: |
+            instance/task15-public-http.json
+            instance/task15-public-browser.log
+            instance/task15-browser-public/report.json
+            instance/task15-browser-public/*.jpg
+          if-no-files-found: warn
