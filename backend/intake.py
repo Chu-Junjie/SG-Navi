@@ -72,7 +72,8 @@ def _validate_text(description):
 
 
 def _case_type(description):
-    rental = bool(RENTAL.search(description)) and bool(DEPOSIT.search(description))
+    rental_cue = bool(RENTAL.search(description))
+    rental = rental_cue and bool(DEPOSIT.search(description))
     consumer = bool(CONSUMER.search(description)) and bool(CONSUMER_ACTION.search(description))
     # A landlord 'refund' about a deposit alone is not a product complaint.
     # Require an actual consumer-purchase cue for ambiguous dual routing.
@@ -83,7 +84,7 @@ def _case_type(description):
         consumer = False
     if UNSUPPORTED.search(description):
         return "out_of_scope", None
-    if rental and consumer:
+    if consumer and rental_cue:
         return "ambiguous", None
     if rental:
         return "suggested", "rental_deposit"
