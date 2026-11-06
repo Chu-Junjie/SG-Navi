@@ -1,0 +1,379 @@
+{
+  "recorded_at_utc": "2026-11-06T09:25:55.732022+00:00",
+  "task": 13,
+  "issue": "https://github.com/Chu-Junjie/SG-Navi/issues/73",
+  "baseline_sha": "f82ba669173015c3e48cb9b50b5124e75c310fe9",
+  "query_rag_version": "1.0",
+  "executor": "Codex on Chu Junjie coordinator Windows workspace",
+  "environment": {
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "node": "v24.18.0",
+    "python_environment": "Reused installed audit-project-20261105 venv; not a new clone/install or another member personal run",
+    "dependency_specs_changed": false,
+    "pip_check_exit": 0
+  },
+  "actual_commands": [
+    "python -m pip check",
+    "python -X utf8 -m pytest tests/rag/test_query_retrieval.py -q --tb=short",
+    "python -X utf8 -m pytest tests/rag/test_query_retrieval.py tests/backend/test_task13_integration.py -q --tb=short",
+    "python -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q -rs --junitxml=instance/task13-full-suite.xml",
+    "python -m rag.query_retriever rag/examples/query_rental.json --source-version kb-2026-11-01.1",
+    "python -m rag.query_retriever rag/examples/query_consumer.json --source-version kb-2026-11-01.1",
+    "python -m shared.validate_contracts",
+    "python -X utf8 -m rag.freshness_report --output instance/task13-live-sources-20261106.json"
+  ],
+  "observed_failure_and_fix": {
+    "first_targeted_run": {
+      "failed": 1,
+      "passed": 47,
+      "seconds": 8.06,
+      "failure": "Forged prepared query with leading newline was accepted after trimming"
+    },
+    "fix": "Reject all query control characters before trimming; valid adapter input still accepted",
+    "subsequent_targeted_run": {
+      "passed": 65,
+      "seconds": 6.69
+    },
+    "final_full_run_new_query_tests": 55
+  },
+  "full_suite": {
+    "passed": 609,
+    "skipped": 4,
+    "subtests_passed": 15,
+    "seconds": 68.97,
+    "exit_code": 0,
+    "junit_testcase_elements": 613,
+    "junit_sha256": "31c3280d4b218f935391a8d64e3ac68e01e3f84ed725a8f0e31be52d0c6529dd",
+    "not_run": [
+      "Three opt-in real PostgreSQL checks: disposable PG not configured locally; inspect actual PR CI separately",
+      "One opt-in published Pages browser check: not executed in this Task 13 local suite"
+    ],
+    "local_browser": "Existing actual local Flask/browser tests were executed as part of this suite; no new public deployment or physical-device claim"
+  },
+  "backend_handoff": {
+    "adapter": "backend.query_integration.prepare_confirmed_query -> rag.query_retriever.retrieve_query_evidence -> backend.query_integration.checked_ranked_proposal",
+    "actual_composition_cases": [
+      "landlord deposit/amount",
+      "agent conduct",
+      "personal consumer faulty goods"
+    ],
+    "all_three_compositions_passed": true,
+    "runtime_public_endpoint_connected": false
+  },
+  "cli_examples": [
+    {
+      "command": [
+        "D:\\\u684c\u9762\\CP3102\\SG Navi\\audit-project-20261105\\.venv\\Scripts\\python.exe",
+        "-m",
+        "rag.query_retriever",
+        "rag/examples/query_rental.json",
+        "--source-version",
+        "kb-2026-11-01.1"
+      ],
+      "exit_code": 0,
+      "result": {
+        "query_rag_version": "1.0",
+        "context_only": true,
+        "retrieval_status": "FOUND",
+        "diagnostic_code": "MATCHED",
+        "source_version": "kb-2026-11-01.1",
+        "proposed_rule_ids": [
+          "SCT_RESIDENTIAL_SCOPE"
+        ],
+        "ranked_evidence_ids": [
+          "SCT-ELIG-RESIDENTIAL"
+        ],
+        "evidence": [
+          {
+            "evidence_id": "SCT-ELIG-RESIDENTIAL",
+            "source_id": "courts-sct-eligibility",
+            "rule_ids": [
+              "SCT_RESIDENTIAL_SCOPE"
+            ],
+            "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+            "review_status": "verified",
+            "source_version": "kb-2026-11-01.1"
+          }
+        ],
+        "match_reasons": [
+          {
+            "evidence_id": "SCT-ELIG-RESIDENTIAL",
+            "rule_ids": [
+              "SCT_RESIDENTIAL_SCOPE"
+            ],
+            "topics": [
+              "SCT_RESIDENTIAL_SCOPE"
+            ],
+            "matched_fields": [
+              "dispute_with",
+              "premises_type"
+            ],
+            "matched_terms": [
+              "deposit",
+              "landlord"
+            ],
+            "mandatory": false,
+            "locator": "tenancy scope paragraph"
+          }
+        ],
+        "missing_context_fields": []
+      }
+    },
+    {
+      "command": [
+        "D:\\\u684c\u9762\\CP3102\\SG Navi\\audit-project-20261105\\.venv\\Scripts\\python.exe",
+        "-m",
+        "rag.query_retriever",
+        "rag/examples/query_consumer.json",
+        "--source-version",
+        "kb-2026-11-01.1"
+      ],
+      "exit_code": 0,
+      "result": {
+        "query_rag_version": "1.0",
+        "context_only": true,
+        "retrieval_status": "FOUND",
+        "diagnostic_code": "MATCHED",
+        "source_version": "kb-2026-11-01.1",
+        "proposed_rule_ids": [
+          "SCT_GOODS_SERVICES_SCOPE",
+          "CASE_PERSONAL_PURPOSE",
+          "CASE_SINGAPORE_SUPPLIER"
+        ],
+        "ranked_evidence_ids": [
+          "SCT-ELIG-GOODS",
+          "CASE-PERSONAL",
+          "CASE-SG-SUPPLIER"
+        ],
+        "evidence": [
+          {
+            "evidence_id": "SCT-ELIG-GOODS",
+            "source_id": "courts-sct-eligibility",
+            "rule_ids": [
+              "SCT_GOODS_SERVICES_SCOPE"
+            ],
+            "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+            "review_status": "verified",
+            "source_version": "kb-2026-11-01.1"
+          },
+          {
+            "evidence_id": "CASE-PERSONAL",
+            "source_id": "case-complaint",
+            "rule_ids": [
+              "CASE_PERSONAL_PURPOSE"
+            ],
+            "url": "https://www.case.org.sg/submit-a-complaint/",
+            "review_status": "verified",
+            "source_version": "kb-2026-11-01.1"
+          },
+          {
+            "evidence_id": "CASE-SG-SUPPLIER",
+            "source_id": "case-complaint",
+            "rule_ids": [
+              "CASE_SINGAPORE_SUPPLIER"
+            ],
+            "url": "https://www.case.org.sg/submit-a-complaint/",
+            "review_status": "verified",
+            "source_version": "kb-2026-11-01.1"
+          }
+        ],
+        "match_reasons": [
+          {
+            "evidence_id": "SCT-ELIG-GOODS",
+            "rule_ids": [
+              "SCT_GOODS_SERVICES_SCOPE"
+            ],
+            "topics": [
+              "SCT_GOODS_SERVICES_SCOPE"
+            ],
+            "matched_fields": [
+              "purchase_type"
+            ],
+            "matched_terms": [
+              "faulty",
+              "product",
+              "refund",
+              "seller"
+            ],
+            "mandatory": false,
+            "locator": "contract categories list"
+          },
+          {
+            "evidence_id": "CASE-PERSONAL",
+            "rule_ids": [
+              "CASE_PERSONAL_PURPOSE"
+            ],
+            "topics": [
+              "CASE_PERSONAL_PURPOSE"
+            ],
+            "matched_fields": [
+              "purchase_purpose"
+            ],
+            "matched_terms": [
+              "faulty",
+              "refund"
+            ],
+            "mandatory": false,
+            "locator": "consumer eligibility FAQ"
+          },
+          {
+            "evidence_id": "CASE-SG-SUPPLIER",
+            "rule_ids": [
+              "CASE_SINGAPORE_SUPPLIER"
+            ],
+            "topics": [
+              "CASE_SINGAPORE_SUPPLIER"
+            ],
+            "matched_fields": [
+              "supplier_registered_in_sg"
+            ],
+            "matched_terms": [
+              "seller"
+            ],
+            "mandatory": false,
+            "locator": "supplier scope FAQ"
+          }
+        ],
+        "missing_context_fields": []
+      }
+    }
+  ],
+  "old_contract_examples": {
+    "passed": 12,
+    "exit_code": 0,
+    "old_wire_contract_changed": false
+  },
+  "live_source_check": {
+    "scope": "live_source_freshness_read_only",
+    "checked_at": "2026-11-06T09:18:59.407695+00:00",
+    "source_version": "kb-2026-11-01.1",
+    "sources": [
+      {
+        "source_id": "courts-sct-eligibility",
+        "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-06T09:18:56+00:00",
+        "observed_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+        "excerpt_count": 6,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "courts-sct-filing",
+        "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-06T09:18:56+00:00",
+        "observed_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea",
+        "excerpt_count": 5,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "cea-dispute-resolution",
+        "url": "https://www.cea.gov.sg/consumers/engaging-a-property-agent/dispute-resolution/",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-06T09:18:56+00:00",
+        "observed_sha256": "b723dc5c8456bc7780f00b569e7ce59ce0e6799fabb237d204b497aa4529b9dc",
+        "excerpt_count": 5,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "cea-complaint",
+        "url": "https://www.cea.gov.sg/submit-complaint/",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-06T09:18:57+00:00",
+        "observed_sha256": "59e16e01f72f053b2766fc9686fce58d04e9d1ce59fcd08beb434c19fab9405a",
+        "excerpt_count": 4,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "case-complaint",
+        "url": "https://www.case.org.sg/submit-a-complaint/",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-06T09:18:59+00:00",
+        "observed_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+        "excerpt_count": 6,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      }
+    ],
+    "passed": true,
+    "review_required": [],
+    "no_changes_to_review_records": true
+  },
+  "source_record_changes": false,
+  "canonical_git_content_sha256": {
+    "rag/knowledge_base/sources.csv": "235016de9d5e908e5ca6cac1b6fb180302de0c5b82a0dd303210fc4bdf16177d",
+    "rag/knowledge_base/passages.jsonl": "062f901d7daae3dbfcdfbabab83bf0391dbc64ac4e146010db38fc8bdf3738aa",
+    "rag/knowledge_base/rule_evidence_map.json": "03330e142831d6015b8298653ad90b256264012278a438cbfced1b68c2c6706e",
+    "rag/knowledge_base/action_templates.json": "99d526a1dcb0edfb5dda5a6525d23686fe277bd373049bd3e4dd80b82878c06c",
+    "rag/knowledge_base/source_review_log.csv": "fc9417724320549752a24a326c3d0b99fa5906c0f3e725d168c0d71ff3e35c94"
+  },
+  "known_limits": [
+    "Static corpus provenance is checked at read time; live website access is a separate dated observation, not a guarantee.",
+    "Previous GitHub runner CASE HTTP403 and timeouts remain historical failed observations; no new cloud source pass is claimed.",
+    "Editorial tags and lexical overlap are not semantic or legal understanding; no-match/unknown results need upstream clarification.",
+    "Original text and final evidence display projection belong to Task 14; public preview/UI wiring belongs to backend/Task 15.",
+    "All legal rule activation flags remain disabled; retrieval FOUND is not legal eligibility.",
+    "No paid service/model, external raw query transfer, production state write or real dispute data is used."
+  ],
+  "review_disposition": "Owner earlier authorized independent completion and merge without waiting for approval; PR/CI kept, no human approval invented."
+}

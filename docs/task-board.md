@@ -1,6 +1,6 @@
 # SG Navi task board
 
-This table links the seven actual GitHub Issues. Task 1 was accepted for baseline development by the owner on 2026-10-31; see [the acceptance record](task1-checklist.md). The repository table is verified; a native GitHub Project has not been verified.
+This table records baseline Tasks 1–7 and the Task 13 RAG delivery below. Other iteration tasks are tracked by their own GitHub Issues. Task 1 was accepted for baseline development by the owner on 2026-10-31; see [the acceptance record](task1-checklist.md). A native GitHub Project has not been verified.
 
 | Task | Status | Responsibilities | Issue |
 | --- | --- | --- | --- |
@@ -13,3 +13,9 @@ This table links the seven actual GitHub Issues. Task 1 was accepted for baselin
 | 7 Candidate handover | Done (owner-authorized solo internal candidate; explicit limits) | [v0.9.0-rc1](https://github.com/Chu-Junjie/SG-Navi/releases/tag/v0.9.0-rc1) pins f607652; exact Render Live deployment, public API 10/10 and actual Pages browser 18/18 verified. Fresh suite: 481 passed, 4 skipped, 13 subtests; real PG CI passed. [Final acceptance](../integration_acceptance.md). Original three-person final environment evidence remains incomplete; cloud CASE 403 remains a known limit, not fixed | [#7](https://github.com/Chu-Junjie/SG-Navi/issues/7) |
 
 Use Backlog, Ready, In Progress, In Review and Done. Tasks 1-6 have stage acceptance records. Task 6 closeout #46 merged under the owner's explicit deferred-peer-review authorization; actual retrospective review is pending. Task 7 now follows the owner's explicit single-operator internal-candidate closeout authorization, without invented human reviews or personal-machine results. Legal eligibility rules stay disabled and the two supported-Action-Card limitations remain explicit.
+
+## Query retrieval iteration
+
+| Task | Status | Delivery and boundary | Issue |
+| --- | --- | --- | --- |
+| 13 Query-aware RAG (Chu Junjie) | Done (internal function and backend handoff) | [Versioned contract and usage](../rag/TASK13.md), passage ranking, complete mandatory mappings, current version/review/quarantine enforcement; 609 passed, 4 skipped, 15 subtests in full regression; independent five-source live check matched. Actual backend-adapter composition tested. Public Task 12/15 wiring and Task 14 display projection remain separate; no legal rule activation | [#73](https://github.com/Chu-Junjie/SG-Navi/issues/73) |

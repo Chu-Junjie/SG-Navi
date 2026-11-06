@@ -2,6 +2,11 @@
 
 The public entry point is `retrieve_evidence(case_type, rule_ids, facts)`. It uses the same request and Evidence schemas established in Task 2. Retrieval selects source evidence for rule IDs supplied by the backend; it does not decide whether those rules apply to a dispute.
 
+Task 13 adds a separate [query-aware research-context function](TASK13.md) with
+its own internal versioned contract. This legacy exact-rule entry point and
+its two-field response remain unchanged; it is still the strict coverage gate
+used after query ranking.
+
 ## Run independently
 
 From the repository root:

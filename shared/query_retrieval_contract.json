@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sg-navi.invalid/shared/query_retrieval_contract.json",
+  "title": "SG Navi internal query-aware RAG contract 1.0 (Task 13)",
+  "description": "Additive internal function contract. Call only after explicit user confirmation through Task 11/13 prepare_confirmed_query; this data shape is not proof of human confirmation. Raw text never becomes a confirmed fact. No change to navigate v1 or canonical Evidence.",
+  "$defs": {
+    "ids": {"type": "array", "maxItems": 8, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "prepared": {
+      "type": "object",
+      "required": ["case_type", "facts", "query", "context_only"],
+      "additionalProperties": false,
+      "properties": {
+        "case_type": {"enum": ["rental_deposit", "consumer_complaint"]},
+        "facts": {"type": "object"},
+        "query": {"type": ["string", "null"], "minLength": 1, "maxLength": 300},
+        "context_only": {"const": true}
+      },
+      "allOf": [
+        {"if": {"properties": {"case_type": {"const": "rental_deposit"}}},
+         "then": {"properties": {"facts": {"$ref": "https://sg-navi.invalid/frontend/schemas/rental_deposit_input.schema.json"}}}},
+        {"if": {"properties": {"case_type": {"const": "consumer_complaint"}}},
+         "then": {"properties": {"facts": {"$ref": "https://sg-navi.invalid/frontend/schemas/consumer_complaint_input.schema.json"}}}}
+      ]
+    },
+    "reason": {
+      "type": "object",
+      "required": ["evidence_id", "rule_ids", "topics", "matched_fields", "matched_terms", "mandatory", "locator"],
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {"type": "string", "minLength": 1},
+        "rule_ids": {"$ref": "#/$defs/ids"},
+        "topics": {"$ref": "#/$defs/ids"},
+        "matched_fields": {"$ref": "#/$defs/ids"},
+        "matched_terms": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z]+$"}},
+        "mandatory": {"type": "boolean"},
+        "locator": {"type": "string", "minLength": 1}
+      }
+    },
+    "result": {
+      "type": "object",
+      "required": ["query_rag_version", "context_only", "retrieval_status", "diagnostic_code", "source_version", "proposed_rule_ids", "ranked_evidence_ids", "evidence", "match_reasons", "missing_context_fields"],
+      "additionalProperties": false,
+      "properties": {
+        "query_rag_version": {"const": "1.0"},
+        "context_only": {"const": true},
+        "retrieval_status": {"enum": ["FOUND", "NO_RESULTS", "ERROR"]},
+        "diagnostic_code": {"enum": ["MATCHED", "INVALID_INPUT", "INSUFFICIENT_CONTEXT", "OUT_OF_SCOPE", "NO_MATCH", "STALE_VERSION", "EVIDENCE_UNAVAILABLE", "LIMIT_COVERAGE", "SOURCE_UNAVAILABLE"]},
+        "source_version": {"type": ["string", "null"], "minLength": 1},
+        "proposed_rule_ids": {"$ref": "#/$defs/ids"},
+        "ranked_evidence_ids": {"$ref": "#/$defs/ids"},
+        "evidence": {"type": "array", "maxItems": 8, "items": {"$ref": "https://sg-navi.invalid/shared/schemas/evidence_schema.json"}},
+        "match_reasons": {"type": "array", "maxItems": 8, "items": {"$ref": "#/$defs/reason"}},
+        "missing_context_fields": {"$ref": "#/$defs/ids"}
+      },
+      "allOf": [
+        {"if": {"properties": {"retrieval_status": {"const": "FOUND"}}},
+         "then": {"properties": {"diagnostic_code": {"const": "MATCHED"}, "source_version": {"type": "string"}, "evidence": {"minItems": 1}, "proposed_rule_ids": {"minItems": 1}, "ranked_evidence_ids": {"minItems": 1}, "match_reasons": {"minItems": 1}}},
+         "else": {"properties": {"evidence": {"maxItems": 0}, "proposed_rule_ids": {"maxItems": 0}, "ranked_evidence_ids": {"maxItems": 0}, "match_reasons": {"maxItems": 0}}}}
+      ]
+    }
+  }
+}
