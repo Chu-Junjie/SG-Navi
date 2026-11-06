@@ -98,3 +98,19 @@
 .task20-answers .task15-field select{width:100%}
 .task20-dialog #task15-question-form>button{margin-right:9px;min-height:44px}
 .task20-dialog .task15-flow h3{font-size:1.4rem}
+
+/* Concept01: prominent next step on the left, optional help on the right. */
+.task20-first-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:20px;margin-top:12px}
+.task20-first-left,.task20-first-right{min-width:0}
+.task20-first-grid .task20-primary{margin-top:0}
+.task20-first-right{border-left:1px solid #d9e5e7;padding-left:20px}
+.task20-first-right h4{font-size:1.17rem;margin:2px 0 14px;color:#173a4a}
+.task20-secondary-option{display:block;width:100%;min-height:47px;border:1px solid #d0dee0;border-radius:10px;background:#fff;color:#184f58;padding:11px 14px;margin:9px 0;text-align:left;font:inherit;font-size:.89rem;font-weight:730;cursor:pointer}
+.task20-secondary-option:hover{background:#eef8f5;border-color:#78b5b8}
+.task20-secondary-option:focus-visible{outline:3px solid #5cb4b7;outline-offset:2px}
+@media(max-width:740px){
+ .task20-first-grid{grid-template-columns:1fr;gap:10px}
+ .task20-first-right{border-left:0;border-top:1px solid #d9e5e7;padding:13px 0 0}
+ .task20-first-right h4{margin-bottom:8px}
+ .task20-secondary-option{min-height:44px;margin:7px 0}
+}
