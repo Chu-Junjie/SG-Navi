@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="SG Navi action-first interface concept with one-question dialog and concise next steps. Demonstration only.">
+  <title>SG Navi | Action-first interface concept</title>
+  <link rel="stylesheet" href="./css/task20-concept.css">
+  <script src="./js/task20-concept.js" defer></script>
+</head>
+<body>
+  <header class="site-head">
+    <a href="../index.html" class="brand" aria-label="SG Navi existing live homepage">SG <span>Navi</span></a>
+    <span class="head-note">Singapore · English</span>
+  </header>
+  <main class="scene">
+    <div class="wrap">
+      <p class="eyebrow">RENTAL DEPOSITS & CONSUMER COMPLAINTS</p>
+      <h1>What happened?</h1>
+      <p class="subhead">Tell us the problem. Find a clearer next step.</p>
+      <section class="card" aria-labelledby="form-heading">
+        <div class="card-top"><h2 id="form-heading">Describe your concern</h2><span class="tag">Interface preview</span></div>
+        <label for="description">Describe the situation in your own words</label>
+        <textarea id="description" maxlength="1200" rows="3" placeholder="Example: A restaurant charged me more than the menu price and refuses to refund the difference."></textarea>
+        <div class="examples" aria-label="Made-up examples">
+          <button type="button" data-example="restaurant">Restaurant bill</button>
+          <button type="button" data-example="rental">Rental deposit</button>
+        </div>
+        <div class="entry-actions">
+          <button id="start" class="btn primary" type="button">Find my next step <span aria-hidden="true">→</span></button>
+          <p id="message" role="status" aria-live="polite">Use made-up examples only. Leave out personal details.</p>
+        </div>
+        <section id="outcome" class="outcome" aria-labelledby="result-heading" hidden>
+          <div class="outcome-scroll" tabindex="0" aria-label="Your next step and optional details, scroll inside">
+            <p class="tag warm">Illustrative interface · Not verified advice</p>
+            <p class="eyebrow dark" id="result-topic"></p>
+            <h2 id="result-heading" tabindex="-1">A next step to check</h2>
+            <p id="next-step" class="next-step"></p>
+            <div class="spotlight">
+              <span class="eyebrow dark">YOUR NEXT STEP</span>
+              <h3 id="action-heading"></h3>
+              <p id="action-description"></p>
+              <div class="action-buttons">
+                <button id="show-evidence" class="btn primary" type="button">See official information</button>
+                <button id="edit" class="btn secondary" type="button">Change answers</button>
+              </div>
+            </div>
+            <div class="list-wrap"><h3>Before you continue</h3><ol id="quick-list"></ol></div>
+            <details class="details" id="extra">
+              <summary>More details, documents and unresolved questions</summary>
+              <div class="extra-grid">
+                <section><h4>Documents to prepare</h4><p id="documents"></p></section>
+                <section><h4>Questions to check</h4><p id="uncertainty"></p></section>
+              </div>
+            </details>
+            <p class="fineprint">This is a design demonstration, not a live result, legal eligibility assessment or case submission. No information is sent to a server.</p>
+          </div>
+        </section>
+      </section>
+      <p class="footer-note">Student demonstration · No legal advice · No case filing</p>
+    </div>
+  </main>
+  <div id="question-overlay" class="overlay" hidden>
+    <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-heading" aria-describedby="question-help">
+      <div class="dialog-head"><span class="eyebrow dark">ONE QUICK DETAIL</span><button id="close-question" type="button" class="icon-close" aria-label="Close question">×</button></div>
+      <div class="dialog-body">
+        <h2 id="dialog-heading">A question about your situation</h2>
+        <p id="question-help">This helps us identify which information to check.</p>
+        <div id="question-options" class="choices" role="group" aria-label="Answer choices"></div>
+      </div>
+      <div class="dialog-foot">
+        <button id="question-back" type="button" class="btn text-button">Back</button>
+        <button id="question-next" type="button" class="btn primary">Continue <span aria-hidden="true">→</span></button>
+      </div>
+    </section>
+  </div>
+  <div id="details-overlay" class="overlay details-overlay" hidden>
+    <section class="drawer" role="dialog" aria-modal="true" aria-labelledby="evidence-heading">
+      <div class="dialog-head"><span class="eyebrow dark">MORE INFORMATION</span><button id="close-details" type="button" class="icon-close" aria-label="Close details">×</button></div>
+      <div class="dialog-body">
+        <h2 id="evidence-heading">Check the original source</h2>
+        <p class="tag warm">Demo · Not a verified source match</p>
+        <p>This interface will show the exact official quotation, its publisher and review date only after Task 17 and Task 19 provide approved evidence. No legal wording or contact details are invented here.</p>
+        <p>For now, you can consult the official sites below and confirm which information applies to your circumstances.</p>
+        <ul id="official-links" class="official-links"></ul>
+      </div>
+      <div class="dialog-foot"><button id="return-details" class="btn primary" type="button">Back to next step</button></div>
+    </section>
+  </div>
+</body>
+</html>
