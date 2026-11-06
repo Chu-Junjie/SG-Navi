@@ -272,9 +272,9 @@ try {
         assert.equal(r.response.status,'REFER_TO_OFFICIAL');
         return {offline:'Service unavailable',preserved_amount:456,retry_status:r.response.status};
       });
-      await addStep(trace,'09','Click header return to homepage','Candidate form return link reaches actual homepage',async()=>{
+      await addStep(trace,'09','Click header return to homepage','Legacy form return link reaches migrated intake-first homepage',async()=>{
         await evaluate("document.querySelector('.head a').click()");
-        await until("location.pathname==='/' && document.querySelectorAll('[data-case]').length===2");
+        await until("location.pathname==='/' && !!document.getElementById('problem-text')");
         return {pathname:await evaluate("location.pathname")};
       });
       trace.passed=trace.steps.length===9 && trace.steps.every(x=>x.result==='PASS');
