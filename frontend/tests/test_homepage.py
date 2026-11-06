@@ -27,7 +27,7 @@ class HomepageTests(unittest.TestCase):
     def test_api_versioned_integration_remains_on_real_script(self):
         self.assertIn('src="./js/api-config.js"', self.html)
         self.assertIn('src="./js/task15-flow.js"', self.html)
-        self.assertIn('src="./css/task20-live.css"', self.html)
+        self.assertIn('href="./css/task20-live.css"', self.html)
         self.assertIn('content="/api/health"', self.html)
         self.assertNotIn('id="api-status"', self.html)
 
