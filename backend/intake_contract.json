@@ -1,0 +1,384 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sg-navi.invalid/backend/intake_contract.json",
+  "title": "Proposed SG Navi bounded English intake v1.0 — Task 11 (owner review required)",
+  "description": "Separate/additive API; old shared/api_contract.json and /api/navigate unchanged. The user must confirm any candidate facts.",
+  "$defs": {
+    "request": {
+      "type": "object",
+      "required": [
+        "intake_version",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "intake_version": {
+          "const": "1.0"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1200
+        }
+      }
+    },
+    "confirmation_request": {
+      "type": "object",
+      "required": [
+        "intake_version",
+        "confirmed",
+        "case_type",
+        "confirmed_answers"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "intake_version": {
+          "const": "1.0"
+        },
+        "confirmed": {
+          "const": true
+        },
+        "case_type": {
+          "enum": [
+            "rental_deposit",
+            "consumer_complaint"
+          ]
+        },
+        "confirmed_answers": {
+          "type": "object"
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_type": {
+          "enum": [
+            "text",
+            "number",
+            "boolean",
+            "date",
+            "select"
+          ]
+        },
+        "required": {
+          "const": true
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "input_type",
+        "required"
+      ],
+      "additionalProperties": false
+    },
+    "candidate_facts": {
+      "type": "object",
+      "properties": {
+        "claim_amount_sgd": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dispute_with": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "premises_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "purchase_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "purchase_purpose": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "supplier_registered_in_sg": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tenancy_duration_months": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "relevant_event_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "respondent_in_singapore": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "agency_agreement_signed": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resolution_attempted": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "documents_available": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "supplier_location": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "problem_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "purchase_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "response": {
+      "type": "object",
+      "required": [
+        "intake_version",
+        "intake_status",
+        "suggested_case_type",
+        "candidate_facts",
+        "needs_confirmation",
+        "clarification_questions",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "intake_version": {
+          "const": "1.0"
+        },
+        "intake_status": {
+          "enum": [
+            "suggested",
+            "ambiguous",
+            "out_of_scope",
+            "cannot_determine",
+            "confirmed",
+            "error"
+          ]
+        },
+        "suggested_case_type": {
+          "enum": [
+            "rental_deposit",
+            "consumer_complaint",
+            null
+          ]
+        },
+        "candidate_facts": {
+          "$ref": "#/$defs/candidate_facts"
+        },
+        "needs_confirmation": {
+          "type": "boolean"
+        },
+        "clarification_questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/question"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "unresolved_fields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{20}$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "intake_status": {
+                "const": "confirmed"
+              }
+            },
+            "required": [
+              "intake_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "needs_confirmation": {
+                "const": false
+              },
+              "suggested_case_type": {
+                "enum": [
+                  "rental_deposit",
+                  "consumer_complaint"
+                ]
+              }
+            },
+            "required": [
+              "unresolved_fields",
+              "revision"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "intake_status": {
+                "enum": [
+                  "ambiguous",
+                  "out_of_scope",
+                  "cannot_determine",
+                  "error"
+                ]
+              }
+            },
+            "required": [
+              "intake_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "suggested_case_type": {
+                "type": "null"
+              },
+              "candidate_facts": {
+                "maxProperties": 0
+              },
+              "needs_confirmation": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "intake_status": {
+                "const": "suggested"
+              }
+            },
+            "required": [
+              "intake_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "suggested_case_type": {
+                "enum": [
+                  "rental_deposit",
+                  "consumer_complaint"
+                ]
+              },
+              "needs_confirmation": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

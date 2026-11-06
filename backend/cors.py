@@ -13,6 +13,8 @@ API_METHODS = {
     "/api/version": frozenset({"GET"}),
     "/api/case-types": frozenset({"GET"}),
     "/api/navigate": frozenset({"POST"}),
+    "/api/intake": frozenset({"POST"}),
+    "/api/intake/confirm": frozenset({"POST"}),
 }
 DEFAULT_ORIGIN = "https://chu-junjie.github.io"
 
