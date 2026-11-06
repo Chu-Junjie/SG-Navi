@@ -6,8 +6,10 @@
   <meta name="theme-color" content="#203449">
   <title>SG Navi | Guided Questions</title>
   <link rel="stylesheet" href="./css/task9-clarify.css">
+  <link rel="stylesheet" href="./css/task10-results.css">
   <script src="./js/api-config.js" defer></script>
   <script src="./js/verified-sources.js" defer></script>
+  <script src="./js/task10-results.js" defer></script>
   <script src="./js/task9-clarify.js" defer></script>
 </head>
 <body>
@@ -62,11 +64,38 @@
       </aside>
     </div>
     <section class="panel result" id="result" aria-labelledby="result-title" hidden>
-      <h2 id="result-title" tabindex="-1">Information to review</h2>
-      <p class="result-message" id="result-message"></p>
-      <div id="result-warnings" class="warnings"></div>
-      <div id="verified-source-list"></div>
-      <p class="hint">These official links are for research only. Check the original source and confirm what applies to your own circumstances.</p>
+      <div class="result-header">
+        <div>
+          <p class="eyebrow">Step 4 · Review the information</p>
+          <h2 id="result-title" tabindex="-1">Your situation &amp; official references</h2>
+        </div>
+        <span class="result-status" id="task10-result-status">Not a legal decision</span>
+      </div>
+      <p class="result-message" id="result-message" role="status" aria-live="polite"></p>
+      <div class="result-actions">
+        <button type="button" class="outline-button" id="task10-refine">Refine results · Edit your answers</button>
+        <button type="button" class="outline-button" id="task10-retry">Check again</button>
+      </div>
+      <div class="result-layout">
+        <div class="result-column">
+          <section class="result-card" aria-label="Provided details">
+            <div id="task10-fact-summary"></div>
+          </section>
+          <section class="result-card" aria-labelledby="task10-sources-title">
+            <h3 id="task10-sources-title">Official reference information</h3>
+            <p class="result-subtitle">Choose a reference to inspect its available metadata. This is not a claim-to-source match or legal recommendation.</p>
+            <div id="result-warnings" class="warnings"></div>
+            <div id="task10-source-list"></div>
+          </section>
+        </div>
+        <details class="evidence-box" id="task10-evidence-details" open>
+          <summary>Official Evidence Viewer</summary>
+          <p class="evidence-state" id="task10-evidence-state">Waiting for a checked result</p>
+          <div id="task10-evidence-viewer"></div>
+        </details>
+      </div>
+      <div id="verified-source-list" hidden></div>
+      <p class="hint">Reference metadata is not proof of applicability. No source screenshot or quoted paragraph is available through the current API.</p>
     </section>
   </main>
   <footer class="wrap footer">SG Navi · Student demonstration · Not legal advice · Does not submit cases</footer>
