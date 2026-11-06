@@ -26,7 +26,9 @@ class DynamicClarificationPageTests(unittest.TestCase):
             'SGNaviApiConfig.resolve("/api/navigate", win.location)',
             'api_version:"1.0"', 'source_version',
             'state.pending?.abort()', 'state.revision', 'answerControls.replaceChildren()',
-            'win.SGNaviVerifiedSources.renderReferralSources',
+            'win.SGNaviVerifiedSources?.selectVerifiedSources',
+            'win.SGNaviTask10?.render',
+            'win.SGNaviTask10Guidance.render',
         ):
             self.assertIn(phrase, js)
         self.assertNotIn("localStorage", js)

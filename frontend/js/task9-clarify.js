@@ -147,6 +147,7 @@
       retry.hidden = true;
       result.hidden = true;
       if (win.SGNaviTask10) win.SGNaviTask10.clear(doc);
+      if (win.SGNaviTask10Guidance) win.SGNaviTask10Guidance.clear(doc);
       warnings.replaceChildren();
       sources.replaceChildren();
       state.questionQueue = [];
@@ -251,6 +252,35 @@
       state.schemas[selected] = schema;
       return schema;
     }
+    // Task 12 is additive. A preview failure never promotes a legacy referral
+    // into a supported result. The unchanged v1 workflow remains available.
+    async function fetchGuidancePreview(caseType,answers,revision) {
+      const endpoint=win.SGNaviApiConfig.resolve("/api/results/preview",win.location);
+      if (!endpoint) return null;
+      const controller=new AbortController();
+      state.pending=controller;
+      const timer=setTimeout(()=>controller.abort(),10000);
+      try {
+        const response=await win.fetch(endpoint,{
+          method:"POST",
+          headers:{"Content-Type":"application/json",Accept:"application/json"},
+          body:JSON.stringify({
+            results_version:"0.1",confirmed:true,
+            case_type:caseType,confirmed_answers:{...answers}
+          }),
+          signal:controller.signal
+        });
+        if (revision !== state.revision || !response.ok ||
+            !(response.headers.get("content-type") || "").toLowerCase().includes("application/json")) return null;
+        const payload=await response.json();
+        return revision === state.revision ? payload : null;
+      } catch (_) {
+        return null;
+      } finally {
+        clearTimeout(timer);
+        if (state.pending === controller) state.pending=null;
+      }
+    }
     async function check() {
       const selected = topic.value;
       if (!CASES.includes(selected)) return;
@@ -304,13 +334,39 @@
           for (const warning of payload.warnings) {
             if (typeof warning === "string") warnings.appendChild(element("p", warning));
           }
-          // The old verified source projection remains available in task5-flow.html.
-          // win.SGNaviVerifiedSources.renderReferralSources is intentionally not called
-          // on this evidence-viewer screen; Task 10 uses strict metadata selection.
-          const selector = win.SGNaviVerifiedSources?.selectVerifiedSources;
-          const inspection = win.SGNaviTask10?.render(payload,doc,{...state.answers},selector) || null;
-          setText(byId("task10-result-status"), inspection?.kind === "referral"
-            ? "Source references · not legal advice" : "No verified action available");
+          // Only a real v1 referral may request the separately versioned
+          // Task 12 research preview. Do not treat v1 SUPPORTED_PATH as verified.
+          // Unavailable, malformed or limited guidance never produces made-up
+          // eligibility, quotations, or approved legal Action Cards.
+          let inspection=null;
+          if (payload.status === "REFER_TO_OFFICIAL" && payload.action_card === null &&
+              win.SGNaviTask10Guidance) {
+            const preview=await fetchGuidancePreview(selected,{...state.answers},rev);
+            if (rev !== state.revision) return;
+            if (preview) {
+              const model=win.SGNaviTask10Guidance.inspectPreview(preview);
+              if (model.kind === "guidance" || model.kind === "limited") {
+                inspection=win.SGNaviTask10Guidance.render(preview,doc,{...state.answers});
+                setText(message,model.kind === "guidance"
+                  ? "Based on the details you provided, here is conditional research and preparation information. Confirm everything on the original official websites."
+                  : "There is not enough checked information for detailed preparation guidance. Please check the official websites.");
+              }
+            }
+          }
+          if (!inspection) {
+            const selector=win.SGNaviVerifiedSources?.selectVerifiedSources;
+            inspection=win.SGNaviTask10?.render(payload,doc,{...state.answers},selector) || null;
+            if (payload.status === "REFER_TO_OFFICIAL") {
+              setText(message,"Only official reference information is available. More detailed guidance could not be checked right now.");
+            }
+          }
+          setText(byId("task10-result-status"), inspection?.kind === "guidance"
+            ? "Research guidance · not legal advice"
+            : inspection?.kind === "referral"
+              ? "Official references · not legal advice"
+              : inspection?.kind === "limited"
+                ? "Limited information · check official sources"
+                : "No verified action available");
           if (payload.status === "ERROR") retry.hidden = false;
           byId("result-title").focus();
         }

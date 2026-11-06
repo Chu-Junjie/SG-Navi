@@ -10,6 +10,7 @@
   <script src="./js/api-config.js" defer></script>
   <script src="./js/verified-sources.js" defer></script>
   <script src="./js/task10-results.js" defer></script>
+  <script src="./js/task10-guidance.js" defer></script>
   <script src="./js/task9-clarify.js" defer></script>
 </head>
 <body>
@@ -24,7 +25,7 @@
       <h1>Let's understand your situation.</h1>
       <p>Answer the questions that are relevant to your concern. You can say “Not sure”, review answers, or go back at any time.</p>
     </div>
-    <p class="privacy"><strong>Student demonstration, not legal advice.</strong> Use made-up details only; do not enter names, phone numbers or documents. This page cannot analyse your original written description yet. It does not submit a case or decide legal eligibility.</p>
+    <p class="privacy"><strong>Student demonstration, not legal advice.</strong> Use made-up details only; do not enter names, phone numbers or documents. The current guided questions use the selected topic, not the text of your original description. No case is filed and legal eligibility is not decided here.</p>
     <div class="layout">
       <section class="panel conversation" aria-labelledby="questions-title">
         <div class="section-top"><h2 id="questions-title">Guided questions</h2><span class="step-pill">English</span></div>
@@ -82,8 +83,8 @@
             <div id="task10-fact-summary"></div>
           </section>
           <section class="result-card" aria-labelledby="task10-sources-title">
-            <h3 id="task10-sources-title">Official reference information</h3>
-            <p class="result-subtitle">Choose a reference to inspect its available metadata. This is not a claim-to-source match or legal recommendation.</p>
+            <h3 id="task10-sources-title">Guidance and official references</h3>
+            <p class="result-subtitle">Choose a preparation step to inspect its supporting official wording, when it is available. This is research information, not legal advice.</p>
             <div id="result-warnings" class="warnings"></div>
             <div id="task10-source-list"></div>
           </section>
@@ -95,7 +96,7 @@
         </details>
       </div>
       <div id="verified-source-list" hidden></div>
-      <p class="hint">Reference metadata is not proof of applicability. No source screenshot or quoted paragraph is available through the current API.</p>
+      <p class="hint">Recorded official excerpts may be short and do not determine eligibility. No original-page screenshot is supplied. Read the full official website before taking action.</p>
     </section>
   </main>
   <footer class="wrap footer">SG Navi · Student demonstration · Not legal advice · Does not submit cases</footer>

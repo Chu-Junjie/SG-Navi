@@ -2,6 +2,10 @@
 
 Issue [#75](https://github.com/Chu-Junjie/SG-Navi/issues/75). Coordinator: Chu Junjie.
 Tasks 13 and 14 are merged in #82 and #84; Zheng's Task 14 backend is merged in #83.
+Guanyu's Task 10 continuation #85 was separately approved by Chu-Junjie, passed
+both CI workflows and merged at `bb540ebdd9d00ff9313b9b3504b5589f6aeda1bf`.
+Its existing Task 9 result/source viewer is retained alongside the new home-page
+workflow. The shared API allowlist merge retains all endpoints from both changes.
 The owner authorized cross-module implementation and merging without waiting for
 peer approval. Reviewer requests remain part of the PR record; no automated run
 or owner waiver is described as a teammate's human approval.
