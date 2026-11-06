@@ -74,6 +74,12 @@ def _validate_text(description):
 def _case_type(description):
     rental = bool(RENTAL.search(description))
     consumer = bool(CONSUMER.search(description))
+    # A landlord may use the word "refund" about a deposit. That word alone
+    # is not evidence of a separate consumer purchase/dispute.
+    if rental and not CONSUMER_ACTION.search(description) and not re.search(
+        r"\\b(?:shop|store|retailer|seller|merchant|product|item|goods|delivery)\\b", description, re.I
+    ):
+        consumer = False
     if UNSUPPORTED.search(description):
         return "out_of_scope", None
     if rental and consumer:
@@ -145,6 +151,10 @@ def interpret(description):
 def _validate_answers(case_type, answers):
     if case_type not in CASE_TYPES or not isinstance(answers, dict):
         raise ValueError("A supported case and confirmed answers object are required.")
+    if any(isinstance(value, str) and (
+            len(value) > 200 or any(ord(char) < 32 for char in value))
+            for value in answers.values()):
+        raise ValueError("Confirmed fields exceed permitted length or contain control characters.")
     if not answers_validator(case_type).is_valid(answers):
         raise ValueError("Confirmed answers do not match the selected case schema.")
 
