@@ -41,17 +41,25 @@
       isolation: isolate;
       padding: 71px 0 94px;
       color: var(--white);
-      background-color: var(--navy-deep);
+      /* Keep the full-length result readable without enlarging the skyline. */
+      background: var(--navy-deep);
+    }
+    /* The picture is painted in its own bounded layer, not sized by long results. */
+    .hero::after {
+      content: ""; position: absolute; inset: 0 0 auto; z-index: -1;
+      height: clamp(760px, 75vw, 1120px);
       background-image:
+        linear-gradient(to bottom, transparent 0%, transparent 56%, var(--navy-deep) 100%),
         linear-gradient(90deg, rgba(20, 43, 62, .94) 0%, rgba(20, 43, 62, .79) 36%, rgba(20, 43, 62, .41) 68%, rgba(20, 43, 62, .12) 100%),
         url("./frontend/assets/sg-skyline.webp");
-      background-size: cover;
-      background-position: center 53%;
-      background-repeat: no-repeat;
+      background-size: cover; background-position: center 53%; background-repeat: no-repeat;
+      pointer-events: none;
     }
-    .hero::before, .hero::after { position: absolute; content: ""; border: 1px solid rgba(255,255,255,.07); border-radius: 50%; pointer-events: none; z-index: -1; }
-    .hero::before { width: 560px; height: 560px; top: -335px; right: -65px; }
-    .hero::after { width: 430px; height: 430px; top: -280px; right: 80px; }
+    .hero::before {
+      position: absolute; content: ""; width: 560px; height: 560px;
+      top: -335px; right: -65px; border: 1px solid rgba(255,255,255,.07);
+      border-radius: 50%; pointer-events: none; z-index: -1;
+    }
     .eyebrow { margin: 0 0 15px; color: #b9e6e0; font-size: .74rem; letter-spacing: .15em; text-transform: uppercase; font-weight: 750; }
     h1 { max-width: 700px; margin: 0; font-size: clamp(3.0rem, 5.1vw, 4.55rem); line-height: 1.08; letter-spacing: -.055em; font-weight: 780; }
     .hero-copy { max-width: 645px; margin: 20px 0 0; color: #e5f0f1; font-size: 1.05rem; line-height: 1.75; }
@@ -110,13 +118,17 @@
       .header-tag { display: none; }
       .hero {
         padding: 39px 0 42px;
+      }
+      .hero::after {
+        height: clamp(650px, 145vw, 880px);
         background-image:
+          linear-gradient(to bottom, transparent 0%, transparent 50%, var(--navy-deep) 100%),
           linear-gradient(90deg, rgba(20, 43, 62, .92) 0%, rgba(20, 43, 62, .82) 46%, rgba(20, 43, 62, .62) 100%),
           url("./frontend/assets/sg-skyline.webp");
         background-position: 61% center;
       }
       .hero::before { width: 300px; height: 300px; top: -185px; right: -110px; }
-      .hero::after { display: none; }
+
       .eyebrow { margin-bottom: 11px; font-size: .67rem; letter-spacing: .125em; }
       h1 { max-width: 330px; font-size: clamp(2.18rem, 9.5vw, 2.75rem); line-height: 1.09; letter-spacing: -.044em; }
       .hero-copy { max-width: 510px; margin-top: 15px; font-size: .93rem; line-height: 1.61; }
