@@ -1,0 +1,349 @@
+{
+  "audit_version": "task15-source-family-1",
+  "all_passed": true,
+  "cases": [
+    {
+      "case_id": "R01",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R02",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R03",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R04",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R05",
+      "expected_family": "cea",
+      "source_ids": [
+        "cea-dispute-resolution"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R06",
+      "expected_family": "cea",
+      "source_ids": [
+        "cea-dispute-resolution"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R07",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R08",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R09",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R10",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R11",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R12",
+      "expected_family": "cea",
+      "source_ids": [],
+      "passed": true
+    },
+    {
+      "case_id": "R13",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R14",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "R15",
+      "expected_family": "courts",
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C01",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C02",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C03",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C04",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C05",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C06",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C07",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C08",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C09",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C10",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C11",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C12",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C13",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C14",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "C15",
+      "expected_family": "consumer",
+      "source_ids": [
+        "case-complaint",
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "B01",
+      "expected_family": null,
+      "source_ids": [],
+      "passed": true
+    },
+    {
+      "case_id": "B02",
+      "expected_family": null,
+      "source_ids": [],
+      "passed": true
+    },
+    {
+      "case_id": "B03",
+      "expected_family": null,
+      "source_ids": [],
+      "passed": true
+    },
+    {
+      "case_id": "B04",
+      "expected_family": null,
+      "source_ids": [],
+      "passed": true
+    },
+    {
+      "case_id": "B05",
+      "expected_family": null,
+      "source_ids": [],
+      "passed": true
+    },
+    {
+      "case_id": "B06",
+      "expected_family": null,
+      "source_ids": [],
+      "passed": true
+    },
+    {
+      "case_id": "B07",
+      "expected_family": null,
+      "source_ids": [],
+      "passed": true
+    },
+    {
+      "case_id": "B08",
+      "expected_family": null,
+      "source_ids": [
+        "courts-sct-eligibility",
+        "courts-sct-filing"
+      ],
+      "passed": true
+    },
+    {
+      "case_id": "B09",
+      "expected_family": null,
+      "source_ids": [],
+      "passed": true
+    },
+    {
+      "case_id": "B10",
+      "expected_family": null,
+      "source_ids": [],
+      "passed": true
+    }
+  ]
+}

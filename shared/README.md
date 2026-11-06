@@ -102,3 +102,12 @@ validates the shared examples before the backend/RAG/frontend tests.
 The original Task 2 implementation/acceptance is historical. Current source,
 deployment and release decisions are recorded in the root
 `integration_acceptance.md`; these mock examples do not grant legal approval.
+# Task 15 integration envelope
+
+`guidance_contract.json` freezes additive `guidance_version: 1.0` for `POST /api/guidance`.
+The request requires explicit confirmation, supported case facts and the exact revision
+returned by `/api/intake/confirm`. Answers edited since confirmation are rejected.
+The response distinguishes clarification, conditional research, limited referral and
+error; only `GUIDANCE_ONLY` can contain the complete Task 14 display records and
+claim citations. v1 `/api/navigate` is unchanged. No legal Action Card is activated.
+See [integration acceptance](../docs/task15-acceptance.md) and `validate_guidance.py`.

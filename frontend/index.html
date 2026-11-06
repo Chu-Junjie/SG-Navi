@@ -157,6 +157,7 @@
     }
   </style>
   <link rel="stylesheet" href="./css/task8-home.css">
+  <link rel="stylesheet" href="./css/task15-flow.css">
 </head>
 <body>
   <header class="site-header">
@@ -194,7 +195,7 @@
         </div>
         <p id="problem-validation" class="problem-error" role="alert" aria-live="assertive"></p>
         <div class="intake-actions">
-          <button class="intake-primary" id="problem-submit" type="submit">Find Guidance <span aria-hidden="true">→</span></button>
+          <button class="intake-primary" id="problem-submit" type="submit" disabled>Find Guidance <span aria-hidden="true">→</span></button>
           <p class="intake-privacy">Use made-up details only. Do not include names, contact details or private documents.</p>
         </div>
       </form>
@@ -206,7 +207,7 @@
         <div id="candidate-facts" hidden>
           <label class="problem-label">Suggested facts — edit anything that is incorrect</label>
           <div id="candidate-list" class="candidate-list"></div>
-          <p class="candidate-warning">These are candidates, not verified facts. Your edits are not yet connected to the existing guided form.</p>
+          <p class="candidate-warning">These are unconfirmed candidates. Correct each detail before you confirm.</p>
         </div>
         <fieldset>
           <legend>Which topic best matches your concern?</legend>
@@ -218,7 +219,7 @@
           </div>
         </fieldset>
         <p id="review-validation" class="review-error" role="alert" aria-live="assertive"></p>
-        <p class="review-help">This is a manual selection while automatic interpretation is unavailable. The next guided form will ask for your details again; this description is not transferred or saved.</p>
+        <p class="review-help">Confirm the topic and correct the suggested facts. SG Navi keeps answers in memory for this visit and does not save your description or answers.</p>
         <div class="review-actions">
           <button type="button" class="intake-secondary" id="review-back">Edit description</button>
           <button type="button" class="intake-primary" id="review-continue">Continue to guided questions <span aria-hidden="true">→</span></button>
@@ -332,6 +333,7 @@
     refreshButton.addEventListener("click", checkApiHealth);
     checkApiHealth();
   </script>
+  <script src="./js/task15-flow.js"></script>
   <script src="./js/task8-home.js"></script>
 </body>
 </html>

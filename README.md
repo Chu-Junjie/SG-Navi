@@ -2,12 +2,12 @@
 
 **Group 6 · English Rental Deposit / Consumer Complaint prototype**
 
-SG Navi has a real Flask → RAG → browser integration. It asks for missing facts and provides **verified source context**, but it **does not determine legal eligibility**: all runtime legal rules remain disabled, and the normal result is `REFER_TO_OFFICIAL` with `action_card: null`. The seven visible card sections are fallback / verification messages, **not a supported legal Action Card**. Do not present the app as legal advice or a production filing service.
+SG Navi provides English Rental Deposit and Consumer Complaint research/preparation flows. The Task 15 home page connects actual intake → explicit fact confirmation → relevant missing questions → conditional `GUIDANCE_ONLY` → selected-item official excerpts. **Legal eligibility is not assessed**; all runtime legal rules remain disabled and `action_card` remains null. Existing `/api/navigate` v1 clients retain their conservative referral contract. See [Task 15 acceptance and operating instructions](docs/task15-acceptance.md) for current evidence and limits.
 
 - **Task 5:** accepted; [evidence](docs/task5-checklist.md).
 - **Task 6:** accepted **with limits**; [evidence](docs/task6-checklist.md) (38 IDs: 36 PASS, E2E-01/02 LIMITED).
-- **Task 7:** handover in progress; [coordinator assessment](integration_acceptance.md) currently says **NOT READY FOR FREEZE**. The candidate-specific [Rental and Consumer browser demo](frontend/TASK7_CANDIDATE_DEMO.md) and screenshots are recorded; team member-specific fresh install records and final release-owner handover/approval still need reconciliation.
-- **Release/recovery procedures:** [Task 7 release handover](docs/task7-release-handover.md). Do not create `v0.9.0-rc1` or call it released before final coordinator approval.
+- **Task 7:** the owner-authorized limited internal candidate is closed; [coordinator assessment](integration_acceptance.md) records actual evidence and remaining limits. Original three-person independent environment evidence remains incomplete.
+- **Release/recovery procedures:** [Task 7 release handover](docs/task7-release-handover.md). Existing `v0.9.0-rc1` remains pinned to its original candidate; Tasks 13–15 do not move that tag or authorize a production/legal release.
 - **2026-11-05 remediation:** [PR #64](https://github.com/Chu-Junjie/SG-Navi/pull/64) corrects readiness reporting and records exact CEA footer-only drift, actual isolated hosted state persistence and encrypted external recovery. [Current acceptance](integration_acceptance.md) supersedes the 11-03 missing-demo list. Zheng's personal execution is user-reported; actual details remain pending.
 - **Current public demo (2026-11-05):** [GitHub Pages](https://chu-junjie.github.io/SG-Navi/) → [Junjie's Render Free API](https://sg-navi-api-junjie.onrender.com) → Neon Free PostgreSQL (`my-first-project`, PG18/Singapore). The service tracks `main`; exact deployed code and public results are reconciled in [PR #64](https://github.com/Chu-Junjie/SG-Navi/pull/64). Actual `/api/health` provider checks are configured. This is a conservative referral demo, **not a production/legal-decision release**. See the [live setup and acceptance register](docs/task7-junjie-render-neon-integration.md), not the [older paid-disk proposal](docs/task7-public-backend.md).
 
@@ -77,7 +77,7 @@ From the repo root, with the Python environment installed:
 .\.venv\Scripts\python.exe -m flask --app integration.app run --host 127.0.0.1 --port 5000
 ```
 
-Open **http://127.0.0.1:5000/**, choose **Rental Deposit** or **Consumer Complaint**, or directly open **http://127.0.0.1:5000/task5-flow.html**. This is a **local Flask development server**, not a production deployment. Keep the host on `127.0.0.1`; do not publicly expose the debug/dev server or submit real dispute facts.
+Open **http://127.0.0.1:5000/** and enter a made-up English problem. Confirm/correct the proposed category and facts, answer remaining questions, and select a guidance item to inspect its exact source. The topic buttons and **http://127.0.0.1:5000/task5-flow.html** retain the earlier v1 guided form. This is a local Flask development server; keep it on `127.0.0.1` and use synthetic facts.
 
 In a *second* PowerShell window:
 

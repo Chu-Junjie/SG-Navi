@@ -12,7 +12,7 @@ class Task8HomepageTests(unittest.TestCase):
                 html = path.read_text(encoding="utf-8")
                 for required in (
                     'id="problem-form"', 'id="problem-text"', 'id="problem-submit"',
-                    'type="submit">Find Guidance', 'for="problem-text"',
+                    'type="submit" disabled>Find Guidance', 'for="problem-text"',
                     'id="problem-review"', 'id="review-title" tabindex="-1"',
                     'id="review-back"', 'id="review-continue"',
                     'value="unsure"', 'value="other"',

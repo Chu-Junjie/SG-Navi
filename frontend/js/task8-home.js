@@ -63,6 +63,7 @@
     }
   }
   function init(doc, win, options = {}) {
+    if (win.SGNaviTask15 && options.legacy !== true) return win.SGNaviTask15.init(doc, win);
     const get = id => doc.getElementById(id);
     const form = get("problem-form"), input = get("problem-text"), review = get("problem-review");
     if (!form || !input || !review) return null;
@@ -177,6 +178,7 @@
       const guidedPath = formPath.replace("task5-flow.html", "task9-clarify.html");
       win.location.assign(guidedPath + "?case_type=" + topic);
     });
+    submit.disabled = false;
     return {showReview, resetReview};
   }
   return Object.freeze({MAX_LENGTH, validateProblem, normaliseSuggestion, runIntakeRequest, init});

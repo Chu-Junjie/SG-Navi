@@ -10,12 +10,12 @@ from backend.app import FRONTEND_DIR, create_app as create_backend_app
 
 def create_app():
     app = create_backend_app()
-    for page in ("task5-flow.html", "task4-forms.html", "task3-mapping.html", "mock-preview.html"):
+    for page in ("task5-flow.html", "task4-forms.html", "task3-mapping.html", "mock-preview.html", "task9-clarify.html"):
         app.add_url_rule(
             "/" + page, endpoint="integration_page_" + page,
             view_func=lambda page=page: send_from_directory(FRONTEND_DIR, page),
         )
-    for directory in ("js", "schemas", "mappings", "mocks"):
+    for directory in ("js", "css", "schemas", "mappings", "mocks"):
         app.add_url_rule(
             "/" + directory + "/<path:filename>",
             endpoint="integration_static_" + directory,
