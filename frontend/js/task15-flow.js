@@ -137,9 +137,30 @@
     }
     function renderResult(data){
       currentResult=data;closeModal(false);if(flow.parentNode!==container)container.appendChild(flow);flow.hidden=false;flow.replaceChildren();container.dataset.flowStage="results";const h=make("h3","Your guidance");h.id="task15-result-title";
-      flow.append(h,make("p","Official research and preparation information — eligibility is not assessed.","task15-notice"));
-      const factList=make("dl",undefined,"task15-fact-summary");for(const [field,value]of Object.entries(facts)){factList.append(make("dt",LABELS[field]||field),make("dd",answerLabel(value)));}flow.appendChild(factList);
-      const grid=make("div",undefined,"task15-result-grid"), cards=make("div"), viewer=make("aside",undefined,"task15-viewer");viewer.id="task15-evidence-viewer";grid.append(cards,viewer);flow.appendChild(grid);
+      h.textContent="Here's a next step to check";
+      flow.appendChild(make("p",data.research_guidance.case_summary,"task20-situation"));
+      flow.appendChild(make("p","Official research and preparation information only — legal eligibility is not assessed.","task15-notice"));
+      const firstStep=data.claim_citations.find(c=>c.section==="steps")||data.claim_citations[0];
+      const primary=make("section",undefined,"task20-primary");
+      primary.appendChild(make("span","YOUR NEXT STEP","task20-label"));
+      primary.appendChild(make("h4",firstStep.text,"task20-main-action"));
+      primary.appendChild(make("p","Check the relevant official wording before acting. The suitability of a route depends on your circumstances."));
+      const readFirst=button("Read official guidance ↗",()=>{more.open=true;selectClaim(firstStep);},"intake-primary");
+      readFirst.id="task20-primary-link";primary.appendChild(readFirst);flow.appendChild(primary);
+      const checklist=make("section",undefined,"task20-checklist");
+      checklist.appendChild(make("h4","Before you continue"));
+      const checklistList=make("ol");
+      for(const c of data.claim_citations.filter(c=>c.section==="document_checklist").slice(0,3)){
+        checklistList.appendChild(make("li",c.text));
+      }
+      if(!checklistList.children.length)checklistList.appendChild(make("li","Review your documents and verify the official conditions."));
+      checklist.appendChild(checklistList);flow.appendChild(checklist);
+      const more=make("details",undefined,"task20-more");more.id="task20-more";
+      more.appendChild(make("summary","Explore conditions, documents and supporting sources"));
+      const moreInner=make("div",undefined,"task20-more-inner");more.appendChild(moreInner);flow.appendChild(more);
+      const factList=make("dl",undefined,"task15-fact-summary");for(const [field,value]of Object.entries(facts)){factList.append(make("dt",LABELS[field]||field),make("dd",answerLabel(value)));}
+      const factDetails=make("details",undefined,"task20-facts");factDetails.appendChild(make("summary","Your confirmed details"));factDetails.appendChild(factList);moreInner.appendChild(factDetails);
+      const grid=make("div",undefined,"task15-result-grid"), cards=make("div"), viewer=make("aside",undefined,"task15-viewer");viewer.id="task15-evidence-viewer";grid.append(cards,viewer);moreInner.appendChild(grid);
       const records=new Map(data.display_evidence.map(r=>[r.evidence_id,r]));
       function showRecord(record,claim){
         viewer.replaceChildren();const title=make("h4",record.title);title.id="task15-source-title";viewer.append(make("p",record.publisher,"task15-publisher"),title);
@@ -151,7 +172,7 @@
         const link=make("a","Open original source");link.id="task15-open-original";link.href=safeSource(record.url);link.target="_blank";link.rel="noopener noreferrer";viewer.appendChild(link);
       }
       function selectClaim(claim){
-        viewer.replaceChildren();const choices=make("div",undefined,"task15-source-choices");for(const eid of claim.evidence_ids){const r=records.get(eid);const b=button(r.publisher+" · "+eid,()=>{showRecord(r,claim);viewer.prepend(choices);focus(get("task15-source-title"));});b.dataset.evidenceId=eid;choices.appendChild(b);}showRecord(records.get(claim.evidence_ids[0]),claim);viewer.prepend(choices);focus(get("task15-source-title"));
+        more.open=true;viewer.replaceChildren();const choices=make("div",undefined,"task15-source-choices");for(const eid of claim.evidence_ids){const r=records.get(eid);const b=button(r.publisher+" · "+eid,()=>{showRecord(r,claim);viewer.prepend(choices);focus(get("task15-source-title"));});b.dataset.evidenceId=eid;choices.appendChild(b);}showRecord(records.get(claim.evidence_ids[0]),claim);viewer.prepend(choices);focus(get("task15-source-title"));
       }
       const summary=make("section",undefined,"task15-card-section");summary.dataset.cardSection="case_summary";summary.append(make("h4","Your situation"),make("p",data.research_guidance.case_summary));cards.appendChild(summary);
       for(const [key,label] of Object.entries(SECTIONS)){
@@ -165,9 +186,9 @@
       for(const eid of data.matched_evidence_ids)references.appendChild(referenceButton(records.get(eid)));
       if(!data.matched_evidence_ids.length)references.appendChild(make("p","Select a preparation item to inspect its supporting records."));
       const all=make("details");all.appendChild(make("summary","All references supporting these checks"));for(const r of data.display_evidence)all.appendChild(referenceButton(r));references.appendChild(all);cards.appendChild(references);
-      const limits=make("details",undefined,"task15-limits");limits.appendChild(make("summary","Scope and unresolved conditions"));for(const line of data.limitations)limits.appendChild(make("p",line));flow.appendChild(limits);
+      const limits=make("details",undefined,"task15-limits");limits.appendChild(make("summary","Scope and unresolved conditions"));for(const line of data.limitations)limits.appendChild(make("p",line));moreInner.appendChild(limits);
       const edit=button("Edit answers",editAnswers);edit.id="task15-edit-answers";flow.append(edit,button("Check again",perform));
-      const first=data.claim_citations.find(c=>c.section==="steps")||data.claim_citations[0];selectClaim(first);focus(h);
+      selectClaim(firstStep);more.open=false;focus(h);
     }
     async function perform(){
       cancel();clearError();review.hidden=true;flow.hidden=false;openModal(flow);flow.appendChild(make("p","Checking your confirmed details and source records…"));const token=revision;
