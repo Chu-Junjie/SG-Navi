@@ -35,7 +35,7 @@ test("invalid version, no evidence, missing selector and uncertain sources fail 
   assert.equal(inspectResult(base,null).kind,"unverified");
   assert.equal(inspectResult(base,()=>[]).kind,"unverified");
   assert.equal(inspectResult(base,()=>[{...evidence,review_status:"quarantined"}]).kind,"unverified");
-  assert.equal(inspectResult(base,()=>[{...evidence,sourceVersion:"older"}]).kind,"unverified");
+  assert.equal(inspectResult(base,()=>[{...evidence,source_version:"older"}]).kind,"unverified");
   assert.equal(inspectResult(base,()=>[{...evidence,href:"http://www.judiciary.gov.sg"}]).kind,"unverified");
 });
 test("clarification and service errors never display verified results",()=>{
