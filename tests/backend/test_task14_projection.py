@@ -137,3 +137,19 @@ def test_api_display_and_legacy_unchanged():
     assert old["action_card"] is None
     assert old["rule_version"] == "mock-1"
     assert all("verbatim_excerpt" not in item for item in old["evidence"])
+
+
+def test_forged_text_with_valid_evidence_id_is_not_approved(rental):
+    guidance = deepcopy(rental["research_guidance"])
+    guidance["steps"][0]["text"] = "You are legally entitled to file today."
+    with pytest.raises(DisplayEvidenceUnavailable):
+        project_display_evidence("rental_deposit", guidance,
+                                 expected_version=rental["source_version"])
+
+
+def test_genuine_text_must_keep_exact_reviewed_citation_set(rental):
+    guidance = deepcopy(rental["research_guidance"])
+    guidance["steps"][0]["evidence_ids"] = [guidance["citations"][0]]
+    with pytest.raises(DisplayEvidenceUnavailable):
+        project_display_evidence("rental_deposit", guidance,
+                                 expected_version=rental["source_version"])
