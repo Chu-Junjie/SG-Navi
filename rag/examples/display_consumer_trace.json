@@ -1,0 +1,104 @@
+{
+  "trace_kind": "recorded_source_trace_not_eligibility",
+  "case_type": "consumer_complaint",
+  "source_version": "kb-2026-11-01.1",
+  "claim": {
+    "claim_id": "conditions:0",
+    "section": "conditions",
+    "index": 0,
+    "text": "Confirm personal purpose and Singapore supplier registration.",
+    "text_kind": "sg_navi_reviewed_template_text",
+    "evidence_ids": [
+      "CASE-PERSONAL",
+      "CASE-SG-SUPPLIER"
+    ]
+  },
+  "display_evidence": [
+    {
+      "evidence_id": "CASE-PERSONAL",
+      "source_id": "case-complaint",
+      "rule_ids": [
+        "CASE_PERSONAL_PURPOSE"
+      ],
+      "url": "https://www.case.org.sg/submit-a-complaint/",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Consumers Association of Singapore",
+      "title": "Submit A Complaint",
+      "verbatim_excerpt": "personal/domestic use",
+      "source_locator": "consumer eligibility FAQ",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "CASE describes individual purchases of goods or services for household purposes; business-purpose transactions are excluded.",
+      "excerpt_sha256": "0aa7306135d24d3c1116e85842a0cd12d3f7ba0a655f2b1a8b7a59e2b1d2d317",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null,
+      "display_context": {
+        "context_version": "display-context-2026-11-06.1",
+        "quote_kind": "verbatim_official_excerpt",
+        "summary_kind": "sg_navi_editorial_summary",
+        "locator_kind": "sg_navi_textual_description",
+        "quote_completeness": "short_fragment_requires_official_context",
+        "surrounding_quote": null,
+        "surrounding_quote_sha256": null,
+        "source_body_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+        "checked_at": "2026-11-06T09:44:29+00:00",
+        "checked_by": "Codex automated display-context check",
+        "check_method": "automated_live_context_and_digest_check",
+        "context_reviewed_at": "2026-11-06T09:49:50.948753+00:00",
+        "canonical_reviewed_by": "Codex automated page and excerpt check",
+        "canonical_review_method": "automated_live_page_and_excerpt_check",
+        "quarantine_state": "not_quarantined_at_read",
+        "position_basis": "whitespace_normalized_visible_text_not_html_anchor",
+        "excerpt_position": {
+          "start": 6199,
+          "end": 6220
+        },
+        "surrounding_position": null
+      }
+    },
+    {
+      "evidence_id": "CASE-SG-SUPPLIER",
+      "source_id": "case-complaint",
+      "rule_ids": [
+        "CASE_SINGAPORE_SUPPLIER"
+      ],
+      "url": "https://www.case.org.sg/submit-a-complaint/",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Consumers Association of Singapore",
+      "title": "Submit A Complaint",
+      "verbatim_excerpt": "registered company in Singapore",
+      "source_locator": "supplier scope FAQ",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "The described domestic consumer route involves a Singapore-registered company.",
+      "excerpt_sha256": "272dcdfdb5253c31d6d269d299f47c6c2b61a54dfe3618ced0e4714f307b5264",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null,
+      "display_context": {
+        "context_version": "display-context-2026-11-06.1",
+        "quote_kind": "verbatim_official_excerpt",
+        "summary_kind": "sg_navi_editorial_summary",
+        "locator_kind": "sg_navi_textual_description",
+        "quote_completeness": "short_fragment_requires_official_context",
+        "surrounding_quote": null,
+        "surrounding_quote_sha256": null,
+        "source_body_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+        "checked_at": "2026-11-06T09:44:29+00:00",
+        "checked_by": "Codex automated display-context check",
+        "check_method": "automated_live_context_and_digest_check",
+        "context_reviewed_at": "2026-11-06T09:49:50.948753+00:00",
+        "canonical_reviewed_by": "Codex automated page and excerpt check",
+        "canonical_review_method": "automated_live_page_and_excerpt_check",
+        "quarantine_state": "not_quarantined_at_read",
+        "position_basis": "whitespace_normalized_visible_text_not_html_anchor",
+        "excerpt_position": {
+          "start": 6228,
+          "end": 6259
+        },
+        "surrounding_position": null
+      }
+    }
+  ]
+}

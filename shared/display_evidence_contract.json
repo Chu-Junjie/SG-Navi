@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sg-navi.invalid/shared/display_evidence_contract.json",
+  "title": "SG Navi display evidence 1.0 — source-owner approved additive contract",
+  "description": "Compatible with Task 14 backend projection. A verified_snapshot is a checked repository snapshot, never live availability, legal eligibility or official approval. UI must use text rendering and separate verbatim_excerpt from SG Navi summary. Canonical Evidence v1 is unchanged.",
+  "$defs": {
+    "ids": {"type": "array", "minItems": 1, "maxItems": 64, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "position": {
+      "type": "object", "required": ["start", "end"], "additionalProperties": false,
+      "properties": {"start": {"type": "integer", "minimum": 0}, "end": {"type": "integer", "minimum": 1}}
+    },
+    "context": {
+      "type": "object", "additionalProperties": false,
+      "required": ["context_version", "quote_kind", "summary_kind", "locator_kind", "quote_completeness", "surrounding_quote", "surrounding_quote_sha256", "source_body_sha256", "checked_at", "checked_by", "check_method", "context_reviewed_at", "canonical_reviewed_by", "canonical_review_method", "quarantine_state", "position_basis", "excerpt_position", "surrounding_position"],
+      "properties": {
+        "context_version": {"type": "string", "minLength": 1},
+        "quote_kind": {"const": "verbatim_official_excerpt"},
+        "summary_kind": {"const": "sg_navi_editorial_summary"},
+        "locator_kind": {"const": "sg_navi_textual_description"},
+        "quote_completeness": {"const": "short_fragment_requires_official_context"},
+        "surrounding_quote": {"type": ["string", "null"], "minLength": 1, "maxLength": 1024},
+        "surrounding_quote_sha256": {"anyOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]},
+        "source_body_sha256": {"$ref": "#/$defs/sha256"},
+        "checked_at": {"type": "string", "format": "date-time"},
+        "checked_by": {"const": "Codex automated display-context check"},
+        "check_method": {"const": "automated_live_context_and_digest_check"},
+        "context_reviewed_at": {"type": "string", "format": "date-time"},
+        "canonical_reviewed_by": {"type": "string", "minLength": 1},
+        "canonical_review_method": {"const": "automated_live_page_and_excerpt_check"},
+        "quarantine_state": {"const": "not_quarantined_at_read"},
+        "position_basis": {"const": "whitespace_normalized_visible_text_not_html_anchor"},
+        "excerpt_position": {"$ref": "#/$defs/position"},
+        "surrounding_position": {"anyOf": [{"$ref": "#/$defs/position"}, {"type": "null"}]}
+      }
+    },
+    "display_record": {
+      "type": "object", "additionalProperties": false,
+      "required": ["evidence_id", "source_id", "rule_ids", "url", "review_status", "source_version", "publisher", "title", "verbatim_excerpt", "source_locator", "reviewed_at", "summary", "excerpt_sha256", "display_version", "display_state", "preview"],
+      "properties": {
+        "evidence_id": {"$ref": "https://sg-navi.invalid/shared/schemas/evidence_schema.json#/properties/evidence_id"},
+        "source_id": {"$ref": "https://sg-navi.invalid/shared/schemas/evidence_schema.json#/properties/source_id"},
+        "rule_ids": {"$ref": "https://sg-navi.invalid/shared/schemas/evidence_schema.json#/properties/rule_ids"},
+        "url": {"$ref": "https://sg-navi.invalid/shared/schemas/evidence_schema.json#/properties/url"},
+        "review_status": {"const": "verified"},
+        "source_version": {"type": "string", "minLength": 1},
+        "publisher": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "verbatim_excerpt": {"type": "string", "minLength": 1},
+        "source_locator": {"type": "string", "minLength": 1},
+        "reviewed_at": {"type": "string", "format": "date-time"},
+        "summary": {"type": "string", "minLength": 1},
+        "excerpt_sha256": {"$ref": "#/$defs/sha256"},
+        "display_version": {"const": "1.0"},
+        "display_state": {"const": "verified_snapshot"},
+        "preview": {"const": null, "description": "No genuine official-page screenshot/deep-link capture has been supplied; do not synthesize one. A future capture extension needs a reviewed source URL, capture time, digest and precise excerpt position."},
+        "display_context": {"$ref": "#/$defs/context"}
+      }
+    },
+    "claim": {
+      "type": "object", "additionalProperties": false,
+      "required": ["claim_id", "section", "index", "text", "text_kind", "evidence_ids"],
+      "properties": {
+        "claim_id": {"type": "string", "pattern": "^(potential_channels|conditions|steps|document_checklist):[0-9]+$"},
+        "section": {"enum": ["potential_channels", "conditions", "steps", "document_checklist"]},
+        "index": {"type": "integer", "minimum": 0},
+        "text": {"type": "string", "minLength": 1},
+        "text_kind": {"const": "sg_navi_reviewed_template_text"},
+        "evidence_ids": {"$ref": "#/$defs/ids"}
+      }
+    },
+    "enriched_result": {
+      "type": "object", "additionalProperties": false,
+      "required": ["display_version", "display_state", "context_version", "source_version", "display_evidence", "claim_citations"],
+      "properties": {
+        "display_version": {"const": "1.0"},
+        "display_state": {"const": "verified_snapshot"},
+        "context_version": {"type": "string", "minLength": 1},
+        "source_version": {"type": "string", "minLength": 1},
+        "display_evidence": {"type": "array", "minItems": 1, "maxItems": 64, "items": {"allOf": [{"$ref": "#/$defs/display_record"}, {"required": ["display_context"]}]}},
+        "claim_citations": {"type": "array", "minItems": 1, "maxItems": 256, "items": {"$ref": "#/$defs/claim"}}
+      }
+    }
+  }
+}

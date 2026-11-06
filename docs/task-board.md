@@ -1,6 +1,6 @@
 # SG Navi task board
 
-This table records baseline Tasks 1–7 and the Task 13 RAG delivery below. Other iteration tasks are tracked by their own GitHub Issues. Task 1 was accepted for baseline development by the owner on 2026-10-31; see [the acceptance record](task1-checklist.md). A native GitHub Project has not been verified.
+This table records baseline Tasks 1–7 and Tasks 13–14 RAG deliveries below. Other iteration tasks are tracked by their own GitHub Issues. Task 1 was accepted for baseline development by the owner on 2026-10-31; see [the acceptance record](task1-checklist.md). A native GitHub Project has not been verified.
 
 | Task | Status | Responsibilities | Issue |
 | --- | --- | --- | --- |
@@ -19,3 +19,4 @@ Use Backlog, Ready, In Progress, In Review and Done. Tasks 1-6 have stage accept
 | Task | Status | Delivery and boundary | Issue |
 | --- | --- | --- | --- |
 | 13 Query-aware RAG (Chu Junjie) | Done (internal function and backend handoff) | [Versioned contract and usage](../rag/TASK13.md), passage ranking, complete mandatory mappings, current version/review/quarantine enforcement; 609 passed, 4 skipped, 15 subtests in full regression; independent five-source live check matched. Actual backend-adapter composition tested. Public Task 12/15 wiring and Task 14 display projection remain separate; no legal rule activation | [#73](https://github.com/Chu-Junjie/SG-Navi/issues/73) |
+| 14 Display evidence (Chu Junjie) | Done (source-owner contract/context and backend handoff) | [Approved schema, real context and final boundary](../rag/TASK14.md); 47 new source-owner tests; full regression 670 passed, 4 skipped, 15 subtests. Actual backend #83 composition and five live sources verified. Publisher preview stays null; public viewer wiring is Task 15 | [#74](https://github.com/Chu-Junjie/SG-Navi/issues/74) |

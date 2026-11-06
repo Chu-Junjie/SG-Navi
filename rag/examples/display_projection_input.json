@@ -1,0 +1,281 @@
+{
+  "results_version": "0.1",
+  "result_id": "80f2eabbd43927634df4ed94",
+  "source_version": "kb-2026-11-01.1",
+  "guidance_status": "GUIDANCE_ONLY",
+  "research_guidance": {
+    "case_summary": "User-confirmed rental deposit scenario; facts have not been independently verified.",
+    "potential_channels": [
+      {
+        "text": "Check the potential SCT route (conditional official source to check; not eligibility)",
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-RESIDENTIAL",
+          "SCT-ELIG-SERVICE",
+          "SCT-ELIG-TIME",
+          "SCT-FILE-DOCUMENTS",
+          "SCT-FILE-DOS",
+          "SCT-FILE-FEES",
+          "SCT-FILE-PORTAL",
+          "SCT-FILE-SERVICE"
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "text": "Check residential tenancy scope and duration.",
+        "evidence_ids": [
+          "SCT-ELIG-RESIDENTIAL"
+        ]
+      },
+      {
+        "text": "Confirm amount, event date and respondent service.",
+        "evidence_ids": [
+          "SCT-ELIG-AMOUNT",
+          "SCT-ELIG-TIME",
+          "SCT-ELIG-SERVICE"
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Complete official assessment before filing in CJTS.",
+        "evidence_ids": [
+          "SCT-FILE-PORTAL"
+        ]
+      },
+      {
+        "text": "Check fees, service and proof deadlines.",
+        "evidence_ids": [
+          "SCT-FILE-FEES",
+          "SCT-FILE-SERVICE",
+          "SCT-FILE-DOS"
+        ]
+      }
+    ],
+    "document_checklist": [
+      {
+        "text": "Prepare agreements, payment records and dispute correspondence.",
+        "evidence_ids": [
+          "SCT-FILE-DOCUMENTS"
+        ]
+      }
+    ],
+    "unresolved_questions": [
+      {
+        "field": "tenancy_duration_months",
+        "text": "Confirm tenancy duration months."
+      },
+      {
+        "field": "relevant_event_date",
+        "text": "Confirm relevant event date."
+      },
+      {
+        "field": "respondent_in_singapore",
+        "text": "Confirm respondent in singapore."
+      }
+    ],
+    "citations": [
+      "SCT-ELIG-AMOUNT",
+      "SCT-ELIG-RESIDENTIAL",
+      "SCT-ELIG-SERVICE",
+      "SCT-ELIG-TIME",
+      "SCT-FILE-DOCUMENTS",
+      "SCT-FILE-DOS",
+      "SCT-FILE-FEES",
+      "SCT-FILE-PORTAL",
+      "SCT-FILE-SERVICE"
+    ]
+  },
+  "display_evidence": [
+    {
+      "evidence_id": "SCT-ELIG-AMOUNT",
+      "source_id": "courts-sct-eligibility",
+      "rule_ids": [
+        "SCT_CLAIM_AMOUNT"
+      ],
+      "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Singapore Courts",
+      "title": "Cases eligible for a small claim",
+      "verbatim_excerpt": "$20,000",
+      "source_locator": "claim ceiling paragraph",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "Base ceiling: SGD20,000. SGD30,000 requires both parties' consent memorandum; exceptions need official assessment.",
+      "excerpt_sha256": "f61e7cb1ff388ad8caeba94c2f04671f08182d0ed70dcf5b5339611cd9ff379d",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null
+    },
+    {
+      "evidence_id": "SCT-ELIG-RESIDENTIAL",
+      "source_id": "courts-sct-eligibility",
+      "rule_ids": [
+        "SCT_RESIDENTIAL_SCOPE"
+      ],
+      "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Singapore Courts",
+      "title": "Cases eligible for a small claim",
+      "verbatim_excerpt": "residential premises not exceeding 2 years",
+      "source_locator": "tenancy scope paragraph",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "Residential tenancies of at most two years are listed; industrial/commercial leases and licences are excluded.",
+      "excerpt_sha256": "81322916f56d4c55f04f12149a02e8242a2458212840f5cf24cff21b392730a3",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null
+    },
+    {
+      "evidence_id": "SCT-ELIG-SERVICE",
+      "source_id": "courts-sct-eligibility",
+      "rule_ids": [
+        "SCT_RESPONDENT_SERVICE"
+      ],
+      "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Singapore Courts",
+      "title": "Cases eligible for a small claim",
+      "verbatim_excerpt": "in Singapore",
+      "source_locator": "respondent location paragraphs",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "The page excludes overseas respondents and requires service in Singapore.",
+      "excerpt_sha256": "961354a723cddea9501c242383afb4e6342612759b7f6ec0d7871a3509620a51",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null
+    },
+    {
+      "evidence_id": "SCT-ELIG-TIME",
+      "source_id": "courts-sct-eligibility",
+      "rule_ids": [
+        "SCT_EVENT_DATE"
+      ],
+      "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Singapore Courts",
+      "title": "Cases eligible for a small claim",
+      "verbatim_excerpt": "2 years",
+      "source_locator": "filing deadline paragraph",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "Filing runs from the cause-of-action event, within two years; do not automatically substitute purchase date.",
+      "excerpt_sha256": "7dab2372ff909b063d57bf1e7ac4212c333337fcd47e30f7791d189a63c912db",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null
+    },
+    {
+      "evidence_id": "SCT-FILE-DOCUMENTS",
+      "source_id": "courts-sct-filing",
+      "rule_ids": [
+        "SCT_DOCUMENTS"
+      ],
+      "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Singapore Courts",
+      "title": "How to file and serve a small claim",
+      "verbatim_excerpt": "PDF files",
+      "source_locator": "application supporting records",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "Prepare party details, claim summary and supporting PDFs. Relevant records include agreements, receipts and messages. A business respondent needs a recent ACRA profile; non-English records need translation.",
+      "excerpt_sha256": "540e2218f01c2023dafa0fe14fb42a77a97f74a373958d632dde5ea38a870c18",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null
+    },
+    {
+      "evidence_id": "SCT-FILE-DOS",
+      "source_id": "courts-sct-filing",
+      "rule_ids": [
+        "SCT_PROOF_OF_SERVICE"
+      ],
+      "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Singapore Courts",
+      "title": "How to file and serve a small claim",
+      "verbatim_excerpt": "DOS",
+      "source_locator": "third procedural step",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "Submit the service declaration and proof before the first consultation.",
+      "excerpt_sha256": "49771fa114d455f473d45f63aeeb9b3e745495130a9ff3bb0ea7c2b6960c240d",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null
+    },
+    {
+      "evidence_id": "SCT-FILE-FEES",
+      "source_id": "courts-sct-filing",
+      "rule_ids": [
+        "SCT_FILING_FEES"
+      ],
+      "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Singapore Courts",
+      "title": "How to file and serve a small claim",
+      "verbatim_excerpt": "$10",
+      "source_locator": "individual fee table",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "Individual filing fees: SGD10 up to SGD5,000; SGD20 above SGD5,000 through SGD10,000; 1% above SGD10,000 through SGD30,000. Entity fees differ; confirm the current table.",
+      "excerpt_sha256": "a5e5e8d362fb74d764de0ae02c1301975aa694ee1175c61c2cc45a60a78245ec",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null
+    },
+    {
+      "evidence_id": "SCT-FILE-PORTAL",
+      "source_id": "courts-sct-filing",
+      "rule_ids": [
+        "SCT_FILING_PORTAL"
+      ],
+      "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Singapore Courts",
+      "title": "How to file and serve a small claim",
+      "verbatim_excerpt": "Community Justice and Tribunals System (CJTS)",
+      "source_locator": "application preparation and portal",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "Check eligibility first; obtain the assessment ID, then apply through the court portal.",
+      "excerpt_sha256": "4e4e7e1d73c2182dab7a27eba823d53ad0e9e6dff6dbefecd7cfd72fc1f59443",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null
+    },
+    {
+      "evidence_id": "SCT-FILE-SERVICE",
+      "source_id": "courts-sct-filing",
+      "rule_ids": [
+        "SCT_SERVICE_DEADLINE"
+      ],
+      "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Singapore Courts",
+      "title": "How to file and serve a small claim",
+      "verbatim_excerpt": "within 7 days",
+      "source_locator": "second procedural step",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "After filing, serve the claim and consultation notice within seven days. Overseas service is excluded.",
+      "excerpt_sha256": "ffaa320c75ca16aff6985d6ce4aa175028b80cd0f90424d90b0eb55da2e106b4",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null
+    }
+  ],
+  "unresolved_fields": [
+    "tenancy_duration_months",
+    "relevant_event_date",
+    "respondent_in_singapore"
+  ],
+  "limitations": [
+    "This is research and preparation information, not an eligibility, filing, deadline or legal entitlement decision. Check official services.",
+    "Scope conditions alone do not establish eligibility."
+  ]
+}
