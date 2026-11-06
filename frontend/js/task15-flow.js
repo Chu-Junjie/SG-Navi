@@ -189,6 +189,27 @@
       }
       if(!checklistList.children.length)checklistList.appendChild(make("li","Review your documents and verify the official conditions."));
       checklist.appendChild(checklistList);flow.appendChild(checklist);
+      // Compact two-column action-first presentation; extra details remain hidden.
+      const firstGrid=make("div",undefined,"task20-first-grid");
+      const firstLeft=make("div",undefined,"task20-first-left");
+      firstLeft.append(primary,checklist);
+      const firstRight=make("aside",undefined,"task20-first-right");
+      firstRight.appendChild(make("h4","Get help with the next part"));
+      for(const [name,section] of [
+        ["What to prepare","document_checklist"],
+        ["Conditions to check","conditions"],
+        ["Why this information?","citations"],
+        ["Questions still open","unresolved_questions"]
+      ]){
+        const moreButton=button(name+"  ›",()=>{
+          more.open=true;
+          const target=more.querySelector('[data-card-section="'+section+'"]');
+          if(target){target.scrollIntoView({block:"nearest"});target.querySelector("button")?.focus();}
+          else more.querySelector("summary")?.focus();
+        },"task20-secondary-option");
+        firstRight.appendChild(moreButton);
+      }
+      firstGrid.append(firstLeft,firstRight);flow.appendChild(firstGrid);
       const more=make("details",undefined,"task20-more");more.id="task20-more";
       more.appendChild(make("summary","Explore conditions, documents and supporting sources"));
       const moreInner=make("div",undefined,"task20-more-inner");more.appendChild(moreInner);flow.appendChild(more);
