@@ -33,8 +33,8 @@ CONSUMER = re.compile(
     r"consumer|shop|store|retailer|seller|merchant|"
     r"product|item|goods|delivery|warranty)\b", re.I,
 )
-DEPOSIT = re.compile(r"\b(?:deposit|landlord|tenant|tenancy|rent|lease)\b", re.I)
-CONSUMER_ACTION = re.compile(r"\b(?:bought|purchase(?:d)?|faulty|defective|consumer|warranty)\b", re.I)
+DEPOSIT = re.compile(r"\b(?:deposit|rental bond)\b", re.I)
+CONSUMER_ACTION = re.compile(r"\b(?:faulty|defective|refund|complain(?:t)?|broken|never arrived|not delivered|not received|refuses to replace|won.t refund)\b", re.I)
 MONEY = re.compile(r"(?<![\w])(?:S\s*\$|SGD\s*)(\d{1,3}(?:,\d{3})+(?:\.\d{1,2})?|\d+(?:\.\d{1,2})?)(?![\w,]|\.\d)", re.I)
 NUMBER = re.compile(r"^\d+(?:,\d{3})*(?:\.\d{1,2})?$")
 SOURCE_LIMIT = "This is an unconfirmed English-language interpretation, not a legal eligibility or filing decision."
@@ -72,22 +72,22 @@ def _validate_text(description):
 
 
 def _case_type(description):
-    rental = bool(RENTAL.search(description))
-    consumer = bool(CONSUMER.search(description))
-    # A landlord may use the word "refund" about a deposit. That word alone
-    # is not evidence of a separate consumer purchase/dispute.
-    if rental and not CONSUMER_ACTION.search(description) and not re.search(
-        r"\\b(?:shop|store|retailer|seller|merchant|product|item|goods|delivery)\\b", description, re.I
+    rental = bool(RENTAL.search(description)) and bool(DEPOSIT.search(description))
+    consumer = bool(CONSUMER.search(description)) and bool(CONSUMER_ACTION.search(description))
+    # A landlord 'refund' about a deposit alone is not a product complaint.
+    # Require an actual consumer-purchase cue for ambiguous dual routing.
+    if rental and not re.search(
+        r"\b(?:bought|purchase(?:d)?|shop|store|retailer|seller|merchant|product|item|goods|delivery|faulty|defective)\b",
+        description, re.I,
     ):
         consumer = False
     if UNSUPPORTED.search(description):
         return "out_of_scope", None
     if rental and consumer:
-        # "landlord refused my refund" should be clarified, never forced.
         return "ambiguous", None
-    if rental and DEPOSIT.search(description):
+    if rental:
         return "suggested", "rental_deposit"
-    if consumer and CONSUMER_ACTION.search(description):
+    if consumer:
         return "suggested", "consumer_complaint"
     return "cannot_determine", None
 
