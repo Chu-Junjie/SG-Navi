@@ -15,6 +15,7 @@ API_METHODS = {
     "/api/navigate": frozenset({"POST"}),
     "/api/intake": frozenset({"POST"}),
     "/api/intake/confirm": frozenset({"POST"}),
+    "/api/results/preview": frozenset({"POST"}),
 }
 DEFAULT_ORIGIN = "https://chu-junjie.github.io"
 
