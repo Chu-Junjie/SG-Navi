@@ -8,7 +8,7 @@ No output is a legal eligibility finding.
 import re
 
 from backend.routes.task2 import answers_validator
-from backend.rag_bridge import retrieve_checked, referral_source_context
+from backend.rag_bridge import referral_source_context
 from rag.repository import EvidenceRepository
 
 CASES = frozenset(("rental_deposit", "consumer_complaint"))
@@ -62,6 +62,28 @@ def checked_ranked_proposal(prepared, proposed_rule_ids, ranked_evidence_ids, *,
             or any(not isinstance(value, str) or not value.strip() for value in ranked_evidence_ids)
             or len(set(ranked_evidence_ids)) != len(ranked_evidence_ids)
             or not isinstance(expected_source_version, str)):
+        return {"retrieval_status": "INVALID", "evidence": [], "ranked_evidence_ids": []}
+    facts = prepared.get("facts")
+    if not isinstance(facts, dict):
+        return {"retrieval_status": "INVALID", "evidence": [], "ranked_evidence_ids": []}
+    # Respect the approved project scope; these guards are NOT legal decisions.
+    if prepared["case_type"] == "consumer_complaint":
+        if (facts.get("purchase_purpose") == "business"
+                or facts.get("supplier_registered_in_sg") is False
+                or str(facts.get("supplier_location") or "").strip().lower()
+                not in ("", "unknown", "singapore", "sg")):
+            return {"retrieval_status": "INVALID", "evidence": [], "ranked_evidence_ids": []}
+    elif str(facts.get("premises_type") or "").lower() in ("commercial", "industrial"):
+        return {"retrieval_status": "INVALID", "evidence": [], "ranked_evidence_ids": []}
+    party = str(facts.get("dispute_with") or "").lower()
+    if prepared["case_type"] == "rental_deposit":
+        if (party == "landlord" and any(r.startswith("CEA_") for r in proposed_rule_ids)
+                or party in ("agent", "agency", "property_agent") and any(
+                    r.startswith("SCT_") for r in proposed_rule_ids)):
+            return {"retrieval_status": "INVALID", "evidence": [], "ranked_evidence_ids": []}
+    # A request with no concrete query/facts does not establish relevance.
+    if not prepared["query"] and not any(value is not None and value != "unknown"
+                                            for value in facts.values()):
         return {"retrieval_status": "INVALID", "evidence": [], "ranked_evidence_ids": []}
     repo = repository or EvidenceRepository()
     try:
