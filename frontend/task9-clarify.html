@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#203449">
+  <title>SG Navi | Guided Questions</title>
+  <link rel="stylesheet" href="./css/task9-clarify.css">
+  <script src="./js/api-config.js" defer></script>
+  <script src="./js/verified-sources.js" defer></script>
+  <script src="./js/task9-clarify.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><div class="wrap topbar-inner">
+    <a class="brand" href="../" aria-label="Return to SG Navi homepage"><img src="./assets/sg-navi-logo.webp" width="879" height="300" alt="SG Navi"></a>
+    <span class="top-note">Singapore · Guided questions</span>
+  </div></header>
+  <main class="wrap main">
+    <nav class="breadcrumb" aria-label="Navigation"><a href="../">Home</a><span aria-hidden="true"> / </span><span>Guided questions</span></nav>
+    <div class="intro">
+      <p class="eyebrow">Step 3 · A few relevant details</p>
+      <h1>Let's understand your situation.</h1>
+      <p>Answer the questions that are relevant to your concern. You can say “Not sure”, review answers, or go back at any time.</p>
+    </div>
+    <p class="privacy"><strong>Student demonstration, not legal advice.</strong> Use made-up details only; do not enter names, phone numbers or documents. This page cannot analyse your original written description yet. It does not submit a case or decide legal eligibility.</p>
+    <div class="layout">
+      <section class="panel conversation" aria-labelledby="questions-title">
+        <div class="section-top"><h2 id="questions-title">Guided questions</h2><span class="step-pill">English</span></div>
+        <label for="case-type" class="field-label">Your selected topic</label>
+        <select id="case-type" aria-describedby="case-help">
+          <option value="">Choose a supported topic</option>
+          <option value="rental_deposit">Rental Deposit</option>
+          <option value="consumer_complaint">Consumer Complaint</option>
+        </select>
+        <p class="hint" id="case-help">Changing the topic clears answers for the previous topic.</p>
+        <div class="status" role="status" aria-live="polite" id="progress">Choose a topic to begin.</div>
+        <div id="question-area" hidden>
+          <p class="question-count" id="question-count"></p>
+          <h3 id="current-question" tabindex="-1"></h3>
+          <p id="question-hint" class="hint"></p>
+          <form id="answer-form" novalidate>
+            <div id="answer-controls"></div>
+            <p id="answer-error" class="form-error" role="alert" aria-live="assertive"></p>
+            <div class="actions">
+              <button type="button" class="outline-button" id="question-back">Back / Edit previous</button>
+              <button type="submit" class="primary-button" id="question-continue">Continue <span aria-hidden="true">→</span></button>
+            </div>
+          </form>
+        </div>
+        <div id="flow-feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+        <div class="actions secondary-actions">
+          <button type="button" id="retry" class="outline-button" hidden>Try again</button>
+          <a href="../" class="plain-link" id="change-problem">Change original problem</a>
+          <a href="./task5-flow.html" id="legacy-link" class="plain-link">Use the original guided form</a>
+        </div>
+      </section>
+      <aside class="panel facts" aria-labelledby="facts-heading">
+        <h2 id="facts-heading">Your answers</h2>
+        <p class="hint">Only the answers you provide here are sent to the SG Navi checking service. Unknown, not provided and No are different answers.</p>
+        <div id="confirmed-facts" class="facts-list" aria-live="polite"><p class="empty">No answers yet.</p></div>
+        <p class="facts-note">You can correct any answer. Changing it cancels previous results and checks the remaining questions again.</p>
+      </aside>
+    </div>
+    <section class="panel result" id="result" aria-labelledby="result-title" hidden>
+      <h2 id="result-title" tabindex="-1">Information to review</h2>
+      <p class="result-message" id="result-message"></p>
+      <div id="result-warnings" class="warnings"></div>
+      <div id="verified-source-list"></div>
+      <p class="hint">These official links are for research only. Check the original source and confirm what applies to your own circumstances.</p>
+    </section>
+  </main>
+  <footer class="wrap footer">SG Navi · Student demonstration · Not legal advice · Does not submit cases</footer>
+</body>
+</html>
