@@ -7,6 +7,7 @@ from pathlib import Path
 from flask import Flask, jsonify, send_from_directory
 
 from backend.routes.task2 import api as task2_api
+from backend.routes.task11 import intake_api
 from backend.cors import configure_cors
 from backend.versioning import current_source_version, SourceVersionUnavailable
 
@@ -18,6 +19,7 @@ def create_app() -> Flask:
     """Create the minimal web application, without case-routing logic."""
     app = Flask(__name__, static_folder=None)
     app.register_blueprint(task2_api)
+    app.register_blueprint(intake_api)
     configure_cors(app)
 
     @app.get("/api/health")
