@@ -34,8 +34,8 @@ CONSUMER = re.compile(
     r"product|item|goods|delivery|warranty)\b", re.I,
 )
 DEPOSIT = re.compile(r"\b(?:deposit|landlord|tenant|tenancy|rent|lease)\b", re.I)
-CONSUMER_ACTION = re.compile(r"\b(?:bought|purchase(?:d)?|refund|faulty|defective|consumer|warranty)\b", re.I)
-MONEY = re.compile(r"(?<![\w])(?:S\s*\$|SGD\s*)(\d{1,3}(?:,\d{3})+(?:\.\d{1,2})?|\d+(?:\.\d{1,2})?)(?![\d,])", re.I)
+CONSUMER_ACTION = re.compile(r"\b(?:bought|purchase(?:d)?|faulty|defective|consumer|warranty)\b", re.I)
+MONEY = re.compile(r"(?<![\w])(?:S\s*\$|SGD\s*)(\d{1,3}(?:,\d{3})+(?:\.\d{1,2})?|\d+(?:\.\d{1,2})?)(?![\w,.])", re.I)
 NUMBER = re.compile(r"^\d+(?:,\d{3})*(?:\.\d{1,2})?$")
 SOURCE_LIMIT = "This is an unconfirmed English-language interpretation, not a legal eligibility or filing decision."
 QUESTION_BY_CASE = {
