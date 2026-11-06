@@ -8,6 +8,7 @@ from flask import Flask, jsonify, send_from_directory
 
 from backend.routes.task2 import api as task2_api
 from backend.routes.task11 import intake_api
+from backend.routes.task12 import results_api
 from backend.cors import configure_cors
 from backend.versioning import current_source_version, SourceVersionUnavailable
 
@@ -20,6 +21,7 @@ def create_app() -> Flask:
     app = Flask(__name__, static_folder=None)
     app.register_blueprint(task2_api)
     app.register_blueprint(intake_api)
+    app.register_blueprint(results_api)
     configure_cors(app)
 
     @app.get("/api/health")
