@@ -55,8 +55,38 @@
     const button=(text,fn,cls="intake-secondary")=>{const b=make("button",text,cls);b.type="button";b.addEventListener("click",fn);return b;};
     const focus=n=>{if(n){n.tabIndex=-1;n.focus();}};
     const flow=make("section",undefined,"task15-flow");flow.id="task15-flow";flow.hidden=true;flow.setAttribute("aria-live","polite");container.appendChild(flow);
+    // A single persistent question/confirmation dialog; no stacked popups.
+    const overlay=make("div",undefined,"task20-overlay");overlay.id="task20-overlay";overlay.hidden=true;
+    const dialog=make("section",undefined,"task20-dialog");dialog.setAttribute("role","dialog");
+    dialog.setAttribute("aria-modal","true");dialog.setAttribute("aria-label","Confirm your situation");
+    const dialogHead=make("div",undefined,"task20-dialog-head");
+    dialogHead.appendChild(make("strong","SG Navi · One quick detail"));
+    const dialogClose=button("×",()=>closeModal(),"task20-close");dialogClose.setAttribute("aria-label","Close dialog");
+    dialogHead.appendChild(dialogClose);
+    const dialogContent=make("div",undefined,"task20-dialog-content");dialogContent.appendChild(review);
+    dialog.append(dialogHead,dialogContent);overlay.appendChild(dialog);doc.body.appendChild(overlay);
+    let returnFocus=null;
+    function openModal(section){
+      if(section===flow && flow.parentNode!==dialogContent)dialogContent.appendChild(flow);
+      if(overlay.hidden)returnFocus=doc.activeElement;
+      overlay.hidden=false;doc.body.classList.add("task20-modal-open");
+    }
+    function closeModal(restore=true){
+      overlay.hidden=true;doc.body.classList.remove("task20-modal-open");
+      if(restore && returnFocus && returnFocus.isConnected)returnFocus.focus();
+    }
+    doc.addEventListener("keydown",event=>{
+      if(overlay.hidden)return;
+      if(event.key==="Escape"){event.preventDefault();closeModal();return;}
+      if(event.key!=="Tab")return;
+      const targets=[...dialog.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href],summary')]
+        .filter(el=>!el.hidden&&el.getClientRects().length>0);
+      if(!targets.length)return;
+      if(event.shiftKey&&doc.activeElement===targets[0]){event.preventDefault();targets[targets.length-1].focus();}
+      else if(!event.shiftKey&&doc.activeElement===targets[targets.length-1]){event.preventDefault();targets[0].focus();}
+    });
     let revision=0,pending=null,currentResult=null,caseType=null,facts={},description="",reviewFields=new Map();
-    const cancel=()=>{revision++;if(pending)pending.abort();pending=null;currentResult=null;flow.replaceChildren();flow.hidden=true;container.dataset.flowStage="input";};
+    const cancel=()=>{revision++;if(pending)pending.abort();pending=null;currentResult=null;flow.replaceChildren();flow.hidden=true;closeModal(false);container.dataset.flowStage="input";};
     const clearError=()=>{get("problem-validation").textContent="";get("review-validation").textContent="";get("review-outcome").textContent="";};
     async function post(path,payload,token){
       const url=win.SGNaviApiConfig&&win.SGNaviApiConfig.resolve(path,win.location);if(!url)throw Error("API unavailable");
@@ -78,7 +108,7 @@
       return {node:box,detail,read:()=>parseAnswer(field,mode.value,detail.value)};
     }
     function showReview(){
-      review.hidden=false;flow.hidden=true;container.dataset.flowStage="review";get("review-summary").textContent=description;
+      review.hidden=false;flow.hidden=true;openModal(review);container.dataset.flowStage="review";get("review-summary").textContent=description;
       const list=get("candidate-list");list.replaceChildren();reviewFields=new Map();
       for(const field of FIELDS[caseType]||[]){if(!Object.hasOwn(facts,field))continue;const e=fieldEditor(field,facts[field],true);reviewFields.set(field,e);list.appendChild(e.node);}
       const missing=(FIELDS[caseType]||[]).filter(f=>!reviewFields.has(f));
@@ -86,7 +116,7 @@
       get("candidate-facts").hidden=!caseType;get("review-continue").textContent="Confirm details and continue";focus(get("review-title"));
     }
     function showFailure(retry){
-      flow.hidden=false;flow.replaceChildren();const h=make("h3","The service is unavailable");h.id="task15-error-title";flow.append(h,make("p","Your answers are still here. Retry when the connection is available; no guidance has been confirmed."));
+      flow.hidden=false;flow.replaceChildren();review.hidden=true;openModal(flow);const h=make("h3","The service is unavailable");h.id="task15-error-title";flow.append(h,make("p","Your answers are still here. Retry when the connection is available; no guidance has been confirmed."));
       flow.append(button("Retry",retry,"intake-primary"),button("Edit answers",editAnswers));focus(h);
     }
     function editAnswers(){cancel();clearError();get("interpretation-note").textContent="Review and correct your answers, then confirm again. Previous results have been cleared.";showReview();}
@@ -94,7 +124,7 @@
       const question=data.questions.find(q=>!Object.hasOwn(facts,q.id));
       if(!question){showLimited({limitations:["These details remain uncertain. Edit your answers or check directly with the appropriate official service."]});return;}
       if(!(FIELDS[caseType]||[]).includes(question.id)||typeof question.label!=="string")throw Error("Unexpected question");
-      flow.hidden=false;flow.replaceChildren();container.dataset.flowStage="questions";const h=make("h3","A detail to confirm");h.id="task15-question-title";
+      flow.hidden=false;flow.replaceChildren();review.hidden=true;openModal(flow);container.dataset.flowStage="questions";const h=make("h3","A detail to confirm");h.id="task15-question-title";
       const qform=make("form");qform.id="task15-question-form";qform.noValidate=true;const prompt=make("p",question.label);prompt.id="task15-question-label";
       const editor=fieldEditor(question.id,undefined);editor.node.setAttribute("aria-describedby",prompt.id);const error=make("p","","problem-error");error.id="task15-question-error";error.setAttribute("role","alert");
       const save=make("button","Save and continue","intake-primary");save.type="submit";save.id="task15-save-answer";qform.append(prompt,editor.node,error,save,button("Edit answers",editAnswers));
@@ -102,11 +132,11 @@
       flow.append(h,qform);focus(h);editor.detail.focus();
     }
     function showLimited(data){
-      flow.hidden=false;flow.replaceChildren();container.dataset.flowStage="limited";const h=make("h3","More confirmation is needed");h.id="task15-limited-title";
+      flow.hidden=false;flow.replaceChildren();review.hidden=true;openModal(flow);container.dataset.flowStage="limited";const h=make("h3","More confirmation is needed");h.id="task15-limited-title";
       flow.appendChild(h);for(const line of data.limitations||[])flow.appendChild(make("p",line));flow.appendChild(button("Edit answers",editAnswers));focus(h);
     }
     function renderResult(data){
-      currentResult=data;flow.hidden=false;flow.replaceChildren();container.dataset.flowStage="results";const h=make("h3","Your guidance");h.id="task15-result-title";
+      currentResult=data;closeModal(false);if(flow.parentNode!==container)container.appendChild(flow);flow.hidden=false;flow.replaceChildren();container.dataset.flowStage="results";const h=make("h3","Your guidance");h.id="task15-result-title";
       flow.append(h,make("p","Official research and preparation information — eligibility is not assessed.","task15-notice"));
       const factList=make("dl",undefined,"task15-fact-summary");for(const [field,value]of Object.entries(facts)){factList.append(make("dt",LABELS[field]||field),make("dd",answerLabel(value)));}flow.appendChild(factList);
       const grid=make("div",undefined,"task15-result-grid"), cards=make("div"), viewer=make("aside",undefined,"task15-viewer");viewer.id="task15-evidence-viewer";grid.append(cards,viewer);flow.appendChild(grid);
@@ -140,7 +170,7 @@
       const first=data.claim_citations.find(c=>c.section==="steps")||data.claim_citations[0];selectClaim(first);focus(h);
     }
     async function perform(){
-      cancel();clearError();review.hidden=true;flow.hidden=false;flow.appendChild(make("p","Checking your confirmed details and source records…"));const token=revision;
+      cancel();clearError();review.hidden=true;flow.hidden=false;openModal(flow);flow.appendChild(make("p","Checking your confirmed details and source records…"));const token=revision;
       try{
         const confirmation=await post("/api/intake/confirm",{intake_version:"1.0",confirmed:true,case_type:caseType,confirmed_answers:{...facts}},token);
         if(confirmation.intake_version!=="1.0"||confirmation.intake_status!=="confirmed"||confirmation.needs_confirmation!==false||typeof confirmation.revision!=="string")throw Error("Invalid confirmation");
