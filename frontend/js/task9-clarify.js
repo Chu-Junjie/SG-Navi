@@ -146,6 +146,7 @@
       continueButton.disabled = false;
       retry.hidden = true;
       result.hidden = true;
+      if (win.SGNaviTask10) win.SGNaviTask10.clear(doc);
       warnings.replaceChildren();
       sources.replaceChildren();
       state.questionQueue = [];
@@ -298,14 +299,18 @@
           setText(progress, payload.status === "ERROR" ? "Checking is unavailable" : "Review your information");
           setText(message, payload.status === "ERROR"
             ? "The service could not complete the check. Your answers remain on this page."
-            : "We cannot confirm a legal process or eligibility. Use the following official source information where available.");
+            : "Only available official reference information is shown. We cannot confirm a legal process or eligibility.");
           result.hidden = false;
           for (const warning of payload.warnings) {
             if (typeof warning === "string") warnings.appendChild(element("p", warning));
           }
-          if (payload.status === "REFER_TO_OFFICIAL" && win.SGNaviVerifiedSources) {
-            win.SGNaviVerifiedSources.renderReferralSources(sources, payload, doc);
-          }
+          // The old verified source projection remains available in task5-flow.html.
+          // win.SGNaviVerifiedSources.renderReferralSources is intentionally not called
+          // on this evidence-viewer screen; Task 10 uses strict metadata selection.
+          const selector = win.SGNaviVerifiedSources?.selectVerifiedSources;
+          const inspection = win.SGNaviTask10?.render(payload,doc,{...state.answers},selector) || null;
+          setText(byId("task10-result-status"), inspection?.kind === "referral"
+            ? "Source references · not legal advice" : "No verified action available");
           if (payload.status === "ERROR") retry.hidden = false;
           byId("result-title").focus();
         }
@@ -362,6 +367,18 @@
       }
     });
     retry.addEventListener("click", () => { void check(); });
+    byId("task10-retry").addEventListener("click", () => { void check(); });
+    byId("task10-refine").addEventListener("click", () => {
+      // Invalidate immediately. The previous result must never survive an edit.
+      invalidate();
+      setText(progress, "Results cleared. Review or change your answers, then check again.");
+      setFeedback("Choose Edit answer on the right to correct a detail, or Check again to rerun the service.");
+      renderFacts();
+      const firstEdit = facts.querySelector(".fact-edit");
+      if (firstEdit) firstEdit.focus();
+      else topic.focus();
+      retry.hidden = false;
+    });
     topic.addEventListener("change", () => {
       invalidate();
       state.answers = {};
