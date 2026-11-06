@@ -172,7 +172,10 @@
       }
       if (!isAllowedFormPath) { setText(reviewError, "The next step is not available."); return; }
       // Legacy /api/navigate workflow intentionally starts fresh; no raw dispute details are persisted.
-      win.location.assign(formPath + "?case_type=" + topic);
+      // Task 9 uses the existing approved backend's question list; original form
+      // remains accessible from the guided questions screen.
+      const guidedPath = formPath.replace("task5-flow.html", "task9-clarify.html");
+      win.location.assign(guidedPath + "?case_type=" + topic);
     });
     return {showReview, resetReview};
   }
