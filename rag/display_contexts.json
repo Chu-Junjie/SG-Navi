@@ -1,0 +1,451 @@
+{
+  "format_version": "1.0",
+  "context_version": "display-context-2026-11-06.1",
+  "source_version": "kb-2026-11-01.1",
+  "reviewed_at": "2026-11-06T09:49:50.948753+00:00",
+  "reviewed_by": "Codex automated display-context check",
+  "review_method": "automated_live_context_and_digest_check",
+  "sources": {
+    "courts-sct-eligibility": {
+      "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+      "source_version": "kb-2026-11-01.1",
+      "canonical_reviewed_at": "2026-11-01T09:43:07+00:00",
+      "http_status": 200,
+      "retrieved_at": "2026-11-06T09:44:27+00:00",
+      "body_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+      "normalized_text_sha256": "2abd42e577ec6d285c7f1aed59e468ef17d87144225e584b3b19583eb85c7780",
+      "normalized_text_length": 10241,
+      "context_bindings": {
+        "SCT-ELIG-RESIDENTIAL": "7657f8c3afd22d905098cc2bcba6641e5f65c1d56f96b6701a79ce1a04095f28",
+        "SCT-ELIG-AMOUNT": "c78ddae1969d852a26a02db33ce835a5fcbccc55311bd39c749d5a42f4221a0c",
+        "SCT-ELIG-TIME": "c7e5b7867ddd1ac6cdb901805e3dfdd915ec3ba586d4edc62e228a46fe7b2761",
+        "SCT-ELIG-SERVICE": "d8b4d84c3e8c841b763ef744345db22ceb7cf86ac1b72ec1058b714e0a9f2fc0",
+        "SCT-ELIG-GOODS": "424c8d402c51303ce9d14737267d83053ccb3aeb79e85ac5318ca1626aed5eb0",
+        "SCT-ELIG-EMPLOYMENT": "e11036a940150465371ed5d388934e71514eecbd06376db94975baff53829304"
+      }
+    },
+    "courts-sct-filing": {
+      "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+      "source_version": "kb-2026-11-01.1",
+      "canonical_reviewed_at": "2026-11-01T09:43:07+00:00",
+      "http_status": 200,
+      "retrieved_at": "2026-11-06T09:44:28+00:00",
+      "body_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea",
+      "normalized_text_sha256": "035c3b19be7fb37ba2eeca431a0006a66bd0717a72bd83c927a0dc9755a9207a",
+      "normalized_text_length": 10669,
+      "context_bindings": {
+        "SCT-FILE-PORTAL": "d99e11fdea76798f8fddaf42b9de73ce2ba792292e82d5c9edaa377f3edd098d",
+        "SCT-FILE-DOCUMENTS": "fec21087a19ba2a3ab8cb66e2c8be310876453083df111a8005457565fcb184d",
+        "SCT-FILE-FEES": "d1239b30e9bae584599f13728c18f64b1c6b19ba53fe3ec8d4e26c7f14ab4e51",
+        "SCT-FILE-SERVICE": "f87c358c4f657f961f9e157a2e422a43a021c5921b61db8684977aede0903eb0",
+        "SCT-FILE-DOS": "81c4379da09663c717efd914d91f29cffedfc5c56449fa885f5a2d4ad7f1e600"
+      }
+    },
+    "cea-dispute-resolution": {
+      "url": "https://www.cea.gov.sg/consumers/engaging-a-property-agent/dispute-resolution/",
+      "source_version": "kb-2026-11-01.1",
+      "canonical_reviewed_at": "2026-11-05T09:23:59+00:00",
+      "http_status": 200,
+      "retrieved_at": "2026-11-06T09:44:28+00:00",
+      "body_sha256": "b723dc5c8456bc7780f00b569e7ce59ce0e6799fabb237d204b497aa4529b9dc",
+      "normalized_text_sha256": "eb009cf3c8c499ec19537213fa40e2e3a113faa90bd6c82f822bd08563a128b1",
+      "normalized_text_length": 12581,
+      "context_bindings": {
+        "CEA-DR-AGREEMENT": "bb570b2d1bf6c9ca1c615f6adc93df84b8b7db6bb92ff72e79f61671ba97c50f",
+        "CEA-DR-TERMS": "b34b0bc7f157c4e59b5dfe209fadda584f8a40d0304fbe38903ce6192fe9021d",
+        "CEA-DR-MEDIATION": "69ae5a06d6f5a0209165db8a1376348ff20cbe82d30b227fe1ae81eb1f619017",
+        "CEA-DR-ARBITRATION": "f96b4559b05bf7f29b7b57dcce883a30c2aaf329d747a445194e24704ef516c2",
+        "CEA-DR-INDEPENDENCE": "2d6fc5a5eeb00d51dc11d458901344f6c65cc4e0681ef1948f17d1b4f9ff202b"
+      }
+    },
+    "cea-complaint": {
+      "url": "https://www.cea.gov.sg/submit-complaint/",
+      "source_version": "kb-2026-11-01.1",
+      "canonical_reviewed_at": "2026-11-05T09:23:59+00:00",
+      "http_status": 200,
+      "retrieved_at": "2026-11-06T09:44:28+00:00",
+      "body_sha256": "59e16e01f72f053b2766fc9686fce58d04e9d1ce59fcd08beb434c19fab9405a",
+      "normalized_text_sha256": "3879db566f9802cca8b5972feddce2d4cca0197fff599a4cb56c25b98b514106",
+      "normalized_text_length": 6866,
+      "context_bindings": {
+        "CEA-COMPLAINT-SCOPE": "0adb49a15962ca734bddb9d9c4a6c4c5d770d121e52404985582fae1d4075a71",
+        "CEA-COMPLAINT-PRIVACY": "396132cadb357344a06f736c61a7ca7a65d2f7824fc517a4b32669e8bc3d61e9",
+        "CEA-COMPLAINT-DOCUMENTS": "acacda59a4caa40d658f993fb3a2cbb46ed9834ff5409677bbadf13df2855b2f",
+        "CEA-COMPLAINT-CHRONOLOGY": "429940c02715481d08bbfff100809597a546d78721d84b513e90ee0d71a5afd0"
+      }
+    },
+    "case-complaint": {
+      "url": "https://www.case.org.sg/submit-a-complaint/",
+      "source_version": "kb-2026-11-01.1",
+      "canonical_reviewed_at": "2026-11-01T09:43:07+00:00",
+      "http_status": 200,
+      "retrieved_at": "2026-11-06T09:44:29+00:00",
+      "body_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+      "normalized_text_sha256": "39180482ac8d08efcf343b4acd2b109431b76f8b8c271152fae9f083eaf6f445",
+      "normalized_text_length": 7791,
+      "context_bindings": {
+        "CASE-PERSONAL": "0df8da51d397fb2cab056d9e51ddd653fa2de4ddcf644387ecf096ca7ca122c9",
+        "CASE-SG-SUPPLIER": "e93f5dfee28de65ab5a03f7e2ae606ebfa7dc9f4cb855e04e2d7484b93693bf4",
+        "CASE-DOCUMENTS": "71aa458d760deee31a548e6815b780f82d017c4042e14e2d1012e839b431c553",
+        "CASE-PROCESS-FEES": "e7ac00caa829ea0ae1ecc59c7ddf923d4a1ce9251aa4bd86978fb6014a9f546c",
+        "CASE-OVERSEAS": "6ae0fd9c4c2fa5f57d402da69245d4c26fc6c4f0d52ebe4f8694d5124c225bc1",
+        "CASE-RENTAL-EXCLUDED": "eb8747810d1e6341075ab310a60bd5dea4e0b03bcabb1067fcf0e26c722cb416"
+      }
+    }
+  },
+  "passages": {
+    "SCT-ELIG-RESIDENTIAL": {
+      "source_id": "courts-sct-eligibility",
+      "excerpt_sha256": "81322916f56d4c55f04f12149a02e8242a2458212840f5cf24cff21b392730a3",
+      "editorial_summary_sha256": "173af7dd6e3d5fadc94c6c71283ea4be847fedcf6fa2651c2e4f7d20fb82bfe8",
+      "source_locator_sha256": "766726bea9c4575f7253c9d20b136157604d077b56ad68b861aeef10fb3196f8",
+      "position": {
+        "start": 2719,
+        "end": 2761,
+        "occurrence_count": 2
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "SCT-ELIG-AMOUNT": {
+      "source_id": "courts-sct-eligibility",
+      "excerpt_sha256": "f61e7cb1ff388ad8caeba94c2f04671f08182d0ed70dcf5b5339611cd9ff379d",
+      "editorial_summary_sha256": "8238bdf15d64c6c2302a3e08ab7d28d56580cbe30674580b3ceaa0f4194381a0",
+      "source_locator_sha256": "b41e0eaa114227484c6f2bd8e6faf48f1b058c52f897da72a748bd5896ae78f2",
+      "position": {
+        "start": 2439,
+        "end": 2446,
+        "occurrence_count": 2
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "SCT-ELIG-TIME": {
+      "source_id": "courts-sct-eligibility",
+      "excerpt_sha256": "7dab2372ff909b063d57bf1e7ac4212c333337fcd47e30f7791d189a63c912db",
+      "editorial_summary_sha256": "044b9f44972ad23b8edeadb5fb5bdb5c91f46edb0c3688705960221319a12e69",
+      "source_locator_sha256": "6628e7bf6df92e4ceb211ce3e748508c3c6d7b9fd5d380171fd88cba4360e6ba",
+      "position": {
+        "start": 2531,
+        "end": 2538,
+        "occurrence_count": 5
+      },
+      "surrounding_quote": {
+        "text": "within 2 years of the event which creates your cause of action",
+        "sha256": "c7503eb19b94b9b0c3c1464a14c106cb2ef4466b8a9ac46a23a4cfafa156df10",
+        "start": 2524,
+        "end": 2586
+      },
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "SCT-ELIG-SERVICE": {
+      "source_id": "courts-sct-eligibility",
+      "excerpt_sha256": "961354a723cddea9501c242383afb4e6342612759b7f6ec0d7871a3509620a51",
+      "editorial_summary_sha256": "dce4831194f47cef7f87a7c6edd4628546e6c8f2600a277edef539f63c86c1f6",
+      "source_locator_sha256": "a83c7c9334340a1709a1da05eb1cdf975c629119cc08bfd6c504a8dc3e557d36",
+      "position": {
+        "start": 7683,
+        "end": 7695,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": {
+        "text": "served on a respondent in Singapore",
+        "sha256": "8c902abbffa79a989179fec3989b3ffbf7210ddac1533f3c7d69dc855966da40",
+        "start": 7660,
+        "end": 7695
+      },
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "SCT-ELIG-GOODS": {
+      "source_id": "courts-sct-eligibility",
+      "excerpt_sha256": "3bff6369ea7c595bf06c45a6de67296d229e513468a00a8f0503780280bb8ba7",
+      "editorial_summary_sha256": "023f660dbc91e59d26631f94b7a7881c4f8c6a3c99810cecc5094bbcaf340433",
+      "source_locator_sha256": "586d0549af3c8096cda019d850693c52c6835ba4e5e6f46242719790a0752de9",
+      "position": {
+        "start": 2638,
+        "end": 2651,
+        "occurrence_count": 3
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "SCT-ELIG-EMPLOYMENT": {
+      "source_id": "courts-sct-eligibility",
+      "excerpt_sha256": "b66379834b1245e9f99b4283119829b485e96d27be6b2e6fe3c43dfbfebbe921",
+      "editorial_summary_sha256": "aae00fabbf864018bcd7fa6dadd29e5dcee8e3624d3642ef48eacec387ef6109",
+      "source_locator_sha256": "b300b790595e1bba46070332d2509c3eb5592de57015bdc8d5ef8163b68958aa",
+      "position": {
+        "start": 3447,
+        "end": 3466,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "SCT-FILE-PORTAL": {
+      "source_id": "courts-sct-filing",
+      "excerpt_sha256": "4e4e7e1d73c2182dab7a27eba823d53ad0e9e6dff6dbefecd7cfd72fc1f59443",
+      "editorial_summary_sha256": "8a9d58326deaaf03e13cbd37d373e237a6a5a22d35d18bb163effb7216d1191c",
+      "source_locator_sha256": "59b9525c8349e449cfa92d2fd89e751b3934eed2843ce5ee0f3be493c1b76761",
+      "position": {
+        "start": 2488,
+        "end": 2533,
+        "occurrence_count": 2
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "SCT-FILE-DOCUMENTS": {
+      "source_id": "courts-sct-filing",
+      "excerpt_sha256": "540e2218f01c2023dafa0fe14fb42a77a97f74a373958d632dde5ea38a870c18",
+      "editorial_summary_sha256": "e48cc9ee03128cfa4302b6e1f8f3ed0b0e03414a0ba136e5f1b4bca51a46ea9e",
+      "source_locator_sha256": "78d360365c327009ec1b0fcd849b5807e6faf975115384e673e70d6359d5222f",
+      "position": {
+        "start": 4461,
+        "end": 4470,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "SCT-FILE-FEES": {
+      "source_id": "courts-sct-filing",
+      "excerpt_sha256": "a5e5e8d362fb74d764de0ae02c1301975aa694ee1175c61c2cc45a60a78245ec",
+      "editorial_summary_sha256": "ca247ae6fa93a650ebf77bba9f2af582ec2636ee67ac89ad79505899283d0971",
+      "source_locator_sha256": "2980945a6b47fb4fddea1a4029b0610a2dcf7fd22b7af078f3cae5a1298c92ef",
+      "position": {
+        "start": 3762,
+        "end": 3765,
+        "occurrence_count": 4
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "SCT-FILE-SERVICE": {
+      "source_id": "courts-sct-filing",
+      "excerpt_sha256": "ffaa320c75ca16aff6985d6ce4aa175028b80cd0f90424d90b0eb55da2e106b4",
+      "editorial_summary_sha256": "819fe3a67888c5d7ba84fc0b35a03c672fc885b2a4ca8ff459597e0fbcfbc15f",
+      "source_locator_sha256": "de31c62a9674e9f799ba12c768e3498a0bad1267d3d167e2f7df6793688aec6f",
+      "position": {
+        "start": 6954,
+        "end": 6967,
+        "occurrence_count": 2
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "SCT-FILE-DOS": {
+      "source_id": "courts-sct-filing",
+      "excerpt_sha256": "49771fa114d455f473d45f63aeeb9b3e745495130a9ff3bb0ea7c2b6960c240d",
+      "editorial_summary_sha256": "24c8977c137a39ad535b12e1652ceed3055a6bca714059b46ab8a110c3a9929e",
+      "source_locator_sha256": "b1420dfb151fc9ea95b1cb44d07e05f365d7e74532db04d126e74e5f0e0e1d58",
+      "position": {
+        "start": 6394,
+        "end": 6397,
+        "occurrence_count": 3
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CEA-DR-AGREEMENT": {
+      "source_id": "cea-dispute-resolution",
+      "excerpt_sha256": "d05872a1c74d6f2960130aca8ada97f707baf0310e689d7e392e3e0547aa1e00",
+      "editorial_summary_sha256": "c2aa085735f14e98fa0e4699a8f30864fd6cb15066974c0e5e3f1adde66027fb",
+      "source_locator_sha256": "cca24796f74b50eddbedce48583f50d5996876b33178b6566ad85767fc7d82fd",
+      "position": {
+        "start": 1340,
+        "end": 1372,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CEA-DR-TERMS": {
+      "source_id": "cea-dispute-resolution",
+      "excerpt_sha256": "c0cb406bbd095b9f84cfe9bae62d4e362c4c0adb552daefba674c906f7b56b92",
+      "editorial_summary_sha256": "2ae5ceae613b8a5381b67d36a2c3036c87133b1e894d53bc03ac358e2e257ab1",
+      "source_locator_sha256": "f81fbf99f0f95932996b2d6519708ec360e8bb565b63a81c53e0e2204f2f610f",
+      "position": {
+        "start": 1453,
+        "end": 1490,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CEA-DR-MEDIATION": {
+      "source_id": "cea-dispute-resolution",
+      "excerpt_sha256": "a2a0cc4e6e65e7c6eb385542b21a5b659bfaca77077f980f8e188c70a5625e57",
+      "editorial_summary_sha256": "dc05e62ab26594672ab6db956ee9883284ca85219e5d8446687600da3253aeaf",
+      "source_locator_sha256": "cfe7dd833f2470f2e51d0585c61c7b197060105bdd56ccd35a5108fc74a9fd40",
+      "position": {
+        "start": 1639,
+        "end": 1652,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CEA-DR-ARBITRATION": {
+      "source_id": "cea-dispute-resolution",
+      "excerpt_sha256": "4c1eee618fd8b51d2bc10cb439ee60885d8f8e9f6f4d47acd0fe6a6a7bbdd32f",
+      "editorial_summary_sha256": "b5918ea1ed64b56ff9a2c121f6afb13bd96e0eb601be37e2677712d34b3eacae",
+      "source_locator_sha256": "429191e2821cae5612c340fabdaa1dd9dc72408883b2c339c4912db05ac1e3a9",
+      "position": {
+        "start": 2632,
+        "end": 2648,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CEA-DR-INDEPENDENCE": {
+      "source_id": "cea-dispute-resolution",
+      "excerpt_sha256": "3663c5cf319b0feefd1f27200cce6eb873bb223db2f295aa1f7d19508cd2f521",
+      "editorial_summary_sha256": "b071739a363a05921e4c3f6a84ca575c74366c9fab457f69393a489f81b50700",
+      "source_locator_sha256": "f2eddb3662c669e3f349ab6ee85125e290a9890409db5fc39a081950485b7d58",
+      "position": {
+        "start": 4092,
+        "end": 4118,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CEA-COMPLAINT-SCOPE": {
+      "source_id": "cea-complaint",
+      "excerpt_sha256": "c3378723b8f60c8b0914aa2c3b5c6b2c8813aea60edcf63cdbe861463497f3ff",
+      "editorial_summary_sha256": "a74152c61d09e85c088025b9dc3d9473b756b7503d7176fd7d4e2342d8a4af25",
+      "source_locator_sha256": "2cfed0c4e80cf8e4e670d57854f38fdcd05a009ea7936f7080b827b52398f0ee",
+      "position": {
+        "start": 1691,
+        "end": 1720,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CEA-COMPLAINT-PRIVACY": {
+      "source_id": "cea-complaint",
+      "excerpt_sha256": "2e25548f2ca788e7480a6fb480b7fbef6b54b0a02d113bf469165d744851a4b3",
+      "editorial_summary_sha256": "ff035293601d0841209ced7f879707e012f0aed7bc550b526bd5c6115b28a599",
+      "source_locator_sha256": "2b5a93fbb19869bbfe8445db47e8780211a5e4340ad192088398e3f3cf06736a",
+      "position": {
+        "start": 1160,
+        "end": 1199,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CEA-COMPLAINT-DOCUMENTS": {
+      "source_id": "cea-complaint",
+      "excerpt_sha256": "5335773d843b7e49dcc7fd34672140136b5bb2e8c066d62e73ede1f516dbbc11",
+      "editorial_summary_sha256": "44473dab1464fd04dcddfd5270c3993b67146dc7ac2c427c7dd7204652e5b521",
+      "source_locator_sha256": "ee76ec276a7d4769e89bc1b33d89b453413b1cca84956147d1fc8e4e00f4ec25",
+      "position": {
+        "start": 3684,
+        "end": 3744,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CEA-COMPLAINT-CHRONOLOGY": {
+      "source_id": "cea-complaint",
+      "excerpt_sha256": "a6affba9cab6833ba9b0c10e2fc5127c2cdb99b47ca9ba0d41f355c38bd60983",
+      "editorial_summary_sha256": "c761f39869a21895489d7c3fb72a8d67e2d3304032f0835bd8b0cd43c0fbd451",
+      "source_locator_sha256": "99e6deae69b31b981c22a1c1086694da31e64441cd013d3d6f05303dce31ff51",
+      "position": {
+        "start": 3223,
+        "end": 3245,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CASE-PERSONAL": {
+      "source_id": "case-complaint",
+      "excerpt_sha256": "0aa7306135d24d3c1116e85842a0cd12d3f7ba0a655f2b1a8b7a59e2b1d2d317",
+      "editorial_summary_sha256": "25860e0780cd08603075d6bdb1611847a2e962768c6827750144fa101b9b43e5",
+      "source_locator_sha256": "d3fdcc5793f7476cbcba0698ad56ee24bfb6c17e73aa443d19133cf3e3754890",
+      "position": {
+        "start": 6199,
+        "end": 6220,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CASE-SG-SUPPLIER": {
+      "source_id": "case-complaint",
+      "excerpt_sha256": "272dcdfdb5253c31d6d269d299f47c6c2b61a54dfe3618ced0e4714f307b5264",
+      "editorial_summary_sha256": "23592e9e0db6417f7089a7f6a99f51e26694bc3533610fba2e3cced260aa0f97",
+      "source_locator_sha256": "650b497add5eca7fbd2d0ea0b22679e2dfbdb27b05bb30ead1ae2980edf60313",
+      "position": {
+        "start": 6228,
+        "end": 6259,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CASE-DOCUMENTS": {
+      "source_id": "case-complaint",
+      "excerpt_sha256": "547d0ade0b97f1257ba1415b69d25115ec6ed3b6b77ca3f77b078ae603b86952",
+      "editorial_summary_sha256": "77d19a5d0bc4d78741d68080a7e710a733ae00d6fa6cf7cf13b65ab0ebb34359",
+      "source_locator_sha256": "77ebf9f80bf0fbb8cfb9abe987ee4348d05eabbf6c28e5ad82451f24a52723bc",
+      "position": {
+        "start": 3989,
+        "end": 4024,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CASE-PROCESS-FEES": {
+      "source_id": "case-complaint",
+      "excerpt_sha256": "d91fc66bd10fb88f68064214bc9f12b8435354d325ef44360bdaaca6ebcd085e",
+      "editorial_summary_sha256": "9b9841b0ac4b632d414066f7b3111e3281b7229577910173fd457874619feadc",
+      "source_locator_sha256": "05bc87cf6af5c2a006f4c1ae885c6d154f1a7fe3008f91eefabec9dd1eac4b5b",
+      "position": {
+        "start": 2146,
+        "end": 2173,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": {
+        "text": "you can choose to be on our assisted case scheme or file a case. Both may incur a small fee.",
+        "sha256": "dea6c49a8c7935615c715272ac1b9c70556b5eb64e9aeb0a1a7339eb776f22b6",
+        "start": 2081,
+        "end": 2173
+      },
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CASE-OVERSEAS": {
+      "source_id": "case-complaint",
+      "excerpt_sha256": "c0fe80973771bf71bee089ebdecde185fa06c42fc9328f3b3bc6e3e3b92289b7",
+      "editorial_summary_sha256": "c147c57cc8a46d105bd4da4ad715ea9f92a492424d0971cbd4f36f800478c49d",
+      "source_locator_sha256": "20327aa555bdc17a0cf391ca818416a62de7f056127749091d7a52621250d36b",
+      "position": {
+        "start": 7100,
+        "end": 7122,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    },
+    "CASE-RENTAL-EXCLUDED": {
+      "source_id": "case-complaint",
+      "excerpt_sha256": "1582bb5c524d05450d23bfb5d27614d111de21413034d9faa6e6bcd3fff2d0a4",
+      "editorial_summary_sha256": "8a0fd101bcfea8461272b950483b87a226e48810d429629196477959d9efe9ed",
+      "source_locator_sha256": "90e86c36082fce674091c8d4175051e926b05917c08d526713c684c5e051cd37",
+      "position": {
+        "start": 6671,
+        "end": 6697,
+        "occurrence_count": 1
+      },
+      "surrounding_quote": null,
+      "quote_completeness": "short_fragment_requires_official_context"
+    }
+  }
+}

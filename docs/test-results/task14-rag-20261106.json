@@ -1,0 +1,242 @@
+{
+  "recorded_at_utc": "2026-11-06T11:34:46.097730+00:00",
+  "task": 14,
+  "issue": "https://github.com/Chu-Junjie/SG-Navi/issues/74",
+  "baseline_sha": "debc4465d90b4a7f8881fa3d3588d0ea0c9ca27c",
+  "backend_dependency": {
+    "pr": 83,
+    "merge_sha": "debc4465d90b4a7f8881fa3d3588d0ea0c9ca27c",
+    "ordinary_ci": 42196769788,
+    "postgres_ci": 42196769672,
+    "github_approved_review_accounts": [
+      "Chu-Junjie",
+      "Guanyu-Lu"
+    ]
+  },
+  "executor": "Codex on Chu Junjie Windows workspace",
+  "environment": {
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "venv": "Reused installed audit-project-20261105 environment; not a fresh/member installation",
+    "pip_check_exit": 0,
+    "dependency_specs_changed": false
+  },
+  "actual_commands": [
+    "python -m pip check",
+    "python -X utf8 -m pytest tests/rag/test_display_context.py tests/backend/test_task14_projection.py -q --tb=short",
+    "python -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q -rs --junitxml=instance/task14-full-suite.xml",
+    "python -m rag.display_context --case-type rental_deposit --input rag/examples/display_projection_input.json --source-version kb-2026-11-01.1",
+    "Read-only rag.freshness_report.run(fetch=capture); full genuine captures retained in ignored instance/ only"
+  ],
+  "first_targeted_run": {
+    "passed": 58,
+    "seconds": 10.6,
+    "exit_code": 0
+  },
+  "full_suite": {
+    "passed": 670,
+    "skipped": 4,
+    "subtests_passed": 15,
+    "seconds": 75.06,
+    "exit_code": 0,
+    "new_source_owner_tests_passed": 47,
+    "junit_testcase_elements": 674,
+    "junit_sha256": "08849677e72a0b917c97366220dfa5726039544e85282acc022af35341104118",
+    "not_run": [
+      "Three dedicated real-PG checks skipped locally; inspect actual disposable PG CI separately",
+      "One opt-in published Pages browser check not run in this local suite"
+    ],
+    "local_browser": "Existing actual local Flask/browser tests ran; no physical-device or publisher-tab acceptance claimed"
+  },
+  "context_review": {
+    "context_version": "display-context-2026-11-06.1",
+    "reviewed_at": "2026-11-06T09:49:50.948753+00:00",
+    "reviewed_by": "Codex automated display-context check",
+    "review_method": "automated_live_context_and_digest_check",
+    "source_pages": 5,
+    "original_passages": 26,
+    "expanded_fragments": 3,
+    "position_basis": "whitespace-normalized visible text, not HTML/PDF coordinates",
+    "verbatim_words_added_by_page": {
+      "courts-sct-eligibility": 18,
+      "courts-sct-filing": 0,
+      "cea-dispute-resolution": 0,
+      "cea-complaint": 0,
+      "case-complaint": 20
+    },
+    "canonical_review_records_changed": false,
+    "publisher_screenshots_created": false,
+    "preview": null
+  },
+  "live_source_check": {
+    "scope": "live_source_freshness_read_only",
+    "checked_at": "2026-11-06T09:44:29.540596+00:00",
+    "source_version": "kb-2026-11-01.1",
+    "sources": [
+      {
+        "source_id": "courts-sct-eligibility",
+        "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-06T09:44:27+00:00",
+        "observed_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+        "excerpt_count": 6,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "courts-sct-filing",
+        "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-06T09:44:28+00:00",
+        "observed_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea",
+        "excerpt_count": 5,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "cea-dispute-resolution",
+        "url": "https://www.cea.gov.sg/consumers/engaging-a-property-agent/dispute-resolution/",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-06T09:44:28+00:00",
+        "observed_sha256": "b723dc5c8456bc7780f00b569e7ce59ce0e6799fabb237d204b497aa4529b9dc",
+        "excerpt_count": 5,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "cea-complaint",
+        "url": "https://www.cea.gov.sg/submit-complaint/",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-06T09:44:28+00:00",
+        "observed_sha256": "59e16e01f72f053b2766fc9686fce58d04e9d1ce59fcd08beb434c19fab9405a",
+        "excerpt_count": 4,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      },
+      {
+        "source_id": "case-complaint",
+        "url": "https://www.case.org.sg/submit-a-complaint/",
+        "review_version": "kb-2026-11-01.1",
+        "status": "unchanged",
+        "recorded_review_status": "verified",
+        "http_status": 200,
+        "retrieved_at": "2026-11-06T09:44:29+00:00",
+        "observed_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+        "excerpt_count": 6,
+        "missing_evidence_ids": [],
+        "recorded_hash_matched": true,
+        "attempt_count": 1,
+        "attempt_history": [
+          {
+            "attempt": 1,
+            "status": "unchanged",
+            "http_status": 200
+          }
+        ]
+      }
+    ],
+    "passed": true,
+    "review_required": [],
+    "no_changes_to_review_records": true
+  },
+  "canonical_git_content_sha256": {
+    "rag/knowledge_base/sources.csv": "235016de9d5e908e5ca6cac1b6fb180302de0c5b82a0dd303210fc4bdf16177d",
+    "rag/knowledge_base/passages.jsonl": "062f901d7daae3dbfcdfbabab83bf0391dbc64ac4e146010db38fc8bdf3738aa",
+    "rag/knowledge_base/rule_evidence_map.json": "03330e142831d6015b8298653ad90b256264012278a438cbfced1b68c2c6706e",
+    "rag/knowledge_base/action_templates.json": "99d526a1dcb0edfb5dda5a6525d23686fe277bd373049bd3e4dd80b82878c06c",
+    "rag/knowledge_base/source_review_log.csv": "fc9417724320549752a24a326c3d0b99fa5906c0f3e725d168c0d71ff3e35c94"
+  },
+  "tested_implementation_sha256_lf": {
+    "rag/display_context.py": "110955a8bb5afa9ceded1a23b121c954f1f591af9476c120b84878985541d0c2",
+    "rag/display_contexts.json": "024f2b85094795b2ebed2bcd38fe8b3457bd4cfa52e93eca0988a295a395b0f6",
+    "shared/display_evidence_contract.json": "c3d9317c38f76ff1cbd592f96b347d81b1357a14bbea4b37fd737219fc0fee0f",
+    "tests/rag/test_display_context.py": "2ed02596d509682c2f210a3c04bd5b2f6a94fbdc622a040058e96e00d3b29bce"
+  },
+  "actual_examples": {
+    "traces": [
+      {
+        "case_type": "rental_deposit",
+        "claim_id": "conditions:0",
+        "evidence_ids": [
+          "SCT-ELIG-RESIDENTIAL"
+        ],
+        "all_display_records": 9,
+        "all_linked_claims": 6
+      },
+      {
+        "case_type": "consumer_complaint",
+        "claim_id": "conditions:0",
+        "evidence_ids": [
+          "CASE-PERSONAL",
+          "CASE-SG-SUPPLIER"
+        ],
+        "all_display_records": 12,
+        "all_linked_claims": 8
+      }
+    ],
+    "cli_command": [
+      "D:\\\u684c\u9762\\CP3102\\SG Navi\\audit-project-20261105\\.venv\\Scripts\\python.exe",
+      "-m",
+      "rag.display_context",
+      "--case-type",
+      "rental_deposit",
+      "--input",
+      "rag/examples/display_projection_input.json",
+      "--source-version",
+      "kb-2026-11-01.1"
+    ],
+    "cli_exit": 0
+  },
+  "limits": [
+    "Verified snapshot is dated repository provenance, not instantaneous publisher reachability, legal eligibility or official approval.",
+    "Existing short fragments and editorial explanations are distinct; read official context. No screenshot/PDF page/HTML anchor was invented.",
+    "Independent current success does not repair or erase historical CASE runner403/timeouts.",
+    "Task15 must wire enriched projection into public preview/UI; these data tests are not public UI acceptance.",
+    "No paid model, raw user case persistence or production quarantine write."
+  ],
+  "owner_authorization": "Earlier explicit independent-completion/direct-merge authorization applies; no human approval is invented for the source-owner follow-up."
+}

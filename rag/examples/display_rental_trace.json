@@ -1,0 +1,60 @@
+{
+  "trace_kind": "recorded_source_trace_not_eligibility",
+  "case_type": "rental_deposit",
+  "source_version": "kb-2026-11-01.1",
+  "claim": {
+    "claim_id": "conditions:0",
+    "section": "conditions",
+    "index": 0,
+    "text": "Check residential tenancy scope and duration.",
+    "text_kind": "sg_navi_reviewed_template_text",
+    "evidence_ids": [
+      "SCT-ELIG-RESIDENTIAL"
+    ]
+  },
+  "display_evidence": [
+    {
+      "evidence_id": "SCT-ELIG-RESIDENTIAL",
+      "source_id": "courts-sct-eligibility",
+      "rule_ids": [
+        "SCT_RESIDENTIAL_SCOPE"
+      ],
+      "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+      "review_status": "verified",
+      "source_version": "kb-2026-11-01.1",
+      "publisher": "Singapore Courts",
+      "title": "Cases eligible for a small claim",
+      "verbatim_excerpt": "residential premises not exceeding 2 years",
+      "source_locator": "tenancy scope paragraph",
+      "reviewed_at": "2026-11-01T09:43:07+00:00",
+      "summary": "Residential tenancies of at most two years are listed; industrial/commercial leases and licences are excluded.",
+      "excerpt_sha256": "81322916f56d4c55f04f12149a02e8242a2458212840f5cf24cff21b392730a3",
+      "display_version": "1.0",
+      "display_state": "verified_snapshot",
+      "preview": null,
+      "display_context": {
+        "context_version": "display-context-2026-11-06.1",
+        "quote_kind": "verbatim_official_excerpt",
+        "summary_kind": "sg_navi_editorial_summary",
+        "locator_kind": "sg_navi_textual_description",
+        "quote_completeness": "short_fragment_requires_official_context",
+        "surrounding_quote": null,
+        "surrounding_quote_sha256": null,
+        "source_body_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+        "checked_at": "2026-11-06T09:44:27+00:00",
+        "checked_by": "Codex automated display-context check",
+        "check_method": "automated_live_context_and_digest_check",
+        "context_reviewed_at": "2026-11-06T09:49:50.948753+00:00",
+        "canonical_reviewed_by": "Codex automated page and excerpt check",
+        "canonical_review_method": "automated_live_page_and_excerpt_check",
+        "quarantine_state": "not_quarantined_at_read",
+        "position_basis": "whitespace_normalized_visible_text_not_html_anchor",
+        "excerpt_position": {
+          "start": 2719,
+          "end": 2761
+        },
+        "surrounding_position": null
+      }
+    }
+  ]
+}

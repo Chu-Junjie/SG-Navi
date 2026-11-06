@@ -9,6 +9,13 @@ a new `/api/navigate` version, endpoint or legal decision status. Validate its
 output with `rag.query_retriever.validate_query_result`; the old validator and
 12-example manifest remain unchanged.
 
+`display_evidence_contract.json` approves the additive Task 14 backend display
+record and optional source-owner context extension. It keeps exact official
+quotation separate from SG Navi summary and descriptive locator, and requires
+`preview: null` until a genuine official-source capture exists. Structural
+validation alone does not establish provenance: use the [Task 14 final source
+boundary](../rag/TASK14.md) before publishing an enriched viewer result.
+
 ## Install and validate
 
 Run from the repository root with Python 3.12 or newer:

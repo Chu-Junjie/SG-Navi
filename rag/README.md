@@ -9,6 +9,12 @@ and current citation/quarantine checks. It does not activate legal rules or
 change the v1 envelope. Task 12/15 runtime and Task 14 display integration remain
 separate handoff steps.
 
+[Task 14 display evidence](TASK14.md) approves the separate display schema and
+adds genuinely checked short-source context, exact claim-to-Evidence bindings
+and a final reread/quarantine boundary. Quote, editorial summary, locator and
+review/capture times remain explicitly distinguished; publisher screenshots
+and unverified deep links remain unavailable.
+
 [Task 6 integrity checks](TASK6.md) document current-review proof binding, quarantine event replay and the reproducible RAG-01–12 runner. [The actual RAG results](../docs/task6-rag-results.md) include observed failures, fixes and source checks; full team Task 6 acceptance remains separate.
 
 ## Run
