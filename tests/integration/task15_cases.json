@@ -1,0 +1,693 @@
+{
+  "case_set_version": "task15-heldout-1",
+  "synthetic_only": true,
+  "definition": "Fixed after Task11 implementation, before executing this set or altering intake heuristics for Task15. Human confirmation answers are independent fixture inputs, never expected automatic extraction. Do not change this file to improve a score. Any later rerun after fixes is a regression on the same set, not a fresh unseen benchmark.",
+  "cases": [
+    {
+      "id": "R01",
+      "group": "rental",
+      "description": "The owner of my rented apartment is withholding my security deposit.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "premises_type": "residential"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "R02",
+      "group": "rental",
+      "description": "I paid SGD 1800 as a tenancy deposit and it has not been returned.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "claim_amount_sgd": 1800
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 1800
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "R03",
+      "group": "rental",
+      "description": "My landlord kept the deposit after I moved out of the flat.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "residential"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "R04",
+      "group": "rental",
+      "description": "I rented a room and cannot get the rent deposit back.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "premises_type": "residential"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "R05",
+      "group": "rental",
+      "description": "My letting agent will not return a security deposit.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "dispute_with": "agent"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "agent",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000,
+        "agency_agreement_signed": true
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "cea"
+    },
+    {
+      "id": "R06",
+      "group": "rental",
+      "description": "Our estate agent is holding our rental deposit.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "dispute_with": "agent"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "agent",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000,
+        "agency_agreement_signed": true
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "cea"
+    },
+    {
+      "id": "R07",
+      "group": "rental",
+      "description": "The landlord deducted money from the deposit for alleged damage.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "dispute_with": "landlord"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "R08",
+      "group": "rental",
+      "description": "My tenancy ended; the deposit remains unpaid.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {},
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "R09",
+      "group": "rental",
+      "description": "A security deposit for my lease is being withheld.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {},
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "R10",
+      "group": "rental",
+      "description": "Please help with a rental bond the landlord has not repaid.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "dispute_with": "landlord"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "R11",
+      "group": "rental",
+      "description": "We have a deposit dispute with our landlord.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "dispute_with": "landlord"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "R12",
+      "group": "rental",
+      "description": "I want to complain about unlicensed estate-agent conduct involving my deposit.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {},
+      "user_confirmed_answers": {
+        "dispute_with": "agent",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000,
+        "agency_agreement_signed": true
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "cea"
+    },
+    {
+      "id": "R13",
+      "group": "rental",
+      "description": "Landlord won't release my S$2,750 deposit.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "dispute_with": "landlord",
+        "claim_amount_sgd": 2750
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2750
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "R14",
+      "group": "rental",
+      "description": "The rental deposit for my HDB flat is still outstanding.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "premises_type": "residential"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "R15",
+      "group": "rental",
+      "description": "My landlord says the deposit cannot be returned until next month.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "dispute_with": "landlord"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "courts"
+    },
+    {
+      "id": "C01",
+      "group": "consumer",
+      "description": "A shop sold me a broken laptop and refuses a refund.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C02",
+      "group": "consumer",
+      "description": "I bought headphones for personal use; one side is faulty.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C03",
+      "group": "consumer",
+      "description": "The product ordered from a retailer never arrived.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C04",
+      "group": "consumer",
+      "description": "My new appliance is defective and the seller refuses to replace it.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C05",
+      "group": "consumer",
+      "description": "The store will not refund a damaged item I purchased.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C06",
+      "group": "consumer",
+      "description": "I want to complain about a faulty repair service I purchased.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "services"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "services",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C07",
+      "group": "consumer",
+      "description": "A merchant charged me for a product that was not delivered.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C08",
+      "group": "consumer",
+      "description": "I bought furniture for myself and it is broken.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C09",
+      "group": "consumer",
+      "description": "A subscription service I purchased will not issue the promised refund.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "services"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "services",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C10",
+      "group": "consumer",
+      "description": "The seller refuses to refund my defective phone.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C11",
+      "group": "consumer",
+      "description": "My SGD 350 purchase turned out to be a faulty device.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods",
+        "claim_amount_sgd": 350
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 350
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C12",
+      "group": "consumer",
+      "description": "A shop is refusing to replace the faulty goods I bought.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C13",
+      "group": "consumer",
+      "description": "I purchased a cleaning service and want to complain about the poor service.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "services"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "services",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C14",
+      "group": "consumer",
+      "description": "The retailer rejected my warranty complaint about a broken product.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "C15",
+      "group": "consumer",
+      "description": "I bought an item for household use and the supplier will not refund it.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": true,
+        "supplier_location": "singapore",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "expected_source_family": "consumer"
+    },
+    {
+      "id": "B01",
+      "group": "boundary",
+      "description": "My employer owes salary from last month.",
+      "expected_intake_status": "out_of_scope",
+      "expected_case_type": null,
+      "permitted_candidate_facts": {},
+      "expected_guidance_status": null
+    },
+    {
+      "id": "B02",
+      "group": "boundary",
+      "description": "My visa application was rejected and I want to appeal.",
+      "expected_intake_status": "out_of_scope",
+      "expected_case_type": null,
+      "permitted_candidate_facts": {},
+      "expected_guidance_status": null
+    },
+    {
+      "id": "B03",
+      "group": "boundary",
+      "description": "I bought a faulty laptop for my business and want a refund.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods",
+        "purchase_purpose": "business"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "business",
+        "supplier_registered_in_sg": true,
+        "claim_amount_sgd": 800
+      },
+      "expected_guidance_status": "LIMITED_REFERRAL"
+    },
+    {
+      "id": "B04",
+      "group": "boundary",
+      "description": "I bought a faulty product from an overseas seller.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "consumer_complaint",
+      "permitted_candidate_facts": {
+        "purchase_type": "goods"
+      },
+      "user_confirmed_answers": {
+        "purchase_type": "goods",
+        "purchase_purpose": "personal",
+        "supplier_registered_in_sg": "unknown",
+        "supplier_location": "overseas",
+        "claim_amount_sgd": 150
+      },
+      "expected_guidance_status": "LIMITED_REFERRAL"
+    },
+    {
+      "id": "B05",
+      "group": "boundary",
+      "description": "The security deposit for our office rental has not been returned.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "premises_type": "commercial"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "commercial",
+        "claim_amount_sgd": 2000
+      },
+      "expected_guidance_status": "LIMITED_REFERRAL"
+    },
+    {
+      "id": "B06",
+      "group": "boundary",
+      "description": "My landlord kept the deposit and a shop sold me a faulty phone.",
+      "expected_intake_status": "ambiguous",
+      "expected_case_type": null,
+      "permitted_candidate_facts": {},
+      "expected_guidance_status": null
+    },
+    {
+      "id": "B07",
+      "group": "boundary",
+      "description": "Something went wrong and I need help.",
+      "expected_intake_status": "cannot_determine",
+      "expected_case_type": null,
+      "permitted_candidate_facts": {},
+      "expected_guidance_status": null
+    },
+    {
+      "id": "B08",
+      "group": "boundary",
+      "description": "My landlord is holding my deposit but I do not know the amount or tenancy length.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "dispute_with": "landlord"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": "unknown",
+        "tenancy_duration_months": "unknown"
+      },
+      "expected_guidance_status": "GUIDANCE_ONLY",
+      "required_unresolved": [
+        "claim_amount_sgd",
+        "tenancy_duration_months"
+      ]
+    },
+    {
+      "id": "B09",
+      "group": "boundary",
+      "description": "Our landlord has retained the deposit.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "dispute_with": "landlord"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "fixture": "quarantined_source",
+      "expected_guidance_status": "LIMITED_REFERRAL"
+    },
+    {
+      "id": "B10",
+      "group": "boundary",
+      "description": "My landlord refuses to return my deposit.",
+      "expected_intake_status": "suggested",
+      "expected_case_type": "rental_deposit",
+      "permitted_candidate_facts": {
+        "dispute_with": "landlord"
+      },
+      "user_confirmed_answers": {
+        "dispute_with": "landlord",
+        "premises_type": "residential",
+        "claim_amount_sgd": 2000
+      },
+      "fixture": "unavailable_repository",
+      "expected_guidance_status": "ERROR"
+    }
+  ]
+}
