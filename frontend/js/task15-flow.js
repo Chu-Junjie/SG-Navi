@@ -105,7 +105,7 @@
       mode.value=value===null?"null":value==="unknown"?"unknown":"known";
       const visibility=()=>{detail.hidden=mode.value!=="known";};visibility();mode.addEventListener("change",visibility);
       box.append(mode,detail);
-      return {node:box,detail,read:()=>parseAnswer(field,mode.value,detail.value)};
+      return {node:box,detail,mode,read:()=>parseAnswer(field,mode.value,detail.value)};
     }
     function showReview(){
       review.hidden=false;flow.hidden=true;openModal(review);container.dataset.flowStage="review";get("review-summary").textContent=description;
@@ -124,12 +124,46 @@
       const question=data.questions.find(q=>!Object.hasOwn(facts,q.id));
       if(!question){showLimited({limitations:["These details remain uncertain. Edit your answers or check directly with the appropriate official service."]});return;}
       if(!(FIELDS[caseType]||[]).includes(question.id)||typeof question.label!=="string")throw Error("Unexpected question");
-      flow.hidden=false;flow.replaceChildren();review.hidden=true;openModal(flow);container.dataset.flowStage="questions";const h=make("h3","A detail to confirm");h.id="task15-question-title";
-      const qform=make("form");qform.id="task15-question-form";qform.noValidate=true;const prompt=make("p",question.label);prompt.id="task15-question-label";
-      const editor=fieldEditor(question.id,undefined);editor.node.setAttribute("aria-describedby",prompt.id);const error=make("p","","problem-error");error.id="task15-question-error";error.setAttribute("role","alert");
-      const save=make("button","Save and continue","intake-primary");save.type="submit";save.id="task15-save-answer";qform.append(prompt,editor.node,error,save,button("Edit answers",editAnswers));
-      qform.addEventListener("submit",event=>{event.preventDefault();if(token!==revision)return;try{facts[question.id]=editor.read();perform();}catch(e){error.textContent=e.message;editor.detail.focus();}});
-      flow.append(h,qform);focus(h);editor.detail.focus();
+      flow.hidden=false;flow.replaceChildren();review.hidden=true;openModal(flow);container.dataset.flowStage="questions";
+      const h=make("h3","One quick detail");h.id="task15-question-title";
+      const qform=make("form");qform.id="task15-question-form";qform.noValidate=true;
+      const prompt=make("p",question.label);prompt.id="task15-question-label";
+      const editor=fieldEditor(question.id,undefined);
+      const error=make("p","","problem-error");error.id="task15-question-error";error.setAttribute("role","alert");
+      const choices=make("div",undefined,"task20-answers");choices.setAttribute("role","group");choices.setAttribute("aria-labelledby",prompt.id);
+      const source=BOOL.has(question.id)?[["true","Yes"],["false","No"]]:OPTIONS[question.id];
+      if(source){
+        editor.node.hidden=true;
+        for(const [value,label] of [...source,["unknown","I'm not sure"]]){
+          const pick=button(label,()=>{
+            editor.mode.value=value==="unknown"?"unknown":"known";
+            editor.mode.dispatchEvent(new Event("change",{bubbles:true}));
+            if(value!=="unknown")editor.detail.value=value;
+            for(const b of choices.children)b.setAttribute("aria-pressed",String(b===pick));
+            error.textContent="";
+          },"task20-answer");
+          pick.setAttribute("aria-pressed","false");choices.appendChild(pick);
+        }
+      }else{
+        choices.appendChild(editor.node);
+        const unsure=button("I'm not sure",()=>{
+          editor.mode.value="unknown";editor.mode.dispatchEvent(new Event("change",{bubbles:true}));
+          unsure.setAttribute("aria-pressed","true");error.textContent="";
+        },"task20-answer");
+        unsure.setAttribute("aria-pressed","false");
+        choices.appendChild(unsure);
+      }
+      const save=make("button","Continue →","intake-primary");save.type="submit";save.id="task15-save-answer";
+      qform.append(prompt,choices,error,save,button("Back",()=>{
+        cancel();showReview();
+      },"intake-secondary"));
+      if(source)qform.appendChild(editor.node);
+      qform.addEventListener("submit",event=>{
+        event.preventDefault();if(token!==revision)return;
+        try{facts[question.id]=editor.read();perform();}
+        catch(e){error.textContent=e.message;choices.querySelector("button,input,select")?.focus();}
+      });
+      flow.append(h,qform);focus(h);choices.querySelector("button,input,select")?.focus();
     }
     function showLimited(data){
       flow.hidden=false;flow.replaceChildren();review.hidden=true;openModal(flow);container.dataset.flowStage="limited";const h=make("h3","More confirmation is needed");h.id="task15-limited-title";
