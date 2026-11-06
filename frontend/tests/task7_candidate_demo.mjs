@@ -112,23 +112,22 @@ try {
   session = (await command('Target.attachToTarget', {targetId: target.targetId, flatten: true}, false)).sessionId;
   await command('Page.enable'); await command('Runtime.enable'); await command('Network.enable');
   await command('Page.navigate', {url: new URL('/', base).href});
-  await until("document.querySelectorAll('[data-case]').length===2");
+  await until("document.getElementById('problem-text')!==null");
 
 
   async function untilReady() {
     await until("document.querySelectorAll('#dynamic-fields select').length === 9 && document.getElementById('submit').disabled === false");
   }
+  // Historical Task 7 browser regression now opens the still-supported legacy
+  // form directly. Public root migrated to intake-first Task 20; do not claim
+  // its removed two-card navigation still exists.
   async function clickHomeTopic(caseType) {
-    const label = caseType === 'rental_deposit' ? "Rental Deposit" : "Consumer Complaint";
-    await command('Page.navigate',{url:new URL('/',base).href});
-    await until("document.querySelectorAll('[data-case]').length === 2");
-    await until("document.getElementById('status-text').textContent.includes('Online')");
-    const before = await evaluate("({path:location.pathname, label:document.querySelector('.choice-label').textContent.trim()})");
-    await evaluate("document.querySelector('[data-case="+JSON.stringify(label)+"]').click()");
+    const oldForm=new URL('/task5-flow.html?case_type='+caseType,base);
+    await command('Page.navigate',{url:oldForm.href});
     await until("location.pathname === '/task5-flow.html' && document.querySelectorAll('#dynamic-fields select').length === 9");
-    const chosen = await evaluate("({caseType:document.getElementById('case-type').value, path:location.pathname})");
-    assert.equal(chosen.caseType,caseType,'Home card must select the correct case form');
-    return {health:'Online',before,after:chosen};
+    const chosen=await evaluate("({caseType:document.getElementById('case-type').value,path:location.pathname})");
+    assert.equal(chosen.caseType,caseType,'Legacy form must select the correct case type');
+    return {scope:'historical_v1_legacy_direct_form',before:{path:'/'},after:chosen};
   }
   async function submitReal() {
     const start = requests.length;
@@ -216,7 +215,7 @@ try {
     const trace={case_type:kind,steps:[],passed:false};
     result.cases.push(trace);
     try{
-      await addStep(trace,'01','Start on candidate homepage; select topic','Real health online; card opens correct real form',async()=>clickHomeTopic(kind));
+      await addStep(trace,'01','Open historical v1 compatibility form directly','Legacy form loads and selects intended case type',async()=>clickHomeTopic(kind));
       const first=await addStep(trace,'02','Submit all Not provided','Real NEED_CLARIFICATION; 9 schema fields; seven unavailable sections',async()=>{
         const r=await submitReal();
         assert.equal(r.response.status,'NEED_CLARIFICATION');
@@ -273,9 +272,9 @@ try {
         assert.equal(r.response.status,'REFER_TO_OFFICIAL');
         return {offline:'Service unavailable',preserved_amount:456,retry_status:r.response.status};
       });
-      await addStep(trace,'09','Click header return to homepage','Candidate form return link reaches actual homepage',async()=>{
+      await addStep(trace,'09','Click header return to homepage','Legacy form return link reaches migrated intake-first homepage',async()=>{
         await evaluate("document.querySelector('.head a').click()");
-        await until("location.pathname==='/' && document.querySelectorAll('[data-case]').length===2");
+        await until("location.pathname==='/' && !!document.getElementById('problem-text')");
         return {pathname:await evaluate("location.pathname")};
       });
       trace.passed=trace.steps.length===9 && trace.steps.every(x=>x.result==='PASS');

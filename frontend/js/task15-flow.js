@@ -55,8 +55,38 @@
     const button=(text,fn,cls="intake-secondary")=>{const b=make("button",text,cls);b.type="button";b.addEventListener("click",fn);return b;};
     const focus=n=>{if(n){n.tabIndex=-1;n.focus();}};
     const flow=make("section",undefined,"task15-flow");flow.id="task15-flow";flow.hidden=true;flow.setAttribute("aria-live","polite");container.appendChild(flow);
+    // A single persistent question/confirmation dialog; no stacked popups.
+    const overlay=make("div",undefined,"task20-overlay");overlay.id="task20-overlay";overlay.hidden=true;
+    const dialog=make("section",undefined,"task20-dialog");dialog.setAttribute("role","dialog");
+    dialog.setAttribute("aria-modal","true");dialog.setAttribute("aria-label","Confirm your situation");
+    const dialogHead=make("div",undefined,"task20-dialog-head");
+    dialogHead.appendChild(make("strong","SG Navi · One quick detail"));
+    const dialogClose=button("×",()=>closeModal(),"task20-close");dialogClose.setAttribute("aria-label","Close dialog");
+    dialogHead.appendChild(dialogClose);
+    const dialogContent=make("div",undefined,"task20-dialog-content");dialogContent.appendChild(review);
+    dialog.append(dialogHead,dialogContent);overlay.appendChild(dialog);doc.body.appendChild(overlay);
+    let returnFocus=null;
+    function openModal(section){
+      if(section===flow && flow.parentNode!==dialogContent)dialogContent.appendChild(flow);
+      if(overlay.hidden)returnFocus=doc.activeElement;
+      overlay.hidden=false;doc.body.classList.add("task20-modal-open");
+    }
+    function closeModal(restore=true){
+      overlay.hidden=true;doc.body.classList.remove("task20-modal-open");
+      if(restore && returnFocus && returnFocus.isConnected)returnFocus.focus();
+    }
+    doc.addEventListener("keydown",event=>{
+      if(overlay.hidden)return;
+      if(event.key==="Escape"){event.preventDefault();closeModal();return;}
+      if(event.key!=="Tab")return;
+      const targets=[...dialog.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href],summary')]
+        .filter(el=>!el.hidden&&el.getClientRects().length>0);
+      if(!targets.length)return;
+      if(event.shiftKey&&doc.activeElement===targets[0]){event.preventDefault();targets[targets.length-1].focus();}
+      else if(!event.shiftKey&&doc.activeElement===targets[targets.length-1]){event.preventDefault();targets[0].focus();}
+    });
     let revision=0,pending=null,currentResult=null,caseType=null,facts={},description="",reviewFields=new Map();
-    const cancel=()=>{revision++;if(pending)pending.abort();pending=null;currentResult=null;flow.replaceChildren();flow.hidden=true;container.dataset.flowStage="input";};
+    const cancel=()=>{revision++;if(pending)pending.abort();pending=null;currentResult=null;flow.replaceChildren();flow.hidden=true;closeModal(false);container.dataset.flowStage="input";};
     const clearError=()=>{get("problem-validation").textContent="";get("review-validation").textContent="";get("review-outcome").textContent="";};
     async function post(path,payload,token){
       const url=win.SGNaviApiConfig&&win.SGNaviApiConfig.resolve(path,win.location);if(!url)throw Error("API unavailable");
@@ -75,10 +105,10 @@
       mode.value=value===null?"null":value==="unknown"?"unknown":"known";
       const visibility=()=>{detail.hidden=mode.value!=="known";};visibility();mode.addEventListener("change",visibility);
       box.append(mode,detail);
-      return {node:box,detail,read:()=>parseAnswer(field,mode.value,detail.value)};
+      return {node:box,detail,mode,read:()=>parseAnswer(field,mode.value,detail.value)};
     }
     function showReview(){
-      review.hidden=false;flow.hidden=true;container.dataset.flowStage="review";get("review-summary").textContent=description;
+      review.hidden=false;flow.hidden=true;openModal(review);container.dataset.flowStage="review";get("review-summary").textContent=description;
       const list=get("candidate-list");list.replaceChildren();reviewFields=new Map();
       for(const field of FIELDS[caseType]||[]){if(!Object.hasOwn(facts,field))continue;const e=fieldEditor(field,facts[field],true);reviewFields.set(field,e);list.appendChild(e.node);}
       const missing=(FIELDS[caseType]||[]).filter(f=>!reviewFields.has(f));
@@ -86,7 +116,7 @@
       get("candidate-facts").hidden=!caseType;get("review-continue").textContent="Confirm details and continue";focus(get("review-title"));
     }
     function showFailure(retry){
-      flow.hidden=false;flow.replaceChildren();const h=make("h3","The service is unavailable");h.id="task15-error-title";flow.append(h,make("p","Your answers are still here. Retry when the connection is available; no guidance has been confirmed."));
+      flow.hidden=false;flow.replaceChildren();review.hidden=true;openModal(flow);const h=make("h3","The service is unavailable");h.id="task15-error-title";flow.append(h,make("p","Your answers are still here. Retry when the connection is available; no guidance has been confirmed."));
       flow.append(button("Retry",retry,"intake-primary"),button("Edit answers",editAnswers));focus(h);
     }
     function editAnswers(){cancel();clearError();get("interpretation-note").textContent="Review and correct your answers, then confirm again. Previous results have been cleared.";showReview();}
@@ -94,22 +124,98 @@
       const question=data.questions.find(q=>!Object.hasOwn(facts,q.id));
       if(!question){showLimited({limitations:["These details remain uncertain. Edit your answers or check directly with the appropriate official service."]});return;}
       if(!(FIELDS[caseType]||[]).includes(question.id)||typeof question.label!=="string")throw Error("Unexpected question");
-      flow.hidden=false;flow.replaceChildren();container.dataset.flowStage="questions";const h=make("h3","A detail to confirm");h.id="task15-question-title";
-      const qform=make("form");qform.id="task15-question-form";qform.noValidate=true;const prompt=make("p",question.label);prompt.id="task15-question-label";
-      const editor=fieldEditor(question.id,undefined);editor.node.setAttribute("aria-describedby",prompt.id);const error=make("p","","problem-error");error.id="task15-question-error";error.setAttribute("role","alert");
-      const save=make("button","Save and continue","intake-primary");save.type="submit";save.id="task15-save-answer";qform.append(prompt,editor.node,error,save,button("Edit answers",editAnswers));
-      qform.addEventListener("submit",event=>{event.preventDefault();if(token!==revision)return;try{facts[question.id]=editor.read();perform();}catch(e){error.textContent=e.message;editor.detail.focus();}});
-      flow.append(h,qform);focus(h);editor.detail.focus();
+      flow.hidden=false;flow.replaceChildren();review.hidden=true;openModal(flow);container.dataset.flowStage="questions";
+      const h=make("h3","One quick detail");h.id="task15-question-title";
+      const qform=make("form");qform.id="task15-question-form";qform.noValidate=true;
+      const prompt=make("p",question.label);prompt.id="task15-question-label";
+      const editor=fieldEditor(question.id,undefined);
+      const error=make("p","","problem-error");error.id="task15-question-error";error.setAttribute("role","alert");
+      const choices=make("div",undefined,"task20-answers");choices.setAttribute("role","group");choices.setAttribute("aria-labelledby",prompt.id);
+      const source=BOOL.has(question.id)?[["true","Yes"],["false","No"]]:OPTIONS[question.id];
+      if(source){
+        editor.node.hidden=true;
+        for(const [value,label] of [...source,["unknown","I'm not sure"]]){
+          const pick=button(label,()=>{
+            editor.mode.value=value==="unknown"?"unknown":"known";
+            editor.mode.dispatchEvent(new Event("change",{bubbles:true}));
+            if(value!=="unknown")editor.detail.value=value;
+            for(const b of choices.children)b.setAttribute("aria-pressed",String(b===pick));
+            error.textContent="";
+          },"task20-answer");
+          pick.setAttribute("aria-pressed","false");choices.appendChild(pick);
+        }
+      }else{
+        choices.appendChild(editor.node);
+        const unsure=button("I'm not sure",()=>{
+          editor.mode.value="unknown";editor.mode.dispatchEvent(new Event("change",{bubbles:true}));
+          unsure.setAttribute("aria-pressed","true");error.textContent="";
+        },"task20-answer");
+        unsure.setAttribute("aria-pressed","false");
+        choices.appendChild(unsure);
+      }
+      const save=make("button","Continue →","intake-primary");save.type="submit";save.id="task15-save-answer";
+      qform.append(prompt,choices,error,save,button("Back",()=>{
+        cancel();showReview();
+      },"intake-secondary"));
+      if(source)qform.appendChild(editor.node);
+      qform.addEventListener("submit",event=>{
+        event.preventDefault();if(token!==revision)return;
+        try{facts[question.id]=editor.read();perform();}
+        catch(e){error.textContent=e.message;choices.querySelector("button,input,select")?.focus();}
+      });
+      flow.append(h,qform);focus(h);choices.querySelector("button,input,select")?.focus();
     }
     function showLimited(data){
-      flow.hidden=false;flow.replaceChildren();container.dataset.flowStage="limited";const h=make("h3","More confirmation is needed");h.id="task15-limited-title";
+      flow.hidden=false;flow.replaceChildren();review.hidden=true;openModal(flow);container.dataset.flowStage="limited";const h=make("h3","More confirmation is needed");h.id="task15-limited-title";
       flow.appendChild(h);for(const line of data.limitations||[])flow.appendChild(make("p",line));flow.appendChild(button("Edit answers",editAnswers));focus(h);
     }
     function renderResult(data){
-      currentResult=data;flow.hidden=false;flow.replaceChildren();container.dataset.flowStage="results";const h=make("h3","Your guidance");h.id="task15-result-title";
-      flow.append(h,make("p","Official research and preparation information — eligibility is not assessed.","task15-notice"));
-      const factList=make("dl",undefined,"task15-fact-summary");for(const [field,value]of Object.entries(facts)){factList.append(make("dt",LABELS[field]||field),make("dd",answerLabel(value)));}flow.appendChild(factList);
-      const grid=make("div",undefined,"task15-result-grid"), cards=make("div"), viewer=make("aside",undefined,"task15-viewer");viewer.id="task15-evidence-viewer";grid.append(cards,viewer);flow.appendChild(grid);
+      currentResult=data;closeModal(false);if(flow.parentNode!==container)container.appendChild(flow);flow.hidden=false;flow.replaceChildren();container.dataset.flowStage="results";const h=make("h3","Your guidance");h.id="task15-result-title";
+      h.textContent="Here's a next step to check";
+      flow.appendChild(make("p",data.research_guidance.case_summary,"task20-situation"));
+      flow.appendChild(make("p","Official research and preparation information only — legal eligibility is not assessed.","task15-notice"));
+      const firstStep=data.claim_citations.find(c=>c.section==="steps")||data.claim_citations[0];
+      const primary=make("section",undefined,"task20-primary");
+      primary.appendChild(make("span","YOUR NEXT STEP","task20-label"));
+      primary.appendChild(make("h4",firstStep.text,"task20-main-action"));
+      primary.appendChild(make("p","Check the relevant official wording before acting. The suitability of a route depends on your circumstances."));
+      const readFirst=button("Read official guidance ↗",()=>{more.open=true;selectClaim(firstStep);},"intake-primary");
+      readFirst.id="task20-primary-link";primary.appendChild(readFirst);flow.appendChild(primary);
+      const checklist=make("section",undefined,"task20-checklist");
+      checklist.appendChild(make("h4","Before you continue"));
+      const checklistList=make("ol");
+      for(const c of data.claim_citations.filter(c=>c.section==="document_checklist").slice(0,3)){
+        checklistList.appendChild(make("li",c.text));
+      }
+      if(!checklistList.children.length)checklistList.appendChild(make("li","Review your documents and verify the official conditions."));
+      checklist.appendChild(checklistList);flow.appendChild(checklist);
+      // Compact two-column action-first presentation; extra details remain hidden.
+      const firstGrid=make("div",undefined,"task20-first-grid");
+      const firstLeft=make("div",undefined,"task20-first-left");
+      firstLeft.append(primary,checklist);
+      const firstRight=make("aside",undefined,"task20-first-right");
+      firstRight.appendChild(make("h4","Get help with the next part"));
+      for(const [name,section] of [
+        ["What to prepare","document_checklist"],
+        ["Conditions to check","conditions"],
+        ["Why this information?","citations"],
+        ["Questions still open","unresolved_questions"]
+      ]){
+        const moreButton=button(name+"  ›",()=>{
+          more.open=true;
+          const target=more.querySelector('[data-card-section="'+section+'"]');
+          if(target){target.scrollIntoView({block:"nearest"});target.querySelector("button")?.focus();}
+          else more.querySelector("summary")?.focus();
+        },"task20-secondary-option");
+        firstRight.appendChild(moreButton);
+      }
+      firstGrid.append(firstLeft,firstRight);flow.appendChild(firstGrid);
+      const more=make("details",undefined,"task20-more");more.id="task20-more";
+      more.appendChild(make("summary","Explore conditions, documents and supporting sources"));
+      const moreInner=make("div",undefined,"task20-more-inner");more.appendChild(moreInner);flow.appendChild(more);
+      const factList=make("dl",undefined,"task15-fact-summary");for(const [field,value]of Object.entries(facts)){factList.append(make("dt",LABELS[field]||field),make("dd",answerLabel(value)));}
+      const factDetails=make("details",undefined,"task20-facts");factDetails.appendChild(make("summary","Your confirmed details"));factDetails.appendChild(factList);moreInner.appendChild(factDetails);
+      const grid=make("div",undefined,"task15-result-grid"), cards=make("div"), viewer=make("aside",undefined,"task15-viewer");viewer.id="task15-evidence-viewer";grid.append(cards,viewer);moreInner.appendChild(grid);
       const records=new Map(data.display_evidence.map(r=>[r.evidence_id,r]));
       function showRecord(record,claim){
         viewer.replaceChildren();const title=make("h4",record.title);title.id="task15-source-title";viewer.append(make("p",record.publisher,"task15-publisher"),title);
@@ -121,7 +227,7 @@
         const link=make("a","Open original source");link.id="task15-open-original";link.href=safeSource(record.url);link.target="_blank";link.rel="noopener noreferrer";viewer.appendChild(link);
       }
       function selectClaim(claim){
-        viewer.replaceChildren();const choices=make("div",undefined,"task15-source-choices");for(const eid of claim.evidence_ids){const r=records.get(eid);const b=button(r.publisher+" · "+eid,()=>{showRecord(r,claim);viewer.prepend(choices);focus(get("task15-source-title"));});b.dataset.evidenceId=eid;choices.appendChild(b);}showRecord(records.get(claim.evidence_ids[0]),claim);viewer.prepend(choices);focus(get("task15-source-title"));
+        more.open=true;viewer.replaceChildren();const choices=make("div",undefined,"task15-source-choices");for(const eid of claim.evidence_ids){const r=records.get(eid);const b=button(r.publisher+" · "+eid,()=>{showRecord(r,claim);viewer.prepend(choices);focus(get("task15-source-title"));});b.dataset.evidenceId=eid;choices.appendChild(b);}showRecord(records.get(claim.evidence_ids[0]),claim);viewer.prepend(choices);focus(get("task15-source-title"));
       }
       const summary=make("section",undefined,"task15-card-section");summary.dataset.cardSection="case_summary";summary.append(make("h4","Your situation"),make("p",data.research_guidance.case_summary));cards.appendChild(summary);
       for(const [key,label] of Object.entries(SECTIONS)){
@@ -135,12 +241,12 @@
       for(const eid of data.matched_evidence_ids)references.appendChild(referenceButton(records.get(eid)));
       if(!data.matched_evidence_ids.length)references.appendChild(make("p","Select a preparation item to inspect its supporting records."));
       const all=make("details");all.appendChild(make("summary","All references supporting these checks"));for(const r of data.display_evidence)all.appendChild(referenceButton(r));references.appendChild(all);cards.appendChild(references);
-      const limits=make("details",undefined,"task15-limits");limits.appendChild(make("summary","Scope and unresolved conditions"));for(const line of data.limitations)limits.appendChild(make("p",line));flow.appendChild(limits);
+      const limits=make("details",undefined,"task15-limits");limits.appendChild(make("summary","Scope and unresolved conditions"));for(const line of data.limitations)limits.appendChild(make("p",line));moreInner.appendChild(limits);
       const edit=button("Edit answers",editAnswers);edit.id="task15-edit-answers";flow.append(edit,button("Check again",perform));
-      const first=data.claim_citations.find(c=>c.section==="steps")||data.claim_citations[0];selectClaim(first);focus(h);
+      selectClaim(firstStep);more.open=false;focus(h);
     }
     async function perform(){
-      cancel();clearError();review.hidden=true;flow.hidden=false;flow.appendChild(make("p","Checking your confirmed details and source records…"));const token=revision;
+      cancel();clearError();review.hidden=true;flow.hidden=false;openModal(flow);flow.appendChild(make("p","Checking your confirmed details and source records…"));const token=revision;
       try{
         const confirmation=await post("/api/intake/confirm",{intake_version:"1.0",confirmed:true,case_type:caseType,confirmed_answers:{...facts}},token);
         if(confirmation.intake_version!=="1.0"||confirmation.intake_status!=="confirmed"||confirmation.needs_confirmation!==false||typeof confirmation.revision!=="string")throw Error("Invalid confirmation");

@@ -1,40 +1,24 @@
 "use strict";
-const {test} = require("node:test");
-const assert = require("node:assert/strict");
-const fs = require("node:fs");
-const path = require("node:path");
-const vm = require("node:vm");
+// The standalone user-visible health widget was intentionally retired by Task20.
+// Readiness now means actual guarded intake+guidance requests; do not show a
+// cosmetic ready signal without a successful request.
+const {test}=require("node:test");
+const assert=require("node:assert/strict");
+const fs=require("node:fs");
+const path=require("node:path");
+const {verifyResult}=require("../js/task15-flow.js");
 
-async function check(page, payload, ok = true) {
-  const html = fs.readFileSync(path.resolve(__dirname, "../..", page), "utf8");
-  const inline = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].at(-1)[1];
-  const elements = {
-    "api-status": {dataset: {}},
-    "status-text": {textContent: ""},
-    "refresh-api": {disabled: false, addEventListener() {}}
-  };
-  const context = vm.createContext({
-    document: {getElementById: id => elements[id], querySelectorAll: () => []},
-    window: {location: {}},
-    SGNaviApiConfig: {resolve: () => "https://service.example/api/health"},
-    AbortController, setTimeout, clearTimeout,
-    fetch: async () => ({ok, status: ok ? 200 : 503,
-      headers: {get: () => "application/json"}, json: async () => payload})
-  });
-  vm.runInContext(inline.replace(/checkApiHealth\(\);\s*$/, "globalThis.run = checkApiHealth();"), context);
-  await context.run;
-  return {state: elements["api-status"].dataset.state, text: elements["status-text"].textContent,
-    disabled: elements["refresh-api"].disabled};
-}
-
-for (const page of ["index.html", "frontend/index.html"]) {
-  test(page + " only displays ready for a valid successful readiness response", async () => {
-    for (const payload of [{}, {status: "unavailable"}, {status: "unexpected"}, []]) {
-      assert.equal((await check(page, payload)).state, "offline", JSON.stringify(payload));
-    }
-    const ready = await check(page, {status: "ok"});
-    assert.equal(ready.state, "online");
-    assert.equal(ready.disabled, false);
-    assert.equal((await check(page, {status: "ok"}, false)).state, "offline");
-  });
+for(const page of ["index.html","frontend/index.html"]){
+ test(page+" does not claim service ready without a completed guidance call", async()=>{
+   const html=fs.readFileSync(path.resolve(__dirname,"../..",page),"utf8");
+   const flow=fs.readFileSync(path.resolve(__dirname,"../js/task15-flow.js"),"utf8");
+   assert.ok(html.includes('id="problem-submit"'));
+   assert.ok(!html.includes('id="api-status"'));
+   assert.ok(!html.includes("Online · Ready to use"));
+   assert.ok(flow.includes('await post("/api/intake"'));
+   assert.ok(flow.includes('await post("/api/guidance"'));
+   assert.ok(flow.includes('if(!response.ok)throw Error("Service unavailable")'));
+   assert.ok(flow.includes("showFailure(perform)"));
+   await assert.rejects(verifyResult({guidance_status:"GUIDANCE_ONLY"},null),/Invalid guidance/);
+ });
 }

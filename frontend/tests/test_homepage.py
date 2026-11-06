@@ -1,5 +1,4 @@
-"""Task 1 homepage structural checks; stdlib only (no backend required)."""
-import re
+"""Actual homepage regression after authorized Task 20 UI migration."""
 import unittest
 from pathlib import Path
 
@@ -16,21 +15,21 @@ class HomepageTests(unittest.TestCase):
         self.assertIn('alt="SG Navi"', self.html)
         self.assertIn('class="brand-logo"', self.html)
 
-    def test_only_two_task1_topics(self):
-        matches = re.findall(r'data-case="([^"]+)"', self.html)
-        self.assertEqual(matches, ["Rental Deposit", "Consumer Complaint"])
-        self.assertEqual(self.html.count("Open guided form"), 2)
-        self.assertIn('window.location.assign("./task5-flow.html?case_type=" + caseType)', self.html)
+    def test_one_input_replaces_legacy_topic_cards(self):
+        self.assertIn('id="problem-text"', self.html)
+        self.assertIn('id="problem-review"', self.html)
+        self.assertIn('id="problem-submit"', self.html)
+        self.assertIn("Find my next step", self.html)
+        self.assertEqual(self.html.count('class="choice"'), 0)
+        self.assertNotIn("Open guided form", self.html)
         self.assertNotIn('action="/api/navigate"', self.html)
 
-    def test_health_status_uses_real_request(self):
-        self.assertIn('SGNaviApiConfig.resolve("/api/health", window.location)', self.html)
-        self.assertIn('fetch(apiEndpoint', self.html)
+    def test_api_versioned_integration_remains_on_real_script(self):
         self.assertIn('src="./js/api-config.js"', self.html)
-        self.assertIn('response.ok', self.html)
-        self.assertIn('statusPanel.dataset.state = "offline"', self.html)
-        self.assertIn('statusPanel.dataset.state = "online"', self.html)
-        self.assertIn('role="status"', self.html)
+        self.assertIn('src="./js/task15-flow.js"', self.html)
+        self.assertIn('href="./css/task20-live.css"', self.html)
+        self.assertIn('content="/api/health"', self.html)
+        self.assertNotIn('id="api-status"', self.html)
 
 
 if __name__ == "__main__":
