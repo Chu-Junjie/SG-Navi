@@ -9,6 +9,7 @@ from urllib.parse import urlsplit
 
 from rag.import_knowledge_base import current_reviews
 from rag.repository import EvidenceRepository
+from backend.evidence_projection import project_display_evidence, DisplayEvidenceUnavailable
 
 RESULTS_VERSION = "0.1"
 FIELDS = ("dispute_with", "premises_type", "tenancy_duration_months",
@@ -162,5 +163,19 @@ def assemble(case_type, answers, *, repository=None):
             for field in missing],
         "citations": sorted(evidence),
     }
-    response["display_evidence"] = [evidence[key] for key in sorted(evidence)]
+    # Task 14: validate once more against the currently reviewed record,
+    # operational quarantine and exact passage digest immediately before API
+    # projection. Any change invalidates the entire research result.
+    try:
+        response["display_evidence"] = project_display_evidence(
+            case_type, response["research_guidance"],
+            expected_version=version, repository=repository,
+            expected_records=[evidence[key] for key in sorted(evidence)])
+    except DisplayEvidenceUnavailable:
+        response["guidance_status"] = "LIMITED_REFERRAL"
+        response["research_guidance"] = None
+        response["display_evidence"] = []
+        response["limitations"].append(
+            "Current source validation failed during final presentation; "
+            "no reviewed guidance can be shown.")
     return response
