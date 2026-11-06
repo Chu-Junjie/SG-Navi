@@ -1,0 +1,6 @@
+{
+  "case_type": "consumer_complaint",
+  "facts": {"purchase_type": "goods", "purchase_purpose": "personal", "supplier_registered_in_sg": true},
+  "query": "Faulty product seller refuses refund",
+  "context_only": true
+}

@@ -2,6 +2,13 @@
 
 `api_contract.json` is the single canonical JSON Schema for the API 1.0 wire envelope. `schemas/evidence_schema.json` is its shared Evidence definition. No endpoint, form, retrieval algorithm or legal rule is implemented here.
 
+`query_retrieval_contract.json` defines the **separate internal query-RAG 1.0**
+protocol added in [Task 13](../rag/TASK13.md). It reuses the existing case input
+schemas and six-field Evidence contract using local-only resolution. It is not
+a new `/api/navigate` version, endpoint or legal decision status. Validate its
+output with `rag.query_retriever.validate_query_result`; the old validator and
+12-example manifest remain unchanged.
+
 ## Install and validate
 
 Run from the repository root with Python 3.12 or newer:

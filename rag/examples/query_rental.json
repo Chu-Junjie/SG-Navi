@@ -1,0 +1,6 @@
+{
+  "case_type": "rental_deposit",
+  "facts": {"dispute_with": "landlord", "premises_type": "residential", "claim_amount_sgd": 2000},
+  "query": "My landlord refuses to return my deposit",
+  "context_only": true
+}

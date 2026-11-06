@@ -2,6 +2,13 @@
 
 This package contains the reviewed source bundle, validation/import utilities, Rule ID retrieval, citation validation and source quarantine operations. [Task 4 usage](TASK4.md) documents the runtime evidence boundary and update workflow. A Rule Engine and /api/navigate integration remain with their assigned owners and Tasks.
 
+[Task 13 query-aware retrieval](TASK13.md) adds deterministic passage ranking
+from confirmed facts and an optional bounded English query. It uses a separate
+internal versioned contract and still enforces complete exact-rule retrieval
+and current citation/quarantine checks. It does not activate legal rules or
+change the v1 envelope. Task 12/15 runtime and Task 14 display integration remain
+separate handoff steps.
+
 [Task 6 integrity checks](TASK6.md) document current-review proof binding, quarantine event replay and the reproducible RAG-01–12 runner. [The actual RAG results](../docs/task6-rag-results.md) include observed failures, fixes and source checks; full team Task 6 acceptance remains separate.
 
 ## Run
