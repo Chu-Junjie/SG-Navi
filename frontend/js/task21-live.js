@@ -288,10 +288,10 @@
       body.appendChild(add("h2",question.prompt));
       body.appendChild(add("p",question.reason));
       const choices=add("div",undefined,"task20-answers");
-      let selected=null;
+      let selected=null,hasSelection=false;
       for(const option of question.options){
         const optionBtn=btn(option.label,()=>{
-          selected=option.value;
+          selected=option.value;hasSelection=true;
           for(const b of choices.children)b.setAttribute("aria-pressed",String(b===optionBtn));
         },"task20-answer");
         optionBtn.setAttribute("aria-pressed","false");choices.appendChild(optionBtn);
@@ -304,7 +304,7 @@
         showConfirm();
       }));
       actions.append(btn("Continue →",()=>{
-        if(selected===null&&question.options.some(x=>x.value===null)===false){
+        if(!hasSelection){
           error.textContent="Choose an option, including Not sure.";return;
         }
         previousContexts.push(context);
