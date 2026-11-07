@@ -261,6 +261,41 @@
       }));
       body.appendChild(select("Type of concern",SUBTYPES[copy.case_type],copy.issue_subtype,value=>{copy.issue_subtype=value;}));
       body.appendChild(select("What you want help with",GOALS,copy.goal,value=>{copy.goal=value;}));
+
+      // Corrections are optional and collapsed: do not impose a generic survey.
+      // These exact Task16 typed facts can change a reviewed action profile.
+      const corrections={
+        consumer_complaint:[
+          ["merchant_location","Where did the purchase happen?",[["singapore","Singapore"],["outside_singapore","Outside Singapore"],["unknown","Not sure"]]],
+          ["purchase_purpose","Was it for personal use?",[["personal","Personal use"],["business","Business use"],["unknown","Not sure"]]],
+          ["resolution_attempted","Have you asked the seller to resolve it?",[[true,"Yes"],[false,"No"],["unknown","Not sure"]]],
+          ["consumer_context","Are you a local consumer or a visitor?",[["local_consumer","Local consumer"],["visitor","Visitor"],["unknown","Not sure"]]]
+        ],
+        rental_deposit:[
+          ["dispute_with","Who is the dispute with?",[["landlord","Landlord"],["agent","Estate agent"],["unknown","Not sure"]]],
+          ["premises_type","What type of premises?",[["private_residential","Private home or condo"],["hdb","HDB"],["commercial","Commercial"],["industrial","Industrial"],["unknown","Not sure"]]],
+          ["lease_ended","Have you already left or ended the tenancy?",[[true,"Yes"],[false,"Not yet"],["unknown","Not sure"]]],
+          ["break_clause_present","Does your signed agreement contain a break clause?",[[true,"Yes"],[false,"No"],["unknown","Not sure"]]]
+        ]
+      };
+      const optional=add("details",undefined,"task21-fact-corrections");
+      optional.appendChild(add("summary","Correct any important details (optional)"));
+      for(const [field,prompt,items] of corrections[copy.case_type]){
+        const row=add("label",prompt,"task21-field"),control=add("select");
+        const empty=add("option","Not specified");empty.value="";control.appendChild(empty);
+        for(const [value,text] of items){
+          const option=add("option",text);option.value=JSON.stringify(value);
+          if(Object.hasOwn(copy.facts,field)&&copy.facts[field]===value)option.selected=true;
+          control.appendChild(option);
+        }
+        control.addEventListener("change",()=>{
+          if(control.value==="")delete copy.facts[field];
+          else copy.facts[field]=JSON.parse(control.value);
+        });
+        row.appendChild(control);optional.appendChild(row);
+      }
+      body.appendChild(optional);
+
       const actions=add("div",undefined,"task21-modal-actions");
       actions.append(btn("Edit description",()=>{hideDialog();input.focus();},"intake-secondary"));
       actions.append(btn("Confirm and continue →",()=>{
