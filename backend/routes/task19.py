@@ -2,7 +2,7 @@
 from flask import Blueprint, jsonify, request
 from jsonschema import ValidationError
 
-from backend.action_plan_service import process_action_plan
+from backend.action_plan_service import process_action_plan, envelope
 from shared.validate_action_plan import validate_action_plan
 
 action_plan_api = Blueprint("task19_action_plan", __name__)
@@ -33,6 +33,9 @@ def post_action_plan():
     except (ValueError, ValidationError, TypeError, KeyError):
         return _error("Invalid request or unsupported input.", 400)
     except (OSError, RuntimeError):
-        # Do not echo raw context, description or exception messages.
-        return _error("Service is temporarily unavailable. Please retry.", 503)
+        # Once the request has been validated, transport failures retain the
+        # versioned UNAVAILABLE response shape and request correlation.
+        reply = envelope(body["request_id"], "UNAVAILABLE", "service_unavailable",
+                         "Service is temporarily unavailable. Please retry.")
+        return jsonify(reply), 503
     return jsonify(reply), 200
