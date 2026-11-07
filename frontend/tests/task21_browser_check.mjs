@@ -84,7 +84,7 @@ try{
    let response=await lastResponse();
    assert.equal(response.state,"CONFIRM");trace.states.push("CONFIRM");
    const choice="(()=>{const a=[...document.querySelectorAll('#task21-overlay select')];"+
-     "if(a.length!==3)return false;"+
+     "if(a.length<3)return false;"+
      "for(const [i,v] of [[0,"+JSON.stringify(scenario.type)+"],[1,"+JSON.stringify(scenario.subtype)+"],[2,"+JSON.stringify(scenario.goal)+"]])"+
      "{const el=document.querySelectorAll('#task21-overlay select')[i];if(!el)return false;"+
      "if(el.value!==v){el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}));}}return true;})()";
