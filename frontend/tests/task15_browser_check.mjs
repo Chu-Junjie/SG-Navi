@@ -35,6 +35,8 @@ try{
  ws.onmessage=event=>{const d=JSON.parse(event.data);if(d.id){const p=pending.get(d.id);if(p){clearTimeout(p.timeout);pending.delete(d.id);d.error?p.reject(Error(JSON.stringify(d.error))):p.resolve(d.result||{});}return;}const p=d.params||{};if(d.method==='Runtime.exceptionThrown')exceptions.push(p.exceptionDetails);if(d.method==='Network.requestWillBeSent')requests.push({id:p.requestId,url:p.request.url,method:p.request.method,body:p.request.postData||''});if(d.method==='Network.responseReceived')responses.set(p.requestId,p.response.status);if(d.method==='Network.loadingFinished')finished.add(p.requestId);};
  const targets=await command('Target.getTargets',{},false);const target=targets.targetInfos.find(t=>t.type==='page');session=(await command('Target.attachToTarget',{targetId:target.targetId,flatten:true},false)).sessionId;
  for(const method of ['Page.enable','Runtime.enable','Network.enable'])await command(method);
+ // Historical Task15 E2E only; not the new Task21 acceptance test.
+ await command('Page.addScriptToEvaluateOnNewDocument',{source:'window.__SGNaviLegacyRegression=true;'});
  await command('Network.setCacheDisabled',{cacheDisabled:true});
  const scenarios=[
   {case:'rental_deposit',prompt:'My landlord refuses to return my S$2,000 deposit. What can I do?',answers:{dispute_with:'landlord',premises_type:'residential',claim_amount_sgd:2000}},
