@@ -233,3 +233,39 @@ def test_legacy_routing_untouched(client):
                     "claim_amount_sgd": 1000}})
     assert original.status_code == 200
     assert original.get_json()["action_card"] is None
+
+
+def test_unexpected_transient_failure_returns_versioned_unavailable(monkeypatch, client):
+    import backend.routes.task19 as route
+    def fail(_):
+        raise RuntimeError("Synthetic transient failure")
+    monkeypatch.setattr(route, "process_action_plan", fail)
+    req = {
+        "action_plan_version": "1.0", "request_id": RID,
+        "operation": "interpret", "description": "A restaurant overcharged my bill.",
+    }
+    res = client.post("/api/action-plan", json=req)
+    assert res.status_code == 503
+    data = res.get_json()
+    validate_action_plan(data, request=req)
+    assert data["state"] == "UNAVAILABLE"
+    assert data["reason"] == "service_unavailable"
+    assert data["plan"] is None and data["context"] is None
+    assert "Synthetic" not in str(data)
+
+
+def test_fact_edit_changes_plan_revision_and_no_raw_persistence(client):
+    ctx = context("consumer_complaint", "restaurant_overcharge", "complain", {
+        "merchant_location": "singapore", "purchase_purpose": "personal",
+        "consumer_context": "local_consumer", "resolution_attempted": True,
+    })
+    first_req, first = submit(client, ctx)
+    first_data = first.get_json()
+    assert first_data["state"] == "READY"
+    changed = deepcopy(ctx)
+    changed["facts"]["purchase_purpose"] = "business"
+    second_req, second = submit(client, changed)
+    second_data = second.get_json()
+    assert second_data["state"] == "LIMITED" and second_data["plan"] is None
+    assert second_data["revision"] != first_data["revision"]
+    validate_action_plan(second_data, request=second_req)
