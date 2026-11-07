@@ -11,7 +11,7 @@
   // The public API origin is NOT a credential or a database connection string.
   const HTTPS_API_ORIGIN = "https://sg-navi-api-junjie.onrender.com";
   const API_PATHS = new Set(["/api/health", "/api/navigate", "/api/version", "/api/case-types",
-    "/api/intake", "/api/intake/confirm", "/api/results/preview", "/api/guidance"]);
+    "/api/intake", "/api/intake/confirm", "/api/results/preview", "/api/guidance", "/api/action-plan"]);
 
   function isGitHubPages(location) {
     return Boolean(location && typeof location.hostname === "string" &&
