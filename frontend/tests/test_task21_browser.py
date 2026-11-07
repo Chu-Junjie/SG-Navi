@@ -24,13 +24,18 @@ class Task21BrowserTest(unittest.TestCase):
         server=make_server("127.0.0.1",0,create_app(),threaded=True)
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
         try:
-            process=subprocess.run(
-                [node,str(ROOT/"frontend/tests/task21_browser_check.mjs"),
-                 f"http://127.0.0.1:{server.server_port}/",browser],
-                cwd=ROOT,capture_output=True,text=True,
-                encoding="utf-8",errors="replace",timeout=300
-            )
-            report=json.loads((ROOT/"instance/task21-browser-local/report.json").read_text())
+            for attempt in range(2):
+                process=subprocess.run(
+                    [node,str(ROOT/"frontend/tests/task21_browser_check.mjs"),
+                     f"http://127.0.0.1:{server.server_port}/",browser],
+                    cwd=ROOT,capture_output=True,text=True,
+                    encoding="utf-8",errors="replace",timeout=300
+                )
+                report=json.loads((ROOT/"instance/task21-browser-local/report.json").read_text())
+                if process.returncode == 0 or not any(
+                    "Chrome debugger unavailable" in err for err in report.get("errors",[])
+                ):
+                    break
             self.assertEqual(process.returncode,0,report.get("errors") or process.stdout[-3000:]+process.stderr[-1500:])
             self.assertTrue(report["passed"],report.get("errors"))
             self.assertEqual(len(report["cases"]),2)
