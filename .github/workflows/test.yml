@@ -41,3 +41,13 @@ jobs:
             instance/task15-browser-local/report.json
             instance/task15-browser-local/*.jpg
           if-no-files-found: warn
+
+      - name: Preserve Task 21 actual action-first browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: task21-local-action-first-evidence
+          path: |
+            instance/task21-browser-local/report.json
+            instance/task21-browser-local/*.jpg
+          if-no-files-found: warn

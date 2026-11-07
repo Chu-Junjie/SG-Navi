@@ -22,8 +22,14 @@ class Task15BrowserTest(unittest.TestCase):
         server=make_server("127.0.0.1",0,create_app(),threaded=True)
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
         try:
-            done=subprocess.run([node,str(ROOT/"frontend/tests/task15_browser_check.mjs"),f"http://127.0.0.1:{server.server_port}/",browser],cwd=ROOT,capture_output=True,text=True,encoding="utf-8",errors="replace",timeout=300)
-            trace=json.loads((ROOT/"instance/task15-browser-local/report.json").read_text())
+            # GitHub-hosted Chromium may occasionally fail to create DevToolsActivePort
+            # before the test ever opens the app. Retry only that startup failure;
+            # never retry real DOM/API assertion failures.
+            for attempt in range(2):
+                done=subprocess.run([node,str(ROOT/"frontend/tests/task15_browser_check.mjs"),f"http://127.0.0.1:{server.server_port}/",browser],cwd=ROOT,capture_output=True,text=True,encoding="utf-8",errors="replace",timeout=300)
+                trace=json.loads((ROOT/"instance/task15-browser-local/report.json").read_text())
+                if done.returncode == 0 or "Browser debugger available" not in str(trace.get("error","")):
+                    break
             self.assertEqual(done.returncode,0,done.stdout[-8000:]+done.stderr[-2000:])
             self.assertTrue(trace["passed"],trace.get("error"))
             self.assertEqual([len(c["steps"]) for c in trace["cases"]],[9,9])

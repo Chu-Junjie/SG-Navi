@@ -114,3 +114,30 @@
  .task20-first-right h4{margin-bottom:8px}
  .task20-secondary-option{min-height:44px;margin:7px 0}
 }
+
+/* Action Plan 1.0 verified contacts and focused optional details. */
+.task21-result{overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.task21-result h3{margin:0 0 10px;font-size:clamp(1.45rem,2.8vw,2.2rem)}
+.task21-result .task20-primary h4{line-height:1.42;font-size:clamp(1.05rem,1.8vw,1.35rem)}
+.task21-result .task20-checklist ol{padding-left:22px}
+.task21-result .task15-notice{line-height:1.5}
+.task21-link{display:inline-block;margin:9px 0 0;color:#006c6c;font-weight:750;word-break:break-word}
+a.intake-primary.task21-link{color:white!important;text-decoration:none;padding:12px 17px;border-radius:9px;min-height:44px;max-width:100%;overflow-wrap:anywhere}
+.task21-field{display:grid;gap:7px;margin:12px 0;font-weight:700;font-size:.87rem}
+.task21-field select,.task21-field input{width:100%;padding:11px;border:1px solid #b5cbd0;border-radius:9px;background:white;min-height:44px;color:#203449}
+.task21-field input:focus-visible,.task21-field select:focus-visible{outline:3px solid #4aafb4;outline-offset:2px}
+.task21-modal-actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px;border-top:1px solid #e6eeee;padding-top:12px}
+.task21-modal-actions .intake-primary{min-height:44px}
+.task21-contact,.task21-evidence{border:1px solid #dce9e9;border-radius:10px;padding:13px;margin:13px 0;overflow-wrap:anywhere}
+.task21-contact p,.task21-evidence p{font-size:.84rem;line-height:1.6;margin:7px 0}
+.task21-evidence blockquote,.task21-legal blockquote{border-left:3px solid #40968e;background:#eef7f5;padding:12px;margin:10px 0;line-height:1.65;overflow-wrap:anywhere;white-space:pre-wrap}
+.task21-legal{border:1px solid #dbeadf;background:#f4f9f4;padding:13px 16px;border-radius:11px;margin:12px 0}
+.task21-legal p{font-size:.8rem}
+.task21-draft{width:100%;min-height:160px;border:1px solid #b5cbd0;border-radius:9px;padding:11px;line-height:1.6;resize:vertical}
+.task21-bottom-actions{display:flex;gap:11px;flex-wrap:wrap;margin:11px 0}
+.task21-bottom-actions button{min-height:44px}
+@media(max-width:700px){
+ .task21-result{max-height:min(64dvh,640px)}
+ .task21-modal-actions .intake-primary{width:auto}
+ .task21-contact,.task21-evidence{padding:10px}
+}

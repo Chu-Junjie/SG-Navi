@@ -13,7 +13,7 @@ const executable=process.argv[3]||(process.platform==='win32'?'C:/Program Files 
 const artifacts=path.resolve('instance/task15-browser-'+(publicRun?'public':'local'));
 await fs.mkdir(artifacts,{recursive:true});
 const profile=await fs.mkdtemp(path.join(artifacts,'profile-'));
-const browser=spawn(executable,['--headless=new','--no-sandbox','--disable-gpu','--disable-background-networking','--disable-sync','--no-first-run','--no-default-browser-check','--remote-debugging-port=0',`--user-data-dir=${profile}`,'about:blank'],{windowsHide:true,stdio:['ignore','pipe','pipe']});
+const browser=spawn(executable,['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--disable-background-networking','--disable-sync','--no-first-run','--no-default-browser-check','--remote-debugging-port=0',`--user-data-dir=${profile}`,'about:blank'],{windowsHide:true,stdio:['ignore','pipe','pipe']});
 let browserLog='',launchError,ws,session,serial=0;
 browser.on('error',e=>{launchError=e;});for(const stream of [browser.stdout,browser.stderr])stream.on('data',d=>{browserLog=(browserLog+d.toString()).slice(-1800);});
 const pending=new Map(),requests=[],responses=new Map(),finished=new Set(),exceptions=[];
@@ -30,11 +30,13 @@ const report={scope:publicRun?'task15_actual_published_pages':'task15_actual_loc
 async function shot(kind,viewport){await command('Emulation.setDeviceMetricsOverride',{width:viewport,height:900,deviceScaleFactor:1,mobile:viewport<700});await delay(120);const metrics=await evaluate(`({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth,height:document.documentElement.scrollHeight})`);assert.ok(metrics.scroll<=metrics.client+1,'No horizontal overflow');const image=await command('Page.captureScreenshot',{format:'jpeg',quality:65,captureBeyondViewport:true,clip:{x:0,y:0,width:metrics.client,height:Math.min(metrics.height,12000),scale:1}});const bytes=Buffer.from(image.data,'base64'),name=`${kind}-${viewport}.jpg`;await fs.writeFile(path.join(artifacts,name),bytes);report.screenshots.push({name,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex'),viewport,metrics});}
 
 try{
- let address;for(let n=0;n<200;n++){if(launchError)throw launchError;try{address=(await fs.readFile(path.join(profile,'DevToolsActivePort'),'utf8')).trim().split(/\r?\n/);break;}catch{}if(browser.exitCode!==null)throw Error(browserLog);await delay(50);}assert.ok(address,'Browser debugger available');
+ let address;for(let n=0;n<450;n++){if(launchError)throw launchError;try{address=(await fs.readFile(path.join(profile,'DevToolsActivePort'),'utf8')).trim().split(/\r?\n/);break;}catch{}if(browser.exitCode!==null)throw Error(browserLog);await delay(50);}assert.ok(address,'Browser debugger available');
  ws=new WebSocket(`ws://127.0.0.1:${address[0]}${address[1]}`);await new Promise((resolve,reject)=>{ws.onopen=resolve;ws.onerror=reject;});
  ws.onmessage=event=>{const d=JSON.parse(event.data);if(d.id){const p=pending.get(d.id);if(p){clearTimeout(p.timeout);pending.delete(d.id);d.error?p.reject(Error(JSON.stringify(d.error))):p.resolve(d.result||{});}return;}const p=d.params||{};if(d.method==='Runtime.exceptionThrown')exceptions.push(p.exceptionDetails);if(d.method==='Network.requestWillBeSent')requests.push({id:p.requestId,url:p.request.url,method:p.request.method,body:p.request.postData||''});if(d.method==='Network.responseReceived')responses.set(p.requestId,p.response.status);if(d.method==='Network.loadingFinished')finished.add(p.requestId);};
  const targets=await command('Target.getTargets',{},false);const target=targets.targetInfos.find(t=>t.type==='page');session=(await command('Target.attachToTarget',{targetId:target.targetId,flatten:true},false)).sessionId;
  for(const method of ['Page.enable','Runtime.enable','Network.enable'])await command(method);
+ // Historical Task15 E2E only; not the new Task21 acceptance test.
+ await command('Page.addScriptToEvaluateOnNewDocument',{source:'window.__SGNaviLegacyRegression=true;'});
  await command('Network.setCacheDisabled',{cacheDisabled:true});
  const scenarios=[
   {case:'rental_deposit',prompt:'My landlord refuses to return my S$2,000 deposit. What can I do?',answers:{dispute_with:'landlord',premises_type:'residential',claim_amount_sgd:2000}},
