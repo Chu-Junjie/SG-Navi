@@ -266,10 +266,10 @@
       actions.append(btn("Confirm and continue →",()=>{
         context=copy;hideDialog();previousContexts=[];plan();
       },"intake-primary"));
-      body.appendChild(actions);showDialog();stage="confirm";
+      body.appendChild(actions);host.dataset.flowStage="review";showDialog();stage="confirm";
     }
     async function plan(){
-      reset();stage="checking";const token=serial;
+      reset();stage="checking";host.dataset.flowStage="checking";const token=serial;
       message("Checking the next step…");get("problem-submit").disabled=true;
       try{
         const data=await call("plan",token,{confirmed:true,context});
@@ -283,7 +283,7 @@
     }
     function showQuestion(question){
       if(!question||!context||Object.hasOwn(context.facts,question.field)){showLimited("We could not safely show the next question.",true);return;}
-      stage="question";body.replaceChildren();
+      stage="question";host.dataset.flowStage="questions";body.replaceChildren();
       body.appendChild(add("p","ONE QUICK DETAIL","task21-eyebrow"));
       body.appendChild(add("h2",question.prompt));
       body.appendChild(add("p",question.reason));
