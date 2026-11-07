@@ -24,7 +24,8 @@ class SkylineAssetTests(unittest.TestCase):
         ):
             with self.subTest(page=str(page)):
                 html = page.read_text(encoding="utf-8")
-                self.assertEqual(html.count(f'url("{expected}")'), 2)
+                # Desktop panorama + two mobile layers: uncropped top and soft scenic extension.
+                self.assertEqual(html.count(f'url("{expected}")'), 3)
                 self.assertTrue((page.parent / expected).is_file())
                 self.assertTrue(re.search(r'background-image\s*:', html))
 
