@@ -71,7 +71,7 @@ def test_no_silent_money_choice():
     assert "disputed_amount_cents" not in interpret_scenario(text)["context"]["facts"]
 
 def test_questions_are_one_at_a_time_and_skip_supplied_facts():
-    r = interpret_scenario("My landlord kept my deposit.")
+    r = interpret_scenario("My rental deposit was kept.")
     c = r["context"]
     assert next_decisive_question(c)["field"] == "dispute_with"
     c["facts"]["dispute_with"] = "landlord"
