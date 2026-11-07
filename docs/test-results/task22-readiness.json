@@ -1,0 +1,434 @@
+{
+  "source_checkout": "01d7d9ce102ea677cd2e19c603e38edeb18a4c68",
+  "frozen_before_baseline": true,
+  "observed_dependency_states": {
+    "90": "open",
+    "91": "open",
+    "92": "closed",
+    "93": "open"
+  },
+  "public_probe": {
+    "http": 404,
+    "content_type": "text/html; charset=utf-8",
+    "checked_at_utc": "2026-11-07T05:09:57.121222+00:00",
+    "url": "https://sg-navi-api-junjie.onrender.com/api/action-plan",
+    "synthetic_input": true
+  },
+  "baseline": {
+    "scope": "Real local legacy intake responses. Only core case recognition is counted.",
+    "executed_at_utc": "2026-11-07T05:13:37.573218+00:00",
+    "fixture_version": "task22-heldout-1",
+    "fixture_sha256": "879108dd6ed48dd0c53c356bc2675ac1883f4143d5c8dc6f01433b458961b282",
+    "scoring_version": "task22-action-usability-1",
+    "planned_endpoint_http": 404,
+    "legacy_core_case_matches": {
+      "rental": 12,
+      "consumer": 2
+    },
+    "observations": [
+      {
+        "id": "R01",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "f80da1773b557a9d799ff9d5d9f677ae857e99a1c48b66bf6d1181b13e0e140b"
+      },
+      {
+        "id": "R02",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "R03",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "fdb96125e13d70f59adb49e2701d657f637d2ad13cf6e75ae7638ab88f03f251"
+      },
+      {
+        "id": "R04",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "14094641132789ca19aea0bb01b4422dfcf1b9421d7b78345aaf26ae11f28341"
+      },
+      {
+        "id": "R05",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "f80da1773b557a9d799ff9d5d9f677ae857e99a1c48b66bf6d1181b13e0e140b"
+      },
+      {
+        "id": "R06",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "14094641132789ca19aea0bb01b4422dfcf1b9421d7b78345aaf26ae11f28341"
+      },
+      {
+        "id": "R07",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "14094641132789ca19aea0bb01b4422dfcf1b9421d7b78345aaf26ae11f28341"
+      },
+      {
+        "id": "R08",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "f80da1773b557a9d799ff9d5d9f677ae857e99a1c48b66bf6d1181b13e0e140b"
+      },
+      {
+        "id": "R09",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "3763215c1269e65f2e7a58b89d9fef5aa9a6be7b9046d8976482821ae6cbb964"
+      },
+      {
+        "id": "R10",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "da781c51a075a91ce718a859d7f07cb795c36b755e7246a2b05aac936e9ce1ba"
+      },
+      {
+        "id": "R11",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "R12",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "R13",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "f80da1773b557a9d799ff9d5d9f677ae857e99a1c48b66bf6d1181b13e0e140b"
+      },
+      {
+        "id": "R14",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "14094641132789ca19aea0bb01b4422dfcf1b9421d7b78345aaf26ae11f28341"
+      },
+      {
+        "id": "R15",
+        "group": "rental",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": true,
+        "response_sha256": "14094641132789ca19aea0bb01b4422dfcf1b9421d7b78345aaf26ae11f28341"
+      },
+      {
+        "id": "C01",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": true,
+        "response_sha256": "6d28450903af4f9d4679482105e7bcbaf2592ad41112deba63d0e1e16739d067"
+      },
+      {
+        "id": "C02",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C03",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C04",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C05",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C06",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C07",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C08",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C09",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C10",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C11",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C12",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C13",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "C14",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": true,
+        "response_sha256": "db2481c089e5593f36b199aee525068694258a46e58c092cd565f292cd10eb87"
+      },
+      {
+        "id": "C15",
+        "group": "consumer",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": false,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "B01",
+        "group": "boundary",
+        "legacy_http": 200,
+        "intake_status": "out_of_scope",
+        "suggested_case_type": null,
+        "expected_case_type": null,
+        "legacy_core_case_match": null,
+        "response_sha256": "8b844b513aab2d1450f9917f5a842356f8af413cf06a286c6ee5af40041e0019"
+      },
+      {
+        "id": "B02",
+        "group": "boundary",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "rental_deposit",
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": null,
+        "response_sha256": "fdb96125e13d70f59adb49e2701d657f637d2ad13cf6e75ae7638ab88f03f251"
+      },
+      {
+        "id": "B03",
+        "group": "boundary",
+        "legacy_http": 200,
+        "intake_status": "suggested",
+        "suggested_case_type": "consumer_complaint",
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": null,
+        "response_sha256": "3d348f258ba88b46d4b366e93c413626d53399b6acbf0fc53eaf7ced398c2888"
+      },
+      {
+        "id": "B04",
+        "group": "boundary",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": null,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "B05",
+        "group": "boundary",
+        "legacy_http": 200,
+        "intake_status": "out_of_scope",
+        "suggested_case_type": null,
+        "expected_case_type": null,
+        "legacy_core_case_match": null,
+        "response_sha256": "8b844b513aab2d1450f9917f5a842356f8af413cf06a286c6ee5af40041e0019"
+      },
+      {
+        "id": "B06",
+        "group": "boundary",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": null,
+        "legacy_core_case_match": null,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "B07",
+        "group": "boundary",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": null,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "B08",
+        "group": "boundary",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": null,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "B09",
+        "group": "boundary",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "consumer_complaint",
+        "legacy_core_case_match": null,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      },
+      {
+        "id": "B10",
+        "group": "boundary",
+        "legacy_http": 200,
+        "intake_status": "cannot_determine",
+        "suggested_case_type": null,
+        "expected_case_type": "rental_deposit",
+        "legacy_core_case_match": null,
+        "response_sha256": "4c89c7da3c4ce811ea215c199b890c7504c8720a1e7d2ced9dc87f19c150f665"
+      }
+    ],
+    "new_action_acceptance": "NOT_RUN",
+    "public_browser_acceptance": "NOT_RUN",
+    "human_comprehension": "NOT_RUN"
+  }
+}
