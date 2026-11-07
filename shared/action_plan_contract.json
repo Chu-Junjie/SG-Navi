@@ -1,0 +1,1331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sg-navi.invalid/shared/action_plan_contract.json",
+  "title": "SG Navi action plan 1.0",
+  "description": "Additive Task 16 contract for a short confirmation, a single decisive question, and evidence-linked next actions.",
+  "endpoint": "POST /api/action-plan",
+  "$defs": {
+    "draft": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "subject",
+        "body",
+        "slots"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1600
+        },
+        "slots": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "label"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]+$",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              }
+            }
+          }
+        }
+      }
+    },
+    "request": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action_plan_version",
+            "request_id",
+            "operation",
+            "description"
+          ],
+          "properties": {
+            "action_plan_version": {
+              "const": "1.0"
+            },
+            "request_id": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            },
+            "operation": {
+              "const": "interpret"
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1200
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action_plan_version",
+            "request_id",
+            "operation",
+            "confirmed",
+            "context"
+          ],
+          "properties": {
+            "action_plan_version": {
+              "const": "1.0"
+            },
+            "request_id": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            },
+            "operation": {
+              "const": "plan"
+            },
+            "confirmed": {
+              "const": true
+            },
+            "context": {
+              "$ref": "#/$defs/context"
+            }
+          }
+        }
+      ]
+    },
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action_plan_version",
+        "request_id",
+        "state",
+        "reason",
+        "message",
+        "context",
+        "revision",
+        "question",
+        "plan"
+      ],
+      "properties": {
+        "action_plan_version": {
+          "const": "1.0"
+        },
+        "request_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "state": {
+          "enum": [
+            "CONFIRM",
+            "ASK",
+            "READY",
+            "LIMITED",
+            "UNAVAILABLE"
+          ]
+        },
+        "reason": {
+          "enum": [
+            "awaiting_confirmation",
+            "missing_decisive_fact",
+            "verified_action",
+            "outside_scope",
+            "ambiguous_scope",
+            "source_unverified",
+            "insufficient_facts",
+            "service_unavailable"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "context": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/context"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "revision": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{24}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "question": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/question"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "plan": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/plan"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "CONFIRM"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "const": "awaiting_confirmation"
+              },
+              "context": {
+                "$ref": "#/$defs/context"
+              },
+              "revision": {
+                "type": "null"
+              },
+              "question": {
+                "type": "null"
+              },
+              "plan": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "ASK"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "const": "missing_decisive_fact"
+              },
+              "context": {
+                "$ref": "#/$defs/context"
+              },
+              "revision": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{24}$"
+              },
+              "question": {
+                "$ref": "#/$defs/question"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "READY"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "const": "verified_action"
+              },
+              "context": {
+                "$ref": "#/$defs/context"
+              },
+              "revision": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{24}$"
+              },
+              "question": {
+                "type": "null"
+              },
+              "plan": {
+                "$ref": "#/$defs/plan"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "LIMITED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "enum": [
+                  "outside_scope",
+                  "ambiguous_scope",
+                  "source_unverified",
+                  "insufficient_facts"
+                ]
+              },
+              "question": {
+                "type": "null"
+              },
+              "plan": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "UNAVAILABLE"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "const": "service_unavailable"
+              },
+              "revision": {
+                "type": "null"
+              },
+              "question": {
+                "type": "null"
+              },
+              "plan": {
+                "type": "null"
+              },
+              "context": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_type",
+        "issue_subtype",
+        "goal",
+        "facts",
+        "summary"
+      ],
+      "properties": {
+        "case_type": {
+          "enum": [
+            "rental_deposit",
+            "consumer_complaint"
+          ]
+        },
+        "issue_subtype": {
+          "enum": [
+            "deposit_return",
+            "deposit_deduction",
+            "early_exit",
+            "pass_related_exit",
+            "agent_conduct",
+            "agency_agreement",
+            "unspecified",
+            "restaurant_overcharge",
+            "duplicate_charge",
+            "unclear_charge",
+            "goods_dispute",
+            "services_dispute"
+          ]
+        },
+        "goal": {
+          "enum": [
+            "complain",
+            "seek_refund",
+            "prepare_claim",
+            "understand_options",
+            "contact_provider"
+          ]
+        },
+        "facts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {
+            "resolution_attempted": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "documents_available": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "disputed_amount_cents": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000000000
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "relevant_event_date": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "dispute_with": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "landlord",
+                    "agent"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "premises_type": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "hdb",
+                    "private_residential",
+                    "commercial",
+                    "industrial"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "lease_duration_months": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1200
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "respondent_in_singapore": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "agency_agreement_signed": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "pass_event": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "cancelled",
+                    "expiring",
+                    "none"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "break_clause_present": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "lease_ended": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "purchase_purpose": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "personal",
+                    "business"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "merchant_location": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "singapore",
+                    "outside_singapore"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "supplier_registered_in_sg": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "purchase_type": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "goods",
+                    "services"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "consumer_context": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "local_consumer",
+                    "visitor"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 280
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "case_type": {
+                "const": "rental_deposit"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "issue_subtype": {
+                "enum": [
+                  "deposit_return",
+                  "deposit_deduction",
+                  "early_exit",
+                  "pass_related_exit",
+                  "agent_conduct",
+                  "agency_agreement",
+                  "unspecified"
+                ]
+              },
+              "facts": {
+                "propertyNames": {
+                  "enum": [
+                    "resolution_attempted",
+                    "documents_available",
+                    "disputed_amount_cents",
+                    "relevant_event_date",
+                    "dispute_with",
+                    "premises_type",
+                    "lease_duration_months",
+                    "respondent_in_singapore",
+                    "agency_agreement_signed",
+                    "pass_event",
+                    "break_clause_present",
+                    "lease_ended"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "case_type": {
+                "const": "consumer_complaint"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "issue_subtype": {
+                "enum": [
+                  "restaurant_overcharge",
+                  "duplicate_charge",
+                  "unclear_charge",
+                  "goods_dispute",
+                  "services_dispute",
+                  "unspecified"
+                ]
+              },
+              "facts": {
+                "propertyNames": {
+                  "enum": [
+                    "resolution_attempted",
+                    "documents_available",
+                    "disputed_amount_cents",
+                    "relevant_event_date",
+                    "purchase_purpose",
+                    "merchant_location",
+                    "supplier_registered_in_sg",
+                    "purchase_type",
+                    "consumer_context"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "field",
+        "prompt",
+        "reason",
+        "options"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "field": {
+          "enum": [
+            "resolution_attempted",
+            "documents_available",
+            "disputed_amount_cents",
+            "relevant_event_date",
+            "dispute_with",
+            "premises_type",
+            "lease_duration_months",
+            "respondent_in_singapore",
+            "agency_agreement_signed",
+            "pass_event",
+            "break_clause_present",
+            "lease_ended",
+            "purchase_purpose",
+            "merchant_location",
+            "supplier_registered_in_sg",
+            "purchase_type",
+            "consumer_context"
+          ]
+        },
+        "prompt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 220
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "label"
+            ],
+            "properties": {
+              "value": {
+                "type": [
+                  "boolean",
+                  "string",
+                  "integer",
+                  "null"
+                ]
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 85
+              }
+            }
+          },
+          "minItems": 2,
+          "maxItems": 7
+        }
+      }
+    },
+    "plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "headline",
+        "assessment",
+        "primary_action",
+        "checklist",
+        "contacts",
+        "details",
+        "draft",
+        "legal_basis",
+        "source_version",
+        "evidence"
+      ],
+      "properties": {
+        "headline": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "assessment": {
+          "$ref": "#/$defs/claim"
+        },
+        "primary_action": {
+          "$ref": "#/$defs/action"
+        },
+        "checklist": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claim"
+          },
+          "minItems": 1,
+          "maxItems": 5
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/contact"
+          },
+          "minItems": 0,
+          "maxItems": 5
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "title",
+              "items"
+            ],
+            "properties": {
+              "kind": {
+                "enum": [
+                  "documents",
+                  "pitfalls",
+                  "alternatives",
+                  "conditions"
+                ]
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 70
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claim"
+                },
+                "minItems": 1,
+                "maxItems": 6
+              }
+            }
+          },
+          "minItems": 0,
+          "maxItems": 4
+        },
+        "draft": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/draft"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "legal_basis": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "claim_id",
+              "evidence_id"
+            ],
+            "properties": {
+              "claim_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              "evidence_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              }
+            }
+          },
+          "minItems": 0,
+          "maxItems": 6
+        },
+        "source_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          },
+          "minItems": 1,
+          "maxItems": 36
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text",
+        "evidence_ids"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 380
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80,
+            "pattern": "^[A-Za-z0-9_-]+$"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "uniqueItems": true
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text",
+        "evidence_ids",
+        "label",
+        "kind",
+        "contact_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 380
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80,
+            "pattern": "^[A-Za-z0-9_-]+$"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "kind": {
+          "enum": [
+            "prepare",
+            "consult",
+            "complaint_intake",
+            "check_criteria"
+          ]
+        },
+        "contact_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "institution",
+        "purpose",
+        "kind",
+        "value",
+        "evidence_ids"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "institution": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "purpose": {
+          "enum": [
+            "complaint_intake",
+            "consumer_assistance",
+            "agency_conduct",
+            "agency_agreement_help",
+            "procedure_information"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "web",
+            "phone",
+            "email"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80,
+            "pattern": "^[A-Za-z0-9_-]+$"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "web"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "string",
+                "format": "uri",
+                "maxLength": 600,
+                "pattern": "^https://"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "phone"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "string",
+                "pattern": "^\\+65[0-9]{8}$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "email"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "string",
+                "format": "email",
+                "maxLength": 120,
+                "pattern": "^[A-Za-z0-9_.+-]+@[A-Za-z0-9.-]+$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source_id",
+        "kind",
+        "publisher",
+        "title",
+        "url",
+        "locator",
+        "quote",
+        "quote_sha256",
+        "source_sha256",
+        "captured_at",
+        "reviewed_at",
+        "reviewed_by",
+        "review_method",
+        "review_status",
+        "provision",
+        "edition"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "kind": {
+          "enum": [
+            "statute",
+            "official_procedure",
+            "contract_template"
+          ]
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 600,
+          "pattern": "^https://"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 450
+        },
+        "quote_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "captured_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reviewed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reviewed_by": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "review_method": {
+          "enum": [
+            "live_excerpt_check",
+            "official_pdf_excerpt_check"
+          ]
+        },
+        "review_status": {
+          "const": "verified"
+        },
+        "provision": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "edition": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "statute"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "provision": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "edition": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "provision": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
