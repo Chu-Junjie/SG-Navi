@@ -63,7 +63,7 @@
     }
   }
   function init(doc, win, options = {}) {
-    if (win.SGNaviTask21 && options.legacy !== true) return win.SGNaviTask21.init(doc, win);
+    if (win.SGNaviTask21 && options.legacy !== true && win.__SGNaviLegacyRegression !== true) return win.SGNaviTask21.init(doc, win);
     if (win.SGNaviTask15 && options.legacy !== true) return win.SGNaviTask15.init(doc, win);
     const get = id => doc.getElementById(id);
     const form = get("problem-form"), input = get("problem-text"), review = get("problem-review");
