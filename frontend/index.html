@@ -49,11 +49,14 @@
     .hero::after {
       content: ""; position: absolute; inset: 0 0 auto; z-index: -1;
       height: clamp(760px, 75vw, 1120px);
+      /* Preserve the entire skyline photo (including the right-side wheel).
+         The hero's navy base fills only the space outside the image. */
       background-image:
-        linear-gradient(to bottom, transparent 0%, transparent 56%, var(--navy-deep) 100%),
         linear-gradient(90deg, rgba(20, 43, 62, .94) 0%, rgba(20, 43, 62, .79) 36%, rgba(20, 43, 62, .41) 68%, rgba(20, 43, 62, .12) 100%),
         url("./assets/sg-skyline.webp");
-      background-size: cover; background-position: center 53%; background-repeat: no-repeat;
+      background-size: 100% 100%, contain;
+      background-position: center top, center top;
+      background-repeat: no-repeat;
       pointer-events: none;
     }
     .hero::before {
@@ -123,10 +126,11 @@
       .hero::after {
         height: clamp(650px, 145vw, 880px);
         background-image:
-          linear-gradient(to bottom, transparent 0%, transparent 50%, var(--navy-deep) 100%),
           linear-gradient(90deg, rgba(20, 43, 62, .92) 0%, rgba(20, 43, 62, .82) 46%, rgba(20, 43, 62, .62) 100%),
           url("./assets/sg-skyline.webp");
-        background-position: 61% center;
+        /* Do not crop the right-hand landmarks on smaller screens either. */
+        background-size: 100% 100%, contain;
+        background-position: center top, center top;
       }
       .hero::before { width: 300px; height: 300px; top: -185px; right: -110px; }
 
