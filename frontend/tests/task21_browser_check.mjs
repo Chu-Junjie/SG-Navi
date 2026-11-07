@@ -71,7 +71,7 @@ try{
  for(const m of ["Page.enable","Runtime.enable","Network.enable"])await command(m);
  for(const scenario of [
   {name:"restaurant",description:"The restaurant in Singapore charged me SGD 20 extra and refuses to refund it.",type:"consumer_complaint",subtype:"restaurant_overcharge",goal:"complain"},
-  {name:"rental_pass",description:"My work pass was cancelled and I must leave my private rental early. My landlord will not refund my deposit.",type:"rental_deposit",subtype:"pass_related_exit",goal:"seek_refund"}
+  {name:"rental_pass",description:"My work pass was cancelled and I must leave my private condo early. My landlord will not refund my rental deposit.",type:"rental_deposit",subtype:"pass_related_exit",goal:"seek_refund"}
  ]){
    const trace={name:scenario.name,states:[],passed:false};report.cases.push(trace);
    await command("Emulation.setDeviceMetricsOverride",{width:1440,height:850,deviceScaleFactor:1,mobile:false});
@@ -101,7 +101,7 @@ try{
        const last=await lastResponse();
        trace.diagnostic={state:stage,apiState:last.state,reason:last.reason,apiMessage:last.message,
          ui:await evaluate("document.getElementById('task21-result')?.textContent.slice(0,700)")};
-       throw Error("Action Plan stopped at "+JSON.stringify(trace.diagnostic));
+       throw Error("Action Plan stopped for "+scenario.name+" at "+JSON.stringify(trace.diagnostic));
      }
      response=await lastResponse();assert.equal(response.state,"ASK");
      const q=response.question;trace.states.push("ASK:"+q.field);
