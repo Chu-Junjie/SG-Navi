@@ -25,11 +25,11 @@ VERSION = "1.0"
 def has(text, pattern):
     return bool(re.search(pattern, text, re.I))
 
-RENTAL = r"\\b(?:landlord|tenant|tenancy|rent(?:al|ed|ing)?|lease|security deposit|rental deposit|flat|roommate|property agent|estate agent|estate agency|agency agreement)\\b"
-RENTAL_TOPIC = r"\\b(?:deposit|lease|tenan\\w*|landlord|rent\\w*|early (?:exit|termination|departure)|break clause|agency agreement|commission dispute)\\b"
+RENTAL = r"\b(?:landlord|tenant|tenancy|rent(?:al|ed|ing)?|lease|security deposit|rental deposit|flat|roommate|property agent|estate agent|estate agency|agency agreement)\b"
+RENTAL_TOPIC = r"\b(?:deposit|lease|tenan\w*|landlord|rent\w*|early (?:exit|termination|departure)|break clause|agency agreement|commission dispute)\b"
 CONSUMER = r"\b(?:restaurant|cafe|dining|meal|food|bill|charged|charge|overcharg\w*|refund|purchase\w*|bought|shop|store|seller|merchant|goods|product|service|defective|faulty|warranty|double payment|duplicate payment)\b"
 TRANSACTION = r"\b(?:restaurant|cafe|dining|meal|bill|charg\w*|overcharg\w*|purchase\w*|bought|shop|store|seller|merchant|goods|product|service|faulty|defective|payment)\b"
-DISPUTE = r"\\b(?:overcharg\\w*|extra|incorrect|wrong|unexplained|disput\\w*|refus\\w*|deny|denied|won.t|will not|would not|do not understand|don.t understand|not return\\w*|not refund\\w*|duplicate|double|twice|faulty|defective|broken|complain\\w*|deduct\\w*|withh\\w*|kept|keep|retained|missing|never arrived|not deliver\\w*)\\b"
+DISPUTE = r"\b(?:overcharg\w*|extra|incorrect|wrong|unexplained|disput\w*|refus\w*|deny|denied|won.t|will not|would not|do not understand|don.t understand|not return\w*|not refund\w*|duplicate|double|twice|faulty|defective|broken|complain\w*|deduct\w*|withh\w*|kept|keep|retained|missing|never arrived|not deliver\w*)\b"
 PASS = r"\b(?:work pass|work permit|employment pass|s pass|pass expir\w*|pass cancel\w*|visa)\b"
 STANDALONE = r"\b(?:immigration|citizenship|passport|apply for (?:a |my )?(?:work permit|visa)|renew (?:my |a )?(?:visa|pass)|salary|criminal charge|divorce|tax evasion)\b"
 BOND = r"\b(?:government|employer|migrant worker|work permit)\s+(?:security\s+)?bond\b|\bsecurity bond\b"
@@ -116,7 +116,7 @@ def _subtype(case, text):
             return "agency_agreement"
         if has(text, PASS) and has(text, r"\b(?:early|exit|leav\w*|depart\w*|terminat\w*|deposit|lease|tenan\w*)\b"):
             return "pass_related_exit"
-        if has(text, r"\\b(?:early exit|leave early|leaving early|leave (?:my|the) (?:rented|rental) \\w+ early|end (?:my|the) lease early|terminate (?:my|the) lease|break (?:my|the) lease)\\b"):
+        if has(text, r"\b(?:early exit|leave early|leaving early|leave (?:my|the) (?:rented|rental) \w+ early|end (?:my|the) lease early|terminate (?:my|the) lease|break (?:my|the) lease)\b"):
             return "early_exit"
         if has(text, r"\b(?:deduct\w*|damage charge|cleaning charge|withh\w*)\b"):
             return "deposit_deduction"
@@ -126,7 +126,7 @@ def _subtype(case, text):
     if has(text, r"\b(?:twice|double charg\w*|double billed|duplicate (?:charge|payment|transaction)|charged twice|two identical charges)\b"):
         return "duplicate_charge"
     if has(text, r"\b(?:restaurant|cafe|dining|meal|food|bill)\b"):
-        if has(text, r"\b(?:overcharg\w*|charg\w*\s+(?:me\s+)?(?:extra|too much|more)|extra\s+(?:charge|fee|SGD|S\$|\d)|incorrect bill|wrong bill|charged \w+ extra)\b"):
+        if has(text, r"\b(?:overcharg\w*|charg\w*[^.?!]{0,50}\bextra|charg\w*\s+(?:me\s+)?(?:too much|more)|extra\s+(?:charge|fee|SGD|S\$|\d)|incorrect bill|wrong bill)\b"):
             return "restaurant_overcharge"
         return "unclear_charge"
     if has(text, r"\b(?:faulty|defective|broken|goods|product|phone|laptop)\b"):
