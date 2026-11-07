@@ -86,7 +86,8 @@ try{
    const choice="(()=>{const a=[...document.querySelectorAll('#task21-overlay select')];"+
      "if(a.length!==3)return false;"+
      "for(const [i,v] of [[0,"+JSON.stringify(scenario.type)+"],[1,"+JSON.stringify(scenario.subtype)+"],[2,"+JSON.stringify(scenario.goal)+"]])"+
-     "{a[i].value=v;a[i].dispatchEvent(new Event('change',{bubbles:true}));}return true;})()";
+     "{const el=document.querySelectorAll('#task21-overlay select')[i];if(!el)return false;"+
+     "if(el.value!==v){el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}));}}return true;})()";
    assert.ok(await evaluate(choice));
    await click("#task21-overlay button","Confirm and continue");
    const preferred={merchant_location:"singapore",purchase_purpose:"personal",
