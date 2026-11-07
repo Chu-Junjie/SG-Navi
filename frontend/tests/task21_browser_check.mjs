@@ -97,7 +97,12 @@ try{
      await until("['questions','results','limited'].includes(document.querySelector('#problem-intake')?.dataset.flowStage)");
      const stage=await evaluate("document.querySelector('#problem-intake').dataset.flowStage");
      if(stage==="results")break;
-     assert.equal(stage,"questions","A verified route should be available");
+     if(stage!=="questions"){
+       const last=await lastResponse();
+       trace.diagnostic={state:stage,apiState:last.state,reason:last.reason,apiMessage:last.message,
+         ui:await evaluate("document.getElementById('task21-result')?.textContent.slice(0,700)")};
+       throw Error("Action Plan stopped at "+JSON.stringify(trace.diagnostic));
+     }
      response=await lastResponse();assert.equal(response.state,"ASK");
      const q=response.question;trace.states.push("ASK:"+q.field);
      let k=q.options.findIndex(x=>x.value===preferred[q.field]);
