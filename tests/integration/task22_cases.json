@@ -1,0 +1,941 @@
+{
+  "fixture_version": "task22-heldout-1",
+  "scoring_version": "task22-action-usability-1",
+  "scope": "Synthetic held-out inputs and independently authored expected outcomes for the new action plan service. Development examples and legacy baseline are scored separately. Fixture-labelled failures use isolated state.",
+  "cases": [
+    {
+      "id": "R01",
+      "group": "rental",
+      "description": "I handed back my condo keys at the end of the lease. My landlord still has the deposit and hasn't explained why. I want it returned.",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed tenancy agreement",
+          "deposit payment evidence",
+          "correspondence or written deductions"
+        ]
+      }
+    },
+    {
+      "id": "R02",
+      "group": "rental",
+      "description": "The owner kept part of my private flat's deposit for cleaning. I'd like a breakdown and the rest of the money.",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_deduction",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed tenancy agreement",
+          "deposit payment evidence",
+          "correspondence or written deductions"
+        ]
+      }
+    },
+    {
+      "id": "R03",
+      "group": "rental",
+      "description": "After my work pass was cancelled I had to leave my private rental early. The landlord says that settles the deposit in their favour. What should I check?",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential",
+        "pass_event": "cancelled"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed break/deposit terms",
+          "written notice and delivery record",
+          "deposit deduction or withholding explanation"
+        ],
+        "must_cite": [
+          "SCTA-SCHEDULE-1C"
+        ],
+        "prohibited": [
+          "automatic forfeiture",
+          "automatic refund"
+        ]
+      }
+    },
+    {
+      "id": "R04",
+      "group": "rental",
+      "description": "My work pass will expire soon, and I may have to leave my condo before the lease ends. I don't know whether I signed a break clause. How do I deal with the deposit?",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential",
+        "pass_event": "expiring",
+        "break_clause_present": "unknown"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed break/deposit terms",
+          "written notice and delivery record",
+          "deposit deduction or withholding explanation"
+        ],
+        "must_not_ask": [
+          "break_clause_present"
+        ]
+      }
+    },
+    {
+      "id": "R05",
+      "group": "rental",
+      "description": "My landlord is keeping the condo deposit after my pass cancellation. I checked the signed agreement and it has no break clause. I want to ask for the deposit back.",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential",
+        "pass_event": "cancelled",
+        "break_clause_present": false
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed break/deposit terms",
+          "written notice and delivery record",
+          "deposit deduction or withholding explanation"
+        ],
+        "prohibited": [
+          "assume signed break clause"
+        ]
+      }
+    },
+    {
+      "id": "R06",
+      "group": "rental",
+      "description": "I left an HDB flat early after my work pass ended. The owner kept the rental deposit. How should I request it back?",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "hdb",
+        "pass_event": "cancelled"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed tenancy agreement",
+          "deposit payment evidence",
+          "correspondence or written deductions"
+        ],
+        "prohibited": [
+          "apply private residential template"
+        ]
+      }
+    },
+    {
+      "id": "R07",
+      "group": "rental",
+      "description": "I agreed with the owner to move out of my condo before the lease expired. They won't explain the deductions from the rental deposit. How should I proceed?",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "early_exit",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed break/deposit terms",
+          "written notice and delivery record",
+          "deposit deduction or withholding explanation"
+        ],
+        "prohibited": [
+          "infer work pass event"
+        ]
+      }
+    },
+    {
+      "id": "R08",
+      "group": "rental",
+      "description": "My landlord kept the deposit from a twelve-month condo lease. What should I prepare before assessing a small claim?",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential",
+        "lease_duration_months": 12
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "prepare_claim",
+        "state": "READY",
+        "action_kind": "check_criteria",
+        "contact_id": "sct-criteria",
+        "checklist": [
+          "tenancy agreement",
+          "deposit payment evidence",
+          "correspondence"
+        ],
+        "must_cite": [
+          "SCTA-SCHEDULE-1C"
+        ]
+      }
+    },
+    {
+      "id": "R09",
+      "group": "rental",
+      "description": "What court conditions should I check for a withheld private rental deposit? I'm unsure of the length of my agreement.",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential",
+        "lease_duration_months": "unknown"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "prepare_claim",
+        "state": "READY",
+        "action_kind": "check_criteria",
+        "contact_id": "sct-criteria",
+        "checklist": [
+          "tenancy agreement",
+          "deposit payment evidence",
+          "correspondence"
+        ],
+        "must_not_ask": [
+          "lease_duration_months"
+        ]
+      }
+    },
+    {
+      "id": "R10",
+      "group": "rental",
+      "description": "An estate agent advertised a deposit condition to me and later denied saying it. How do I report their conduct?",
+      "confirmed_facts": {
+        "dispute_with": "agent"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "agent_conduct",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "cea-conduct",
+        "checklist": [
+          "description of the conduct",
+          "agency or agent correspondence"
+        ]
+      }
+    },
+    {
+      "id": "R11",
+      "group": "rental",
+      "description": "I signed an estate agency agreement. I dispute what the agent billed me in the rental transaction and want to know how to resolve the agency dispute.",
+      "confirmed_facts": {
+        "dispute_with": "agent",
+        "agency_agreement_signed": true
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "agency_agreement",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "consult",
+        "contact_id": "cea-agreement",
+        "checklist": [
+          "signed agency agreement",
+          "written communications"
+        ]
+      }
+    },
+    {
+      "id": "R12",
+      "group": "rental",
+      "description": "Which dispute scheme should I use for a fee charged by the property agency during my rental? I want help with the agency contract.",
+      "confirmed_facts": {
+        "dispute_with": "agent"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "agency_agreement",
+        "goal": "understand_options",
+        "state": "ASK",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "agency agreement"
+        ],
+        "question_field": "agency_agreement_signed"
+      }
+    },
+    {
+      "id": "R13",
+      "group": "rental",
+      "description": "The condo landlord says repairs account for my withheld deposit. I dealt directly with the landlord. What evidence should I get before contacting them again?",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_deduction",
+        "goal": "contact_provider",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed tenancy agreement",
+          "deposit payment evidence",
+          "correspondence or written deductions"
+        ],
+        "prohibited": [
+          "CEA agent complaint"
+        ]
+      }
+    },
+    {
+      "id": "R14",
+      "group": "rental",
+      "description": "Can I look into a small claim over the deposit from my thirty-month condo lease? I need the applicable procedure.",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential",
+        "lease_duration_months": 30
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "prepare_claim",
+        "state": "READY",
+        "action_kind": "check_criteria",
+        "contact_id": "sct-criteria",
+        "checklist": [
+          "tenancy agreement",
+          "deposit payment evidence",
+          "correspondence"
+        ],
+        "prohibited": [
+          "claim is eligible or can already be filed"
+        ]
+      }
+    },
+    {
+      "id": "R15",
+      "group": "rental",
+      "description": "My private apartment owner has withheld a cleaning deduction from the rental deposit. I don't know the amount yet. I'd like the money back.",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential",
+        "disputed_amount_cents": "unknown"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_deduction",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed tenancy agreement",
+          "deposit payment evidence",
+          "correspondence or written deductions"
+        ],
+        "must_not_ask": [
+          "disputed_amount_cents"
+        ]
+      }
+    },
+    {
+      "id": "C01",
+      "group": "consumer",
+      "description": "I live in Singapore and went to a restaurant here for dinner. They billed an item above its displayed price and refused my correction request. Where can I complain?",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ],
+        "must_cite": [
+          "CPFTA-4A"
+        ]
+      }
+    },
+    {
+      "id": "C02",
+      "group": "consumer",
+      "description": "At a Singapore café where I ate for myself, I was charged twice for the same meal. I live here and the café wouldn't fix it. I want to make a complaint.",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "duplicate_charge",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ]
+      }
+    },
+    {
+      "id": "C03",
+      "group": "consumer",
+      "description": "My personal dinner bill in Singapore has a charge I don't recognise. I haven't asked the restaurant what it is. What should I do first?",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": false
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unclear_charge",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "itemised bill",
+          "record of the unclear charge"
+        ]
+      }
+    },
+    {
+      "id": "C04",
+      "group": "consumer",
+      "description": "I live in Singapore. A restaurant here charged more than its advertised price. I already asked for a correction and want to complain.",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "ASK",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "receipt or displayed price"
+        ],
+        "question_field": "purchase_purpose"
+      }
+    },
+    {
+      "id": "C05",
+      "group": "consumer",
+      "description": "The Singapore bistro charged extra for my personal meal and won't give the difference back. I live here but don't know whether the business is registered. How can I complain?",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true,
+        "supplier_registered_in_sg": "unknown"
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ],
+        "must_not_ask": [
+          "supplier_registered_in_sg"
+        ],
+        "prohibited": [
+          "confirmed eligibility"
+        ]
+      }
+    },
+    {
+      "id": "C06",
+      "group": "consumer",
+      "description": "I found two entries on my card for my personal meal at a Singapore restaurant. I haven't contacted them. How can I prepare to ask for my money back?",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": false
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "duplicate_charge",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "both payment entries",
+          "receipt"
+        ]
+      }
+    },
+    {
+      "id": "C07",
+      "group": "consumer",
+      "description": "I am visiting Singapore and a local restaurant billed my personal meal above the menu price. I need to understand the next steps after asking the restaurant.",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "visitor",
+        "resolution_attempted": true
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "receipt and disputed difference"
+        ],
+        "prohibited": [
+          "unqualified local-consumer intake route"
+        ]
+      }
+    },
+    {
+      "id": "C08",
+      "group": "consumer",
+      "description": "My Singapore shop purchase for personal use came damaged. Before I contact the shop, what documents should I keep?",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "purchase_type": "goods",
+        "resolution_attempted": false
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "goods_dispute",
+        "goal": "contact_provider",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "receipt",
+          "order or product records"
+        ],
+        "prohibited": [
+          "assert misleading billing without facts"
+        ]
+      }
+    },
+    {
+      "id": "C09",
+      "group": "consumer",
+      "description": "The local repair service I bought for my own use did something different from the service description. How should I get ready to speak to the provider?",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "purchase_type": "services",
+        "resolution_attempted": false
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "services_dispute",
+        "goal": "contact_provider",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "service description",
+          "bill and correspondence"
+        ]
+      }
+    },
+    {
+      "id": "C10",
+      "group": "consumer",
+      "description": "I'm based in Singapore and the restaurant here added an unexplained amount to my personal meal after I saw the price. They refused to explain it. I want assistance with a complaint.",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unclear_charge",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ]
+      }
+    },
+    {
+      "id": "C11",
+      "group": "consumer",
+      "description": "I live in Singapore. The bill for my own meal here listed a larger amount than shown on the menu. I asked and the business wouldn't correct it. How should I seek a refund?",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ],
+        "prohibited": [
+          "guarantee a refund"
+        ]
+      }
+    },
+    {
+      "id": "C12",
+      "group": "consumer",
+      "description": "I'd like to ask a Singapore restaurant to explain a charge on my personal bill. I don't know whether the charge was a mistake.",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": false
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unclear_charge",
+        "goal": "contact_provider",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "itemised bill",
+          "unclear charge"
+        ]
+      }
+    },
+    {
+      "id": "C13",
+      "group": "consumer",
+      "description": "The same Singapore café transaction was charged again. I haven't checked whether the second amount is final. It was my own meal and I want to know what to check.",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": false
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "duplicate_charge",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "both payment entries",
+          "receipt"
+        ],
+        "prohibited": [
+          "promise card reversal"
+        ]
+      }
+    },
+    {
+      "id": "C14",
+      "group": "consumer",
+      "description": "On a personal purchase at a local restaurant, the menu showed one price and I paid a higher one. I live here and the manager declined to help. Can I make a complaint?",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ]
+      }
+    },
+    {
+      "id": "C15",
+      "group": "consumer",
+      "description": "I live in Singapore and paid for a personal restaurant meal here. I think I was billed an extra item. I haven't spoken to the staff yet. What can I do?",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": false
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "itemised bill",
+          "disputed item or menu price"
+        ]
+      }
+    },
+    {
+      "id": "B01",
+      "group": "boundary",
+      "description": "Where do I apply to extend an employment pass? I have no rental or purchase issue.",
+      "confirmed_facts": {},
+      "expected": {
+        "case_type": null,
+        "issue_subtype": null,
+        "goal": null,
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      }
+    },
+    {
+      "id": "B02",
+      "group": "boundary",
+      "description": "I lease a warehouse and the landlord won't release my commercial lease deposit. I want a refund.",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "industrial"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "seek_refund",
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      }
+    },
+    {
+      "id": "B03",
+      "group": "boundary",
+      "description": "The restaurant charged our company for an extra corporate catering order. We bought it for the business. Where do I complain?",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "business",
+        "consumer_context": "local_consumer"
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      }
+    },
+    {
+      "id": "B04",
+      "group": "boundary",
+      "description": "A merchant based entirely overseas won't fix an online charge. This was for my own use. I want the money back.",
+      "confirmed_facts": {
+        "merchant_location": "outside_singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer"
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "goods_dispute",
+        "goal": "seek_refund",
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      }
+    },
+    {
+      "id": "B05",
+      "group": "boundary",
+      "description": "My employer wants its government security bond returned after my Work Permit cancellation. This is not money paid to a landlord.",
+      "confirmed_facts": {},
+      "expected": {
+        "case_type": null,
+        "issue_subtype": null,
+        "goal": null,
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      }
+    },
+    {
+      "id": "B06",
+      "group": "boundary",
+      "description": "My private condo owner kept my deposit, and a separate café charged me twice. I need help with both, but I haven't chosen which to tackle first.",
+      "confirmed_facts": {},
+      "expected": {
+        "case_type": null,
+        "issue_subtype": null,
+        "goal": null,
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "ambiguous_scope"
+      }
+    },
+    {
+      "id": "B07",
+      "group": "boundary",
+      "description": "My residential deposit was withheld. Which organisation should I contact about the person involved?",
+      "confirmed_facts": {
+        "premises_type": "private_residential"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "understand_options",
+        "state": "ASK",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "question_field": "dispute_with",
+        "prohibited": [
+          "assume landlord or agent"
+        ]
+      }
+    },
+    {
+      "id": "B08",
+      "group": "boundary",
+      "description": "I want to complain about a personal meal charge in Singapore. The supplier is not registered in Singapore.",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true,
+        "supplier_registered_in_sg": false
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      }
+    },
+    {
+      "id": "B09",
+      "group": "boundary",
+      "description": "I live here and paid above the advertised price for my personal Singapore restaurant meal. They refused my correction request. How do I complain?",
+      "confirmed_facts": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true
+      },
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "source_unverified",
+        "fixture": "quarantine_case_family_in_isolated_state"
+      }
+    },
+    {
+      "id": "B10",
+      "group": "boundary",
+      "description": "The owner has withheld my condo deposit after I moved out. I want a list of next steps.",
+      "confirmed_facts": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential"
+      },
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "seek_refund",
+        "state": "UNAVAILABLE",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "service_unavailable",
+        "fixture": "controlled_unavailable_service"
+      }
+    }
+  ]
+}
