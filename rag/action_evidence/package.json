@@ -1,0 +1,1803 @@
+{
+  "version": "action-kb-2026-11-07.1",
+  "legacy_version": "kb-2026-11-01.1",
+  "reviewed_at": "2026-11-07T04:58:44+00:00",
+  "law_checks": [
+    {
+      "evidence_id": "CPFTA-4A",
+      "authority_url": "https://sso.agc.gov.sg/Act/CPFTA2003?ProvIds=pr4-%2Cpr5-%2Cpr6-",
+      "version_index": "https://sso.agc.gov.sg/Act/CPFTA2003",
+      "indexed_as_at": "2026-11-07",
+      "version_date": "2025-03-09",
+      "direct_http_status": 403,
+      "method": "literal match between indexed SSO provision and live CCS reproduction",
+      "scope": "Short quotation only. The full provision and legal application require source review."
+    },
+    {
+      "evidence_id": "SCTA-SCHEDULE-1C",
+      "authority_url": "https://sso.agc.gov.sg/Act/SCTA1984?ProvIds=Sc-",
+      "version_index": "https://sso.agc.gov.sg/Act/SCTA1984",
+      "indexed_as_at": "2026-10-27",
+      "version_date": "2025-10-01",
+      "direct_http_status": 403,
+      "method": "literal match of statutory lease wording in indexed SSO schedule and live court judgment",
+      "scope": "Residential lease jurisdiction context only. The clause does not decide refund entitlement."
+    }
+  ],
+  "records": [
+    {
+      "id": "CASE-PORTAL",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "legacy_guards": [
+        "case-complaint"
+      ],
+      "evidence": {
+        "id": "CASE-PORTAL",
+        "source_id": "case-contact",
+        "kind": "official_procedure",
+        "publisher": "Consumers Association of Singapore",
+        "title": "Contact Us",
+        "url": "https://www.case.org.sg/contact-us/",
+        "locator": "Get in Touch, consumer complaint form",
+        "quote": "https://complaints.case.org.sg/",
+        "quote_sha256": "77a109480fc1749c49188e7717e0bff90e08a3fde0dc73191c2f1d1ef56fbd96",
+        "source_sha256": "dc1a2b04b532d31958ddde83ad82f580f5859fe53122d8b3e5b773bd743739a4",
+        "captured_at": "2026-11-07T04:48:12+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      },
+      "authorized_contact": {
+        "institution": "Consumers Association of Singapore",
+        "purpose": "complaint_intake",
+        "kind": "web",
+        "value": "https://complaints.case.org.sg/"
+      }
+    },
+    {
+      "id": "CASE-PHONE",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "legacy_guards": [
+        "case-complaint"
+      ],
+      "evidence": {
+        "id": "CASE-PHONE",
+        "source_id": "case-contact",
+        "kind": "official_procedure",
+        "publisher": "Consumers Association of Singapore",
+        "title": "Contact Us",
+        "url": "https://www.case.org.sg/contact-us/",
+        "locator": "How to Reach Us",
+        "quote": "+(65) 6277 5100",
+        "quote_sha256": "db13ae48f82c743456b5ef6b903de346dcc5829de925b767c8d1d657f5e34816",
+        "source_sha256": "dc1a2b04b532d31958ddde83ad82f580f5859fe53122d8b3e5b773bd743739a4",
+        "captured_at": "2026-11-07T04:48:12+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      },
+      "authorized_contact": {
+        "institution": "Consumers Association of Singapore",
+        "purpose": "consumer_assistance",
+        "kind": "phone",
+        "value": "+6562775100",
+        "note": "Monday to Friday, 9 am to 5 pm, excluding public holidays."
+      }
+    },
+    {
+      "id": "CASE-EMAIL",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "legacy_guards": [
+        "case-complaint"
+      ],
+      "evidence": {
+        "id": "CASE-EMAIL",
+        "source_id": "ccs-consumer",
+        "kind": "official_procedure",
+        "publisher": "Competition and Consumer Commission of Singapore",
+        "title": "Consumer Protection",
+        "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+        "locator": "FAQ 7, Consumer, Email",
+        "quote": "admin@case.org.sg",
+        "quote_sha256": "0dbc9800f8c1694f21b7cc667233ec52a55f60146223d91f3b7ea3a13d7ec2f0",
+        "source_sha256": "19c05ef88e6d9623f059cb16b393cb48f2c357b139f97a32bc1d54f2a34220f1",
+        "captured_at": "2026-11-07T04:48:13+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      },
+      "authorized_contact": {
+        "institution": "Consumers Association of Singapore",
+        "purpose": "consumer_assistance",
+        "kind": "email",
+        "value": "admin@case.org.sg",
+        "note": "Use this for assistance enquiries. The online form is the complaint submission channel."
+      }
+    },
+    {
+      "id": "CASE-SCOPE",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "legacy_guards": [
+        "case-complaint"
+      ],
+      "evidence": {
+        "id": "CASE-SCOPE",
+        "source_id": "case-process",
+        "kind": "official_procedure",
+        "publisher": "Consumers Association of Singapore",
+        "title": "Submit A Complaint",
+        "url": "https://www.case.org.sg/submit-a-complaint/",
+        "locator": "Consumer complaint FAQ",
+        "quote": "personal/domestic use with a registered company in Singapore",
+        "quote_sha256": "d8efb56b83ec86e9094dd7ba3a9bb2b6669d7755529124ab8f9f2dc09f6094a5",
+        "source_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+        "captured_at": "2026-11-07T04:48:12+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      }
+    },
+    {
+      "id": "CASE-FEES",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "legacy_guards": [
+        "case-complaint"
+      ],
+      "evidence": {
+        "id": "CASE-FEES",
+        "source_id": "case-process",
+        "kind": "official_procedure",
+        "publisher": "Consumers Association of Singapore",
+        "title": "Submit A Complaint",
+        "url": "https://www.case.org.sg/submit-a-complaint/",
+        "locator": "Assisted scheme and case filing discussion",
+        "quote": "Both may incur a small fee.",
+        "quote_sha256": "d91fc66bd10fb88f68064214bc9f12b8435354d325ef44360bdaaca6ebcd085e",
+        "source_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+        "captured_at": "2026-11-07T04:48:12+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      }
+    },
+    {
+      "id": "CASE-ASSESS",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "legacy_guards": [
+        "case-complaint"
+      ],
+      "evidence": {
+        "id": "CASE-ASSESS",
+        "source_id": "case-process",
+        "kind": "official_procedure",
+        "publisher": "Consumers Association of Singapore",
+        "title": "Submit A Complaint",
+        "url": "https://www.case.org.sg/submit-a-complaint/",
+        "locator": "Complaint resolution process, Consultation",
+        "quote": "our Officers will assess your situation",
+        "quote_sha256": "d8b981fb283db6848fbc29996508740227a5112f443bc1d85cb8b4445a3c1ead",
+        "source_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+        "captured_at": "2026-11-07T04:48:12+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      }
+    },
+    {
+      "id": "CCS-RECORDS",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "legacy_guards": [
+        "case-complaint"
+      ],
+      "evidence": {
+        "id": "CCS-RECORDS",
+        "source_id": "ccs-consumer",
+        "kind": "official_procedure",
+        "publisher": "Competition and Consumer Commission of Singapore",
+        "title": "Consumer Protection",
+        "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+        "locator": "FAQ 7, supporting documents",
+        "quote": "receipts, invoices and delivery orders",
+        "quote_sha256": "1471983ab2f4bb72c8c79abb46804ee4f9cbb957a3e9635b69d97e5b13913294",
+        "source_sha256": "19c05ef88e6d9623f059cb16b393cb48f2c357b139f97a32bc1d54f2a34220f1",
+        "captured_at": "2026-11-07T04:48:13+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      }
+    },
+    {
+      "id": "CPFTA-4A",
+      "case_types": [
+        "consumer_complaint"
+      ],
+      "legacy_guards": [
+        "case-complaint"
+      ],
+      "evidence": {
+        "id": "CPFTA-4A",
+        "source_id": "ccs-consumer",
+        "kind": "statute",
+        "publisher": "Competition and Consumer Commission of Singapore",
+        "title": "Consumer Protection (Fair Trading) Act 2003",
+        "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+        "locator": "FAQ 2, statutory excerpt as reproduced by CCS",
+        "quote": "a consumer might reasonably be deceived or misled",
+        "quote_sha256": "4534b57b3400eb596ce785c40816eb0de53f131d2122d6e5add024871a0ecbb5",
+        "source_sha256": "19c05ef88e6d9623f059cb16b393cb48f2c357b139f97a32bc1d54f2a34220f1",
+        "captured_at": "2026-11-07T04:48:13+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": "Section 4(a)",
+        "edition": "2020 RevEd, version of 09 Mar 2025 in SSO index as at 07 Nov 2026"
+      }
+    },
+    {
+      "id": "COURTS-RESIDENTIAL",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "legacy_guards": [
+        "courts-sct-eligibility"
+      ],
+      "evidence": {
+        "id": "COURTS-RESIDENTIAL",
+        "source_id": "courts-criteria",
+        "kind": "official_procedure",
+        "publisher": "Singapore Courts",
+        "title": "Cases eligible for a small claim",
+        "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+        "locator": "Types of eligible claims",
+        "quote": "tenancy agreement for residential premises not exceeding 2 years",
+        "quote_sha256": "83d7b77169595c8885ac952dde6376ac1a53ceaee832246086a4ff780514e6af",
+        "source_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+        "captured_at": "2026-11-07T04:48:12+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      },
+      "authorized_contact": {
+        "institution": "Singapore Courts",
+        "purpose": "procedure_information",
+        "kind": "web",
+        "value": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim"
+      }
+    },
+    {
+      "id": "COURTS-RECORDS",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "legacy_guards": [
+        "courts-sct-filing"
+      ],
+      "evidence": {
+        "id": "COURTS-RECORDS",
+        "source_id": "courts-filing",
+        "kind": "official_procedure",
+        "publisher": "Singapore Courts",
+        "title": "How to file and serve a small claim",
+        "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+        "locator": "Application supporting documents",
+        "quote": "invoices, receipts, contracts, tenancy agreements",
+        "quote_sha256": "9699edcdc107a0cac1ffec4890fdd09506f4cc4a4f7ed89b85be27129563a2e9",
+        "source_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea",
+        "captured_at": "2026-11-07T04:48:12+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      }
+    },
+    {
+      "id": "SCTA-SCHEDULE-1C",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "legacy_guards": [
+        "courts-sct-eligibility"
+      ],
+      "evidence": {
+        "id": "SCTA-SCHEDULE-1C",
+        "source_id": "scta-reproduced",
+        "kind": "statute",
+        "publisher": "Singapore Courts",
+        "title": "Small Claims Tribunals Act 1984",
+        "url": "https://www.elitigation.sg/gd/s/2026_SGSCT_8",
+        "locator": "[2026] SGSCT 8, paragraph 22, statutory wording quoted by the tribunal",
+        "quote": "a contract for the lease of residential premises that does not exceed 2 years",
+        "quote_sha256": "12dc7d061b67226dafeb82f589f1df392a04d78a0c4f1da80300b476d4e280df",
+        "source_sha256": "f264a9d00cd080536ba9868d8b08dbe94f841b264f42af7082d4228677a74e4e",
+        "captured_at": "2026-11-07T04:48:15+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": "Schedule paragraph 1(c)",
+        "edition": "2020 RevEd, version of 01 Oct 2025 in SSO index as at 27 Oct 2026"
+      }
+    },
+    {
+      "id": "CEA-TEMPLATE-SCOPE",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "legacy_guards": [
+        "cea-dispute-resolution"
+      ],
+      "evidence": {
+        "id": "CEA-TEMPLATE-SCOPE",
+        "source_id": "cea-private",
+        "kind": "official_procedure",
+        "publisher": "Council for Estate Agencies",
+        "title": "Renting or renting out a private residential property",
+        "url": "https://www.cea.gov.sg/consumers/transacting-on-your-own/renting-or-renting-out-a-private-residential-property/",
+        "locator": "Step 3, Negotiate and sign contract",
+        "quote": "This template is just a guide and is not compulsory.",
+        "quote_sha256": "345d7bff9fbf71c2fde37ddda944a05a5535d5c547b892dcf3deff76b165965d",
+        "source_sha256": "337964d68a92b847756da2c6c4f6b13b78c60613ef41aeac00b9ad7a5483209b",
+        "captured_at": "2026-11-07T04:48:14+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      }
+    },
+    {
+      "id": "CEA-TEMPLATE-BREAK",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "legacy_guards": [
+        "cea-dispute-resolution"
+      ],
+      "evidence": {
+        "id": "CEA-TEMPLATE-BREAK",
+        "source_id": "cea-template",
+        "kind": "contract_template",
+        "publisher": "Council for Estate Agencies",
+        "title": "Tenancy Agreement Template for Private Residential Property",
+        "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+        "locator": "PDF page 3, printed page 2, Schedule item 14",
+        "quote": "DIPLOMATIC / BREAK CLAUSE",
+        "quote_sha256": "8063cde57bc9cc44ac879b92029e1d4b175a3ca2c9b5f42f9ed2bf027a480a6c",
+        "source_sha256": "87d7ddc476fbda6bcf2685cac88cc3c553e53e3a4784f1f29b7a805ebc95a9b4",
+        "captured_at": "2026-11-07T04:52:39+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "official_pdf_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": "Version 1.3, updated 11 March 2024"
+      }
+    },
+    {
+      "id": "CEA-TEMPLATE-NOTICE",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "legacy_guards": [
+        "cea-dispute-resolution"
+      ],
+      "evidence": {
+        "id": "CEA-TEMPLATE-NOTICE",
+        "source_id": "cea-template",
+        "kind": "contract_template",
+        "publisher": "Council for Estate Agencies",
+        "title": "Tenancy Agreement Template for Private Residential Property",
+        "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+        "locator": "PDF page 3, printed page 2, Schedule item 14",
+        "quote": "notice shall be served on the Landlord",
+        "quote_sha256": "94e29597381037ecc1d7798be8795396afc50b0d31c3f6f163414897e91444a5",
+        "source_sha256": "87d7ddc476fbda6bcf2685cac88cc3c553e53e3a4784f1f29b7a805ebc95a9b4",
+        "captured_at": "2026-11-07T04:52:39+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "official_pdf_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": "Version 1.3, updated 11 March 2024"
+      }
+    },
+    {
+      "id": "CEA-TEMPLATE-DEPOSIT",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "legacy_guards": [
+        "cea-dispute-resolution"
+      ],
+      "evidence": {
+        "id": "CEA-TEMPLATE-DEPOSIT",
+        "source_id": "cea-template",
+        "kind": "contract_template",
+        "publisher": "Council for Estate Agencies",
+        "title": "Tenancy Agreement Template for Private Residential Property",
+        "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+        "locator": "PDF page 6, printed page 5, Operative Part clause 2.2",
+        "quote": "as security for the due performance",
+        "quote_sha256": "2d5147585864bcc52e8f2e0393cb5c58066b2381437691c4827d06c17d40182c",
+        "source_sha256": "87d7ddc476fbda6bcf2685cac88cc3c553e53e3a4784f1f29b7a805ebc95a9b4",
+        "captured_at": "2026-11-07T04:52:39+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "official_pdf_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": "Version 1.3, updated 11 March 2024"
+      }
+    },
+    {
+      "id": "MOM-EP-CANCELLATION",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "legacy_guards": [
+        "courts-sct-eligibility"
+      ],
+      "evidence": {
+        "id": "MOM-EP-CANCELLATION",
+        "source_id": "mom-ep",
+        "kind": "official_procedure",
+        "publisher": "Ministry of Manpower",
+        "title": "Cancel an Employment Pass",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/cancel-a-pass",
+        "locator": "Employment Pass cancellation guidance",
+        "quote": "Cancel an Employment Pass",
+        "quote_sha256": "afb1629b4462dade681baa57a50430255478a536f14302114d027db8773fc9c9",
+        "source_sha256": "cfebdf84bd35e76348c8204debb925a3e77f68be174e571e595f8e5887379de4",
+        "captured_at": "2026-11-07T04:48:15+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      }
+    },
+    {
+      "id": "CEA-CONDUCT-ROUTE",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "legacy_guards": [
+        "cea-complaint"
+      ],
+      "evidence": {
+        "id": "CEA-CONDUCT-ROUTE",
+        "source_id": "cea-complaint",
+        "kind": "official_procedure",
+        "publisher": "Council for Estate Agencies",
+        "title": "Submit complaint",
+        "url": "https://www.cea.gov.sg/submit-complaint/",
+        "locator": "Complaint prerequisites and submission page",
+        "quote": "property agency or property agent concerned",
+        "quote_sha256": "f1125dd417c7a7cb8cafc0e8bdca48fc94d7300ba67bb771b99741a50256dbb5",
+        "source_sha256": "59e16e01f72f053b2766fc9686fce58d04e9d1ce59fcd08beb434c19fab9405a",
+        "captured_at": "2026-11-07T04:48:14+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      },
+      "authorized_contact": {
+        "institution": "Council for Estate Agencies",
+        "purpose": "agency_conduct",
+        "kind": "web",
+        "value": "https://www.cea.gov.sg/submit-complaint/"
+      }
+    },
+    {
+      "id": "CEA-AGREEMENT-ROUTE",
+      "case_types": [
+        "rental_deposit"
+      ],
+      "legacy_guards": [
+        "cea-dispute-resolution"
+      ],
+      "evidence": {
+        "id": "CEA-AGREEMENT-ROUTE",
+        "source_id": "cea-agency",
+        "kind": "official_procedure",
+        "publisher": "Council for Estate Agencies",
+        "title": "Dispute resolution",
+        "url": "https://www.cea.gov.sg/consumers/engaging-a-property-agent/dispute-resolution/",
+        "locator": "Dispute Resolution Scheme scope",
+        "quote": "signed the relevant estate agency agreement",
+        "quote_sha256": "59321258e41440697464eb1f67ce4eb4c16ed9b889722048195b86f750ca1837",
+        "source_sha256": "b723dc5c8456bc7780f00b569e7ce59ce0e6799fabb237d204b497aa4529b9dc",
+        "captured_at": "2026-11-07T04:48:15+00:00",
+        "reviewed_at": "2026-11-07T04:58:44+00:00",
+        "reviewed_by": "Codex source and excerpt verification",
+        "review_method": "live_excerpt_check",
+        "review_status": "verified",
+        "provision": null,
+        "edition": null
+      },
+      "authorized_contact": {
+        "institution": "Council for Estate Agencies",
+        "purpose": "agency_agreement_help",
+        "kind": "web",
+        "value": "https://www.cea.gov.sg/consumers/engaging-a-property-agent/dispute-resolution/"
+      }
+    }
+  ],
+  "contacts": [
+    {
+      "id": "case-form",
+      "institution": "Consumers Association of Singapore",
+      "purpose": "complaint_intake",
+      "kind": "web",
+      "value": "https://complaints.case.org.sg/",
+      "evidence_ids": [
+        "CASE-PORTAL"
+      ]
+    },
+    {
+      "id": "case-phone",
+      "institution": "Consumers Association of Singapore",
+      "purpose": "consumer_assistance",
+      "kind": "phone",
+      "value": "+6562775100",
+      "note": "Monday to Friday, 9 am to 5 pm, excluding public holidays.",
+      "evidence_ids": [
+        "CASE-PHONE"
+      ]
+    },
+    {
+      "id": "case-email",
+      "institution": "Consumers Association of Singapore",
+      "purpose": "consumer_assistance",
+      "kind": "email",
+      "value": "admin@case.org.sg",
+      "note": "Use this for assistance enquiries. The online form is the complaint submission channel.",
+      "evidence_ids": [
+        "CASE-EMAIL"
+      ]
+    },
+    {
+      "id": "sct-criteria",
+      "institution": "Singapore Courts",
+      "purpose": "procedure_information",
+      "kind": "web",
+      "value": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+      "evidence_ids": [
+        "COURTS-RESIDENTIAL"
+      ]
+    },
+    {
+      "id": "cea-conduct",
+      "institution": "Council for Estate Agencies",
+      "purpose": "agency_conduct",
+      "kind": "web",
+      "value": "https://www.cea.gov.sg/submit-complaint/",
+      "evidence_ids": [
+        "CEA-CONDUCT-ROUTE"
+      ]
+    },
+    {
+      "id": "cea-agreement",
+      "institution": "Council for Estate Agencies",
+      "purpose": "agency_agreement_help",
+      "kind": "web",
+      "value": "https://www.cea.gov.sg/consumers/engaging-a-property-agent/dispute-resolution/",
+      "evidence_ids": [
+        "CEA-AGREEMENT-ROUTE"
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "id": "consumer-contact-after-dispute",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "restaurant_overcharge",
+        "duplicate_charge",
+        "unclear_charge"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options"
+      ],
+      "requires": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true
+      },
+      "contact_ids": [
+        "case-form",
+        "case-phone",
+        "case-email"
+      ],
+      "plan": {
+        "headline": "Ask CASE about your disputed charge",
+        "assessment": {
+          "id": "assessment",
+          "text": "CASE has an assistance route for personal consumer disputes. Ask it to assess the reported charge and its scope.",
+          "evidence_ids": [
+            "CASE-SCOPE",
+            "CASE-ASSESS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Explain the disputed amount and your attempt to resolve it in the official complaint form.",
+          "evidence_ids": [
+            "CASE-PORTAL",
+            "CASE-ASSESS",
+            "CCS-RECORDS"
+          ],
+          "kind": "complaint_intake",
+          "label": "Open CASE's complaint form",
+          "contact_id": "case-form"
+        },
+        "checklist": [
+          {
+            "id": "bill",
+            "text": "Keep the receipt, advertised price and your written exchanges.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          },
+          {
+            "id": "difference",
+            "text": "Note the price or charge you dispute and the correction you requested.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "legal-context",
+                "text": "A potentially misleading representation is a point to raise. Whether the facts meet the legal test needs assessment.",
+                "evidence_ids": [
+                  "CPFTA-4A"
+                ]
+              },
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "pitfalls",
+            "title": "Check the service and costs",
+            "items": [
+              {
+                "id": "fees",
+                "text": "Ask which service is offered and whether that service has fees or membership requirements.",
+                "evidence_ids": [
+                  "CASE-FEES"
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "alternatives",
+            "title": "If you need help choosing the next step",
+            "items": [
+              {
+                "id": "assist",
+                "text": "Ask CASE for advice before deciding whether to use another procedure.",
+                "evidence_ids": [
+                  "CASE-ASSESS"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Billing complaint draft",
+          "subject": "Request for help with a billing dispute",
+          "body": "I am asking for help with {disputed_charge}. The amount on the bill was {billed_amount}. I expected {expected_amount}. I contacted the business and received {business_response}. Please advise on the next step.",
+          "slots": [
+            {
+              "id": "disputed_charge",
+              "label": "Describe the disputed charge"
+            },
+            {
+              "id": "billed_amount",
+              "label": "Amount charged"
+            },
+            {
+              "id": "expected_amount",
+              "label": "Expected amount"
+            },
+            {
+              "id": "business_response",
+              "label": "Business response"
+            }
+          ]
+        },
+        "legal_basis": [
+          {
+            "claim_id": "legal-context",
+            "evidence_id": "CPFTA-4A"
+          }
+        ]
+      }
+    },
+    {
+      "id": "prepare-restaurant_overcharge",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "restaurant_overcharge"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore"
+      },
+      "contact_ids": [],
+      "plan": {
+        "headline": "Compare the bill with the displayed price",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Keep the menu price and itemised bill. Mark the item and difference you want the restaurant to explain.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Compare the bill with the displayed price",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "legal-context",
+                "text": "A potentially misleading representation is a point to raise. Whether the facts meet the legal test needs assessment.",
+                "evidence_ids": [
+                  "CPFTA-4A"
+                ]
+              },
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Billing complaint draft",
+          "subject": "Request for help with a billing dispute",
+          "body": "I am asking for help with {disputed_charge}. The amount on the bill was {billed_amount}. I expected {expected_amount}. I contacted the business and received {business_response}. Please advise on the next step.",
+          "slots": [
+            {
+              "id": "disputed_charge",
+              "label": "Describe the disputed charge"
+            },
+            {
+              "id": "billed_amount",
+              "label": "Amount charged"
+            },
+            {
+              "id": "expected_amount",
+              "label": "Expected amount"
+            },
+            {
+              "id": "business_response",
+              "label": "Business response"
+            }
+          ]
+        },
+        "legal_basis": [
+          {
+            "claim_id": "legal-context",
+            "evidence_id": "CPFTA-4A"
+          }
+        ]
+      }
+    },
+    {
+      "id": "prepare-duplicate_charge",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "duplicate_charge"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore"
+      },
+      "contact_ids": [],
+      "plan": {
+        "headline": "Check both payment entries",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Compare the two payment entries with the receipt. Record both charges and ask the business to reconcile them.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Check both payment entries",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "legal-context",
+                "text": "A potentially misleading representation is a point to raise. Whether the facts meet the legal test needs assessment.",
+                "evidence_ids": [
+                  "CPFTA-4A"
+                ]
+              },
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Billing complaint draft",
+          "subject": "Request for help with a billing dispute",
+          "body": "I am asking for help with {disputed_charge}. The amount on the bill was {billed_amount}. I expected {expected_amount}. I contacted the business and received {business_response}. Please advise on the next step.",
+          "slots": [
+            {
+              "id": "disputed_charge",
+              "label": "Describe the disputed charge"
+            },
+            {
+              "id": "billed_amount",
+              "label": "Amount charged"
+            },
+            {
+              "id": "expected_amount",
+              "label": "Expected amount"
+            },
+            {
+              "id": "business_response",
+              "label": "Business response"
+            }
+          ]
+        },
+        "legal_basis": [
+          {
+            "claim_id": "legal-context",
+            "evidence_id": "CPFTA-4A"
+          }
+        ]
+      }
+    },
+    {
+      "id": "prepare-unclear_charge",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "unclear_charge"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore"
+      },
+      "contact_ids": [],
+      "plan": {
+        "headline": "Ask for an itemised explanation",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Keep the itemised bill and ask the business to identify the fee or charge you do not understand.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Ask for an itemised explanation",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "legal-context",
+                "text": "A potentially misleading representation is a point to raise. Whether the facts meet the legal test needs assessment.",
+                "evidence_ids": [
+                  "CPFTA-4A"
+                ]
+              },
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Billing complaint draft",
+          "subject": "Request for help with a billing dispute",
+          "body": "I am asking for help with {disputed_charge}. The amount on the bill was {billed_amount}. I expected {expected_amount}. I contacted the business and received {business_response}. Please advise on the next step.",
+          "slots": [
+            {
+              "id": "disputed_charge",
+              "label": "Describe the disputed charge"
+            },
+            {
+              "id": "billed_amount",
+              "label": "Amount charged"
+            },
+            {
+              "id": "expected_amount",
+              "label": "Expected amount"
+            },
+            {
+              "id": "business_response",
+              "label": "Business response"
+            }
+          ]
+        },
+        "legal_basis": [
+          {
+            "claim_id": "legal-context",
+            "evidence_id": "CPFTA-4A"
+          }
+        ]
+      }
+    },
+    {
+      "id": "prepare-goods_dispute",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "goods_dispute"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore"
+      },
+      "contact_ids": [],
+      "plan": {
+        "headline": "Gather your purchase and dispute records",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Keep the receipt, order details and correspondence about the product.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Gather your purchase and dispute records",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Purchase dispute draft",
+          "subject": "Request for help with a purchase",
+          "body": "I am asking for help with {purchase}. My concern is {issue}. The outcome I would like is {request}.",
+          "slots": [
+            {
+              "id": "purchase",
+              "label": "Describe the purchase"
+            },
+            {
+              "id": "issue",
+              "label": "Describe what went wrong"
+            },
+            {
+              "id": "request",
+              "label": "Requested outcome"
+            }
+          ]
+        },
+        "legal_basis": []
+      }
+    },
+    {
+      "id": "prepare-services_dispute",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "services_dispute"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore"
+      },
+      "contact_ids": [],
+      "plan": {
+        "headline": "Gather the service and payment records",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Keep the service description, bill and correspondence about what you dispute.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Gather the service and payment records",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Purchase dispute draft",
+          "subject": "Request for help with a purchase",
+          "body": "I am asking for help with {purchase}. My concern is {issue}. The outcome I would like is {request}.",
+          "slots": [
+            {
+              "id": "purchase",
+              "label": "Describe the purchase"
+            },
+            {
+              "id": "issue",
+              "label": "Describe what went wrong"
+            },
+            {
+              "id": "request",
+              "label": "Requested outcome"
+            }
+          ]
+        },
+        "legal_basis": []
+      }
+    },
+    {
+      "id": "private-pass-deposit",
+      "case_type": "rental_deposit",
+      "subtypes": [
+        "pass_related_exit"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential"
+      },
+      "contact_ids": [
+        "sct-criteria"
+      ],
+      "plan": {
+        "headline": "Check the signed exit and deposit terms",
+        "assessment": {
+          "id": "assessment",
+          "text": "Review the lease terms and the circumstances of the exit before assessing a deposit deduction.",
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Find the signed break clause, deposit clause and notice terms. Compare them with your actual notice and the landlord's stated reason.",
+          "evidence_ids": [
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-NOTICE",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "kind": "prepare",
+          "label": "Review the signed agreement",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "notice",
+            "text": "Keep the signed terms, written notice, relevant pass or employment notice and proof of delivery.",
+            "evidence_ids": [
+              "CEA-TEMPLATE-NOTICE",
+              "COURTS-RECORDS"
+            ]
+          },
+          {
+            "id": "deduction",
+            "text": "Ask the landlord for the written reason and itemised deduction. Keep your deposit record.",
+            "evidence_ids": [
+              "CEA-TEMPLATE-DEPOSIT",
+              "COURTS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "pitfalls",
+            "title": "Separate the pass event from the rental terms",
+            "items": [
+              {
+                "id": "template",
+                "text": "The private rental template illustrates optional terms. Check the clauses and choices in the agreement you actually signed.",
+                "evidence_ids": [
+                  "CEA-TEMPLATE-SCOPE",
+                  "CEA-TEMPLATE-BREAK"
+                ]
+              },
+              {
+                "id": "pass",
+                "text": "For an Employment Pass, check MOM's cancellation guidance for the pass position. Check the signed tenancy terms separately for the deposit question.",
+                "evidence_ids": [
+                  "MOM-EP-CANCELLATION",
+                  "CEA-TEMPLATE-DEPOSIT"
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "conditions",
+            "title": "Check whether the small claims procedure fits",
+            "items": [
+              {
+                "id": "jurisdiction",
+                "text": "Check the SCT criteria for residential leases and the other filing conditions before deciding whether to file.",
+                "evidence_ids": [
+                  "SCTA-SCHEDULE-1C",
+                  "COURTS-RESIDENTIAL"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Deposit request draft",
+          "subject": "Request for a deposit breakdown",
+          "body": "Please provide a written breakdown of {deduction} and identify the clause of our signed tenancy agreement used for it. My understanding of the relevant clause is {clause}. Please clarify the remaining deposit and the reason for any deduction.",
+          "slots": [
+            {
+              "id": "deduction",
+              "label": "Disputed deduction or deposit amount"
+            },
+            {
+              "id": "clause",
+              "label": "Your signed agreement clause"
+            }
+          ]
+        },
+        "legal_basis": [
+          {
+            "claim_id": "jurisdiction",
+            "evidence_id": "SCTA-SCHEDULE-1C"
+          }
+        ]
+      }
+    },
+    {
+      "id": "private-early-exit",
+      "case_type": "rental_deposit",
+      "subtypes": [
+        "early_exit"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "dispute_with": "landlord",
+        "premises_type": "private_residential"
+      },
+      "contact_ids": [
+        "sct-criteria"
+      ],
+      "plan": {
+        "headline": "Check the signed exit and deposit terms",
+        "assessment": {
+          "id": "assessment",
+          "text": "Review the lease terms and the circumstances of the exit before assessing a deposit deduction.",
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Find the signed break clause, deposit clause and notice terms. Compare them with your actual notice and the landlord's stated reason.",
+          "evidence_ids": [
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-NOTICE",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "kind": "prepare",
+          "label": "Review the signed agreement",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "notice",
+            "text": "Keep the signed terms, written notice, relevant pass or employment notice and proof of delivery.",
+            "evidence_ids": [
+              "CEA-TEMPLATE-NOTICE",
+              "COURTS-RECORDS"
+            ]
+          },
+          {
+            "id": "deduction",
+            "text": "Ask the landlord for the written reason and itemised deduction. Keep your deposit record.",
+            "evidence_ids": [
+              "CEA-TEMPLATE-DEPOSIT",
+              "COURTS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "pitfalls",
+            "title": "Check the terms for early exit",
+            "items": [
+              {
+                "id": "template",
+                "text": "The private rental template illustrates optional terms. Check the clauses and choices in the agreement you actually signed.",
+                "evidence_ids": [
+                  "CEA-TEMPLATE-SCOPE",
+                  "CEA-TEMPLATE-BREAK"
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "conditions",
+            "title": "Check whether the small claims procedure fits",
+            "items": [
+              {
+                "id": "jurisdiction",
+                "text": "Check the SCT criteria for residential leases and the other filing conditions before deciding whether to file.",
+                "evidence_ids": [
+                  "SCTA-SCHEDULE-1C",
+                  "COURTS-RESIDENTIAL"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Deposit request draft",
+          "subject": "Request for a deposit breakdown",
+          "body": "Please provide a written breakdown of {deduction} and identify the clause of our signed tenancy agreement used for it. My understanding of the relevant clause is {clause}. Please clarify the remaining deposit and the reason for any deduction.",
+          "slots": [
+            {
+              "id": "deduction",
+              "label": "Disputed deduction or deposit amount"
+            },
+            {
+              "id": "clause",
+              "label": "Your signed agreement clause"
+            }
+          ]
+        },
+        "legal_basis": [
+          {
+            "claim_id": "jurisdiction",
+            "evidence_id": "SCTA-SCHEDULE-1C"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rental-criteria-check",
+      "case_type": "rental_deposit",
+      "subtypes": [
+        "deposit_return",
+        "deposit_deduction",
+        "early_exit",
+        "pass_related_exit"
+      ],
+      "goals": [
+        "prepare_claim"
+      ],
+      "requires": {
+        "dispute_with": "landlord"
+      },
+      "contact_ids": [
+        "sct-criteria"
+      ],
+      "plan": {
+        "headline": "Check the court's criteria for a tenancy claim",
+        "assessment": {
+          "id": "assessment",
+          "text": "The available procedure depends on the actual lease and filing conditions.",
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL",
+            "SCTA-SCHEDULE-1C"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Read the official SCT criteria before choosing whether to use its pre-filing assessment.",
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL",
+            "SCTA-SCHEDULE-1C"
+          ],
+          "kind": "check_criteria",
+          "label": "Read the SCT criteria",
+          "contact_id": "sct-criteria"
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep the tenancy agreement, deposit payment evidence and written communications.",
+            "evidence_ids": [
+              "COURTS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "Check whether the small claims procedure fits",
+            "items": [
+              {
+                "id": "jurisdiction",
+                "text": "Check the SCT criteria for residential leases and the other filing conditions before deciding whether to file.",
+                "evidence_ids": [
+                  "SCTA-SCHEDULE-1C",
+                  "COURTS-RESIDENTIAL"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Deposit request draft",
+          "subject": "Request for a deposit breakdown",
+          "body": "Please provide a written breakdown of {deduction} and identify the clause of our signed tenancy agreement used for it. My understanding of the relevant clause is {clause}. Please clarify the remaining deposit and the reason for any deduction.",
+          "slots": [
+            {
+              "id": "deduction",
+              "label": "Disputed deduction or deposit amount"
+            },
+            {
+              "id": "clause",
+              "label": "Your signed agreement clause"
+            }
+          ]
+        },
+        "legal_basis": [
+          {
+            "claim_id": "jurisdiction",
+            "evidence_id": "SCTA-SCHEDULE-1C"
+          }
+        ]
+      }
+    },
+    {
+      "id": "deposit-records",
+      "case_type": "rental_deposit",
+      "subtypes": [
+        "deposit_return",
+        "deposit_deduction",
+        "early_exit",
+        "pass_related_exit"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "dispute_with": "landlord"
+      },
+      "contact_ids": [
+        "sct-criteria"
+      ],
+      "plan": {
+        "headline": "Gather the signed agreement and deposit records",
+        "assessment": {
+          "id": "assessment",
+          "text": "The signed agreement and the actual reasons for the deduction help identify what to check.",
+          "evidence_ids": [
+            "COURTS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Find the signed lease and ask for a written breakdown of the withheld amount before assessing the dispute.",
+          "evidence_ids": [
+            "COURTS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Check the deposit and notice terms",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your agreement, payment evidence and correspondence about the deposit.",
+            "evidence_ids": [
+              "COURTS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "Check whether the small claims procedure fits",
+            "items": [
+              {
+                "id": "jurisdiction",
+                "text": "Check the SCT criteria for residential leases and the other filing conditions before deciding whether to file.",
+                "evidence_ids": [
+                  "SCTA-SCHEDULE-1C",
+                  "COURTS-RESIDENTIAL"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Deposit request draft",
+          "subject": "Request for a deposit breakdown",
+          "body": "Please provide a written breakdown of {deduction} and identify the clause of our signed tenancy agreement used for it. My understanding of the relevant clause is {clause}. Please clarify the remaining deposit and the reason for any deduction.",
+          "slots": [
+            {
+              "id": "deduction",
+              "label": "Disputed deduction or deposit amount"
+            },
+            {
+              "id": "clause",
+              "label": "Your signed agreement clause"
+            }
+          ]
+        },
+        "legal_basis": [
+          {
+            "claim_id": "jurisdiction",
+            "evidence_id": "SCTA-SCHEDULE-1C"
+          }
+        ]
+      }
+    },
+    {
+      "id": "agent-conduct",
+      "case_type": "rental_deposit",
+      "subtypes": [
+        "agent_conduct"
+      ],
+      "goals": [
+        "complain",
+        "understand_options"
+      ],
+      "requires": {
+        "dispute_with": "agent"
+      },
+      "contact_ids": [
+        "cea-conduct"
+      ],
+      "plan": {
+        "headline": "Read CEA's property agent complaint procedure",
+        "assessment": {
+          "id": "assessment",
+          "text": "You reported conduct by an agent. Check the scope of CEA's complaint procedure.",
+          "evidence_ids": [
+            "CEA-CONDUCT-ROUTE"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Review CEA's steps for an agent conduct complaint and prepare the account of what happened.",
+          "evidence_ids": [
+            "CEA-CONDUCT-ROUTE"
+          ],
+          "kind": "complaint_intake",
+          "label": "Open CEA's complaint page",
+          "contact_id": "cea-conduct"
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep the communications about the agent's conduct and any response from the agency.",
+            "evidence_ids": [
+              "CEA-CONDUCT-ROUTE",
+              "COURTS-RECORDS"
+            ]
+          }
+        ],
+        "details": [],
+        "draft": null,
+        "legal_basis": []
+      }
+    },
+    {
+      "id": "signed-agency-dispute",
+      "case_type": "rental_deposit",
+      "subtypes": [
+        "agency_agreement"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "dispute_with": "agent",
+        "agency_agreement_signed": true
+      },
+      "contact_ids": [
+        "cea-agreement"
+      ],
+      "plan": {
+        "headline": "Check the agency agreement dispute process",
+        "assessment": {
+          "id": "assessment",
+          "text": "The reported signed agency agreement is relevant to the CEA scheme's published scope.",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Check the scheme conditions and the dispute resolution clause of the signed estate agency agreement.",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "kind": "consult",
+          "label": "Read CEA's dispute resolution guidance",
+          "contact_id": "cea-agreement"
+        },
+        "checklist": [
+          {
+            "id": "agreement",
+            "text": "Gather the signed agreement and written communications.",
+            "evidence_ids": [
+              "CEA-AGREEMENT-ROUTE",
+              "COURTS-RECORDS"
+            ]
+          }
+        ],
+        "details": [],
+        "draft": null,
+        "legal_basis": []
+      }
+    },
+    {
+      "id": "agency-agreement-records",
+      "case_type": "rental_deposit",
+      "subtypes": [
+        "agency_agreement"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "dispute_with": "agent"
+      },
+      "contact_ids": [],
+      "plan": {
+        "headline": "Find the agreement with the agency",
+        "assessment": {
+          "id": "assessment",
+          "text": "The signed agency agreement is a decisive document for choosing a contractual dispute route.",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Check whether you signed an estate agency agreement and locate its dispute clause.",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "kind": "prepare",
+          "label": "Find the agency agreement",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "agreement",
+            "text": "Keep the relevant agreement and correspondence.",
+            "evidence_ids": [
+              "CEA-AGREEMENT-ROUTE",
+              "COURTS-RECORDS"
+            ]
+          }
+        ],
+        "details": [],
+        "draft": null,
+        "legal_basis": []
+      }
+    }
+  ]
+}

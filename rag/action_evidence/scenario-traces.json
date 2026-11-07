@@ -1,0 +1,252 @@
+{
+  "scope": "Selected fields from real local RAG profile selection for synthetic confirmed contexts",
+  "version": "action-kb-2026-11-07.1",
+  "source_package_sha256": "813889050fe3e5d9b4dc97a1bfce9e070a5c9591479893248c547559a846262c",
+  "executed_at_utc": "2026-11-07T05:02:45.435444+00:00",
+  "production_writes": 0,
+  "traces": [
+    {
+      "context": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "summary": "You disputed a Singapore restaurant bill.",
+        "facts": {
+          "merchant_location": "singapore",
+          "purchase_purpose": "personal",
+          "consumer_context": "local_consumer",
+          "resolution_attempted": true
+        }
+      },
+      "assessment": {
+        "id": "assessment",
+        "text": "CASE has an assistance route for personal consumer disputes. Ask it to assess the reported charge and its scope.",
+        "evidence_ids": [
+          "CASE-SCOPE",
+          "CASE-ASSESS"
+        ]
+      },
+      "primary_action": {
+        "id": "next",
+        "text": "Explain the disputed amount and your attempt to resolve it in the official complaint form.",
+        "evidence_ids": [
+          "CASE-PORTAL",
+          "CASE-ASSESS",
+          "CCS-RECORDS"
+        ],
+        "kind": "complaint_intake",
+        "label": "Open CASE's complaint form",
+        "contact_id": "case-form"
+      },
+      "contacts": [
+        {
+          "id": "case-form",
+          "institution": "Consumers Association of Singapore",
+          "purpose": "complaint_intake",
+          "kind": "web",
+          "value": "https://complaints.case.org.sg/",
+          "evidence_ids": [
+            "CASE-PORTAL"
+          ]
+        },
+        {
+          "id": "case-phone",
+          "institution": "Consumers Association of Singapore",
+          "purpose": "consumer_assistance",
+          "kind": "phone",
+          "value": "+6562775100",
+          "note": "Monday to Friday, 9 am to 5 pm, excluding public holidays.",
+          "evidence_ids": [
+            "CASE-PHONE"
+          ]
+        },
+        {
+          "id": "case-email",
+          "institution": "Consumers Association of Singapore",
+          "purpose": "consumer_assistance",
+          "kind": "email",
+          "value": "admin@case.org.sg",
+          "note": "Use this for assistance enquiries. The online form is the complaint submission channel.",
+          "evidence_ids": [
+            "CASE-EMAIL"
+          ]
+        }
+      ],
+      "legal_basis": [
+        {
+          "claim_id": "legal-context",
+          "evidence_id": "CPFTA-4A"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "CASE-ASSESS",
+          "kind": "official_procedure",
+          "url": "https://www.case.org.sg/submit-a-complaint/",
+          "provision": null,
+          "quote_sha256": "d8b981fb283db6848fbc29996508740227a5112f443bc1d85cb8b4445a3c1ead"
+        },
+        {
+          "id": "CASE-EMAIL",
+          "kind": "official_procedure",
+          "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+          "provision": null,
+          "quote_sha256": "0dbc9800f8c1694f21b7cc667233ec52a55f60146223d91f3b7ea3a13d7ec2f0"
+        },
+        {
+          "id": "CASE-FEES",
+          "kind": "official_procedure",
+          "url": "https://www.case.org.sg/submit-a-complaint/",
+          "provision": null,
+          "quote_sha256": "d91fc66bd10fb88f68064214bc9f12b8435354d325ef44360bdaaca6ebcd085e"
+        },
+        {
+          "id": "CASE-PHONE",
+          "kind": "official_procedure",
+          "url": "https://www.case.org.sg/contact-us/",
+          "provision": null,
+          "quote_sha256": "db13ae48f82c743456b5ef6b903de346dcc5829de925b767c8d1d657f5e34816"
+        },
+        {
+          "id": "CASE-PORTAL",
+          "kind": "official_procedure",
+          "url": "https://www.case.org.sg/contact-us/",
+          "provision": null,
+          "quote_sha256": "77a109480fc1749c49188e7717e0bff90e08a3fde0dc73191c2f1d1ef56fbd96"
+        },
+        {
+          "id": "CASE-SCOPE",
+          "kind": "official_procedure",
+          "url": "https://www.case.org.sg/submit-a-complaint/",
+          "provision": null,
+          "quote_sha256": "d8efb56b83ec86e9094dd7ba3a9bb2b6669d7755529124ab8f9f2dc09f6094a5"
+        },
+        {
+          "id": "CCS-RECORDS",
+          "kind": "official_procedure",
+          "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+          "provision": null,
+          "quote_sha256": "1471983ab2f4bb72c8c79abb46804ee4f9cbb957a3e9635b69d97e5b13913294"
+        },
+        {
+          "id": "CPFTA-4A",
+          "kind": "statute",
+          "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+          "provision": "Section 4(a)",
+          "quote_sha256": "4534b57b3400eb596ce785c40816eb0de53f131d2122d6e5add024871a0ecbb5"
+        }
+      ]
+    },
+    {
+      "context": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "seek_refund",
+        "summary": "You reported a work-pass cancellation and a deposit dispute.",
+        "facts": {
+          "dispute_with": "landlord",
+          "premises_type": "private_residential",
+          "pass_event": "cancelled",
+          "break_clause_present": "unknown"
+        }
+      },
+      "assessment": {
+        "id": "assessment",
+        "text": "Review the lease terms and the circumstances of the exit before assessing a deposit deduction.",
+        "evidence_ids": [
+          "CEA-TEMPLATE-SCOPE",
+          "CEA-TEMPLATE-BREAK",
+          "CEA-TEMPLATE-DEPOSIT"
+        ]
+      },
+      "primary_action": {
+        "id": "next",
+        "text": "Find the signed break clause, deposit clause and notice terms. Compare them with your actual notice and the landlord's stated reason.",
+        "evidence_ids": [
+          "CEA-TEMPLATE-BREAK",
+          "CEA-TEMPLATE-NOTICE",
+          "CEA-TEMPLATE-DEPOSIT"
+        ],
+        "kind": "prepare",
+        "label": "Review the signed agreement",
+        "contact_id": null
+      },
+      "contacts": [
+        {
+          "id": "sct-criteria",
+          "institution": "Singapore Courts",
+          "purpose": "procedure_information",
+          "kind": "web",
+          "value": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL"
+          ]
+        }
+      ],
+      "legal_basis": [
+        {
+          "claim_id": "jurisdiction",
+          "evidence_id": "SCTA-SCHEDULE-1C"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "CEA-TEMPLATE-BREAK",
+          "kind": "contract_template",
+          "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+          "provision": null,
+          "quote_sha256": "8063cde57bc9cc44ac879b92029e1d4b175a3ca2c9b5f42f9ed2bf027a480a6c"
+        },
+        {
+          "id": "CEA-TEMPLATE-DEPOSIT",
+          "kind": "contract_template",
+          "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+          "provision": null,
+          "quote_sha256": "2d5147585864bcc52e8f2e0393cb5c58066b2381437691c4827d06c17d40182c"
+        },
+        {
+          "id": "CEA-TEMPLATE-NOTICE",
+          "kind": "contract_template",
+          "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+          "provision": null,
+          "quote_sha256": "94e29597381037ecc1d7798be8795396afc50b0d31c3f6f163414897e91444a5"
+        },
+        {
+          "id": "CEA-TEMPLATE-SCOPE",
+          "kind": "official_procedure",
+          "url": "https://www.cea.gov.sg/consumers/transacting-on-your-own/renting-or-renting-out-a-private-residential-property/",
+          "provision": null,
+          "quote_sha256": "345d7bff9fbf71c2fde37ddda944a05a5535d5c547b892dcf3deff76b165965d"
+        },
+        {
+          "id": "COURTS-RECORDS",
+          "kind": "official_procedure",
+          "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+          "provision": null,
+          "quote_sha256": "9699edcdc107a0cac1ffec4890fdd09506f4cc4a4f7ed89b85be27129563a2e9"
+        },
+        {
+          "id": "COURTS-RESIDENTIAL",
+          "kind": "official_procedure",
+          "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+          "provision": null,
+          "quote_sha256": "83d7b77169595c8885ac952dde6376ac1a53ceaee832246086a4ff780514e6af"
+        },
+        {
+          "id": "MOM-EP-CANCELLATION",
+          "kind": "official_procedure",
+          "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/cancel-a-pass",
+          "provision": null,
+          "quote_sha256": "afb1629b4462dade681baa57a50430255478a536f14302114d027db8773fc9c9"
+        },
+        {
+          "id": "SCTA-SCHEDULE-1C",
+          "kind": "statute",
+          "url": "https://www.elitigation.sg/gd/s/2026_SGSCT_8",
+          "provision": "Schedule paragraph 1(c)",
+          "quote_sha256": "12dc7d061b67226dafeb82f589f1df392a04d78a0c4f1da80300b476d4e280df"
+        }
+      ]
+    }
+  ]
+}

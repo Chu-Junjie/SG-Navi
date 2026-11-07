@@ -1,0 +1,151 @@
+{
+  "scope": "Read-only published-source capture",
+  "reviewed_at": "2026-11-07T04:58:44+00:00",
+  "capture_results": {
+    "case-contact": {
+      "requested_url": "https://www.case.org.sg/contact-us/",
+      "url": "https://www.case.org.sg/contact-us/",
+      "retrieved_at": "2026-11-07T04:48:12+00:00",
+      "http_status": 200,
+      "content_sha256": "dc1a2b04b532d31958ddde83ad82f580f5859fe53122d8b3e5b773bd743739a4",
+      "error": null
+    },
+    "case-process": {
+      "requested_url": "https://www.case.org.sg/submit-a-complaint/",
+      "url": "https://www.case.org.sg/submit-a-complaint/",
+      "retrieved_at": "2026-11-07T04:48:12+00:00",
+      "http_status": 200,
+      "content_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+      "error": null
+    },
+    "ccs-consumer": {
+      "requested_url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+      "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+      "retrieved_at": "2026-11-07T04:48:13+00:00",
+      "http_status": 200,
+      "content_sha256": "19c05ef88e6d9623f059cb16b393cb48f2c357b139f97a32bc1d54f2a34220f1",
+      "error": null
+    },
+    "courts-criteria": {
+      "requested_url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+      "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+      "retrieved_at": "2026-11-07T04:48:12+00:00",
+      "http_status": 200,
+      "content_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+      "error": null
+    },
+    "courts-filing": {
+      "requested_url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+      "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+      "retrieved_at": "2026-11-07T04:48:12+00:00",
+      "http_status": 200,
+      "content_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea",
+      "error": null
+    },
+    "cea-private": {
+      "requested_url": "https://www.cea.gov.sg/consumers/transacting-on-your-own/renting-or-renting-out-a-private-residential-property/",
+      "url": "https://www.cea.gov.sg/consumers/transacting-on-your-own/renting-or-renting-out-a-private-residential-property/",
+      "retrieved_at": "2026-11-07T04:48:14+00:00",
+      "http_status": 200,
+      "content_sha256": "337964d68a92b847756da2c6c4f6b13b78c60613ef41aeac00b9ad7a5483209b",
+      "error": null
+    },
+    "cea-complaint": {
+      "requested_url": "https://www.cea.gov.sg/submit-complaint/",
+      "url": "https://www.cea.gov.sg/submit-complaint/",
+      "retrieved_at": "2026-11-07T04:48:14+00:00",
+      "http_status": 200,
+      "content_sha256": "59e16e01f72f053b2766fc9686fce58d04e9d1ce59fcd08beb434c19fab9405a",
+      "error": null
+    },
+    "cea-agency": {
+      "requested_url": "https://www.cea.gov.sg/consumers/engaging-a-property-agent/dispute-resolution/",
+      "url": "https://www.cea.gov.sg/consumers/engaging-a-property-agent/dispute-resolution/",
+      "retrieved_at": "2026-11-07T04:48:15+00:00",
+      "http_status": 200,
+      "content_sha256": "b723dc5c8456bc7780f00b569e7ce59ce0e6799fabb237d204b497aa4529b9dc",
+      "error": null
+    },
+    "hdb-tenancy": {
+      "requested_url": "https://www.hdb.gov.sg/renting-a-flat/renting-from-open-market/tenancy-matters",
+      "url": null,
+      "retrieved_at": null,
+      "http_status": 403,
+      "content_sha256": null,
+      "error": "HTTPError"
+    },
+    "mom-ep": {
+      "requested_url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/cancel-a-pass",
+      "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/cancel-a-pass",
+      "retrieved_at": "2026-11-07T04:48:15+00:00",
+      "http_status": 200,
+      "content_sha256": "cfebdf84bd35e76348c8204debb925a3e77f68be174e571e595f8e5887379de4",
+      "error": null
+    },
+    "cpfta-sso": {
+      "requested_url": "https://sso.agc.gov.sg/Act/CPFTA2003?ProvIds=pr4-%2Cpr5-%2Cpr6-",
+      "url": null,
+      "retrieved_at": null,
+      "http_status": 403,
+      "content_sha256": null,
+      "error": "HTTPError"
+    },
+    "scta-sso": {
+      "requested_url": "https://sso.agc.gov.sg/Act/SCTA1984?ProvIds=Sc-",
+      "url": null,
+      "retrieved_at": null,
+      "http_status": 403,
+      "content_sha256": null,
+      "error": "HTTPError"
+    },
+    "scta-reproduced": {
+      "requested_url": "https://www.elitigation.sg/gd/s/2026_SGSCT_8",
+      "url": "https://www.elitigation.sg/gd/s/2026_SGSCT_8",
+      "retrieved_at": "2026-11-07T04:48:15+00:00",
+      "http_status": 200,
+      "content_sha256": "f264a9d00cd080536ba9868d8b08dbe94f841b264f42af7082d4228677a74e4e",
+      "error": null
+    },
+    "cea-template": {
+      "requested_url": null,
+      "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+      "retrieved_at": "2026-11-07T04:52:39+00:00",
+      "http_status": 200,
+      "content_sha256": "87d7ddc476fbda6bcf2685cac88cc3c553e53e3a4784f1f29b7a805ebc95a9b4",
+      "error": null
+    }
+  },
+  "law_checks": [
+    {
+      "evidence_id": "CPFTA-4A",
+      "authority_url": "https://sso.agc.gov.sg/Act/CPFTA2003?ProvIds=pr4-%2Cpr5-%2Cpr6-",
+      "version_index": "https://sso.agc.gov.sg/Act/CPFTA2003",
+      "indexed_as_at": "2026-11-07",
+      "version_date": "2025-03-09",
+      "direct_http_status": 403,
+      "method": "literal match between indexed SSO provision and live CCS reproduction",
+      "scope": "Short quotation only. The full provision and legal application require source review."
+    },
+    {
+      "evidence_id": "SCTA-SCHEDULE-1C",
+      "authority_url": "https://sso.agc.gov.sg/Act/SCTA1984?ProvIds=Sc-",
+      "version_index": "https://sso.agc.gov.sg/Act/SCTA1984",
+      "indexed_as_at": "2026-10-27",
+      "version_date": "2025-10-01",
+      "direct_http_status": 403,
+      "method": "literal match of statutory lease wording in indexed SSO schedule and live court judgment",
+      "scope": "Residential lease jurisdiction context only. The clause does not decide refund entitlement."
+    }
+  ],
+  "review_identity": "Automated capture and bounded editorial evidence check",
+  "sso_live_status": "403 on HTML and PDF direct access, including ordinary browser; indexed text and official reproductions used for literal cross-check",
+  "pdf_scope": "Version 1.3, page locators checked against actual downloaded PDF and extracted text",
+  "portal_check": {
+    "http_status": 200,
+    "url": "https://complaints.case.org.sg/",
+    "content_sha256": "2cf99565c9f54fea11ca977bb1febf8b4e317235f0160f069aba74ddddf4de12",
+    "is_complaint_form": true,
+    "checked_at": "2026-11-07T04:59:50+00:00",
+    "requested_url": "https://complaints.case.org.sg/"
+  }
+}

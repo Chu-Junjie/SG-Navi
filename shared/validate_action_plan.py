@@ -69,8 +69,11 @@ def _official_url(value, *, source=False):
     try:
         url = urlsplit(value)
         allowed_query = source and url.hostname == "sso.agc.gov.sg"
+        official_host = url.hostname in OFFICIAL_HOSTS or (
+            source and url.hostname == "isomer-user-content.by.gov.sg"
+        )
         valid = (
-            url.scheme == "https" and url.hostname in OFFICIAL_HOSTS
+            url.scheme == "https" and official_host
             and url.netloc == url.hostname and not url.fragment
             and (not url.query or allowed_query)
             and not any(ch.isspace() or ch == chr(92) for ch in value)
