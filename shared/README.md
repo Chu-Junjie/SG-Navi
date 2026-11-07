@@ -111,3 +111,11 @@ The response distinguishes clarification, conditional research, limited referral
 error; only `GUIDANCE_ONLY` can contain the complete Task 14 display records and
 claim citations. v1 `/api/navigate` is unchanged. No legal Action Card is activated.
 See [integration acceptance](../docs/task15-acceptance.md) and `validate_guidance.py`.
+
+## Task 16 action plan
+
+[`action_plan_contract.json`](action_plan_contract.json) specifies the additive
+action plan 1.0 request, confirmation, question, result and evidence envelopes.
+See the [design and handoff](../docs/task16-action-first-design.md), the labelled
+[wire examples](examples/task16_action_plan.json) and `validate_action_plan.py`.
+The service implementation and live transition are tracked separately.

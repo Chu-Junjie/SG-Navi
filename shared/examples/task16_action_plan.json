@@ -1,0 +1,511 @@
+{
+  "fixture_version": "task16-examples-1",
+  "scope": "Synthetic protocol examples using historical Task15 source records. These are illustrative payloads, not actual API responses or Task17 source approval.",
+  "examples": [
+    {
+      "id": "demo-interpret",
+      "request": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-interpret",
+        "operation": "interpret",
+        "description": "The restaurant charged more than its menu price and would not correct the bill."
+      },
+      "response": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-interpret",
+        "state": "CONFIRM",
+        "reason": "awaiting_confirmation",
+        "message": "Confirm this summary or correct it.",
+        "context": {
+          "case_type": "consumer_complaint",
+          "issue_subtype": "restaurant_overcharge",
+          "goal": "complain",
+          "facts": {
+            "merchant_location": "singapore",
+            "resolution_attempted": true
+          },
+          "summary": "You reported a higher restaurant bill and an unsuccessful request to correct it."
+        },
+        "revision": null,
+        "question": null,
+        "plan": null
+      }
+    },
+    {
+      "id": "demo-question",
+      "request": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-question",
+        "operation": "plan",
+        "confirmed": true,
+        "context": {
+          "case_type": "consumer_complaint",
+          "issue_subtype": "restaurant_overcharge",
+          "goal": "complain",
+          "facts": {
+            "merchant_location": "singapore",
+            "resolution_attempted": true
+          },
+          "summary": "You reported a higher restaurant bill and an unsuccessful request to correct it."
+        }
+      },
+      "response": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-question",
+        "state": "ASK",
+        "reason": "missing_decisive_fact",
+        "message": "One detail changes the assistance route.",
+        "context": {
+          "case_type": "consumer_complaint",
+          "issue_subtype": "restaurant_overcharge",
+          "goal": "complain",
+          "facts": {
+            "merchant_location": "singapore",
+            "resolution_attempted": true
+          },
+          "summary": "You reported a higher restaurant bill and an unsuccessful request to correct it."
+        },
+        "revision": "fffec26af1f3c6e7a3ff3254",
+        "question": {
+          "id": "purchase-purpose",
+          "field": "purchase_purpose",
+          "prompt": "Was the meal for personal use?",
+          "reason": "Personal and business purchases follow different assistance paths.",
+          "options": [
+            {
+              "value": "personal",
+              "label": "For myself"
+            },
+            {
+              "value": "business",
+              "label": "For a business"
+            },
+            {
+              "value": "unknown",
+              "label": "Not sure"
+            }
+          ]
+        },
+        "plan": null
+      }
+    },
+    {
+      "id": "demo-consumer",
+      "request": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-consumer",
+        "operation": "plan",
+        "confirmed": true,
+        "context": {
+          "case_type": "consumer_complaint",
+          "issue_subtype": "restaurant_overcharge",
+          "goal": "complain",
+          "facts": {
+            "merchant_location": "singapore",
+            "resolution_attempted": true,
+            "purchase_purpose": "personal"
+          },
+          "summary": "You reported a higher restaurant bill and an unsuccessful request to correct it."
+        }
+      },
+      "response": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-consumer",
+        "state": "READY",
+        "reason": "verified_action",
+        "message": "Review the procedure and confirm applicable conditions.",
+        "context": {
+          "case_type": "consumer_complaint",
+          "issue_subtype": "restaurant_overcharge",
+          "goal": "complain",
+          "facts": {
+            "merchant_location": "singapore",
+            "resolution_attempted": true,
+            "purchase_purpose": "personal"
+          },
+          "summary": "You reported a higher restaurant bill and an unsuccessful request to correct it."
+        },
+        "revision": "7f7cc5908d48a7fac4d752eb",
+        "question": null,
+        "plan": {
+          "headline": "Ask about the restaurant billing dispute",
+          "assessment": {
+            "id": "assessment",
+            "text": "Check the published CASE consumer assistance process and its conditions.",
+            "evidence_ids": [
+              "CASE-PERSONAL",
+              "CASE-PROCESS-FEES"
+            ]
+          },
+          "primary_action": {
+            "id": "next",
+            "text": "Read how CASE assesses consumer complaints before choosing a service.",
+            "evidence_ids": [
+              "CASE-PERSONAL",
+              "CASE-PROCESS-FEES"
+            ],
+            "label": "Read CASE's complaint process",
+            "kind": "consult",
+            "contact_id": "case-info"
+          },
+          "checklist": [
+            {
+              "id": "records",
+              "text": "Keep the receipt and the restaurant's written response.",
+              "evidence_ids": [
+                "SCT-FILE-DOCUMENTS"
+              ]
+            }
+          ],
+          "contacts": [
+            {
+              "id": "case-info",
+              "institution": "Consumers Association of Singapore",
+              "purpose": "procedure_information",
+              "kind": "web",
+              "value": "https://www.case.org.sg/submit-a-complaint/",
+              "evidence_ids": [
+                "CASE-PERSONAL",
+                "CASE-PROCESS-FEES"
+              ]
+            }
+          ],
+          "details": [
+            {
+              "kind": "conditions",
+              "title": "Check the service scope",
+              "items": [
+                {
+                  "id": "limits",
+                  "text": "Ask CASE which assistance option applies and whether charges or membership apply.",
+                  "evidence_ids": [
+                    "CASE-PERSONAL",
+                    "CASE-PROCESS-FEES"
+                  ]
+                }
+              ]
+            }
+          ],
+          "draft": {
+            "title": "Billing dispute draft",
+            "subject": "Request for help with a restaurant bill",
+            "body": "I dispute {disputed_amount} on the bill. I asked the restaurant to correct it and received {response}. Please advise on the next step.",
+            "slots": [
+              {
+                "id": "disputed_amount",
+                "label": "Amount disputed"
+              },
+              {
+                "id": "response",
+                "label": "Restaurant response"
+              }
+            ]
+          },
+          "legal_basis": [],
+          "source_version": "kb-2026-11-01.1",
+          "evidence": [
+            {
+              "id": "CASE-PERSONAL",
+              "source_id": "case-complaint",
+              "kind": "official_procedure",
+              "publisher": "Consumers Association of Singapore",
+              "title": "Submit A Complaint",
+              "url": "https://www.case.org.sg/submit-a-complaint/",
+              "locator": "consumer eligibility FAQ",
+              "quote": "personal/domestic use",
+              "quote_sha256": "0aa7306135d24d3c1116e85842a0cd12d3f7ba0a655f2b1a8b7a59e2b1d2d317",
+              "source_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+              "captured_at": "2026-11-01T09:29:08+00:00",
+              "reviewed_at": "2026-11-01T09:43:07+00:00",
+              "reviewed_by": "Codex automated page and excerpt check",
+              "review_method": "live_excerpt_check",
+              "review_status": "verified",
+              "provision": null,
+              "edition": null
+            },
+            {
+              "id": "CASE-PROCESS-FEES",
+              "source_id": "case-complaint",
+              "kind": "official_procedure",
+              "publisher": "Consumers Association of Singapore",
+              "title": "Submit A Complaint",
+              "url": "https://www.case.org.sg/submit-a-complaint/",
+              "locator": "service options and membership FAQ",
+              "quote": "Both may incur a small fee.",
+              "quote_sha256": "d91fc66bd10fb88f68064214bc9f12b8435354d325ef44360bdaaca6ebcd085e",
+              "source_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+              "captured_at": "2026-11-01T09:29:08+00:00",
+              "reviewed_at": "2026-11-01T09:43:07+00:00",
+              "reviewed_by": "Codex automated page and excerpt check",
+              "review_method": "live_excerpt_check",
+              "review_status": "verified",
+              "provision": null,
+              "edition": null
+            },
+            {
+              "id": "SCT-FILE-DOCUMENTS",
+              "source_id": "courts-sct-filing",
+              "kind": "official_procedure",
+              "publisher": "Singapore Courts",
+              "title": "How to file and serve a small claim",
+              "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+              "locator": "application supporting records",
+              "quote": "PDF files",
+              "quote_sha256": "540e2218f01c2023dafa0fe14fb42a77a97f74a373958d632dde5ea38a870c18",
+              "source_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea",
+              "captured_at": "2026-11-01T09:29:08+00:00",
+              "reviewed_at": "2026-11-01T09:43:07+00:00",
+              "reviewed_by": "Codex automated page and excerpt check",
+              "review_method": "live_excerpt_check",
+              "review_status": "verified",
+              "provision": null,
+              "edition": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "demo-rental",
+      "request": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-rental",
+        "operation": "plan",
+        "confirmed": true,
+        "context": {
+          "case_type": "rental_deposit",
+          "issue_subtype": "pass_related_exit",
+          "goal": "seek_refund",
+          "facts": {
+            "dispute_with": "landlord",
+            "premises_type": "private_residential",
+            "pass_event": "cancelled",
+            "break_clause_present": "unknown"
+          },
+          "summary": "You reported a residential deposit dispute after your work pass was cancelled."
+        }
+      },
+      "response": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-rental",
+        "state": "READY",
+        "reason": "verified_action",
+        "message": "Check the signed terms and actual circumstances.",
+        "context": {
+          "case_type": "rental_deposit",
+          "issue_subtype": "pass_related_exit",
+          "goal": "seek_refund",
+          "facts": {
+            "dispute_with": "landlord",
+            "premises_type": "private_residential",
+            "pass_event": "cancelled",
+            "break_clause_present": "unknown"
+          },
+          "summary": "You reported a residential deposit dispute after your work pass was cancelled."
+        },
+        "revision": "80272dd53b2ec663cd6a0329",
+        "question": null,
+        "plan": {
+          "headline": "Check your signed agreement and deposit records",
+          "assessment": {
+            "id": "assessment",
+            "text": "Gather the tenancy records before asking about a deposit dispute.",
+            "evidence_ids": [
+              "SCT-ELIG-RESIDENTIAL",
+              "SCT-FILE-DOCUMENTS"
+            ]
+          },
+          "primary_action": {
+            "id": "next",
+            "text": "Find the signed terms and check what they say about notice, early termination and the deposit.",
+            "evidence_ids": [
+              "SCT-FILE-DOCUMENTS"
+            ],
+            "label": "Review your tenancy documents",
+            "kind": "prepare",
+            "contact_id": null
+          },
+          "checklist": [
+            {
+              "id": "terms",
+              "text": "Keep your signed tenancy agreement and deposit payment record.",
+              "evidence_ids": [
+                "SCT-FILE-DOCUMENTS"
+              ]
+            },
+            {
+              "id": "messages",
+              "text": "Keep the written reasons for withholding the deposit and move-out correspondence.",
+              "evidence_ids": [
+                "SCT-FILE-DOCUMENTS"
+              ]
+            }
+          ],
+          "contacts": [
+            {
+              "id": "courts-criteria",
+              "institution": "Singapore Courts",
+              "purpose": "procedure_information",
+              "kind": "web",
+              "value": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+              "evidence_ids": [
+                "SCT-ELIG-RESIDENTIAL"
+              ]
+            }
+          ],
+          "details": [
+            {
+              "kind": "conditions",
+              "title": "Check the official criteria",
+              "items": [
+                {
+                  "id": "criteria",
+                  "text": "Review the court's published criteria before considering the small claims process.",
+                  "evidence_ids": [
+                    "SCT-ELIG-RESIDENTIAL"
+                  ]
+                }
+              ]
+            }
+          ],
+          "draft": {
+            "title": "Deposit request draft",
+            "subject": "Request for deposit breakdown",
+            "body": "Please explain how you calculated the deduction of {disputed_amount} and identify the signed term you relied on.",
+            "slots": [
+              {
+                "id": "disputed_amount",
+                "label": "Disputed amount"
+              }
+            ]
+          },
+          "legal_basis": [],
+          "source_version": "kb-2026-11-01.1",
+          "evidence": [
+            {
+              "id": "SCT-ELIG-RESIDENTIAL",
+              "source_id": "courts-sct-eligibility",
+              "kind": "official_procedure",
+              "publisher": "Singapore Courts",
+              "title": "Cases eligible for a small claim",
+              "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+              "locator": "tenancy scope paragraph",
+              "quote": "residential premises not exceeding 2 years",
+              "quote_sha256": "81322916f56d4c55f04f12149a02e8242a2458212840f5cf24cff21b392730a3",
+              "source_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+              "captured_at": "2026-11-01T09:29:08+00:00",
+              "reviewed_at": "2026-11-01T09:43:07+00:00",
+              "reviewed_by": "Codex automated page and excerpt check",
+              "review_method": "live_excerpt_check",
+              "review_status": "verified",
+              "provision": null,
+              "edition": null
+            },
+            {
+              "id": "SCT-FILE-DOCUMENTS",
+              "source_id": "courts-sct-filing",
+              "kind": "official_procedure",
+              "publisher": "Singapore Courts",
+              "title": "How to file and serve a small claim",
+              "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+              "locator": "application supporting records",
+              "quote": "PDF files",
+              "quote_sha256": "540e2218f01c2023dafa0fe14fb42a77a97f74a373958d632dde5ea38a870c18",
+              "source_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea",
+              "captured_at": "2026-11-01T09:29:08+00:00",
+              "reviewed_at": "2026-11-01T09:43:07+00:00",
+              "reviewed_by": "Codex automated page and excerpt check",
+              "review_method": "live_excerpt_check",
+              "review_status": "verified",
+              "provision": null,
+              "edition": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "demo-limited",
+      "request": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-limited",
+        "operation": "interpret",
+        "description": "How can I renew my passport?"
+      },
+      "response": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-limited",
+        "state": "LIMITED",
+        "reason": "outside_scope",
+        "message": "This service covers rental deposits and consumer complaints.",
+        "context": null,
+        "revision": null,
+        "question": null,
+        "plan": null
+      }
+    },
+    {
+      "id": "demo-source",
+      "request": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-source",
+        "operation": "plan",
+        "confirmed": true,
+        "context": {
+          "case_type": "rental_deposit",
+          "issue_subtype": "pass_related_exit",
+          "goal": "seek_refund",
+          "facts": {
+            "dispute_with": "landlord",
+            "premises_type": "private_residential",
+            "pass_event": "cancelled",
+            "break_clause_present": "unknown"
+          },
+          "summary": "You reported a residential deposit dispute after your work pass was cancelled."
+        }
+      },
+      "response": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-source",
+        "state": "LIMITED",
+        "reason": "source_unverified",
+        "message": "The required source is unavailable. Check again later.",
+        "context": {
+          "case_type": "rental_deposit",
+          "issue_subtype": "pass_related_exit",
+          "goal": "seek_refund",
+          "facts": {
+            "dispute_with": "landlord",
+            "premises_type": "private_residential",
+            "pass_event": "cancelled",
+            "break_clause_present": "unknown"
+          },
+          "summary": "You reported a residential deposit dispute after your work pass was cancelled."
+        },
+        "revision": "80272dd53b2ec663cd6a0329",
+        "question": null,
+        "plan": null
+      }
+    },
+    {
+      "id": "demo-offline",
+      "request": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-offline",
+        "operation": "interpret",
+        "description": "The restaurant charged more than its menu price and would not correct the bill."
+      },
+      "response": {
+        "action_plan_version": "1.0",
+        "request_id": "demo-offline",
+        "state": "UNAVAILABLE",
+        "reason": "service_unavailable",
+        "message": "Try again when the service is available.",
+        "context": null,
+        "revision": null,
+        "question": null,
+        "plan": null
+      }
+    }
+  ]
+}
