@@ -34,10 +34,16 @@ Example human-facing Chinese only for research review:
 - Rental/pass pitfall: 如涉及 Employment Pass（就业准证），请查阅新加坡人力部（MOM）的准证取消指引；押金问题仍须分别核对已签署的租约。
 - Label must remain visible: **中文说明（非官方译文）；法律与程序依据以官方英文原文为准。**
 
+## Reviewer-only, disabled-by-default HTTP preview
+
+There is an additional `POST /api/action-plan/zh-hans-preview` route accepting the **same validated English-only Task 16 request body**, but **it returns HTTP 404 by default**. It is registered only for experimental developer/reviewer environments by setting Flask `app.config["TASK24_ENABLE_UNREVIEWED_PREVIEW"] = True` explicitly. It deliberately is not in the Pages CORS allowlist and must not be enabled in public production. Its response is a **separate proposal envelope**, not an approved Action Plan schema extension. Tests confirm the original `POST /api/action-plan` has no changed fields and the preview cannot be used without explicit local opt-in.
+
+The source catalog version is tied to `action-kb-2026-11-07.1`. Any source-package version mismatch, catalog-entry status mismatch, missing English mapping, unsupported dynamic summary or modified draft slots blocks the Chinese overlay rather than assuming translation is valid.
+
 ## Human review gate — required before any production connection
 1. **Junjie:** approve/revise the exact bilingual representation/versioning strategy and source-sensitive 155 phrase translations. Provide real review identity, timestamp, source-package/version mapping, stable phrase/claim IDs and a correction log. Do not modify source quote bytes or treat Chinese paraphrase as an official legal provision.
 2. **Guanyu:** approve the field shape and UX for client language switch without fresh interpretation, clearing answers, losing checklist ticks, losing IDs or suppressing original English evidence. Display the non-official-explanation label near derived Chinese content. Confirm the intended authorization and a deployment/migration plan.
-3. **Zheng:** after both reviews, implement the agreed opt-in transport and strict shared schema/version migration, add approved-only gating, and run actual HTTP, source-failure/quarantine and canonical compatibility tests. This branch does **not** expose an HTTP bilingual route or alter the approved Task 16 contract.
+3. **Zheng:** after both reviews, implement the agreed opt-in transport and strict shared schema/version migration, add approved-only gating, and run actual HTTP, source-failure/quarantine and canonical compatibility tests. The new reviewer preview is off by default and is **not** a public approved bilingual contract; production remains unchanged.
 4. **All:** publish source-version- and reviewer-stamped translations only after approval. Task 23 #106 bilingual UI and Task 22 #94 public acceptance remain separate. The English legacy `/api/action-plan` should keep working unchanged.
 
 ## Verification
