@@ -192,9 +192,11 @@
       if(el)el.textContent=label(original);
     }
     const input=doc.getElementById("problem-text");
-    if(input)input.placeholder=lang==="zh"
-      ?"例如：房东没有退还我 2,000 新元押金，我该先核对什么？"
-      :"For example: My landlord has not returned my S$2,000 deposit. What should I check?";
+    const inputHelp=doc.getElementById("problem-language-help");
+    if(input&&inputHelp){
+      inputHelp.hidden=lang!=="zh";
+      input.setAttribute("aria-describedby",inputHelp.hidden?"problem-helper":"problem-language-help problem-helper");
+    }
     const primary=doc.getElementById("problem-submit");
     if(primary){
       const span=primary.querySelector("span");

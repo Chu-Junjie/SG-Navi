@@ -103,3 +103,21 @@ test("known non-legal selector labels have Chinese display, unknown content stay
   assert.equal(locale.label("SG Navi · One quick detail"),"SG Navi · 还需要确认一项信息");
   locale.setLanguage("en");
 });
+
+test("Chinese intake shows its English-input requirement before submission",()=>{
+  const hint={hidden:true};
+  const input={value:"My existing description",placeholder:"English example",attributes:{},
+    setAttribute(name,value){this.attributes[name]=value;}};
+  const doc=Object.assign(new EventTarget(),{documentElement:{},querySelector:()=>null,
+    querySelectorAll:()=>[],getElementById:id=>({"problem-text":input,"problem-language-help":hint})[id]});
+  locale.init(doc);
+  assert.equal(hint.hidden,true);
+  locale.setLanguage("zh");
+  assert.equal(hint.hidden,false);
+  assert.equal(input.attributes["aria-describedby"],"problem-language-help problem-helper");
+  assert.equal(input.placeholder,"English example");
+  assert.equal(input.value,"My existing description");
+  locale.setLanguage("en");
+  assert.equal(hint.hidden,true);
+  assert.equal(input.attributes["aria-describedby"],"problem-helper");
+});
