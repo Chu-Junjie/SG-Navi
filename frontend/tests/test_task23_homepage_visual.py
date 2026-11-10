@@ -8,7 +8,9 @@ ROOT=Path(__file__).resolve().parents[2]
 class Task23HomepageVisualTests(unittest.TestCase):
     def test_actual_entrypoints_have_natural_logo_and_no_duplicate_language_badge(self):
         css=(ROOT/"frontend/css/task23-ui.css").read_text(encoding="utf-8")
-        self.assertIn(".brand-logo{height:49px;width:auto;max-width:205px",css)
+        self.assertIn(".brand-logo{height:56px;width:auto;max-width:205px",css)
+        self.assertIn(".brand-logo{height:45px;max-width:158px}",css)
+        self.assertIn(".header-inner,.hero .shell{width:calc(100% - 24px)}",css)
         self.assertIn("mix-blend-mode:normal",css)
         self.assertIn("filter:none",css)
         self.assertNotIn("grayscale(1) invert(1) contrast(1.3)",css)
