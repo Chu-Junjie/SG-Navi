@@ -556,6 +556,82 @@
     "Visitor": {
       "zh_hans": "访客",
       "review_status": "pending_review"
+    },
+    "Consumers Association of Singapore": {
+      "zh_hans": "新加坡消费者协会（CASE）",
+      "review_status": "pending_review"
+    },
+    "Singapore Courts": {
+      "zh_hans": "新加坡法院",
+      "review_status": "pending_review"
+    },
+    "Council for Estate Agencies": {
+      "zh_hans": "房地产代理理事会（CEA）",
+      "review_status": "pending_review"
+    },
+    "Monday to Friday, 9 am to 5 pm, excluding public holidays.": {
+      "zh_hans": "周一至周五上午9时至下午5时，公共假期除外（以官方最新公布时间为准）。",
+      "review_status": "pending_review"
+    },
+    "Use this for assistance enquiries. The online form is the complaint submission channel.": {
+      "zh_hans": "该邮箱用于协助咨询。提交投诉请使用官方在线表格。",
+      "review_status": "pending_review"
+    },
+    "complaint_intake": {
+      "zh_hans": "投诉受理渠道",
+      "review_status": "pending_review"
+    },
+    "consumer_assistance": {
+      "zh_hans": "消费者协助",
+      "review_status": "pending_review"
+    },
+    "procedure_information": {
+      "zh_hans": "程序信息查询",
+      "review_status": "pending_review"
+    },
+    "agency_conduct": {
+      "zh_hans": "房地产经纪行为投诉",
+      "review_status": "pending_review"
+    },
+    "agency_agreement_help": {
+      "zh_hans": "房地产代理协议争议协助",
+      "review_status": "pending_review"
+    },
+    "documents": {
+      "zh_hans": "准备文件",
+      "review_status": "pending_review"
+    },
+    "conditions": {
+      "zh_hans": "适用条件",
+      "review_status": "pending_review"
+    },
+    "pitfalls": {
+      "zh_hans": "注意事项",
+      "review_status": "pending_review"
+    },
+    "alternatives": {
+      "zh_hans": "其他可能的步骤",
+      "review_status": "pending_review"
+    },
+    "Consumer complaint": {
+      "zh_hans": "消费者纠纷",
+      "review_status": "pending_review"
+    },
+    "Rental deposit": {
+      "zh_hans": "租赁押金纠纷",
+      "review_status": "pending_review"
+    },
+    "English original — Chinese explanation is not an official translation.": {
+      "zh_hans": "英文原文；中文说明并非官方译文。",
+      "review_status": "pending_review"
     }
+  },
+  "catalog_provenance": {
+    "author_role": "backend draft, pending source/contract review",
+    "approved_by": null,
+    "approved_at": null,
+    "source_package": "rag/action_evidence/package.json",
+    "legal_meaning_review": "NOT_DONE",
+    "catalog_kind": "English-keyed proposals only; never official quote translation"
   }
 }
