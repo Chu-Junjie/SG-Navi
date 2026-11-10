@@ -18,6 +18,7 @@ API_METHODS = {
     "/api/results/preview": frozenset({"POST"}),
     "/api/guidance": frozenset({"POST"}),
     "/api/action-plan": frozenset({"POST"}),
+    "/api/action-plan/zh-hans-reviewed": frozenset({"POST"}),
 }
 DEFAULT_ORIGIN = "https://chu-junjie.github.io"
 
