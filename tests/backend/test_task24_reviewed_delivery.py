@@ -122,3 +122,59 @@ def test_canonical_evidence_urls_and_values_preserved(tmp_path):
     assert sidecar["canonical"]["plan"]["legal_basis"] == canonical["plan"]["legal_basis"]
     assert sidecar["canonical"]["revision"] == canonical["revision"]
     assert sidecar["display"]["plan"]["contacts"][0]["value"] == canonical["plan"]["contacts"][0]["value"]
+
+ 
+def test_reviewed_schema_is_distinct_and_strict(tmp_path):
+    from jsonschema import Draft202012Validator, FormatChecker, ValidationError
+    from backend.task24_delivery import REVIEWED_SCHEMA
+    schema = json.loads(REVIEWED_SCHEMA.read_text(encoding="utf-8"))
+    Draft202012Validator.check_schema(schema)
+    catfile, approval = _files(tmp_path)
+    response = reviewed_overlay(process_action_plan(REQUEST),
+                                catalog_path=catfile, approval_path=approval)
+    Draft202012Validator(schema, format_checker=FormatChecker()).validate(response)
+    invalid = deepcopy(response)
+    invalid["overlay_version"] = "task24-proposal-0.1"
+    with pytest.raises(ValidationError):
+        Draft202012Validator(schema).validate(invalid)
+    invalid = deepcopy(response)
+    invalid["unreviewed_claim"] = "fabricated"
+    with pytest.raises(ValidationError):
+        Draft202012Validator(schema).validate(invalid)
+    invalid = deepcopy(response)
+    invalid["display"]["question"] = {"field":"fabricated"}
+    with pytest.raises(ValidationError):
+        Draft202012Validator(schema).validate(invalid)
+
+
+def test_source_traceability_has_real_profile_evidence_ids():
+    from pathlib import Path
+    path = Path(__file__).resolve().parents[2] / "docs" / "task24-source-traceability.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    from rag.action_evidence import load_action_package
+    package, _, _, _ = load_action_package()
+    valid = {x["id"] for x in package["records"]}
+    profiles = {p["id"] for p in package["profiles"]}
+    assert len(data["source_backed_texts"]) >= 80
+    assert data["review_status"] == "pending_review"
+    assert data["reviewed_by"] is None
+    for entry in data["source_backed_texts"]:
+        assert entry["zh_hans"]
+        for usage in entry["usages"]:
+            assert usage["profile_id"] is None or usage["profile_id"] in profiles
+            assert set(usage["evidence_ids"]) <= valid
+
+
+def test_requested_copy_corrections_still_pending_review():
+    from backend.task24_bilingual import CATALOG
+    d = json.loads(CATALOG.read_text(encoding="utf-8"))
+    expected = {
+        "Separate the pass event from the rental terms":
+            "将工作准证状态变化与租约条款分开核查",
+        "The signed agency agreement is a decisive document for choosing a contractual dispute route.":
+            "已签署的房地产代理协议是判断应采用哪种合同争议处理渠道的重要文件。",
+        "Monday to Friday, 9 am to 5 pm, excluding public holidays.":
+            "周一至周五上午9时至下午5时，公共假期除外。",
+    }
+    for en, zh in expected.items():
+        assert d["entries"][en] == {"zh_hans": zh, "review_status": "pending_review"}

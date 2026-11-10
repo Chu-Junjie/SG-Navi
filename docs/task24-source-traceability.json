@@ -1,0 +1,2984 @@
+{
+  "mapping_version": "task24-trace-proposal-0.1",
+  "catalog_version": "task24-proposal-0.1",
+  "source_package_version": "action-kb-2026-11-07.1",
+  "review_status": "pending_review",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "source_backed_texts": [
+    {
+      "english": "CASE has an assistance route for personal consumer disputes. Ask it to assess the reported charge and its scope.",
+      "zh_hans": "CASE 提供个人消费者纠纷协助渠道。请由 CASE 评估您所述收费问题及其适用范围。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "CASE-SCOPE",
+            "CASE-ASSESS"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Explain the disputed amount and your attempt to resolve it in the official complaint form.",
+      "zh_hans": "在官方投诉表格中说明争议金额，以及您此前尝试与商家解决问题的经过。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CASE-PORTAL",
+            "CASE-ASSESS",
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "case-contact",
+            "case-process",
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Keep the receipt, advertised price and your written exchanges.",
+      "zh_hans": "保存收据、标示价格及双方书面沟通记录。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "checklist.text",
+          "claim_id": "bill",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Note the price or charge you dispute and the correction you requested.",
+      "zh_hans": "记录您有争议的价格或收费，以及您要求商家作出的更正。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "checklist.text",
+          "claim_id": "difference",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "A potentially misleading representation is a point to raise. Whether the facts meet the legal test needs assessment.",
+      "zh_hans": "可能具有误导性的陈述是值得提出的问题。具体事实是否符合法律标准，仍须进一步评估。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.text",
+          "claim_id": "legal-context",
+          "evidence_ids": [
+            "CPFTA-4A"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.text",
+          "claim_id": "legal-context",
+          "evidence_ids": [
+            "CPFTA-4A"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.text",
+          "claim_id": "legal-context",
+          "evidence_ids": [
+            "CPFTA-4A"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.text",
+          "claim_id": "legal-context",
+          "evidence_ids": [
+            "CPFTA-4A"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Check whether the seller and personal purchase fit the published CASE scope.",
+      "zh_hans": "核对商家及个人购买行为是否符合 CASE 公布的服务范围。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.text",
+          "claim_id": "scope",
+          "evidence_ids": [
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.text",
+          "claim_id": "scope",
+          "evidence_ids": [
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.text",
+          "claim_id": "scope",
+          "evidence_ids": [
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.text",
+          "claim_id": "scope",
+          "evidence_ids": [
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.text",
+          "claim_id": "scope",
+          "evidence_ids": [
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.text",
+          "claim_id": "scope",
+          "evidence_ids": [
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Ask which service is offered and whether that service has fees or membership requirements.",
+      "zh_hans": "询问可提供哪些服务，以及相关服务是否收取费用或要求会员资格。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "details.pitfalls.text",
+          "claim_id": "fees",
+          "evidence_ids": [
+            "CASE-FEES"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Ask CASE for advice before deciding whether to use another procedure.",
+      "zh_hans": "在决定是否采用其他程序前，先向 CASE 询问意见。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "details.alternatives.text",
+          "claim_id": "assist",
+          "evidence_ids": [
+            "CASE-ASSESS"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Ask CASE about your disputed charge",
+      "zh_hans": "向新加坡消费者协会（CASE）咨询争议收费",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-SCOPE",
+            "CASE-ASSESS"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Open CASE's complaint form",
+      "zh_hans": "打开 CASE 投诉表格",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CASE-PORTAL",
+            "CASE-ASSESS",
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "case-contact",
+            "case-process",
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "When this route is relevant",
+      "zh_hans": "该渠道何时可能适用",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CPFTA-4A",
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "ccs-consumer",
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CPFTA-4A",
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "ccs-consumer",
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CPFTA-4A",
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "ccs-consumer",
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CPFTA-4A",
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "ccs-consumer",
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "details.conditions.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-SCOPE"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Check the service and costs",
+      "zh_hans": "确认服务项目与费用",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "details.pitfalls.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-FEES"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "If you need help choosing the next step",
+      "zh_hans": "如需协助选择下一步",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "details.alternatives.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-ASSESS"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Billing complaint draft",
+      "zh_hans": "账单投诉信草稿",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-SCOPE",
+            "CASE-ASSESS"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "draft.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Request for help with a billing dispute",
+      "zh_hans": "请求协助处理账单争议",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.subject",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-SCOPE",
+            "CASE-ASSESS"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "draft.subject",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.subject",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.subject",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "I am asking for help with {disputed_charge}. The amount on the bill was {billed_amount}. I expected {expected_amount}. I contacted the business and received {business_response}. Please advise on the next step.",
+      "zh_hans": "我希望就{disputed_charge}寻求协助。账单所列金额为{billed_amount}，我预期应付金额为{expected_amount}。我已联系商家，得到的回复是{business_response}。请告知我可以采取的下一步措施。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.body",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-SCOPE",
+            "CASE-ASSESS"
+          ],
+          "source_ids": [
+            "case-process"
+          ]
+        },
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "draft.body",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.body",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.body",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Describe the disputed charge",
+      "zh_hans": "说明有争议的收费",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.disputed_charge",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.disputed_charge",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.disputed_charge",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.disputed_charge",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        }
+      ]
+    },
+    {
+      "english": "Amount charged",
+      "zh_hans": "实际收费金额",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.billed_amount",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.billed_amount",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.billed_amount",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.billed_amount",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        }
+      ]
+    },
+    {
+      "english": "Expected amount",
+      "zh_hans": "预期金额",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.expected_amount",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.expected_amount",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.expected_amount",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.expected_amount",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        }
+      ]
+    },
+    {
+      "english": "Business response",
+      "zh_hans": "商家回复",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "consumer-contact-after-dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.business_response",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.business_response",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.business_response",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.business_response",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        }
+      ]
+    },
+    {
+      "english": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+      "zh_hans": "在核查适当的协助渠道期间，您可以先整理账单或购物记录。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Keep the menu price and itemised bill. Mark the item and difference you want the restaurant to explain.",
+      "zh_hans": "保存菜单标价及分项账单，标出希望餐厅解释的项目和差额。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Keep your receipts and relevant written correspondence.",
+      "zh_hans": "保存收据及相关书面往来。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "checklist.text",
+          "claim_id": "records",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "checklist.text",
+          "claim_id": "records",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "checklist.text",
+          "claim_id": "records",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "checklist.text",
+          "claim_id": "records",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "checklist.text",
+          "claim_id": "records",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Compare the bill with the displayed price",
+      "zh_hans": "将账单与标示价格进行比较",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-restaurant_overcharge",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Compare the two payment entries with the receipt. Record both charges and ask the business to reconcile them.",
+      "zh_hans": "将两笔付款记录与收据对照，记录两次收费并要求商家核对。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Check both payment entries",
+      "zh_hans": "核对两笔付款记录",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-duplicate_charge",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Keep the itemised bill and ask the business to identify the fee or charge you do not understand.",
+      "zh_hans": "保留分项账单，并要求商家指出您不理解的费用或收费项目。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Ask for an itemised explanation",
+      "zh_hans": "要求提供逐项收费说明",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-unclear_charge",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Keep the receipt, order details and correspondence about the product.",
+      "zh_hans": "保存收据、订单详情以及有关商品的沟通记录。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Gather your purchase and dispute records",
+      "zh_hans": "整理购买和纠纷记录",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Purchase dispute draft",
+      "zh_hans": "购物纠纷信件草稿",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Request for help with a purchase",
+      "zh_hans": "请求协助处理购物问题",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.subject",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.subject",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "I am asking for help with {purchase}. My concern is {issue}. The outcome I would like is {request}.",
+      "zh_hans": "我希望就{purchase}寻求协助。我遇到的问题是{issue}，希望获得的处理结果是{request}。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.body",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.body",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Describe the purchase",
+      "zh_hans": "描述所购买的商品或服务",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.purchase",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.purchase",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        }
+      ]
+    },
+    {
+      "english": "Describe what went wrong",
+      "zh_hans": "描述出现的问题",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.issue",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.issue",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        }
+      ]
+    },
+    {
+      "english": "Requested outcome",
+      "zh_hans": "希望获得的处理结果",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-goods_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.request",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "draft.slot.request",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        }
+      ]
+    },
+    {
+      "english": "Keep the service description, bill and correspondence about what you dispute.",
+      "zh_hans": "保留服务说明、账单以及有关争议事项的沟通记录。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Gather the service and payment records",
+      "zh_hans": "整理服务及付款记录",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        },
+        {
+          "profile_id": "prepare-services_dispute",
+          "case_type": "consumer_complaint",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Review the lease terms and the circumstances of the exit before assessing a deposit deduction.",
+      "zh_hans": "在评估押金扣除问题前，先核查租约条款和实际退租情况。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Find the signed break clause, deposit clause and notice terms. Compare them with your actual notice and the landlord's stated reason.",
+      "zh_hans": "找出已签署租约中的提前解约条款、押金条款和通知条款，将其与实际通知及房东所述理由对照。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-NOTICE",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-template"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-NOTICE",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-template"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Keep the signed terms, written notice, relevant pass or employment notice and proof of delivery.",
+      "zh_hans": "保存已签署的条款、书面通知、相关准证或雇佣通知及送达证明。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "checklist.text",
+          "claim_id": "notice",
+          "evidence_ids": [
+            "CEA-TEMPLATE-NOTICE",
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "cea-template",
+            "courts-filing"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "checklist.text",
+          "claim_id": "notice",
+          "evidence_ids": [
+            "CEA-TEMPLATE-NOTICE",
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "cea-template",
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Ask the landlord for the written reason and itemised deduction. Keep your deposit record.",
+      "zh_hans": "向房东索取书面理由和逐项扣款说明，并保留押金支付记录。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "checklist.text",
+          "claim_id": "deduction",
+          "evidence_ids": [
+            "CEA-TEMPLATE-DEPOSIT",
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "cea-template",
+            "courts-filing"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "checklist.text",
+          "claim_id": "deduction",
+          "evidence_ids": [
+            "CEA-TEMPLATE-DEPOSIT",
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "cea-template",
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "The private rental template illustrates optional terms. Check the clauses and choices in the agreement you actually signed.",
+      "zh_hans": "私人住宅租约模板仅展示可选条款。请核对您实际签署的协议中所选用的条款。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "details.pitfalls.text",
+          "claim_id": "template",
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "details.pitfalls.text",
+          "claim_id": "template",
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "For an Employment Pass, check MOM's cancellation guidance for the pass position. Check the signed tenancy terms separately for the deposit question.",
+      "zh_hans": "如涉及 Employment Pass（就业准证），请查阅新加坡人力部（MOM）的准证取消指引；押金问题仍须分别核对已签署的租约。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "details.pitfalls.text",
+          "claim_id": "pass",
+          "evidence_ids": [
+            "MOM-EP-CANCELLATION",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "mom-ep",
+            "cea-template"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Check the SCT criteria for residential leases and the other filing conditions before deciding whether to file.",
+      "zh_hans": "决定是否提出索偿前，请核对小额索偿审裁处（SCT）对住宅租赁的标准及其他申请条件。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "details.conditions.text",
+          "claim_id": "jurisdiction",
+          "evidence_ids": [
+            "SCTA-SCHEDULE-1C",
+            "COURTS-RESIDENTIAL"
+          ],
+          "source_ids": [
+            "scta-reproduced",
+            "courts-criteria"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "details.conditions.text",
+          "claim_id": "jurisdiction",
+          "evidence_ids": [
+            "SCTA-SCHEDULE-1C",
+            "COURTS-RESIDENTIAL"
+          ],
+          "source_ids": [
+            "scta-reproduced",
+            "courts-criteria"
+          ]
+        },
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "details.conditions.text",
+          "claim_id": "jurisdiction",
+          "evidence_ids": [
+            "SCTA-SCHEDULE-1C",
+            "COURTS-RESIDENTIAL"
+          ],
+          "source_ids": [
+            "scta-reproduced",
+            "courts-criteria"
+          ]
+        },
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "details.conditions.text",
+          "claim_id": "jurisdiction",
+          "evidence_ids": [
+            "SCTA-SCHEDULE-1C",
+            "COURTS-RESIDENTIAL"
+          ],
+          "source_ids": [
+            "scta-reproduced",
+            "courts-criteria"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Check the signed exit and deposit terms",
+      "zh_hans": "核对已签署的提前退租和押金条款",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Review the signed agreement",
+      "zh_hans": "查看已签署的租赁协议",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-NOTICE",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-template"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-NOTICE",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-template"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Separate the pass event from the rental terms",
+      "zh_hans": "将工作准证状态变化与租约条款分开核查",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "details.pitfalls.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "MOM-EP-CANCELLATION",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template",
+            "mom-ep"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Check whether the small claims procedure fits",
+      "zh_hans": "核对小额索偿程序是否适用",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "details.conditions.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "SCTA-SCHEDULE-1C",
+            "COURTS-RESIDENTIAL"
+          ],
+          "source_ids": [
+            "scta-reproduced",
+            "courts-criteria"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "details.conditions.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "SCTA-SCHEDULE-1C",
+            "COURTS-RESIDENTIAL"
+          ],
+          "source_ids": [
+            "scta-reproduced",
+            "courts-criteria"
+          ]
+        },
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "details.conditions.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "SCTA-SCHEDULE-1C",
+            "COURTS-RESIDENTIAL"
+          ],
+          "source_ids": [
+            "scta-reproduced",
+            "courts-criteria"
+          ]
+        },
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "details.conditions.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "SCTA-SCHEDULE-1C",
+            "COURTS-RESIDENTIAL"
+          ],
+          "source_ids": [
+            "scta-reproduced",
+            "courts-criteria"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Deposit request draft",
+      "zh_hans": "押金请求信草稿",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "draft.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "draft.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        },
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "draft.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL",
+            "SCTA-SCHEDULE-1C"
+          ],
+          "source_ids": [
+            "courts-criteria",
+            "scta-reproduced"
+          ]
+        },
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "draft.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Request for a deposit breakdown",
+      "zh_hans": "请求提供押金扣款明细",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "draft.subject",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "draft.subject",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        },
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "draft.subject",
+          "claim_id": null,
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL",
+            "SCTA-SCHEDULE-1C"
+          ],
+          "source_ids": [
+            "courts-criteria",
+            "scta-reproduced"
+          ]
+        },
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "draft.subject",
+          "claim_id": null,
+          "evidence_ids": [
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Please provide a written breakdown of {deduction} and identify the clause of our signed tenancy agreement used for it. My understanding of the relevant clause is {clause}. Please clarify the remaining deposit and the reason for any deduction.",
+      "zh_hans": "请提供{deduction}的书面明细，并指出已签署租约中作为扣款依据的条款。据我理解，相关条款为{clause}。请说明尚余押金金额及任何扣款理由。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "draft.body",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "draft.body",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK",
+            "CEA-TEMPLATE-DEPOSIT"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        },
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "draft.body",
+          "claim_id": null,
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL",
+            "SCTA-SCHEDULE-1C"
+          ],
+          "source_ids": [
+            "courts-criteria",
+            "scta-reproduced"
+          ]
+        },
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "draft.body",
+          "claim_id": null,
+          "evidence_ids": [
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Disputed deduction or deposit amount",
+      "zh_hans": "有争议的扣款或押金金额",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "draft.slot.deduction",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "draft.slot.deduction",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "draft.slot.deduction",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "draft.slot.deduction",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        }
+      ]
+    },
+    {
+      "english": "Your signed agreement clause",
+      "zh_hans": "您签署的协议条款",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-pass-deposit",
+          "case_type": "rental_deposit",
+          "field": "draft.slot.clause",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "draft.slot.clause",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "draft.slot.clause",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        },
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "draft.slot.clause",
+          "claim_id": null,
+          "evidence_ids": [],
+          "source_ids": []
+        }
+      ]
+    },
+    {
+      "english": "Check the terms for early exit",
+      "zh_hans": "核对提前解约条款",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "private-early-exit",
+          "case_type": "rental_deposit",
+          "field": "details.pitfalls.title",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-TEMPLATE-SCOPE",
+            "CEA-TEMPLATE-BREAK"
+          ],
+          "source_ids": [
+            "cea-private",
+            "cea-template"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "The available procedure depends on the actual lease and filing conditions.",
+      "zh_hans": "可使用的程序取决于实际租约及申请条件。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL",
+            "SCTA-SCHEDULE-1C"
+          ],
+          "source_ids": [
+            "courts-criteria",
+            "scta-reproduced"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Read the official SCT criteria before choosing whether to use its pre-filing assessment.",
+      "zh_hans": "在决定是否使用申请前评估程序前，请先阅读 SCT 官方标准。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL",
+            "SCTA-SCHEDULE-1C"
+          ],
+          "source_ids": [
+            "courts-criteria",
+            "scta-reproduced"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Keep the tenancy agreement, deposit payment evidence and written communications.",
+      "zh_hans": "保存租赁协议、押金付款凭证及书面沟通记录。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "checklist.text",
+          "claim_id": "records",
+          "evidence_ids": [
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Check the court's criteria for a tenancy claim",
+      "zh_hans": "查阅法院对租赁索偿的标准",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL",
+            "SCTA-SCHEDULE-1C"
+          ],
+          "source_ids": [
+            "courts-criteria",
+            "scta-reproduced"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Read the SCT criteria",
+      "zh_hans": "阅读 SCT 适用标准",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "rental-criteria-check",
+          "case_type": "rental_deposit",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL",
+            "SCTA-SCHEDULE-1C"
+          ],
+          "source_ids": [
+            "courts-criteria",
+            "scta-reproduced"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "The signed agreement and the actual reasons for the deduction help identify what to check.",
+      "zh_hans": "已签署的协议及实际扣款理由，有助于确定应核查的事项。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Find the signed lease and ask for a written breakdown of the withheld amount before assessing the dispute.",
+      "zh_hans": "寻找已签署租约，并在评估纠纷前索取被扣金额的书面明细。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Keep your agreement, payment evidence and correspondence about the deposit.",
+      "zh_hans": "保存协议、付款证明及有关押金的往来记录。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "checklist.text",
+          "claim_id": "records",
+          "evidence_ids": [
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Gather the signed agreement and deposit records",
+      "zh_hans": "整理已签署租约和押金记录",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Check the deposit and notice terms",
+      "zh_hans": "核对押金及通知条款",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "deposit-records",
+          "case_type": "rental_deposit",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "You reported conduct by an agent. Check the scope of CEA's complaint procedure.",
+      "zh_hans": "您反映的是房地产经纪的行为。请核对 CEA 投诉程序的适用范围。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "agent-conduct",
+          "case_type": "rental_deposit",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "CEA-CONDUCT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-complaint"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Review CEA's steps for an agent conduct complaint and prepare the account of what happened.",
+      "zh_hans": "查看 CEA 对房地产经纪行为投诉的步骤，并准备事情经过说明。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "agent-conduct",
+          "case_type": "rental_deposit",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CEA-CONDUCT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-complaint"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Keep the communications about the agent's conduct and any response from the agency.",
+      "zh_hans": "保留有关经纪行为的沟通记录及代理公司的回复。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "agent-conduct",
+          "case_type": "rental_deposit",
+          "field": "checklist.text",
+          "claim_id": "records",
+          "evidence_ids": [
+            "CEA-CONDUCT-ROUTE",
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "cea-complaint",
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Read CEA's property agent complaint procedure",
+      "zh_hans": "阅读房地产代理理事会（CEA）的房地产经纪投诉程序",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "agent-conduct",
+          "case_type": "rental_deposit",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-CONDUCT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-complaint"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Open CEA's complaint page",
+      "zh_hans": "打开 CEA 投诉页面",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "agent-conduct",
+          "case_type": "rental_deposit",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CEA-CONDUCT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-complaint"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "The reported signed agency agreement is relevant to the CEA scheme's published scope.",
+      "zh_hans": "您所述已签署代理协议与 CEA 方案公布的适用范围有关。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "signed-agency-dispute",
+          "case_type": "rental_deposit",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-agency"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Check the scheme conditions and the dispute resolution clause of the signed estate agency agreement.",
+      "zh_hans": "核对该方案的条件，以及已签署房地产代理协议中的争议解决条款。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "signed-agency-dispute",
+          "case_type": "rental_deposit",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-agency"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Gather the signed agreement and written communications.",
+      "zh_hans": "整理已签署的协议及书面往来。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "signed-agency-dispute",
+          "case_type": "rental_deposit",
+          "field": "checklist.text",
+          "claim_id": "agreement",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE",
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "cea-agency",
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Check the agency agreement dispute process",
+      "zh_hans": "核对房地产代理协议争议解决程序",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "signed-agency-dispute",
+          "case_type": "rental_deposit",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-agency"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Read CEA's dispute resolution guidance",
+      "zh_hans": "阅读 CEA 争议解决指引",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "signed-agency-dispute",
+          "case_type": "rental_deposit",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-agency"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "The signed agency agreement is a decisive document for choosing a contractual dispute route.",
+      "zh_hans": "已签署的房地产代理协议是判断应采用哪种合同争议处理渠道的重要文件。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "agency-agreement-records",
+          "case_type": "rental_deposit",
+          "field": "assessment.text",
+          "claim_id": "assessment",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-agency"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Check whether you signed an estate agency agreement and locate its dispute clause.",
+      "zh_hans": "核实您是否签署房地产代理协议，并查找其中的争议条款。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "agency-agreement-records",
+          "case_type": "rental_deposit",
+          "field": "primary_action.text",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-agency"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Keep the relevant agreement and correspondence.",
+      "zh_hans": "保存相关协议和沟通记录。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "agency-agreement-records",
+          "case_type": "rental_deposit",
+          "field": "checklist.text",
+          "claim_id": "agreement",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE",
+            "COURTS-RECORDS"
+          ],
+          "source_ids": [
+            "cea-agency",
+            "courts-filing"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Find the agreement with the agency",
+      "zh_hans": "找出与房地产代理公司签订的协议",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "agency-agreement-records",
+          "case_type": "rental_deposit",
+          "field": "headline",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-agency"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Find the agency agreement",
+      "zh_hans": "查找房地产代理协议",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": "agency-agreement-records",
+          "case_type": "rental_deposit",
+          "field": "primary_action.label",
+          "claim_id": "next",
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-agency"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Consumers Association of Singapore",
+      "zh_hans": "新加坡消费者协会（CASE）",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": null,
+          "field": "contact.case-form.institution",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-PORTAL"
+          ],
+          "source_ids": [
+            "case-contact"
+          ]
+        },
+        {
+          "profile_id": null,
+          "field": "contact.case-phone.institution",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-PHONE"
+          ],
+          "source_ids": [
+            "case-contact"
+          ]
+        },
+        {
+          "profile_id": null,
+          "field": "contact.case-email.institution",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-EMAIL"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "complaint_intake",
+      "zh_hans": "投诉受理渠道",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": null,
+          "field": "contact.case-form.purpose",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-PORTAL"
+          ],
+          "source_ids": [
+            "case-contact"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "consumer_assistance",
+      "zh_hans": "消费者协助",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": null,
+          "field": "contact.case-phone.purpose",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-PHONE"
+          ],
+          "source_ids": [
+            "case-contact"
+          ]
+        },
+        {
+          "profile_id": null,
+          "field": "contact.case-email.purpose",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-EMAIL"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Monday to Friday, 9 am to 5 pm, excluding public holidays.",
+      "zh_hans": "周一至周五上午9时至下午5时，公共假期除外。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": null,
+          "field": "contact.case-phone.note",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-PHONE"
+          ],
+          "source_ids": [
+            "case-contact"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Use this for assistance enquiries. The online form is the complaint submission channel.",
+      "zh_hans": "该邮箱用于协助咨询。提交投诉请使用官方在线表格。",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": null,
+          "field": "contact.case-email.note",
+          "claim_id": null,
+          "evidence_ids": [
+            "CASE-EMAIL"
+          ],
+          "source_ids": [
+            "ccs-consumer"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Singapore Courts",
+      "zh_hans": "新加坡法院",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": null,
+          "field": "contact.sct-criteria.institution",
+          "claim_id": null,
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL"
+          ],
+          "source_ids": [
+            "courts-criteria"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "procedure_information",
+      "zh_hans": "程序信息查询",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": null,
+          "field": "contact.sct-criteria.purpose",
+          "claim_id": null,
+          "evidence_ids": [
+            "COURTS-RESIDENTIAL"
+          ],
+          "source_ids": [
+            "courts-criteria"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "Council for Estate Agencies",
+      "zh_hans": "房地产代理理事会（CEA）",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": null,
+          "field": "contact.cea-conduct.institution",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-CONDUCT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-complaint"
+          ]
+        },
+        {
+          "profile_id": null,
+          "field": "contact.cea-agreement.institution",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-agency"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "agency_conduct",
+      "zh_hans": "房地产经纪行为投诉",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": null,
+          "field": "contact.cea-conduct.purpose",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-CONDUCT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-complaint"
+          ]
+        }
+      ]
+    },
+    {
+      "english": "agency_agreement_help",
+      "zh_hans": "房地产代理协议争议协助",
+      "review_status": "pending_review",
+      "usages": [
+        {
+          "profile_id": null,
+          "field": "contact.cea-agreement.purpose",
+          "claim_id": null,
+          "evidence_ids": [
+            "CEA-AGREEMENT-ROUTE"
+          ],
+          "source_ids": [
+            "cea-agency"
+          ]
+        }
+      ]
+    }
+  ],
+  "unmapped_catalog_entries": [
+    {
+      "english": "More than one unrelated dispute is described. Select one issue to continue.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "This situation is outside the currently supported assistance scope. Check the relevant institution's official guidance.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Describe the disputed payment, purchase or rental deposit and what happened.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Please confirm this understanding or correct the details before proceeding.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "One detail may change the appropriate next step.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "The confirmed details do not yet establish a reviewed next-step profile. Check the disputed transaction or signed tenancy records and correct any uncertain details before choosing a formal route.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "A reviewed preparation or assistance step is available. This does not establish eligibility or guarantee an outcome.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "The current evidence or contact could not be verified. No source-backed action can be displayed; review the applicable official guidance.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Service is temporarily unavailable. Please retry.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported a restaurant billing overcharge.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported being charged twice for a transaction.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported a disputed restaurant bill or charge.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported a dispute about purchased goods.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported a dispute about a purchased service.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported a dispute about returning a rental deposit.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported disputed deductions from a rental deposit.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported a rental dispute involving an early tenancy exit.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported a rental issue involving a work-pass event.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported a concern about an estate agent's conduct.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported an estate agency agreement dispute.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "You reported a dispute that needs a little more context.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "make a complaint.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "seek repayment.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "explore preparing a formal claim.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "contact the relevant organisation.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "understand your available options.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Is this about goods or a service?",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "The type of purchase changes which help may be relevant.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Was this for personal or business use?",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Consumer assistance may depend on the purpose of the purchase.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Is this dispute with your landlord or an agent?",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Landlord deposit disputes and agent-conduct issues use different routes.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Have you already ended the tenancy?",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "The immediate step differs for a planned exit and a completed exit.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Does your signed lease include a break or diplomatic clause?",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Only the signed lease can establish your particular early-exit terms.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Did you sign an agreement with the estate agency?",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "A signed agency agreement changes the potential dispute-resolution route.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Was the purchase or bill in Singapore?",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "The official local assistance route depends on where the transaction took place.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Are you seeking help as a local consumer or a visitor?",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "The reviewed complaint-contact profile distinguishes its service audience.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Is your concern with the landlord or estate agent?",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "This determines which agency or dispute procedure should be explored.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Goods",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Service",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Personal use",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Business use",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Landlord",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Estate agent",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Not sure",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Yes",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "No",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Not yet",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Singapore",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Outside Singapore",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Local consumer",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Visitor",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "documents",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "conditions",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "pitfalls",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "alternatives",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Consumer complaint",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "Rental deposit",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    },
+    {
+      "english": "English original — Chinese explanation is not an official translation.",
+      "scope": "Task18/19 state, user interpretation, or UI-only text; no Task17 source claim"
+    }
+  ]
+}

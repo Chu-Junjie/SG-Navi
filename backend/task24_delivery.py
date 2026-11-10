@@ -8,12 +8,15 @@ import hashlib
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+from jsonschema import Draft202012Validator, FormatChecker, ValidationError
+from shared.validate_action_plan import validate_action_plan
 
 from backend.task24_bilingual import CATALOG, preview_zh_hans
 from rag.action_evidence import load_action_package
 
 ATTESTATION = Path(__file__).resolve().parent / "locales" / "task24_review_approval.json"
 REVISION = "task24-reviewed-1.0"
+REVIEWED_SCHEMA = Path(__file__).resolve().parent / "locales" / "task24_bilingual_overlay_reviewed.schema.json"
 
 
 class ChineseTranslationNotApproved(ValueError):
@@ -66,7 +69,7 @@ def reviewed_overlay(canonical, *, catalog_path=CATALOG, approval_path=ATTESTATI
     candidate = preview_zh_hans(canonical, catalog_path=catalog_path)
     if candidate["translation_status"] != "pending_review" or candidate["display"] is None:
         raise ChineseTranslationNotApproved("Full Chinese display not covered")
-    return {
+    output = {
         "overlay_version": REVISION,
         "locale": "zh-Hans",
         "translation_status": "approved_explanation",
@@ -78,3 +81,39 @@ def reviewed_overlay(canonical, *, catalog_path=CATALOG, approval_path=ATTESTATI
         "canonical": candidate["canonical"],
         "display": candidate["display"],
     }
+
+    # Strict reviewed response validation; proposal schema is NOT sufficient.
+    schema = json.loads(REVIEWED_SCHEMA.read_text(encoding="utf-8"))
+    Draft202012Validator(schema, format_checker=FormatChecker()).validate(output)
+    validate_action_plan(output["canonical"], "response")
+    if output["canonical"] != canonical:
+        raise ChineseTranslationNotApproved("Canonical response was changed")
+    # Every machine identity, citation, contact destination and typed option is
+    # checked against its authoritative canonical counterpart.
+    display = output["display"]
+    if canonical["question"] is not None:
+        a, b = canonical["question"], display["question"]
+        if (not b or b["id"] != a["id"] or b["field"] != a["field"]
+                or [v["value"] for v in b["options"]] != [v["value"] for v in a["options"]]):
+            raise ChineseTranslationNotApproved("Question semantics changed")
+    if canonical["plan"] is not None:
+        a, b = canonical["plan"], display["plan"]
+        if not b:
+            raise ChineseTranslationNotApproved("Plan missing")
+        for name in ("assessment", "primary_action"):
+            if (a[name]["id"], a[name]["evidence_ids"]) != (b[name]["id"], b[name]["evidence_ids"]):
+                raise ChineseTranslationNotApproved("Claim provenance changed")
+        for name in ("checklist",):
+            if [(v["id"], v["evidence_ids"]) for v in a[name]] != [(v["id"], v["evidence_ids"]) for v in b[name]]:
+                raise ChineseTranslationNotApproved("Checklist citations changed")
+        if len(a["details"]) != len(b["details"]):
+            raise ChineseTranslationNotApproved("Detail count changed")
+        for aa, bb in zip(a["details"], b["details"]):
+            if aa["kind"] != bb["kind"] or [(z["id"], z["evidence_ids"]) for z in aa["items"]] != [(z["id"], z["evidence_ids"]) for z in bb["items"]]:
+                raise ChineseTranslationNotApproved("Detail citations changed")
+        if [(z["id"], z["value"], z["evidence_ids"]) for z in a["contacts"]] != [(z["id"], z["value"], z["evidence_ids"]) for z in b["contacts"]]:
+            raise ChineseTranslationNotApproved("Contact destination changed")
+        if a["draft"] is not None:
+            if b["draft"] is None or [z["id"] for z in a["draft"]["slots"]] != [z["id"] for z in b["draft"]["slots"]]:
+                raise ChineseTranslationNotApproved("Draft placeholder identities changed")
+    return output
