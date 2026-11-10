@@ -196,6 +196,7 @@
   <link rel="stylesheet" href="./frontend/css/task8-home.css">
   <link rel="stylesheet" href="./frontend/css/task15-flow.css">
   <link rel="stylesheet" href="./frontend/css/task20-live.css">
+  <link rel="stylesheet" href="./frontend/css/task23-ui.css">
 </head>
 <body>
   <header class="site-header">
@@ -203,7 +204,10 @@
       <a class="brand" href="./index.html" aria-label="SG Navi home">
         <img class="brand-logo" src="./frontend/assets/sg-navi-logo.webp" width="879" height="300" alt="SG Navi" decoding="async">
       </a>
-      <span class="header-tag">Singapore · Find a starting point</span>
+      <div class="task23-language" role="group" aria-label="Language / 语言">
+        <button type="button" data-task23-language="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-task23-language="zh" aria-pressed="false" lang="zh-Hans">中文</button>
+      </div>
     </div>
   </header>
 
@@ -212,7 +216,9 @@
       <div class="shell">
         <p class="eyebrow">RENTAL DEPOSITS &amp; CONSUMER COMPLAINTS</p>
         <h1 id="hero-heading">What happened?</h1>
+        <p class="task23-slogan" id="task23-slogan">Don't feel lost, just find me.</p>
         <p class="hero-copy">Tell us the problem. We’ll help you find official information to check your next step.</p>
+        <p id="task23-language-warning" class="task23-language-warning" role="status" hidden>No reviewed Chinese translation of this result is available. Please switch to EN to read the complete verified text.</p>
     <div class="intake-card" id="problem-intake" data-form-path="./frontend/task5-flow.html" aria-labelledby="intake-heading">
       <div class="intake-meta">
         <span class="intake-step">Describe your concern</span>
@@ -275,6 +281,7 @@
   <script src="./frontend/js/api-config.js"></script>
 
   <script src="./frontend/js/task15-flow.js"></script>
+  <script src="./frontend/js/task23-locale.js"></script>
   <script src="./frontend/js/task21-live.js"></script>
 
   <script src="./frontend/js/task8-home.js"></script>

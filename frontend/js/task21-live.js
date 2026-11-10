@@ -169,14 +169,18 @@
     const get=id=>doc.getElementById(id),host=get("problem-intake"),form=get("problem-form"),input=get("problem-text");
     if(!host||!form||!input)return null;
     const add=(tag,content,cls)=>{
-      const el=doc.createElement(tag);if(content!==undefined)el.textContent=String(content);
+      const el=doc.createElement(tag);
+      if(content!==undefined){
+        el.textContent=String(content);
+        if(win.SGNaviLocale)win.SGNaviLocale.observeText(el,content,tag==="blockquote");
+      }
       if(cls)el.className=cls;return el;
     };
     const btn=(label,fn,cls="intake-secondary")=>{
       const b=add("button",label,cls);b.type="button";b.addEventListener("click",fn);return b;
     };
     let serial=0,controller=null,context=null,description="",stage="input",lastFocus=null,pending=false;
-    let previousContexts=[],reply=null;
+    let previousContexts=[],reply=null,checkedProcess=new Set();
     const overlay=add("div",undefined,"task20-overlay");overlay.hidden=true;overlay.id="task21-overlay";
     const dialog=add("section",undefined,"task20-dialog");dialog.setAttribute("role","dialog");dialog.setAttribute("aria-modal","true");
     dialog.setAttribute("aria-label","SG Navi question and details");
@@ -187,7 +191,7 @@
     dialog.append(heading,body);overlay.appendChild(dialog);doc.body.appendChild(overlay);
     const result=add("section",undefined,"task15-flow task21-result");result.id="task21-result";result.hidden=true;host.appendChild(result);
     function reset(){
-      serial++;if(controller)controller.abort();controller=null;pending=false;reply=null;
+      serial++;if(controller)controller.abort();controller=null;pending=false;reply=null;checkedProcess.clear();
       result.hidden=true;result.replaceChildren();host.dataset.flowStage="input";
     }
     function hideDialog(){
@@ -358,6 +362,18 @@
     function showResult(data){
       result.replaceChildren();result.hidden=false;stage="ready";host.dataset.flowStage="results";
       const p=data.plan,sources=data.verifiedSources,contacts=data.verifiedContacts;
+      // A process is only the source-backed current action and Task19 checklist,
+      // NOT an invented official end-to-end complaint or application status.
+      let firstAction=null,activeDetail=null;
+      const draftEdits=new Map();
+      function continueToAction(){
+        hideDialog();
+        if(firstAction){firstAction.classList.add("task23-current-action");firstAction.focus();}
+        else title.focus();
+      }
+      function statusCount(){
+        return checkedProcess.size+" / "+p.checklist.length+" personal preparation steps checked";
+      }
       const title=add("h3",p.headline);title.id="task21-result-heading";result.appendChild(title);
       result.appendChild(add("p",p.assessment.text,"task20-situation"));
       result.appendChild(add("p","An official help or preparation option is available; this does not decide legal eligibility or guarantee a result.","task15-notice"));
@@ -369,14 +385,18 @@
         const link=add("a",p.primary_action.label+" ↗","intake-primary task21-link");
         link.href=selected.href;
         if(selected.external){link.target="_blank";link.rel="noopener noreferrer";}
-        primary.appendChild(link);
-      }else primary.appendChild(btn(p.primary_action.label,()=>showDetails("preparation"),"intake-primary"));
+        primary.appendChild(link);firstAction=link;
+      }else{
+        const actionButton=btn(p.primary_action.label,()=>showDetails("preparation"),"intake-primary");
+        primary.appendChild(actionButton);firstAction=actionButton;
+      }
       left.appendChild(primary);
       const prep=add("section",undefined,"task20-checklist");prep.appendChild(add("h4","Before you continue"));
       const steps=add("ol");
       for(const item of p.checklist)steps.appendChild(add("li",item.text));
       prep.appendChild(steps);left.appendChild(prep);
       right.appendChild(add("h4","Get help with the next part"));
+      right.appendChild(btn("View available steps  ›",()=>showDetails("process"),"task20-secondary-option task23-process-trigger"));
       for(const [label,part] of [["Official contacts","contacts"],["Write a request","draft"],
         ["Documents to prepare","documents"],["What to watch out for","pitfalls"],
         ["If it isn't resolved","alternatives"],["Why this advice?","evidence"]]){
@@ -397,14 +417,48 @@
       controls.append(btn("Edit situation",()=>{reset();showConfirm();}));
       controls.append(btn("Check again",()=>plan()));
       result.appendChild(controls);
-      function showDetails(part){
+      function showDetails(part,requestedEvidenceIds=null){
+        activeDetail=part;
         body.replaceChildren();
         body.appendChild(add("h2",({
           contacts:"Official ways to get help",draft:"Write a request",documents:"What to prepare",
           pitfalls:"What to watch out for",alternatives:"If it isn't resolved",
-          evidence:"Verified wording and sources",preparation:"Your preparation steps"
+          evidence:"Verified wording and sources",preparation:"Your preparation steps",process:"View available steps"
         })[part]||"More information"));
-        if(part==="contacts"){
+        if(part==="process"){
+          const processSection=add("section",undefined,"task23-process");
+          const progress=add("p",statusCount(),"task23-progress");progress.setAttribute("role","status");processSection.appendChild(progress);
+          const list=add("ol");
+          const now=add("li",undefined,"task23-step");now.dataset.current="true";
+          now.appendChild(add("strong","Now: "+p.primary_action.text));
+          now.appendChild(add("small","This is the current suggested action, not a completed official step."));
+          now.appendChild(btn("View supporting sources",()=>showDetails("evidence",p.primary_action.evidence_ids),"task23-step-source"));
+          list.appendChild(now);
+          for(let index=0;index<p.checklist.length;index++){
+            const item=p.checklist[index],li=add("li",undefined,"task23-step");
+            const label=add("label"),tick=doc.createElement("input");tick.type="checkbox";
+            tick.checked=checkedProcess.has(item.id);
+            tick.setAttribute("aria-label","Personal checklist: "+item.text);
+            tick.addEventListener("change",()=>{
+              if(tick.checked)checkedProcess.add(item.id);else checkedProcess.delete(item.id);
+              progress.textContent=statusCount();
+              for(const row of list.querySelectorAll("[data-current]"))row.dataset.current="false";
+              const next=list.querySelector('input[type="checkbox"]:not(:checked)');
+              if(next)next.closest(".task23-step").dataset.current="true";
+              else now.dataset.current="true";
+            });
+            label.append(tick,add("span",item.text));
+            li.appendChild(label);
+            li.appendChild(btn("View supporting sources",()=>showDetails("evidence",item.evidence_ids),"task23-step-source"));
+            li.dataset.current=index===0?"true":"false";
+            if(tick.checked)li.dataset.current="false";
+            list.appendChild(li);
+          }
+          processSection.appendChild(list);
+          processSection.appendChild(add("p","Further steps depend on your case.","task23-limit"));
+          processSection.appendChild(add("p","Personal checklist only — not a filed case or official status.","task23-limit"));
+          body.appendChild(processSection);
+        }else if(part==="contacts"){
           if(!contacts.size)body.appendChild(add("p","No currently verified contact is available for this route."));
           for(const c of contacts.values()){
             const row=add("div",undefined,"task21-contact");row.appendChild(add("strong",c.institution));
@@ -420,6 +474,8 @@
           for(const slot of p.draft.slots){
             const label=add("label",slot.label,"task21-field"),field=add("input");
             field.type="text";field.maxLength=140;field.placeholder="Add your own confirmed details";
+            field.value=draftEdits.get(slot.id)||"";
+            field.addEventListener("input",()=>draftEdits.set(slot.id,field.value));
             label.appendChild(field);editors.set(slot.id,field);body.appendChild(label);
           }
           const preview=add("textarea",undefined,"task21-draft");preview.rows=9;preview.value=p.draft.subject+"\n\n"+p.draft.body;
@@ -433,8 +489,10 @@
           },"intake-primary");body.appendChild(copy);
         }else if(part==="evidence"){
           for(const e of sources.values()){
+            if(requestedEvidenceIds && !requestedEvidenceIds.includes(e.id))continue;
             const article=add("article",undefined,"task21-evidence");article.appendChild(add("strong",e.publisher+" · "+e.title));
             article.appendChild(add("p",e.kind==="statute"?"Statutory excerpt":e.kind==="contract_template"?"Model contract wording (not a law)":"Official procedural information"));
+            article.appendChild(add("p","Original official English source (not translated)","task23-unofficial"));
             article.appendChild(add("blockquote",e.quote));
             article.appendChild(add("p",(e.provision?e.provision+" · ":"")+"Reviewed "+e.reviewed_at));
             const link=add("a","Read full original ↗","task21-link");link.href=safeURL(e.url,true);
@@ -447,7 +505,11 @@
           body.appendChild(list);
           body.appendChild(btn("View supporting sources",()=>showDetails("evidence")));
         }
-        body.appendChild(btn("Back to next step",hideDialog,"intake-secondary"));
+        const buttons=add("div",undefined,"task21-modal-actions");
+        buttons.appendChild(btn("Continue to next step",continueToAction,"intake-primary"));
+        if(part==="evidence")buttons.appendChild(btn("View available steps",()=>showDetails("process"),"intake-secondary"));
+        else if(part==="preparation")buttons.appendChild(btn("View supporting sources",()=>showDetails("evidence"),"intake-secondary"));
+        body.appendChild(buttons);
         showDialog();
       }
       title.tabIndex=-1;title.focus();
