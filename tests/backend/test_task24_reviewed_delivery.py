@@ -2,12 +2,13 @@
 import hashlib
 import json
 from copy import deepcopy
+from pathlib import Path
 
 import pytest
 
 from backend.app import create_app
 from backend.task24_delivery import (
-    ChineseTranslationNotApproved, checked_review_attestation, reviewed_overlay)
+    ATTESTATION, ChineseTranslationNotApproved, checked_review_attestation, reviewed_overlay)
 from backend.task24_bilingual import CATALOG
 from backend.action_plan_service import process_action_plan
 
@@ -42,7 +43,20 @@ def _files(tmp_path):
     return catfile, approval
 
 
-def test_default_no_review_attestation_blocks_public_translation():
+
+@pytest.fixture
+def missing_review_file(monkeypatch):
+    """Simulate an absent approval file even after the real review is committed."""
+    original_read_text = Path.read_text
+
+    def read_text(path, *args, **kwargs):
+        if path == ATTESTATION:
+            raise FileNotFoundError(str(path))
+        return original_read_text(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", read_text)
+
+def test_default_no_review_attestation_blocks_public_translation(missing_review_file):
     canonical = process_action_plan(REQUEST)
     with pytest.raises(ChineseTranslationNotApproved):
         reviewed_overlay(canonical)
@@ -58,7 +72,7 @@ def test_reviewed_endpoint_404_default_and_canonical_unchanged():
     assert "display" not in response.get_json()
 
 
-def test_feature_flag_alone_does_not_approve_translation():
+def test_feature_flag_alone_does_not_approve_translation(missing_review_file):
     app = create_app()
     app.config["TASK24_ENABLE_REVIEWED_LOCALE"] = True
     c = app.test_client()
