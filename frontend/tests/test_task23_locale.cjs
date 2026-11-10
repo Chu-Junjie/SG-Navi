@@ -26,3 +26,21 @@ test("source quotation is never translated by generic translation module",()=>{
   assert.equal(locale.translate("A new official legal source quotation"),null);
   locale.setLanguage("en");
 });
+
+test("unknown backend option remains legible English without repeated prefix",()=>{
+  locale.setLanguage("zh");
+  const attrs={};
+  const node={dataset:{},tagName:"OPTION",textContent:"",
+    setAttribute(name,value){attrs[name]=value;},
+    removeAttribute(name){delete attrs[name];}};
+  locale.observeText(node,"Understand Options");
+  assert.equal(node.textContent,"Understand Options");
+  assert.equal(attrs.lang,"en");
+  assert.doesNotMatch(node.textContent,/英文原文|暂无审核译文/);
+  locale.setLanguage("en");
+  locale.observeText(node,"Understand Options");
+  assert.equal(attrs.lang,undefined);
+  locale.setLanguage("zh");
+  assert.equal(locale.label("SG Navi · One quick detail"),"SG Navi · 还需要确认一项信息");
+  locale.setLanguage("en");
+});

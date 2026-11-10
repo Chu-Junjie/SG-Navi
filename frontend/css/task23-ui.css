@@ -1,9 +1,12 @@
 /* Task 23: compact brand, skyline-first composition and accessible process drawer. */
 .site-header{position:relative;z-index:3;background:transparent;border:0;margin-bottom:-62px}
 .header-inner{min-height:62px;max-width:1100px}
-.brand-logo{height:37px;max-width:150px;filter:none;object-fit:contain;display:block}
+/* White pixels of the supplied raster wordmark become transparent by
+   inverting them to black and using screen blending over the skyline.
+   Dark compass/letters become near-white, so no white rectangular tile. */
+.brand-logo{height:39px;max-width:160px;object-fit:contain;display:block;filter:grayscale(1) invert(1) contrast(1.3) brightness(1.15);mix-blend-mode:screen}
 .header-tag{display:none}
-.site-header .brand-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:5px 10px;border-radius:13px;background:#fff;box-shadow:0 3px 16px rgba(8,29,44,.17)}
+.site-header .brand{display:inline-flex;align-items:center;justify-content:flex-start;min-height:48px;padding:3px 0;background:transparent;border:0;box-shadow:none}
 .task23-language{display:inline-flex;gap:3px;align-items:center;padding:4px;border-radius:999px;background:rgba(12,37,55,.80);border:1px solid rgba(255,255,255,.55);color:white}
 .task23-language button{min-width:48px;min-height:44px;padding:8px 12px;border:0;border-radius:999px;background:transparent;color:white;cursor:pointer;font-weight:750}
 .task23-language button[aria-pressed="true"]{color:#123646;background:#e2f4ee}
@@ -48,9 +51,13 @@
  .task23-slogan{font-size:1.18rem}
  .hero-copy{font-size:.8rem}
 }
-@media(max-width:360px){.header-inner{gap:6px}.task23-language button{padding:6px;min-width:44px}.site-header .brand-link{padding:7px}}
+@media(max-width:360px){.header-inner{gap:6px}.task23-language button{padding:6px;min-width:44px}.site-header .brand{padding:3px 0}}
 
 /* Keep the bilingual controls and main content aligned at all widths. */
-.site-header .brand-link:focus-visible{outline:3px solid #c3fbf2;outline-offset:3px}
+.site-header .brand:focus-visible{outline:3px solid #c3fbf2;outline-offset:3px}
 @media(min-width:701px){.task23-slogan{margin-bottom:8px}.hero-copy{max-width:680px}.intake-actions{gap:12px}}
-@media(max-width:700px){.site-header .brand-link{min-height:44px;padding:5px 8px}.intake-card{border-radius:15px}.hero-note{max-width:95%;line-height:1.5}}
+@media(max-width:700px){.site-header .brand{min-height:44px;padding:3px 0}.intake-card{border-radius:15px}.hero-note{max-width:95%;line-height:1.5}}
+
+/* A single concise note replaces the old repeated untranslated prefix. */
+.task23-dialog-translation-notice{margin:9px 0 13px;padding:9px 12px;border-radius:9px;border:1px solid #e7d5a5;background:#fff6df;color:#755928;font-size:.82rem;line-height:1.45}
+.task23-dialog-translation-notice[hidden]{display:none}
