@@ -6,6 +6,10 @@
   if(typeof module==="object"&&module.exports)module.exports=api;
   if(root)root.SGNaviLocale=api;
 })(typeof globalThis!=="undefined"?globalThis:this,function(){
+  const EXAMPLES=Object.freeze({
+    "My landlord has not returned my S$2,000 deposit. What should I check?":"房东没有退还我 2,000 新元押金，我该先核对什么？",
+    "I bought a faulty product for personal use, but the seller will not refund me.":"我买了一件自用的商品，商品有故障，但卖家不肯退款。"
+  });
   const EN_ZH=Object.freeze({
     "What happened?":"发生了什么？",
     "Consumer Complaint":"消费者纠纷",
@@ -76,6 +80,7 @@
     "Checking what happened…":"正在了解情况……",
     "Checking the next step…":"正在核对下一步……",
     "Describe the problem in 1 to 1,200 characters.":"请用 1 至 1,200 个字符描述问题。",
+    "Please write your own description in English, or use one of the examples above.":"请用英文描述你的情况，或直接使用上方的示例。",
     "The checking service is not configured.":"查询服务尚未配置。",
     "The checking service could not complete this request.":"查询服务暂时无法完成请求。",
     "Unexpected checking service response.":"查询服务返回了无法识别的内容。",
@@ -146,6 +151,8 @@
   let lang="en",doc=null,warning=null;
   function translate(text){return lang==="zh" ? EN_ZH[text]||null : text;}
   function label(text){return translate(String(text))||String(text);}
+  function exampleLabel(text){return lang==="zh" && Object.hasOwn(EXAMPLES,text) ? EXAMPLES[text] : text;}
+  function canonicalExample(text){return Object.keys(EXAMPLES).find(english=>EXAMPLES[english]===text)??text;}
   function applyDynamicElement(el){
     if(!el || !el.dataset || !el.dataset.task23Original)return;
     const original=el.dataset.task23Original;
@@ -222,5 +229,5 @@
     if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>init(document));
     else init(document);
   }
-  return Object.freeze({init,setLanguage,translate,label,observeText,getLanguage:()=>lang});
+  return Object.freeze({init,setLanguage,translate,label,exampleLabel,canonicalExample,observeText,getLanguage:()=>lang});
 });

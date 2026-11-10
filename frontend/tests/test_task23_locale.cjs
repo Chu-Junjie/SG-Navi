@@ -1,7 +1,10 @@
 "use strict";
 const {test}=require("node:test");
 const assert=require("node:assert/strict");
+const {readFileSync}=require("node:fs");
+const {resolve}=require("node:path");
 const locale=require("../js/task23-locale.js");
+const live=require("../js/task21-live.js");
 test("English is the default and the approved bilingual slogan is exact",()=>{
   assert.equal(locale.getLanguage(),"en");
   assert.equal(locale.translate("Don't feel lost, just find me."),"Don't feel lost, just find me.");
@@ -25,6 +28,54 @@ test("source quotation is never translated by generic translation module",()=>{
   locale.setLanguage("zh");
   assert.equal(locale.translate("A new official legal source quotation"),null);
   locale.setLanguage("en");
+});
+
+test("homepage example clicks show Chinese and submit the equivalent English examples",async()=>{
+  const examples=path=>[...readFileSync(resolve(__dirname,path),"utf8")
+    .matchAll(/data-example-question="([^"]+)"/g)].map(match=>match[1]);
+  const english=examples("../../index.html");
+  assert.equal(english.length,2);
+  assert.deepEqual(examples("../index.html"),english);
+  class Element extends EventTarget {
+    dataset={};
+    setAttribute(){}
+    removeAttribute(){}
+    append(){}
+    appendChild(){}
+    replaceChildren(){}
+    focus(){}
+  }
+  const nodes=new Map(["problem-intake","problem-form","problem-text","problem-submit",
+    "problem-count","problem-validation"].map(id=>[id,new Element()]));
+  const input=nodes.get("problem-text"),validation=nodes.get("problem-validation");
+  const buttons=english.map(text=>Object.assign(new Element(),{getAttribute:()=>text}));
+  const doc=Object.assign(new EventTarget(),{body:new Element(),getElementById:id=>nodes.get(id),
+    createElement:()=>new Element(),querySelectorAll:()=>buttons});
+  const submitted=[];
+  const app=live.init(doc,{SGNaviLocale:locale,SGNaviApiConfig:{resolve:()=>"/api/action-plan"},
+    crypto:{randomUUID:()=>"12345678"},async fetch(_path,{body}){
+      assert.equal(validation.textContent,"正在了解情况……");
+      submitted.push(JSON.parse(body).description);
+      throw new Error("Test service unavailable");
+    }});
+  locale.setLanguage("zh");
+  try{
+    for(const [index,button] of buttons.entries()){
+      button.dispatchEvent(new Event("click"));
+      assert.match(input.value,index===0?/房东.*2,000.*押金/:/自用.*商品.*退款/);
+      await app.interpret();
+      assert.equal(validation.textContent,"");
+      assert.equal(nodes.get("problem-submit").disabled,false);
+    }
+    assert.deepEqual(submitted,english);
+    input.value+="今天。";
+    await app.interpret();
+    assert.match(validation.textContent,/请用英文/);
+    assert.deepEqual(submitted,english);
+    locale.setLanguage("en");
+    buttons[0].dispatchEvent(new Event("click"));
+    assert.equal(input.value,english[0]);
+  }finally{locale.setLanguage("en");}
 });
 
 test("known non-legal selector labels have Chinese display, unknown content stays English",()=>{
