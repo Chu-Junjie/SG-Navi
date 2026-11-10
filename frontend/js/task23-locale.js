@@ -8,6 +8,7 @@
 })(typeof globalThis!=="undefined"?globalThis:this,function(){
   const EN_ZH=Object.freeze({
     "What happened?":"发生了什么？",
+    "SG Navi · One quick detail":"SG Navi · 还需要确认一项信息",
     "Don't feel lost, just find me.":"别迷茫，让我帮你找到方向。",
     "RENTAL DEPOSITS & CONSUMER COMPLAINTS":"租房押金与消费者投诉",
     "Tell us the problem. We’ll help you find official information to check your next step.":"告诉我们遇到的问题，我们会帮你查找官方信息，了解下一步。",
@@ -129,14 +130,13 @@
   function applyDynamicElement(el){
     if(!el || !el.dataset || !el.dataset.task23Original)return;
     const original=el.dataset.task23Original;
-    if(lang==="en"){el.textContent=original;return;}
+    if(lang==="en"){el.textContent=original;el.removeAttribute("lang");return;}
     const translated=translate(original);
-    if(translated){el.textContent=translated;return;}
-    if(el.tagName==="BLOCKQUOTE"||el.dataset.task23Source==="true"){
-      el.textContent=original;el.setAttribute("lang","en");return;
-    }
-    // No unreviewed automatic paraphrasing of legal conclusions or routes.
-    el.textContent="英文原文（暂无审核译文）："+original;
+    if(translated){el.textContent=translated;el.removeAttribute("lang");return;}
+    // Do not add a bulky warning to *every* label, option and dialog title.
+    // Keep dynamic backend/source text unchanged and correctly language-tagged.
+    // A single notice in the dialog explains the reviewed-translation limit.
+    el.textContent=original;el.setAttribute("lang","en");
   }
   function apply(){
     if(!doc)return;
