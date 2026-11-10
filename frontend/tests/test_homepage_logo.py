@@ -9,7 +9,7 @@ class HomepageLogoTests(unittest.TestCase):
     def test_png_asset_present_and_complete(self):
         content = LOGO.read_bytes()
         self.assertGreater(len(content), 4000)
-        self.assertEqual(content[:8], b"\\x89PNG\\r\\n\\x1a\\n")
+        self.assertEqual(content[:8], b"\x89PNG\r\n\x1a\n")
 
     def test_both_homepages_use_new_full_logo(self):
         for file, src in ((ROOT / "index.html", "./frontend/assets/sg-navi-logo-2026.png"),
