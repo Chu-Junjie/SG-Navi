@@ -104,6 +104,13 @@ test("known non-legal selector labels have Chinese display, unknown content stay
   locale.setLanguage("en");
 });
 
+test("known interpretation templates translate without guessing at unknown wording",()=>{
+  assert.equal(locale.chineseSummary("You reported a dispute about purchased goods. You want to seek repayment."),
+    "你反映购买的商品发生了纠纷。你希望请求退款。");
+  assert.equal(locale.chineseSummary("Unrecognised case summary. You want to seek repayment."),null);
+  assert.equal(locale.chineseCopy("toString"),null);
+});
+
 test("Chinese intake shows its English-input requirement before submission",()=>{
   const hint={hidden:true};
   const input={value:"My existing description",placeholder:"English example",attributes:{},
@@ -115,9 +122,11 @@ test("Chinese intake shows its English-input requirement before submission",()=>
   locale.setLanguage("zh");
   assert.equal(hint.hidden,false);
   assert.equal(input.attributes["aria-describedby"],"problem-language-help problem-helper");
-  assert.equal(input.placeholder,"English example");
+  assert.equal(input.placeholder,"请用英文输入你的情况。");
+  assert.equal(doc.title,"SG Navi｜从这里开始");
   assert.equal(input.value,"My existing description");
   locale.setLanguage("en");
   assert.equal(hint.hidden,true);
   assert.equal(input.attributes["aria-describedby"],"problem-helper");
+  assert.match(input.placeholder,/^For example: My landlord/);
 });

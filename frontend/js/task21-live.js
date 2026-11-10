@@ -213,6 +213,12 @@
       if(content!==undefined)setText(el,content,tag==="blockquote",reviewed);
       if(cls)el.className=cls;return el;
     };
+    const productCopy=(original,reviewed)=>reviewed??win.SGNaviLocale?.chineseCopy?.(original)??null;
+    const officialText=(tag,content)=>{
+      const el=add(tag);
+      setText(el,content,true);
+      return el;
+    };
     const fieldLabel=(text,reviewed)=>{
       const label=add("label",undefined,"task21-field");
       // Replace only the text span when changing locale; the nested control keeps its state.
@@ -246,7 +252,8 @@
     const close=btn("×",()=>hideDialog(),"task20-close");
     if(win.SGNaviLocale){
       const languages=add("div",undefined,"task23-language");
-      languages.setAttribute("role","group");languages.setAttribute("aria-label","Language / 语言");
+      languages.setAttribute("role","group");
+      languages.setAttribute("aria-label",win.SGNaviLocale.label("Language / 语言"));
       for(const [code,text,tag] of [["en","EN","en"],["zh","中文","zh-Hans"]]){
         const button=add("button");button.type="button";button.textContent=text;
         button.lang=tag;button.dataset.task23Language=code;
@@ -368,7 +375,7 @@
       body.appendChild(add("p","Does this describe your situation?","task21-eyebrow"));
       body.appendChild(add("h2","Confirm the main details"));
       const summary=summaryDisplay?.english===context.summary?summaryDisplay:null;
-      body.appendChild(add("p",context.summary,undefined,summary?.chinese??null));
+      body.appendChild(add("p",context.summary,undefined,summary?.chinese??win.SGNaviLocale?.chineseSummary?.(context.summary)??null));
       appendReviewedNotice(body,summary?.disclaimer);
       const copy={...context,facts:{...context.facts}};
       body.appendChild(select("Topic",Object.keys(SUBTYPES),copy.case_type,value=>{
@@ -438,8 +445,8 @@
       if(!question||!context||Object.hasOwn(context.facts,question.field)){showLimited("We could not safely show the next question.",true);return;}
       stage="question";host.dataset.flowStage="questions";body.replaceChildren();
       body.appendChild(add("p","ONE QUICK DETAIL","task21-eyebrow"));
-      body.appendChild(add("h2",question.prompt,undefined,reviewed?.prompt??null));
-      body.appendChild(add("p",question.reason,undefined,reviewed?.reason??null));
+      body.appendChild(add("h2",question.prompt,undefined,productCopy(question.prompt,reviewed?.prompt)));
+      body.appendChild(add("p",question.reason,undefined,productCopy(question.reason,reviewed?.reason)));
       appendReviewedNotice(body,data.reviewedDisclaimer);
       const choices=add("div",undefined,"task20-answers");
       let selected=null,hasSelection=false;
@@ -447,7 +454,7 @@
         const optionBtn=btn(option.label,()=>{
           selected=option.value;hasSelection=true;
           for(const b of choices.children)b.setAttribute("aria-pressed",String(b===optionBtn));
-        },"task20-answer",reviewed?.options[index].label??null);
+        },"task20-answer",productCopy(option.label,reviewed?.options[index].label));
         optionBtn.setAttribute("aria-pressed","false");choices.appendChild(optionBtn);
       }
       body.appendChild(choices);
@@ -471,7 +478,7 @@
       reset();stage="limited";result.hidden=false;host.dataset.flowStage="limited";
       message("");get("problem-submit").disabled=false;
       result.appendChild(add("h3",unavailable?"Service temporarily unavailable":"More information is needed"));
-      result.appendChild(add("p",text,undefined,data?data.reviewedDisplay?.message??null:undefined));
+      result.appendChild(add("p",text,undefined,data?productCopy(text,data.reviewedDisplay?.message):undefined));
       appendReviewedNotice(result,data?.reviewedDisclaimer);
       result.appendChild(btn("Check again",()=>{if(context)plan();else interpret();},"intake-primary"));
       result.appendChild(btn("Edit description",()=>{result.hidden=true;win.SGNaviLocale?.syncCoverage?.();input.focus();}));
@@ -533,7 +540,7 @@
         const legal=add("section",undefined,"task21-legal");
         legal.appendChild(add("strong","Relevant legal wording"));
         const e=basis[0];legal.appendChild(add("blockquote",e.quote));
-        legal.appendChild(add("p",e.title+(e.provision?" · "+e.provision:"")));
+        legal.appendChild(officialText("p",e.title+(e.provision?" · "+e.provision:"")));
         legal.appendChild(btn("Read wording and context",()=>showDetails("evidence")));
         result.appendChild(legal);
       }
@@ -596,7 +603,9 @@
             row.appendChild(add("strong",c.institution,undefined,translated?.institution??null));
             row.appendChild(add("p",LABEL(c.purpose)+(c.note?" · "+c.note:""),undefined,
               translated?translated.purpose+(translated.note?" · "+translated.note:""):null));
-            const link=add("a",c.kind==="phone"?"Call "+c.value:c.kind==="email"?"Email "+c.value:"Open official website ↗","task21-link");
+            const link=add("a",undefined,"task21-link");
+            if(c.kind==="web")setText(link,"Open official website ↗");
+            else link.append(add("span",c.kind==="phone"?"Call":"Email"),doc.createTextNode(" "+c.value));
             link.href=c.href;if(c.external){link.target="_blank";link.rel="noopener noreferrer";}
             row.appendChild(link);body.appendChild(row);
           }
@@ -606,7 +615,7 @@
           const editors=new Map();
           for(const [index,slot] of p.draft.slots.entries()){
             const label=fieldLabel(slot.label,reviewed?.draft?.slots[index].label??null),field=add("input");
-            field.type="text";field.maxLength=140;field.placeholder="Add your own confirmed details";
+            field.type="text";field.maxLength=140;
             field.value=draftEdits.get(slot.id)||"";
             field.addEventListener("input",()=>draftEdits.set(slot.id,field.value));
             label.appendChild(field);editors.set(slot.id,field);body.appendChild(label);
@@ -616,8 +625,11 @@
             const chinese=win.SGNaviLocale?.getLanguage()==="zh"&&reviewed?.draft;
             const template=chinese||p.draft;
             let text=template.subject+"\n\n"+template.body;
-            for(const [id,field] of editors)
-              text=text.split("{"+id+"}").join(field.value.trim()||"["+id+(chinese?"：待填写]":": to fill in]"));
+            for(const [index,[id,field]] of [...editors].entries()){
+              field.placeholder=win.SGNaviLocale?.label("Add your own confirmed details")??"Add your own confirmed details";
+              const empty=chinese?"["+template.slots[index].label+"：待填写]":"["+id+": to fill in]";
+              text=text.split("{"+id+"}").join(field.value.trim()||empty);
+            }
             preview.value=manualDraft?.text??text;
             preview.lang=manualDraft?.lang??(chinese?"zh-Hans":"en");
           };
@@ -632,11 +644,14 @@
         }else if(part==="evidence"){
           for(const e of sources.values()){
             if(requestedEvidenceIds && !requestedEvidenceIds.includes(e.id))continue;
-            const article=add("article",undefined,"task21-evidence");article.appendChild(add("strong",e.publisher+" · "+e.title));
+            const article=add("article",undefined,"task21-evidence");article.appendChild(officialText("strong",e.publisher+" · "+e.title));
             article.appendChild(add("p",e.kind==="statute"?"Statutory excerpt":e.kind==="contract_template"?"Model contract wording (not a law)":"Official procedural information"));
             article.appendChild(add("p","Original official English source (not translated)","task23-unofficial"));
             article.appendChild(add("blockquote",e.quote));
-            article.appendChild(add("p",(e.provision?e.provision+" · ":"")+"Reviewed "+e.reviewed_at));
+            const review=add("p");
+            if(e.provision)review.appendChild(officialText("span",e.provision+" · "));
+            review.append(add("span","Reviewed"),doc.createTextNode(" "+e.reviewed_at));
+            article.appendChild(review);
             const link=add("a","Read full original ↗","task21-link");link.href=safeURL(e.url,true);
             link.target="_blank";link.rel="noopener noreferrer";article.appendChild(link);
             body.appendChild(article);
