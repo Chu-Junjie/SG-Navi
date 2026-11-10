@@ -109,7 +109,6 @@
     [".hero > .shell > .eyebrow","RENTAL DEPOSITS & CONSUMER COMPLAINTS"],
     [".hero-copy","Tell us the problem. We’ll help you find official information to check your next step."],
     [".intake-step","Describe your concern"],
-    [".intake-language","English · Singapore"],
     ["#intake-heading","Tell us what happened"],
     [".intake-privacy","Use made-up details only. Do not include names, contact details or private documents."],
     [".intake-examples .example-question:first-of-type","Rental deposit"],
@@ -122,8 +121,7 @@
     [".intake-description","We currently help with rental deposit and consumer complaint questions in Singapore."],
     ["label[for=problem-text]","Describe your problem"],
     [".intake-examples > span","Try a made-up example:"],
-    [".hero-note","For demonstration only · Not legal advice · Does not submit cases"],
-    [".site-footer","SG Navi · Student demonstration · Not legal advice"]
+    [".hero-note","For demonstration only · Not legal advice · Does not submit cases"]
   ]);
   let lang="en",doc=null,warning=null;
   function translate(text){return lang==="zh" ? EN_ZH[text]||null : text;}
