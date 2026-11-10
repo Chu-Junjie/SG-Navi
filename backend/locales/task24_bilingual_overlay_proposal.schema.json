@@ -303,36 +303,43 @@
           "$ref": "#/$defs/claim"
         },
         "primary_action": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/claim"
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "text",
+            "evidence_ids",
+            "label",
+            "kind",
+            "contact_id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
             },
-            {
-              "type": "object",
-              "required": [
-                "id",
-                "text",
-                "evidence_ids",
-                "label",
-                "kind",
-                "contact_id"
-              ],
-              "properties": {
-                "label": {
-                  "$ref": "#/$defs/text"
-                },
-                "kind": {
-                  "type": "string"
-                },
-                "contact_id": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                }
+            "text": {
+              "$ref": "#/$defs/text"
+            },
+            "evidence_ids": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
               }
+            },
+            "label": {
+              "$ref": "#/$defs/text"
+            },
+            "kind": {
+              "type": "string"
+            },
+            "contact_id": {
+              "type": [
+                "string",
+                "null"
+              ]
             }
-          ]
+          }
         },
         "checklist": {
           "type": "array",
