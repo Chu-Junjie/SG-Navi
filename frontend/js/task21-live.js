@@ -213,8 +213,10 @@
       else if(!e.shiftKey&&doc.activeElement===controls.at(-1)){e.preventDefault();controls[0].focus();}
     });
     function message(text,isError=false){
-      get("problem-validation").textContent=text;
-      get("problem-validation").setAttribute("role",isError?"alert":"status");
+      const validation=get("problem-validation");
+      validation.textContent=text;
+      win.SGNaviLocale?.observeText(validation,text);
+      validation.setAttribute("role",isError?"alert":"status");
     }
     const call=async(operation,token,payload)=>{
       const path=win.SGNaviApiConfig?.resolve("/api/action-plan",win.location);
@@ -235,6 +237,11 @@
     async function interpret(){
       reset();stage="interpreting";description=input.value.trim();const token=serial;
       if(!description||description.length>1200){message("Describe the problem in 1 to 1,200 characters.",true);return;}
+      // Only exact, built-in examples have English equivalents accepted by the API.
+      description=win.SGNaviLocale?.canonicalExample?.(description)??description;
+      if(/\p{Script=Han}/u.test(description)){
+        message("Please write your own description in English, or use one of the examples above.",true);return;
+      }
       message("Checking what happened…");get("problem-submit").disabled=true;
       try{
         const data=await call("interpret",token,{description});
@@ -354,6 +361,7 @@
     }
     function showLimited(text,unavailable=false){
       reset();stage="limited";result.hidden=false;host.dataset.flowStage="limited";
+      message("");get("problem-submit").disabled=false;
       result.appendChild(add("h3",unavailable?"Service temporarily unavailable":"More information is needed"));
       result.appendChild(add("p",text));
       result.appendChild(btn("Check again",()=>{if(context)plan();else interpret();},"intake-primary"));
@@ -520,7 +528,9 @@
       get("problem-submit").disabled=false;message("");
     });
     for(const b of doc.querySelectorAll("[data-example-question]"))b.addEventListener("click",()=>{
-      input.value=b.getAttribute("data-example-question");input.dispatchEvent(new Event("input",{bubbles:true}));input.focus();
+      const example=b.getAttribute("data-example-question");
+      input.value=win.SGNaviLocale?.exampleLabel?.(example)??example;
+      input.dispatchEvent(new Event("input",{bubbles:true}));input.focus();
     });
     host.dataset.task21Ready="true";get("problem-submit").disabled=false;
     return Object.freeze({interpret,reset});
