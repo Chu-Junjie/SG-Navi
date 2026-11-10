@@ -111,6 +111,14 @@
     [".intake-step","Describe your concern"],
     [".intake-language","English · Singapore"],
     ["#intake-heading","Tell us what happened"],
+    [".intake-privacy","Use made-up details only. Do not include names, contact details or private documents."],
+    [".intake-examples .example-question:first-of-type","Rental deposit"],
+    [".intake-examples .example-question:last-of-type","Consumer complaint"],
+    ["#problem-review .intake-step","Confirm your situation"],
+    ["#review-title","Is this your situation?"],
+    ["#review-back","Edit description"],
+    [".review-help","Please confirm the topic. Your answers stay in this browser tab and are not saved to browser storage."],
+    ["#task23-language-warning","No reviewed Chinese translation of this result is available. Please switch to EN to read the complete verified text."],
     [".intake-description","We currently help with rental deposit and consumer complaint questions in Singapore."],
     ["label[for=problem-text]","Describe your problem"],
     [".intake-examples > span","Try a made-up example:"],
@@ -154,7 +162,8 @@
     for(const el of doc.querySelectorAll("[data-task23-original]"))applyDynamicElement(el);
     for(const btn of doc.querySelectorAll("[data-task23-language]"))
       btn.setAttribute("aria-pressed",String(btn.dataset.task23Language===lang));
-    if(warning)warning.hidden=lang==="en";
+    if(warning)warning.hidden=lang==="en" || !doc.getElementById("problem-intake") ||
+       !["review","questions","results","limited"].includes(doc.getElementById("problem-intake").dataset.flowStage);
   }
   function setLanguage(next){
     if(next!=="zh"&&next!=="en")return false;
