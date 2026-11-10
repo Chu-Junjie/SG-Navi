@@ -40,16 +40,17 @@
 @media(max-width:700px){
  .site-header{margin-bottom:-56px}
  .header-inner,.hero .shell{width:calc(100% - 24px)}
- .header-inner{min-height:56px;padding-inline-end:21px}
+ .header-inner{min-height:56px}
  .brand-logo{height:45px;max-width:158px}
  .hero{padding-top:72px;min-height:100dvh;padding-bottom:22px}
- .task23-language button{min-width:46px}
+ .task23-language{gap:2px;padding:2px}
+ .task23-language button{min-width:40px;min-height:38px;padding:5px 8px;font-size:.875rem}
  .intake-card{padding:16px}
  .hero h1{font-size:1.8rem}
  .task23-slogan{font-size:1.18rem}
  .hero-copy{font-size:.8rem}
 }
-@media(max-width:360px){.header-inner{gap:6px}.task23-language button{padding:6px;min-width:44px}.site-header .brand{padding:3px 0}}
+@media(max-width:360px){.header-inner{gap:6px}.site-header .brand{padding:3px 0}}
 
 /* Keep the bilingual controls and main content aligned at all widths. */
 .site-header .brand:focus-visible{outline:3px solid #c3fbf2;outline-offset:3px}
