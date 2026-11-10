@@ -23,7 +23,7 @@ def _translate(value, catalog, missing, path):
         missing.append(path)
         return None
     row = catalog["entries"].get(value)
-    if row is None or not row.get("zh_hans"):
+    if row is None or row.get("review_status") != "pending_review" or not row.get("zh_hans"):
         missing.append(path)
         return None
     # NEVER display pending-review text as approved content.
@@ -127,6 +127,8 @@ def preview_zh_hans(canonical, *, catalog_path=CATALOG, schema_path=SCHEMA):
             ],
         }
     p = canonical["plan"]
+    if p and p["source_version"] != t.get("source_action_package_version"):
+        missing.append("plan.source_package_version")
     if p:
         display["plan"] = {
             "headline": _translate(p["headline"], t, missing, "plan.headline"),
