@@ -182,7 +182,7 @@
       "review_status": "pending_review"
     },
     "Separate the pass event from the rental terms": {
-      "zh_hans": "区分准证事件与租赁条款",
+      "zh_hans": "将工作准证状态变化与租约条款分开核查",
       "review_status": "pending_review"
     },
     "The private rental template illustrates optional terms. Check the clauses and choices in the agreement you actually signed.": {
@@ -310,7 +310,7 @@
       "review_status": "pending_review"
     },
     "The signed agency agreement is a decisive document for choosing a contractual dispute route.": {
-      "zh_hans": "是否签署代理协议，是选择合同争议处理渠道的重要事实。",
+      "zh_hans": "已签署的房地产代理协议是判断应采用哪种合同争议处理渠道的重要文件。",
       "review_status": "pending_review"
     },
     "Check whether you signed an estate agency agreement and locate its dispute clause.": {
@@ -570,7 +570,7 @@
       "review_status": "pending_review"
     },
     "Monday to Friday, 9 am to 5 pm, excluding public holidays.": {
-      "zh_hans": "周一至周五上午9时至下午5时，公共假期除外（以官方最新公布时间为准）。",
+      "zh_hans": "周一至周五上午9时至下午5时，公共假期除外。",
       "review_status": "pending_review"
     },
     "Use this for assistance enquiries. The online form is the complaint submission channel.": {
@@ -631,7 +631,7 @@
     "approved_by": null,
     "approved_at": null,
     "source_package": "rag/action_evidence/package.json",
-    "legal_meaning_review": "NOT_DONE",
+    "legal_meaning_review": "CHANGES_APPLIED_PENDING_INDEPENDENT_APPROVAL",
     "catalog_kind": "English-keyed proposals only; never official quote translation"
   }
 }
