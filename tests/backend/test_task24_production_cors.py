@@ -1,5 +1,7 @@
 """Task 24 release/CORS contract: no exposed Chinese before approval."""
 import pytest
+from pathlib import Path
+from backend.task24_delivery import ATTESTATION
 from backend.app import create_app
 from backend import production
 
@@ -30,7 +32,20 @@ def test_default_off_preflight_and_post_do_not_expose_cross_origin():
     assert "Access-Control-Allow-Origin" not in post.headers
 
 
-def test_pages_cors_after_explicit_approval_flag_but_no_real_approval_still_503():
+
+@pytest.fixture
+def missing_review_file(monkeypatch):
+    """Force a missing approval file when exercising fail-closed CORS and startup."""
+    original_read_text = Path.read_text
+
+    def read_text(path, *args, **kwargs):
+        if path == ATTESTATION:
+            raise FileNotFoundError(str(path))
+        return original_read_text(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", read_text)
+
+def test_pages_cors_after_explicit_approval_flag_but_no_real_approval_still_503(missing_review_file):
     app = create_app()
     app.config["TASK24_ENABLE_REVIEWED_LOCALE"] = True
     c = app.test_client()
@@ -82,7 +97,7 @@ def test_production_feature_flag_off_and_invalid(monkeypatch):
         production.create_production_app()
 
 
-def test_production_enable_requires_real_approval(monkeypatch):
+def test_production_enable_requires_real_approval(monkeypatch, missing_review_file):
     monkeypatch.delenv("RENDER", raising=False)
     monkeypatch.delenv("SG_NAVI_REQUIRE_PERSISTENCE", raising=False)
     monkeypatch.delenv("SG_NAVI_FREE_DEMO", raising=False)
