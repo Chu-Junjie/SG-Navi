@@ -1,26 +1,26 @@
 /* Task 23: compact brand, skyline-first composition and accessible process drawer. */
 .site-header{position:relative;z-index:3;background:transparent;border:0;margin-bottom:-62px}
 .header-inner{min-height:62px;max-width:1100px}
-.brand-logo{height:38px;max-width:148px;filter:brightness(0) invert(1)}
+.brand-logo{height:37px;max-width:150px;filter:none;object-fit:contain;display:block}
 .header-tag{display:none}
-.site-header .brand-link{padding:8px 12px;border-radius:12px;background:rgba(15,45,65,.52)}
+.site-header .brand-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:5px 10px;border-radius:13px;background:#fff;box-shadow:0 3px 16px rgba(8,29,44,.17)}
 .task23-language{display:inline-flex;gap:3px;align-items:center;padding:4px;border-radius:999px;background:rgba(12,37,55,.80);border:1px solid rgba(255,255,255,.55);color:white}
 .task23-language button{min-width:48px;min-height:44px;padding:8px 12px;border:0;border-radius:999px;background:transparent;color:white;cursor:pointer;font-weight:750}
 .task23-language button[aria-pressed="true"]{color:#123646;background:#e2f4ee}
 .task23-language button:focus-visible{outline:3px solid #c3fbf2;outline-offset:3px}
-.hero{padding-top:85px;min-height:100dvh}
+.hero{padding-top:83px;min-height:100dvh;padding-bottom:32px}
 .hero .shell{max-width:1100px}
 .hero .eyebrow{margin-bottom:5px}
 .hero h1{font-size:clamp(1.85rem,3vw,2.9rem);margin:4px 0 3px}
 .task23-slogan{font-weight:800;font-size:clamp(1.2rem,2vw,1.7rem);color:#fff;margin:2px 0 6px;line-height:1.35;max-width:680px;text-shadow:0 2px 5px rgba(0,0,0,.32)}
 .hero-copy{margin-top:4px;font-size:.86rem;line-height:1.48}
-.intake-card{margin-top:13px;padding:17px 22px;max-width:800px}
+.intake-card{margin-top:17px;padding:21px 25px;max-width:860px}
 .problem-text{min-height:76px;max-height:150px}
 .intake-description{margin:3px 0 9px}
-.intake-meta{margin-bottom:3px}
+.intake-meta{margin-bottom:6px;justify-content:flex-start}
 .intake-actions{margin-top:8px}
 .hero-note{margin-top:8px}
-.site-footer{background:var(--navy-deep);color:#b9d0d3;padding-top:8px}
+/* The existing hero-note is the only disclaimer; no separate footer band. */
 .task23-process ol{list-style:none;padding:0;margin:12px 0}
 .task23-step{position:relative;margin:0;padding:10px 10px 12px 30px;border-left:3px solid #d4e4df;overflow-wrap:anywhere}
 .task23-step:before{content:"";position:absolute;top:16px;left:-8px;width:13px;height:13px;border-radius:50%;background:#c2d8d2;border:2px solid white}
@@ -39,13 +39,18 @@
 @media(max-width:700px){
  .site-header{margin-bottom:-56px}
  .header-inner{min-height:56px;padding-inline:15px}
- .brand-logo{height:31px;max-width:125px}
- .hero{padding-top:70px;min-height:100dvh}
+ .brand-logo{height:32px;max-width:129px}
+ .hero{padding-top:72px;min-height:100dvh;padding-bottom:22px}
  .hero .shell{width:calc(100% - 24px)}
  .task23-language button{min-width:46px}
- .intake-card{padding:15px}
+ .intake-card{padding:16px}
  .hero h1{font-size:1.8rem}
  .task23-slogan{font-size:1.18rem}
  .hero-copy{font-size:.8rem}
 }
 @media(max-width:360px){.header-inner{gap:6px}.task23-language button{padding:6px;min-width:44px}.site-header .brand-link{padding:7px}}
+
+/* Keep the bilingual controls and main content aligned at all widths. */
+.site-header .brand-link:focus-visible{outline:3px solid #c3fbf2;outline-offset:3px}
+@media(min-width:701px){.task23-slogan{margin-bottom:8px}.hero-copy{max-width:680px}.intake-actions{gap:12px}}
+@media(max-width:700px){.site-header .brand-link{min-height:44px;padding:5px 8px}.intake-card{border-radius:15px}.hero-note{max-width:95%;line-height:1.5}}
