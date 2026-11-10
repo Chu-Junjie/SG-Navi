@@ -158,6 +158,21 @@
       if(span)span.setAttribute("aria-hidden","true");
     }
     for(const el of doc.querySelectorAll("[data-task23-original]"))applyDynamicElement(el);
+    // Explain the partial Chinese coverage once per active dialog, not on every
+    // backend question/option. This is a readable, accessible text node.
+    const dialogBody=doc.querySelector(".task20-dialog-content");
+    if(dialogBody){
+      let note=doc.getElementById("task23-dialog-translation-notice");
+      if(!note){
+        note=doc.createElement("p");
+        note.id="task23-dialog-translation-notice";
+        note.className="task23-dialog-translation-notice";
+        note.setAttribute("role","note");
+        note.textContent="部分动态问题尚无经审核的中文译文，以下保留英文原文。";
+        dialogBody.prepend(note);
+      }
+      note.hidden=lang!=="zh";
+    }
     for(const btn of doc.querySelectorAll("[data-task23-language]"))
       btn.setAttribute("aria-pressed",String(btn.dataset.task23Language===lang));
     if(warning)warning.hidden=lang==="en" || !doc.getElementById("problem-intake") ||
