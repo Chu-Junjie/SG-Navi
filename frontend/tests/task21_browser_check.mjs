@@ -130,6 +130,11 @@ try{
    await click("#task21-overlay button","Continue to next step");
    await click(".task20-first-right button","View available steps");
    assert.ok(await evaluate("document.querySelector('#task21-overlay .task23-step input[type=checkbox]').checked"));
+   await evaluate("document.querySelector('[data-task23-language=zh]').click()");
+   assert.equal(await evaluate("document.documentElement.lang"),"zh-Hans");
+   assert.ok(await evaluate("document.querySelector('#task21-overlay .task23-step input[type=checkbox]').checked"));
+   await evaluate("document.querySelector('[data-task23-language=en]').click()");
+   assert.equal(await evaluate("document.documentElement.lang"),"en");
    await click("#task21-overlay button","Continue to next step");
    await click(".task20-first-right button","Why this advice?");
    assert.ok(await evaluate("document.querySelectorAll('#task21-overlay .task21-evidence blockquote').length>0"));
