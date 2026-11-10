@@ -8,9 +8,9 @@ ROOT=Path(__file__).resolve().parents[2]
 class Task23HomepageVisualTests(unittest.TestCase):
     def test_actual_entrypoints_have_natural_logo_and_no_duplicate_language_badge(self):
         css=(ROOT/"frontend/css/task23-ui.css").read_text(encoding="utf-8")
-        self.assertIn(".brand-logo{height:39px;max-width:160px",css)
+        self.assertIn(".brand-logo{height:49px;width:auto;max-width:205px",css)
         self.assertIn("mix-blend-mode:normal",css)
-        self.assertIn("filter:url(#sg-navi-original-logo-outline)",css)
+        self.assertIn("filter:none",css)
         self.assertNotIn("grayscale(1) invert(1) contrast(1.3)",css)
         self.assertNotIn("filter:brightness(0) invert(1)",css)
         self.assertIn(".site-header .brand{display:inline-flex",css)
@@ -20,11 +20,11 @@ class Task23HomepageVisualTests(unittest.TestCase):
             with self.subTest(page=path):
                 html=(ROOT/path).read_text(encoding="utf-8")
                 self.assertIn('class="brand-logo"',html)
-                self.assertIn('id="sg-navi-original-logo-outline"',html)
-                self.assertIn('<feMorphology in="transparentLogo" operator="dilate" radius="1.2"',html)
-                self.assertIn('<feMergeNode in="transparentLogo"/>',html)
-                self.assertIn('<feFlood flood-color="#ffffff"',html)
-                self.assertIn('-0.3333 -0.3333 -0.3334 0 1',html)
+                self.assertIn('class="brand-logo"',html)
+                self.assertNotIn('<feMorphology in="transparentLogo"',html)
+                self.assertNotIn('<feMergeNode in="transparentLogo"/>',html)
+                self.assertNotIn('<feFlood flood-color="#ffffff"',html)
+                self.assertNotIn('-0.3333 -0.3333 -0.3334 0 1',html)
                 self.assertIn('data-task23-language="en"',html)
                 self.assertIn('data-task23-language="zh"',html)
                 self.assertNotIn("English · Singapore",html)
