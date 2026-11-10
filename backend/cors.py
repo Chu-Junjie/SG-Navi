@@ -6,7 +6,7 @@ authentication, does not make a legal decision and does not allow cookies.
 import os
 from urllib.parse import urlsplit
 
-from flask import Response, request
+from flask import Response, request, current_app
 
 API_METHODS = {
     "/api/health": frozenset({"GET"}),
@@ -44,6 +44,10 @@ def configure_cors(app):
 
     @app.before_request
     def _preflight():
+        if (request.path == "/api/action-plan/zh-hans-reviewed"
+                and current_app.config.get("TASK24_ENABLE_REVIEWED_LOCALE") is not True
+                and request.method == "OPTIONS"):
+            return Response(status=404)
         methods = API_METHODS.get(request.path)
         if methods is None or request.method != "OPTIONS":
             return None
@@ -62,6 +66,9 @@ def configure_cors(app):
 
     @app.after_request
     def _cors_response(response):
+        if (request.path == "/api/action-plan/zh-hans-reviewed"
+                and current_app.config.get("TASK24_ENABLE_REVIEWED_LOCALE") is not True):
+            return response
         methods = API_METHODS.get(request.path)
         if methods is None:
             return response
