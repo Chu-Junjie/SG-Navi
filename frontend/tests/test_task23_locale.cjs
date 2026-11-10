@@ -27,6 +27,11 @@ test("unreviewed backend sentences have no fabricated dictionary translation",()
 test("source quotation is never translated by generic translation module",()=>{
   locale.setLanguage("zh");
   assert.equal(locale.translate("A new official legal source quotation"),null);
+  const attrs={};
+  const source={dataset:{},setAttribute:(key,value)=>{attrs[key]=value;}};
+  locale.observeText(source,"Not sure",true);
+  assert.equal(source.textContent,"Not sure");
+  assert.equal(attrs.lang,"en");
   locale.setLanguage("en");
 });
 
