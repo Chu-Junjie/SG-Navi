@@ -1,0 +1,436 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Task 24 REVIEW PROPOSAL only — strict bilingual view sidecar; not shared Action Plan 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "overlay_version",
+    "locale",
+    "translation_status",
+    "reviewed_by",
+    "reviewed_at",
+    "is_official_translation",
+    "disclaimer",
+    "canonical",
+    "display",
+    "missing_paths",
+    "fallback_notice"
+  ],
+  "properties": {
+    "overlay_version": {
+      "const": "task24-proposal-0.1"
+    },
+    "locale": {
+      "const": "zh-Hans"
+    },
+    "translation_status": {
+      "enum": [
+        "pending_review",
+        "missing_translation"
+      ]
+    },
+    "reviewed_by": {
+      "type": "null"
+    },
+    "reviewed_at": {
+      "type": "null"
+    },
+    "is_official_translation": {
+      "const": false
+    },
+    "disclaimer": {
+      "type": "string",
+      "minLength": 6
+    },
+    "canonical": {
+      "type": "object"
+    },
+    "display": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/display"
+        }
+      ]
+    },
+    "missing_paths": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "fallback_notice": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "translation_status": {
+            "const": "missing_translation"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "display": {
+            "type": "null"
+          },
+          "missing_paths": {
+            "minItems": 1
+          },
+          "fallback_notice": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "translation_status": {
+            "const": "pending_review"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "display": {
+            "$ref": "#/$defs/display"
+          },
+          "missing_paths": {
+            "maxItems": 0
+          },
+          "fallback_notice": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1800
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text",
+        "evidence_ids"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/$defs/text"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "field",
+        "prompt",
+        "reason",
+        "options"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "prompt": {
+          "$ref": "#/$defs/text"
+        },
+        "reason": {
+          "$ref": "#/$defs/text"
+        },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "label"
+            ],
+            "properties": {
+              "value": {
+                "type": [
+                  "string",
+                  "boolean",
+                  "number",
+                  "null"
+                ]
+              },
+              "label": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          }
+        }
+      }
+    },
+    "draft": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "subject",
+        "body",
+        "slots"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "subject": {
+          "$ref": "#/$defs/text"
+        },
+        "body": {
+          "$ref": "#/$defs/text"
+        },
+        "slots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "label"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          }
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "institution",
+        "purpose",
+        "note",
+        "kind",
+        "value",
+        "evidence_ids"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "institution": {
+          "$ref": "#/$defs/text"
+        },
+        "purpose": {
+          "$ref": "#/$defs/text"
+        },
+        "note": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "web",
+            "phone",
+            "email"
+          ]
+        },
+        "value": {
+          "type": "string"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "headline",
+        "assessment",
+        "primary_action",
+        "checklist",
+        "details",
+        "contacts",
+        "draft"
+      ],
+      "properties": {
+        "headline": {
+          "$ref": "#/$defs/text"
+        },
+        "assessment": {
+          "$ref": "#/$defs/claim"
+        },
+        "primary_action": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "text",
+            "evidence_ids",
+            "label",
+            "kind",
+            "contact_id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "text": {
+              "$ref": "#/$defs/text"
+            },
+            "evidence_ids": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            },
+            "label": {
+              "$ref": "#/$defs/text"
+            },
+            "kind": {
+              "type": "string"
+            },
+            "contact_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "checklist": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claim"
+          }
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "title",
+              "items"
+            ],
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "title": {
+                "$ref": "#/$defs/text"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claim"
+                }
+              }
+            }
+          }
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/contact"
+          }
+        },
+        "draft": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/draft"
+            }
+          ]
+        }
+      }
+    },
+    "display": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "message",
+        "context_summary",
+        "question",
+        "plan"
+      ],
+      "properties": {
+        "message": {
+          "$ref": "#/$defs/text"
+        },
+        "context_summary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "question": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/question"
+            }
+          ]
+        },
+        "plan": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/plan"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

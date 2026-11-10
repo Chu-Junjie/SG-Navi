@@ -10,6 +10,7 @@ from backend.routes.task2 import api as task2_api
 from backend.routes.task11 import intake_api
 from backend.routes.task12 import results_api
 from backend.routes.task19 import action_plan_api
+from backend.routes.task24 import task24_preview
 from backend.routes.task15 import guidance_api
 from backend.cors import configure_cors
 from backend.versioning import current_source_version, SourceVersionUnavailable
@@ -25,6 +26,7 @@ def create_app() -> Flask:
     app.register_blueprint(intake_api)
     app.register_blueprint(results_api)
     app.register_blueprint(action_plan_api)
+    app.register_blueprint(task24_preview)
     app.register_blueprint(guidance_api)
     configure_cors(app)
 
