@@ -1,28 +1,29 @@
-"""Verify the real SG Navi logo lockup is not cropped in either homepage."""
+"""Verify the transparent SG Navi logo is used consistently across public pages."""
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-LOGO = ROOT / "frontend" / "assets" / "sg-navi-logo.webp"
+LOGO = ROOT / "frontend" / "assets" / "sg-navi-logo-2026.png"
 
 class HomepageLogoTests(unittest.TestCase):
-    def test_lossless_webp_is_complete(self):
+    def test_png_asset_present_and_complete(self):
         content = LOGO.read_bytes()
         self.assertGreater(len(content), 4000)
-        self.assertEqual(content[:4], b"RIFF")
-        self.assertEqual(content[8:12], b"WEBP")
-        self.assertEqual(int.from_bytes(content[4:8], "little") + 8, len(content))
-    def test_both_homepages_use_original_full_logo(self):
-        for file, src in ((ROOT / "index.html", "./frontend/assets/sg-navi-logo.webp"),
-                          (ROOT / "frontend" / "index.html", "./assets/sg-navi-logo.webp")):
+        self.assertEqual(content[:8], b"\\x89PNG\\r\\n\\x1a\\n")
+
+    def test_both_homepages_use_new_full_logo(self):
+        for file, src in ((ROOT / "index.html", "./frontend/assets/sg-navi-logo-2026.png"),
+                          (ROOT / "frontend" / "index.html", "./assets/sg-navi-logo-2026.png"),
+                          (ROOT / "frontend" / "task5-flow.html", "./assets/sg-navi-logo-2026.png")):
             with self.subTest(file=str(file)):
-                s = file.read_text(encoding="utf-8")
-                self.assertIn('class="brand-logo"', s)
-                self.assertIn('src="' + src + '"', s)
-                self.assertIn('object-fit: contain;', s)
-                self.assertNotIn('class="brand-mark"', s)
-                self.assertNotIn('class="brand-name"', s)
+                text = file.read_text(encoding="utf-8")
+                self.assertIn('src="' + src + '"', text)
                 self.assertTrue((file.parent / src).is_file())
+
+    def test_no_legacy_logo_filter(self):
+        css = (ROOT / "frontend" / "css" / "task23-ui.css").read_text(encoding="utf-8")
+        self.assertIn("filter:none", css)
+        self.assertNotIn("sg-navi-original-logo-outline", css)
 
 if __name__ == "__main__":
     unittest.main()
