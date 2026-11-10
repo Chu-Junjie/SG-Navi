@@ -106,8 +106,11 @@ try{
    assert.equal(await evaluate("document.documentElement.lang"),"zh-Hans");
    assert.deepEqual(await evaluate(values),selected);
    assert.ok(await evaluate("document.querySelector('#task21-overlay select').selectedOptions[0].textContent.includes('纠纷')"));
-   assert.ok(await evaluate("!!document.querySelector('#task23-dialog-translation-notice:not([hidden])')"));
+   const summaryText=`[...document.querySelectorAll('#task21-overlay p')].find(el=>el.dataset.task23Original===${JSON.stringify(response.context.summary)})?.textContent`;
+   assert.match(await evaluate(summaryText),/\p{Script=Han}/u,"Known confirmation summary should display in Chinese");
+   assert.equal(await evaluate("!!document.querySelector('#task23-dialog-translation-notice:not([hidden])')"),false);
    await dialogLanguage("en");
+   assert.equal(await evaluate(summaryText),response.context.summary);
    assert.deepEqual(await evaluate(values),selected);
    assert.equal(actionRequestCount(),requestCount,"Changing the display language must not send a request");
    await click("#task21-overlay button","Confirm and continue");
@@ -133,6 +136,7 @@ try{
      await evaluate("document.querySelectorAll('.task20-answer')["+k+"].click()");
      await dialogLanguage("zh");
      assert.equal(await evaluate("document.querySelectorAll('.task20-answer')["+k+"].getAttribute('aria-pressed')"),"true");
+     assert.match(await evaluate("document.querySelector('#task21-overlay h2').textContent"),/\p{Script=Han}/u);
      await dialogLanguage("en");
      await click("#task21-overlay button","Continue");
    }
