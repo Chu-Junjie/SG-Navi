@@ -22,7 +22,7 @@ class CandidateHomeLinksTests(unittest.TestCase):
         self.assertIn('"/api/guidance"',flow)
         self.assertIn('new URLSearchParams(window.location.search).get("case_type")',legacy)
         self.assertIn('Object.prototype.hasOwnProperty.call(CASES, requestedCase)',legacy)
-        self.assertIn('href="../">SG Navi</a>',(FRONTEND/"task5-flow.html").read_text(encoding="utf-8"))
+        self.assertIn('href="../" aria-label="SG Navi home"><img src="./assets/sg-navi-logo-2026.png"',(FRONTEND/"task5-flow.html").read_text(encoding="utf-8"))
 
 
 if __name__=="__main__":

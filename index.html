@@ -199,30 +199,10 @@
   <link rel="stylesheet" href="./frontend/css/task23-ui.css">
 </head>
 <body>
-  <!-- Preserve the original blue/teal logo artwork while removing white pixels.
-       White dilation sits BEHIND the original colors as a fine outline. -->
-  <svg class="sg-logo-filter-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0">
-    <defs>
-      <filter id="sg-navi-original-logo-outline" x="-8%" y="-15%" width="116%" height="130%" color-interpolation-filters="sRGB">
-        <feColorMatrix in="SourceGraphic" type="matrix"
-          values="1 0 0 0 0
-                  0 1 0 0 0
-                  0 0 1 0 0
-                  -0.3333 -0.3333 -0.3334 0 1" result="transparentLogo"/>
-        <feMorphology in="transparentLogo" operator="dilate" radius="1.2" result="expanded"/>
-        <feFlood flood-color="#ffffff" flood-opacity="0.98" result="white"/>
-        <feComposite in="white" in2="expanded" operator="in" result="outline"/>
-        <feMerge>
-          <feMergeNode in="outline"/>
-          <feMergeNode in="transparentLogo"/>
-        </feMerge>
-      </filter>
-    </defs>
-  </svg>
   <header class="site-header">
     <div class="shell header-inner">
       <a class="brand" href="./index.html" aria-label="SG Navi home">
-        <img class="brand-logo" src="./frontend/assets/sg-navi-logo.webp" width="879" height="300" alt="SG Navi" decoding="async">
+        <img class="brand-logo" src="./frontend/assets/sg-navi-logo-2026.png" width="2048" height="682" alt="SG Navi" decoding="async">
       </a>
       <div class="task23-language" role="group" aria-label="Language / 语言">
         <button type="button" data-task23-language="en" aria-pressed="true" lang="en">EN</button>
