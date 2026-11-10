@@ -130,7 +130,7 @@
       el.textContent=original;el.setAttribute("lang","en");return;
     }
     // No unreviewed automatic paraphrasing of legal conclusions or routes.
-    el.textContent=EN_ZH["No reviewed Chinese translation of this result is available. Please switch to EN to read the complete verified text."];
+    el.textContent="英文原文（暂无审核译文）："+original;
   }
   function apply(){
     if(!doc)return;
