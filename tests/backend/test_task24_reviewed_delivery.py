@@ -123,7 +123,7 @@ def test_canonical_evidence_urls_and_values_preserved(tmp_path):
     assert sidecar["canonical"]["revision"] == canonical["revision"]
     assert sidecar["display"]["plan"]["contacts"][0]["value"] == canonical["plan"]["contacts"][0]["value"]
 
- 
+
 def test_reviewed_schema_is_distinct_and_strict(tmp_path):
     from jsonschema import Draft202012Validator, FormatChecker, ValidationError
     from backend.task24_delivery import REVIEWED_SCHEMA
@@ -178,3 +178,94 @@ def test_requested_copy_corrections_still_pending_review():
     }
     for en, zh in expected.items():
         assert d["entries"][en] == {"zh_hans": zh, "review_status": "pending_review"}
+
+
+# The following tests use a real temporary, internally consistent reviewer
+# fixture, NOT a committed approval file or an assertion of Junjie's signoff.
+# Patch only the local sidecar's file locations; all parsing, digest, schema
+# and source-package version checks execute in the actual production logic.
+def _call_reviewed_http(monkeypatch, app, catalog_path, approval_path, req=REQUEST):
+    from functools import partial
+    import backend.routes.task24 as endpoint
+    from backend.task24_delivery import reviewed_overlay as real_overlay
+    monkeypatch.setattr(
+        endpoint, "reviewed_overlay",
+        partial(real_overlay, catalog_path=catalog_path,
+                approval_path=approval_path),
+    )
+    return app.test_client().post(
+        "/api/action-plan/zh-hans-reviewed",
+        json=req,
+        headers={"Origin": "https://chu-junjie.github.io"},
+    )
+
+
+def test_http_200_with_valid_temporary_review_record(monkeypatch, tmp_path):
+    from shared.validate_action_plan import validate_action_plan
+    app = create_app()
+    app.config["TASK24_ENABLE_REVIEWED_LOCALE"] = True
+    catalog_file, approval_file = _files(tmp_path)
+    response = _call_reviewed_http(monkeypatch, app, catalog_file, approval_file)
+    assert response.status_code == 200, response.get_json()
+    payload = response.get_json()
+    assert payload["overlay_version"] == "task24-reviewed-1.0"
+    assert payload["translation_status"] == "approved_explanation"
+    assert payload["is_official_translation"] is False
+    assert payload["display"]["context_summary"]
+    assert payload["reviewed_by"] == "Chu-Junjie"  # synthetic fixture only
+    validate_action_plan(payload["canonical"], "response", request=REQUEST)
+    assert payload["canonical"]["state"] == "CONFIRM"
+    assert response.headers["Access-Control-Allow-Origin"] == "https://chu-junjie.github.io"
+
+
+@pytest.mark.parametrize("change", [
+    "wrong_reviewer", "wrong_status", "wrong_locale",
+    "stale_source_version", "stale_catalog_version",
+    "wrong_sha256", "changed_translation", "future_approval",
+])
+def test_http_503_for_mismatched_approval(monkeypatch, tmp_path, change):
+    app = create_app()
+    app.config["TASK24_ENABLE_REVIEWED_LOCALE"] = True
+    catalog_file, approval_file = _files(tmp_path)
+    catalog = json.loads(catalog_file.read_text(encoding="utf-8"))
+    approval = json.loads(approval_file.read_text(encoding="utf-8"))
+    if change == "wrong_reviewer":
+        approval["approved_by"] = "not-Junjie"
+    elif change == "wrong_status":
+        approval["review_status"] = "pending_review"
+    elif change == "wrong_locale":
+        approval["locale"] = "en"
+    elif change == "stale_source_version":
+        approval["source_action_package_version"] = "action-kb-obsolete"
+    elif change == "stale_catalog_version":
+        approval["translation_catalog_version"] = "task24-obsolete"
+    elif change == "wrong_sha256":
+        approval["entries_sha256"] = "0" * 64
+    elif change == "changed_translation":
+        catalog["entries"]["You reported a dispute about purchased goods."]["zh_hans"] += " (changed)"
+    elif change == "future_approval":
+        approval["reviewed_at"] = "2099-01-01T00:00:00+00:00"
+    catalog_file.write_text(json.dumps(catalog, ensure_ascii=False), encoding="utf-8")
+    approval_file.write_text(json.dumps(approval), encoding="utf-8")
+    response = _call_reviewed_http(monkeypatch, app, catalog_file, approval_file)
+    assert response.status_code == 503, (change, response.get_json())
+    assert response.get_json()["error"] == "translation_not_approved"
+    assert "display" not in response.get_json()
+
+
+def test_english_http_unchanged_before_and_after_review(monkeypatch, tmp_path):
+    app = create_app()
+    client = app.test_client()
+    original = client.post("/api/action-plan", json=REQUEST)
+    assert original.status_code == 200
+    english = original.get_json()
+    assert english["state"] == "CONFIRM"
+    assert "display" not in english
+    app.config["TASK24_ENABLE_REVIEWED_LOCALE"] = True
+    catalog_file, approval_file = _files(tmp_path)
+    chinese = _call_reviewed_http(monkeypatch, app, catalog_file, approval_file)
+    assert chinese.status_code == 200
+    after = client.post("/api/action-plan", json=REQUEST)
+    assert after.status_code == 200
+    assert after.get_json() == english
+    assert chinese.get_json()["canonical"] == english
