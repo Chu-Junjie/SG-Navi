@@ -1,0 +1,66 @@
+name: task21-public-acceptance
+
+# Run after the Pages and Render production revisions have been deployed.
+# This is separate from the historical Task15 browser compatibility check.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task21-public-acceptance
+  cancel-in-progress: false
+
+jobs:
+  action-plan-public-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Capture public deployment diagnostics (no synthetic pass)
+        shell: bash
+        run: |
+          mkdir -p instance/task21-browser-public
+          {
+            echo "tested_source_sha=${GITHUB_SHA}"
+            echo "pages=https://chu-junjie.github.io/SG-Navi/"
+            echo "api=https://sg-navi-api-junjie.onrender.com"
+            echo "captured_at=$(date -u +%FT%TZ)"
+            echo
+            echo "== Pages response =="
+            curl --silent --show-error --location --max-time 30 --output /dev/null --write-out 'HTTP %{http_code} final_url=%{url_effective}\n' https://chu-junjie.github.io/SG-Navi/ || true
+            for endpoint in health version; do
+              echo "== GET /api/${endpoint} =="
+              curl --silent --show-error --location --max-time 30 --write-out '\nHTTP %{http_code}\n' "https://sg-navi-api-junjie.onrender.com/api/${endpoint}" || true
+            done
+            echo "== Pages-origin Action Plan OPTIONS =="
+            curl --silent --show-error --max-time 30 -i -X OPTIONS 'https://sg-navi-api-junjie.onrender.com/api/action-plan' \
+              -H 'Origin: https://chu-junjie.github.io' \
+              -H 'Access-Control-Request-Method: POST' \
+              -H 'Access-Control-Request-Headers: content-type' || true
+          } > instance/task21-browser-public/diagnostics.txt 2>&1
+      - name: Test real published Task21 Action Plan journeys
+        shell: bash
+        env:
+          SG_NAVI_TEST_SHA: ${{ github.sha }}
+        run: |
+          node frontend/tests/task21_browser_check.mjs \
+            https://chu-junjie.github.io/SG-Navi/ \
+            "$(command -v google-chrome)" \
+            > instance/task21-browser-public/browser.log 2>&1
+      - name: Preserve evidence on pass AND failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: task21-public-acceptance-evidence
+          retention-days: 30
+          if-no-files-found: warn
+          path: |
+            instance/task21-browser-public/diagnostics.txt
+            instance/task21-browser-public/browser.log
+            instance/task21-browser-public/report.json
+            instance/task21-browser-public/*.jpg
