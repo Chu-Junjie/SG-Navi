@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from backend.task24_bilingual import CATALOG, preview_zh_hans
+from rag.action_evidence import load_action_package
 
 ATTESTATION = Path(__file__).resolve().parent / "locales" / "task24_review_approval.json"
 REVISION = "task24-reviewed-1.0"
@@ -35,7 +36,9 @@ def checked_review_attestation(*, catalog_path=CATALOG, approval_path=ATTESTATIO
     try:
         catalog = json.loads(Path(catalog_path).read_text(encoding="utf-8"))
         approval = json.loads(Path(approval_path).read_text(encoding="utf-8"))
-        if (approval.get("approval_version") != REVISION
+        action_package, _, _, _ = load_action_package()
+        if (action_package["version"] != catalog.get("source_action_package_version")
+                or approval.get("approval_version") != REVISION
                 or approval.get("translation_catalog_version") != catalog.get("catalog_version")
                 or approval.get("source_action_package_version") != catalog.get("source_action_package_version")
                 or approval.get("locale") != "zh-Hans"
