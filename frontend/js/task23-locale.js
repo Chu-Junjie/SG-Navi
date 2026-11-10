@@ -6,12 +6,48 @@
   if(typeof module==="object"&&module.exports)module.exports=api;
   if(root)root.SGNaviLocale=api;
 })(typeof globalThis!=="undefined"?globalThis:this,function(){
+  const RENTAL_EXAMPLE="My landlord has not returned my S$2,000 deposit. What should I check?";
   const EXAMPLES=Object.freeze({
-    "My landlord has not returned my S$2,000 deposit. What should I check?":"房东没有退还我 2,000 新元押金，我该先核对什么？",
+    [RENTAL_EXAMPLE]:"房东没有退还我 2,000 新元押金，我该先核对什么？",
     "I bought a faulty product for personal use, but the seller will not refund me.":"我买了一件自用的商品，商品有故障，但卖家不肯退款。"
   });
   const EN_ZH=Object.freeze({
     "What happened?":"发生了什么？",
+    "SG Navi | Start Here":"SG Navi｜从这里开始",
+    "Language / 语言":"语言",
+    "Call":"拨打电话",
+    "Email":"发送邮件至",
+    "Reviewed":"审核时间",
+    "Please describe your situation in English.":"请用英文输入你的情况。",
+    "Is this about goods or a service?":"这涉及商品还是服务？",
+    "The type of purchase changes which help may be relevant.":"购买的是商品还是服务，会影响适合你的求助方式。",
+    "Goods":"商品",
+    "Service":"服务",
+    "Was this for personal or business use?":"这是个人用途还是商业用途？",
+    "Consumer assistance may depend on the purpose of the purchase.":"适用的消费纠纷帮助可能取决于购买用途。",
+    "Is this dispute with your landlord or an agent?":"这起纠纷涉及你的房东还是房产中介？",
+    "Landlord deposit disputes and agent-conduct issues use different routes.":"与房东的押金纠纷和涉及中介行为的问题，可能适用不同的处理方式。",
+    "Have you already ended the tenancy?":"你的租约已经结束了吗？",
+    "The immediate step differs for a planned exit and a completed exit.":"计划退租和已经退租的情况，下一步有所不同。",
+    "Does your signed lease include a break or diplomatic clause?":"你签署的租约中有提前解约条款或外交条款吗？",
+    "Only the signed lease can establish your particular early-exit terms.":"请核对已签署的租约，确认其中具体的提前退租条款。",
+    "Did you sign an agreement with the estate agency?":"你是否与房产中介公司签署了协议？",
+    "A signed agency agreement changes the potential dispute-resolution route.":"是否签署中介协议，可能影响可考虑的纠纷处理方式。",
+    "Was the purchase or bill in Singapore?":"这笔购买或账单是否发生在新加坡？",
+    "The official local assistance route depends on where the transaction took place.":"交易地点会影响可查询的本地求助方式。",
+    "Are you seeking help as a local consumer or a visitor?":"你是以本地消费者还是访客的身份寻求帮助？",
+    "The reviewed complaint-contact profile distinguishes its service audience.":"确认你的身份，有助于核对相关求助渠道的服务对象。",
+    "Is your concern with the landlord or estate agent?":"你的问题涉及房东还是房产中介？",
+    "This determines which agency or dispute procedure should be explored.":"了解纠纷涉及哪一方，有助于核对相关机构和处理方式。",
+    "More than one unrelated dispute is described. Select one issue to continue.":"描述中包含多个不同的纠纷，请选一个问题继续。",
+    "This situation is outside the currently supported assistance scope. Check the relevant institution's official guidance.":"这类情况超出目前的协助范围。请查看相关机构的官方指引。",
+    "Describe the disputed payment, purchase or rental deposit and what happened.":"请描述有争议的付款、购买或租房押金，并说明发生了什么。",
+    "Please confirm this understanding or correct the details before proceeding.":"继续之前，请确认以上理解或修改相关细节。",
+    "One detail may change the appropriate next step.":"还有一项信息可能影响下一步。",
+    "The confirmed details do not yet establish a reviewed next-step profile. Check the disputed transaction or signed tenancy records and correct any uncertain details before choosing a formal route.":"根据已确认的信息，目前还无法给出经过核验的下一步建议。请先核对有争议的交易或已签署的租约，并补正不确定的信息。",
+    "A reviewed preparation or assistance step is available. This does not establish eligibility or guarantee an outcome.":"有经过核验的准备步骤或求助方式可供参考。此信息不判定资格，也不保证结果。",
+    "The current evidence or contact could not be verified. No source-backed action can be displayed; review the applicable official guidance.":"目前无法核验相关依据或联系方式，暂时无法显示有依据的行动建议。请查看适用的官方指引。",
+    "Service is temporarily unavailable. Please retry.":"服务暂时不可用，请重试。",
     "Consumer Complaint":"消费者纠纷",
     "Rental Deposit":"租房押金纠纷",
     "Restaurant Overcharge":"餐厅多收费",
@@ -147,6 +183,28 @@
     "Original official English source (not translated)":"官方英文原文（未翻译）",
     "No reviewed Chinese translation of this result is available. Please switch to EN to read the complete verified text.":"此结果暂无经审核的完整中文译文。请切换 EN 查看经过核验的完整英文内容。"
   });
+  // Exact product-written interpretation templates. Unrecognised summaries stay canonical.
+  const SUMMARY_START=Object.freeze({
+    "You reported a restaurant billing overcharge.":"你反映餐厅账单多收费。",
+    "You reported being charged twice for a transaction.":"你反映一笔交易被重复扣款。",
+    "You reported a disputed restaurant bill or charge.":"你反映对餐厅账单或收费有争议。",
+    "You reported a dispute about purchased goods.":"你反映购买的商品发生了纠纷。",
+    "You reported a dispute about a purchased service.":"你反映购买的服务发生了纠纷。",
+    "You reported a dispute about returning a rental deposit.":"你反映租房押金退还发生了纠纷。",
+    "You reported disputed deductions from a rental deposit.":"你反映对租房押金扣款有争议。",
+    "You reported a rental dispute involving an early tenancy exit.":"你反映租房纠纷涉及提前退租。",
+    "You reported a rental issue involving a work-pass event.":"你反映租房问题涉及工作准证的变化。",
+    "You reported a concern about an estate agent's conduct.":"你反映对房产中介的行为有疑问。",
+    "You reported an estate agency agreement dispute.":"你反映房产中介协议发生了纠纷。",
+    "You reported a dispute that needs a little more context.":"你反映了一项需要补充信息的纠纷。"
+  });
+  const SUMMARY_GOAL=Object.freeze({
+    "make a complaint.":"你希望提出投诉。",
+    "seek repayment.":"你希望请求退款。",
+    "explore preparing a formal claim.":"你希望了解如何准备正式索偿。",
+    "contact the relevant organisation.":"你希望联系相关机构。",
+    "understand your available options.":"你希望了解有哪些处理方式。"
+  });
   const STATIC=Object.freeze([
     ["#hero-heading","What happened?"],
     ["#task23-slogan","Don't feel lost, just find me."],
@@ -169,7 +227,13 @@
   ]);
   const reviewedText=new WeakMap();
   let lang="en",doc=null,warning=null;
-  function translate(text){return lang==="zh" ? EN_ZH[text]||null : text;}
+  function chineseCopy(text){return Object.hasOwn(EN_ZH,text)?EN_ZH[text]:null;}
+  function translate(text){return lang==="zh"?chineseCopy(text):text;}
+  function chineseSummary(text){
+    const parts=text.split(" You want to ");
+    if(parts.length!==2||!Object.hasOwn(SUMMARY_START,parts[0])||!Object.hasOwn(SUMMARY_GOAL,parts[1]))return null;
+    return SUMMARY_START[parts[0]]+SUMMARY_GOAL[parts[1]];
+  }
   function label(text){return translate(String(text))||String(text);}
   function exampleLabel(text){return lang==="zh" && Object.hasOwn(EXAMPLES,text) ? EXAMPLES[text] : text;}
   function canonicalExample(text){return Object.keys(EXAMPLES).find(english=>EXAMPLES[english]===text)??text;}
@@ -188,6 +252,7 @@
   function apply(){
     if(!doc)return;
     doc.documentElement.lang=lang==="zh"?"zh-Hans":"en";
+    doc.title=label("SG Navi | Start Here");
     for(const [sel,original]of STATIC){
       const el=doc.querySelector(sel);
       if(el)el.textContent=label(original);
@@ -196,6 +261,7 @@
     const inputHelp=doc.getElementById("problem-language-help");
     if(input&&inputHelp){
       inputHelp.hidden=lang!=="zh";
+      input.placeholder=inputHelp.hidden?"For example: "+RENTAL_EXAMPLE:chineseCopy("Please describe your situation in English.");
       input.setAttribute("aria-describedby",inputHelp.hidden?"problem-helper":"problem-language-help problem-helper");
     }
     const primary=doc.getElementById("problem-submit");
@@ -207,8 +273,16 @@
       if(span)span.setAttribute("aria-hidden","true");
     }
     for(const el of doc.querySelectorAll("[data-task23-original]"))applyDynamicElement(el);
-    for(const btn of doc.querySelectorAll("[data-task23-language]"))
+    for(const group of doc.querySelectorAll(".task23-language"))
+      group.setAttribute("aria-label",label("Language / 语言"));
+    for(const btn of doc.querySelectorAll("[data-task23-language]")){
+      const english=btn.dataset.task23Language==="en";
       btn.setAttribute("aria-pressed",String(btn.dataset.task23Language===lang));
+      if(english){
+        btn.textContent=lang==="zh"?"英文":"EN";
+        btn.setAttribute("lang",lang==="zh"?"zh-Hans":"en");
+      }
+    }
     syncCoverage();
   }
   function syncCoverage(){
@@ -262,5 +336,5 @@
     if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>init(document));
     else init(document);
   }
-  return Object.freeze({init,setLanguage,translate,label,exampleLabel,canonicalExample,observeText,observeReviewedText,syncCoverage,getLanguage:()=>lang});
+  return Object.freeze({init,setLanguage,translate,label,exampleLabel,canonicalExample,chineseCopy,chineseSummary,observeText,observeReviewedText,syncCoverage,getLanguage:()=>lang});
 });

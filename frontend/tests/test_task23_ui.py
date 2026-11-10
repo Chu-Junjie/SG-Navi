@@ -1,4 +1,6 @@
 """Task 23: bilingual shell, verified-source limits and in-memory process stepper."""
+import ast
+import json
 import shutil
 import subprocess
 import unittest
@@ -61,6 +63,26 @@ class Task23UITests(unittest.TestCase):
         r=subprocess.run([node,"--test",str(ROOT/"frontend/tests/test_task23_locale.cjs")],
             capture_output=True,text=True,encoding="utf-8",errors="replace",timeout=30)
         self.assertEqual(r.returncode,0,r.stdout+r.stderr)
+
+    def test_all_current_action_plan_question_copy_has_local_chinese(self):
+        node=shutil.which("node")
+        if not node: self.skipTest("Node.js unavailable")
+        phrases=set()
+        for relative,constructor in (("backend/scenario_understanding.py","_question"),
+                                     ("backend/action_plan_service.py","_choice")):
+            tree=ast.parse((ROOT/relative).read_text(encoding="utf-8"))
+            for call in ast.walk(tree):
+                if not isinstance(call,ast.Call) or not isinstance(call.func,ast.Name) or call.func.id!=constructor:
+                    continue
+                _,prompt,reason,options=map(ast.literal_eval,call.args)
+                phrases.update((prompt,reason,*(label for _,label in options)))
+        self.assertIn("Is this about goods or a service?",phrases)
+        script='''const fs=require("node:fs"),locale=require("./frontend/js/task23-locale.js");
+            console.log(JSON.stringify(JSON.parse(fs.readFileSync(0,"utf8")).filter(text=>
+              !/\\p{Script=Han}/u.test(locale.chineseCopy(text)||""))));'''
+        run=subprocess.run([node,"-e",script],cwd=ROOT,input=json.dumps(sorted(phrases)),
+                           capture_output=True,text=True,encoding="utf-8",timeout=20,check=True)
+        self.assertEqual(json.loads(run.stdout),[])
 
 if __name__=="__main__":
     unittest.main()
