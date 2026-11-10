@@ -10,8 +10,11 @@
   // end-to-end release acceptance are tracked separately in Task 7.
   // The public API origin is NOT a credential or a database connection string.
   const HTTPS_API_ORIGIN = "https://sg-navi-api-junjie.onrender.com";
+  // Enable only after the reviewed response and Pages CORS pass production acceptance.
+  const REVIEWED_ACTION_PLAN_ENABLED = false;
+  const REVIEWED_ACTION_PLAN_PATH = "/api/action-plan/zh-hans-reviewed";
   const API_PATHS = new Set(["/api/health", "/api/navigate", "/api/version", "/api/case-types",
-    "/api/intake", "/api/intake/confirm", "/api/results/preview", "/api/guidance", "/api/action-plan"]);
+    "/api/intake", "/api/intake/confirm", "/api/results/preview", "/api/guidance", "/api/action-plan", REVIEWED_ACTION_PLAN_PATH]);
 
   function isGitHubPages(location) {
     return Boolean(location && typeof location.hostname === "string" &&
@@ -40,6 +43,7 @@
 
   function resolve(path, location, origin = HTTPS_API_ORIGIN) {
     if (!API_PATHS.has(path)) throw new Error("Unrecognised API path");
+    if (path === REVIEWED_ACTION_PLAN_PATH && !REVIEWED_ACTION_PLAN_ENABLED) return null;
     if (!isGitHubPages(location)) return path; // Local Flask integration: same origin.
     const verified = normalisePublicOrigin(origin);
     return verified ? verified + path : null;
@@ -47,6 +51,7 @@
 
   return Object.freeze({
     resolve, isGitHubPages, normalisePublicOrigin,
+    resolveReviewedActionPlan: location => resolve(REVIEWED_ACTION_PLAN_PATH, location),
     isPublicConfigured: () => Boolean(normalisePublicOrigin(HTTPS_API_ORIGIN))
   });
 });

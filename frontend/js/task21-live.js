@@ -165,29 +165,79 @@
     }
     return {...data,verifiedSources:sources,verifiedContacts:contacts};
   }
+  // Check every value that links the approved display to canonical Action Plan data.
+  // Returning null means the entire display falls back to canonical English.
+  function reviewedDisplay(envelope){
+    const data=envelope?.canonical, display=envelope?.display;
+    const text=value=>isText(value,1800)&&Boolean(value.trim());
+    const texts=(row,keys)=>object(row)&&keys.every(key=>text(row[key]));
+    const matches=(row,original,keys)=>object(row)&&object(original)&&
+      keys.every(key=>Object.hasOwn(row,key)&&canonical(row[key])===canonical(original[key]));
+    const rows=(translated,original,check)=>Array.isArray(translated)&&translated.length===original.length&&
+      translated.every((row,index)=>check(row,original[index]));
+    const claim=(row,original)=>texts(row,["text"])&&matches(row,original,["id","evidence_ids"]);
+    const slots=draft=>[...new Set((draft.subject+"\n"+draft.body).match(/\{[A-Za-z0-9_-]+\}/g)||[])].sort();
+    if(!data||envelope.overlay_version!=="task24-reviewed-1.0"||envelope.locale!=="zh-Hans"||
+      envelope.translation_status!=="approved_explanation"||envelope.is_official_translation!==false||
+      envelope.reviewed_by!=="Chu-Junjie"||!Number.isFinite(Date.parse(envelope.reviewed_at))||
+      !hex(envelope.entries_sha256,64)||!text(envelope.disclaimer)||!texts(display,["message"])||
+      (data.context?!text(display.context_summary):display.context_summary!==null))return null;
+    const q=display.question, originalQuestion=data.question;
+    if(originalQuestion?(!texts(q,["prompt","reason"])||!matches(q,originalQuestion,["id","field"])||
+      !rows(q.options,originalQuestion.options,(row,original)=>texts(row,["label"])&&matches(row,original,["value"]))):q!==null)return null;
+    const p=display.plan, originalPlan=data.plan;
+    if(!originalPlan)return p===null?display:null;
+    if(!texts(p,["headline"])||!claim(p.assessment,originalPlan.assessment)||
+      !claim(p.primary_action,originalPlan.primary_action)||!text(p.primary_action.label)||
+      !matches(p.primary_action,originalPlan.primary_action,["kind","contact_id"])||
+      !rows(p.checklist,originalPlan.checklist,claim)||
+      !rows(p.details,originalPlan.details,(row,original)=>texts(row,["title"])&&
+        matches(row,original,["kind"])&&rows(row.items,original.items,claim))||
+      !rows(p.contacts,originalPlan.contacts,(row,original)=>texts(row,["institution","purpose"])&&
+        (original.note?text(row.note):row.note===null)&&matches(row,original,["id","kind","value","evidence_ids"])))return null;
+    if(originalPlan.draft?(!texts(p.draft,["title","subject","body"])||
+      !rows(p.draft.slots,originalPlan.draft.slots,(row,original)=>texts(row,["label"])&&matches(row,original,["id"]))||
+      canonical(slots(p.draft))!==canonical(slots(originalPlan.draft))):p.draft!==null)return null;
+    return display;
+  }
   function init(doc,win){
     const get=id=>doc.getElementById(id),host=get("problem-intake"),form=get("problem-form"),input=get("problem-text");
     if(!host||!form||!input)return null;
-    const setText=(el,content,source=false)=>{
+    const setText=(el,content,source=false,reviewed)=>{
       el.textContent=String(content);
-      win.SGNaviLocale?.observeText(el,content,source);
+      if(reviewed!==undefined&&win.SGNaviLocale?.observeReviewedText)win.SGNaviLocale.observeReviewedText(el,content,reviewed);
+      else win.SGNaviLocale?.observeText(el,content,source);
     };
-    const add=(tag,content,cls)=>{
+    const add=(tag,content,cls,reviewed)=>{
       const el=doc.createElement(tag);
-      if(content!==undefined)setText(el,content,tag==="blockquote");
+      if(content!==undefined)setText(el,content,tag==="blockquote",reviewed);
       if(cls)el.className=cls;return el;
     };
-    const fieldLabel=text=>{
+    const fieldLabel=(text,reviewed)=>{
       const label=add("label",undefined,"task21-field");
       // Replace only the text span when changing locale; the nested control keeps its state.
-      label.appendChild(add("span",text));
+      label.appendChild(add("span",text,undefined,reviewed));
       return label;
     };
-    const btn=(label,fn,cls="intake-secondary")=>{
-      const b=add("button",label,cls);b.type="button";b.addEventListener("click",fn);return b;
+    const btn=(label,fn,cls="intake-secondary",reviewed)=>{
+      const b=add("button",label,cls,reviewed);b.type="button";b.addEventListener("click",fn);return b;
     };
     let serial=0,controller=null,context=null,description="",stage="input",lastFocus=null,pending=false;
     let previousContexts=[],reply=null,checkedProcess=new Set();
+    let summaryDisplay=null,refreshOpenDraft=null;
+    function appendReviewedNotice(container,disclaimer){
+      if(!disclaimer)return;
+      const note=add("p",undefined,"task23-unofficial");
+      note.dataset.task24ReviewedNotice="true";
+      note.textContent=disclaimer;
+      note.hidden=win.SGNaviLocale?.getLanguage()!=="zh";
+      container.appendChild(note);
+    }
+    function rememberSummary(data){
+      summaryDisplay=data.context&&data.reviewedDisplay?{
+        english:data.context.summary,chinese:data.reviewedDisplay.context_summary,disclaimer:data.reviewedDisclaimer
+      }:null;
+    }
     const overlay=add("div",undefined,"task20-overlay");overlay.hidden=true;overlay.id="task21-overlay";
     const dialog=add("section",undefined,"task20-dialog");dialog.setAttribute("role","dialog");dialog.setAttribute("aria-modal","true");
     const heading=add("div",undefined,"task20-dialog-head");
@@ -211,12 +261,16 @@
       close.setAttribute("aria-label",win.SGNaviLocale?.label("Close dialog")??"Close dialog");
     }
     localizeDialogLabels();
-    doc.addEventListener("sgnavi:languagechange",localizeDialogLabels);
+    doc.addEventListener("sgnavi:languagechange",()=>{
+      localizeDialogLabels();
+      if(!overlay.hidden)refreshOpenDraft?.();
+    });
     const body=add("div",undefined,"task20-dialog-content");
     dialog.append(heading,body);overlay.appendChild(dialog);doc.body.appendChild(overlay);
     const result=add("section",undefined,"task15-flow task21-result");result.id="task21-result";result.hidden=true;host.appendChild(result);
     function reset(){
       serial++;if(controller)controller.abort();controller=null;pending=false;reply=null;checkedProcess.clear();
+      refreshOpenDraft=null;
       result.hidden=true;result.replaceChildren();host.dataset.flowStage="input";
       win.SGNaviLocale?.syncCoverage?.();
     }
@@ -246,23 +300,44 @@
       validation.setAttribute("role",isError?"alert":"status");
     }
     const call=async(operation,token,payload)=>{
-      const path=win.SGNaviApiConfig?.resolve("/api/action-plan",win.location);
+      const config=win.SGNaviApiConfig;
+      const path=config?.resolve("/api/action-plan",win.location);
       if(!path)throw Error("The checking service is not configured.");
+      const reviewedPath=config.resolveReviewedActionPlan?.(win.location);
       const request={action_plan_version:"1.0",request_id:"req-"+win.crypto.randomUUID(),operation,...payload};
-      controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),25000);
-      try{
-        const res=await win.fetch(path,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
-          body:JSON.stringify(request),signal:controller.signal,credentials:"omit",cache:"no-store"});
-        if(token!==serial)return null;
-        if(!res.ok&&res.status!==503)throw Error("The checking service could not complete this request.");
+      controller=new AbortController();const signal=controller.signal;
+      const timeout=setTimeout(()=>controller.abort(),25000);
+      const post=(url,requestSignal=signal)=>win.fetch(url,{method:"POST",
+        headers:{"Content-Type":"application/json",Accept:"application/json"},
+        body:JSON.stringify(request),signal:requestSignal,credentials:"omit",cache:"no-store"});
+      const json=res=>{
         if(!(res.headers.get("content-type")||"").toLowerCase().includes("application/json"))
           throw Error("Unexpected checking service response.");
-        const data=await verifyResponse(await res.json(),request,win.crypto);
+        return res.json();
+      };
+      try{
+        if(reviewedPath){
+          try{
+            const res=await post(reviewedPath,AbortSignal.any([signal,AbortSignal.timeout(8000)]));
+            if(res.ok&&token===serial){
+              const envelope=await json(res);
+              const data=await verifyResponse(envelope?.canonical,request,win.crypto);
+              const display=reviewedDisplay(envelope);
+              return token===serial?{...data,reviewedDisplay:display,reviewedDisclaimer:display?envelope.disclaimer:null}:null;
+            }
+          }catch(_){/* A missing or unusable reviewed response can fall back to the English API. */}
+          if(token!==serial)return null;
+          if(signal.aborted)throw Error("The checking service could not complete this request.");
+        }
+        const res=await post(path);
+        if(token!==serial)return null;
+        if(!res.ok&&res.status!==503)throw Error("The checking service could not complete this request.");
+        const data=await verifyResponse(await json(res),request,win.crypto);
         return token===serial?data:null;
       }finally{clearTimeout(timeout);if(token===serial)controller=null;}
     };
     async function interpret(){
-      reset();stage="interpreting";description=input.value.trim();const token=serial;
+      reset();summaryDisplay=null;stage="interpreting";description=input.value.trim();const token=serial;
       if(!description||description.length>1200){message("Describe the problem in 1 to 1,200 characters.",true);return;}
       // Only exact, built-in examples have English equivalents accepted by the API.
       description=win.SGNaviLocale?.canonicalExample?.(description)??description;
@@ -274,8 +349,8 @@
         const data=await call("interpret",token,{description});
         if(!data||token!==serial)return;
         message("");
-        if(data.state==="CONFIRM"){context=data.context;previousContexts=[];showConfirm();}
-        else showLimited(data.message,data.state==="UNAVAILABLE");
+        if(data.state==="CONFIRM"){context=data.context;rememberSummary(data);previousContexts=[];showConfirm();}
+        else showLimited(data.message,data.state==="UNAVAILABLE",data);
       }catch(_){if(token===serial)showLimited("The service could not check your description. Please try again.",true);}
       finally{if(token===serial)get("problem-submit").disabled=false;}
     }
@@ -288,10 +363,13 @@
     }
     function showConfirm(){
       if(!context)return;
+      refreshOpenDraft=null;
       body.replaceChildren();
       body.appendChild(add("p","Does this describe your situation?","task21-eyebrow"));
       body.appendChild(add("h2","Confirm the main details"));
-      body.appendChild(add("p",context.summary));
+      const summary=summaryDisplay?.english===context.summary?summaryDisplay:null;
+      body.appendChild(add("p",context.summary,undefined,summary?.chinese??null));
+      appendReviewedNotice(body,summary?.disclaimer);
       const copy={...context,facts:{...context.facts}};
       body.appendChild(select("Topic",Object.keys(SUBTYPES),copy.case_type,value=>{
         copy.case_type=value;copy.issue_subtype="unspecified";copy.facts={};
@@ -348,25 +426,28 @@
         const data=await call("plan",token,{confirmed:true,context});
         if(!data||token!==serial)return;
         message("");
-        if(data.state==="ASK"){context=data.context;showQuestion(data.question);}
-        else if(data.state==="READY"){context=data.context;reply=data;showResult(data);}
-        else showLimited(data.message,data.state==="UNAVAILABLE");
+        if(data.state==="ASK"){context=data.context;rememberSummary(data);showQuestion(data);}
+        else if(data.state==="READY"){context=data.context;rememberSummary(data);reply=data;showResult(data);}
+        else showLimited(data.message,data.state==="UNAVAILABLE",data);
       }catch(_){if(token===serial)showLimited("We could not check the next step. Your answers remain here; please retry.",true);}
       finally{if(token===serial)get("problem-submit").disabled=false;}
     }
-    function showQuestion(question){
+    function showQuestion(data){
+      const question=data.question,reviewed=data.reviewedDisplay?.question;
+      refreshOpenDraft=null;
       if(!question||!context||Object.hasOwn(context.facts,question.field)){showLimited("We could not safely show the next question.",true);return;}
       stage="question";host.dataset.flowStage="questions";body.replaceChildren();
       body.appendChild(add("p","ONE QUICK DETAIL","task21-eyebrow"));
-      body.appendChild(add("h2",question.prompt));
-      body.appendChild(add("p",question.reason));
+      body.appendChild(add("h2",question.prompt,undefined,reviewed?.prompt??null));
+      body.appendChild(add("p",question.reason,undefined,reviewed?.reason??null));
+      appendReviewedNotice(body,data.reviewedDisclaimer);
       const choices=add("div",undefined,"task20-answers");
       let selected=null,hasSelection=false;
-      for(const option of question.options){
+      for(const [index,option] of question.options.entries()){
         const optionBtn=btn(option.label,()=>{
           selected=option.value;hasSelection=true;
           for(const b of choices.children)b.setAttribute("aria-pressed",String(b===optionBtn));
-        },"task20-answer");
+        },"task20-answer",reviewed?.options[index].label??null);
         optionBtn.setAttribute("aria-pressed","false");choices.appendChild(optionBtn);
       }
       body.appendChild(choices);
@@ -386,11 +467,12 @@
       },"intake-primary"));
       body.appendChild(actions);showDialog();
     }
-    function showLimited(text,unavailable=false){
+    function showLimited(text,unavailable=false,data){
       reset();stage="limited";result.hidden=false;host.dataset.flowStage="limited";
       message("");get("problem-submit").disabled=false;
       result.appendChild(add("h3",unavailable?"Service temporarily unavailable":"More information is needed"));
-      result.appendChild(add("p",text));
+      result.appendChild(add("p",text,undefined,data?data.reviewedDisplay?.message??null:undefined));
+      appendReviewedNotice(result,data?.reviewedDisclaimer);
       result.appendChild(btn("Check again",()=>{if(context)plan();else interpret();},"intake-primary"));
       result.appendChild(btn("Edit description",()=>{result.hidden=true;win.SGNaviLocale?.syncCoverage?.();input.focus();}));
       win.SGNaviLocale?.syncCoverage?.();
@@ -398,10 +480,15 @@
     function showResult(data){
       result.replaceChildren();result.hidden=false;stage="ready";host.dataset.flowStage="results";
       const p=data.plan,sources=data.verifiedSources,contacts=data.verifiedContacts;
+      const reviewed=data.reviewedDisplay?.plan;
+      const claimText=new Map();
+      if(reviewed)for(const item of [...reviewed.checklist,...reviewed.details.flatMap(group=>group.items)])
+        claimText.set(item.id,item.text);
       // A process is only the source-backed current action and Task19 checklist,
       // NOT an invented official end-to-end complaint or application status.
       let firstAction=null,activeDetail=null;
       const draftEdits=new Map();
+      let manualDraft=null;
       function continueToAction(){
         hideDialog();
         if(firstAction){firstAction.classList.add("task23-current-action");firstAction.focus();}
@@ -410,26 +497,27 @@
       function statusCount(){
         return checkedProcess.size+" / "+p.checklist.length;
       }
-      const title=add("h3",p.headline);title.id="task21-result-heading";result.appendChild(title);
-      result.appendChild(add("p",p.assessment.text,"task20-situation"));
+      const title=add("h3",p.headline,undefined,reviewed?.headline??null);title.id="task21-result-heading";result.appendChild(title);
+      result.appendChild(add("p",p.assessment.text,"task20-situation",reviewed?.assessment.text??null));
       result.appendChild(add("p","An official help or preparation option is available; this does not decide legal eligibility or guarantee a result.","task15-notice"));
+      appendReviewedNotice(result,data.reviewedDisclaimer);
       const two=add("div",undefined,"task20-first-grid"),left=add("div",undefined,"task20-first-left"),right=add("aside",undefined,"task20-first-right");
       const primary=add("section",undefined,"task20-primary");primary.appendChild(add("span","YOUR NEXT STEP","task20-label"));
-      primary.appendChild(add("h4",p.primary_action.text));
+      primary.appendChild(add("h4",p.primary_action.text,undefined,reviewed?.primary_action.text??null));
       const selected=p.primary_action.contact_id?contacts.get(p.primary_action.contact_id):null;
       if(selected){
-        const link=add("a",p.primary_action.label+" ↗","intake-primary task21-link");
+        const link=add("a",p.primary_action.label+" ↗","intake-primary task21-link",reviewed?reviewed.primary_action.label+" ↗":null);
         link.href=selected.href;
         if(selected.external){link.target="_blank";link.rel="noopener noreferrer";}
         primary.appendChild(link);firstAction=link;
       }else{
-        const actionButton=btn(p.primary_action.label,()=>showDetails("preparation"),"intake-primary");
+        const actionButton=btn(p.primary_action.label,()=>showDetails("preparation"),"intake-primary",reviewed?.primary_action.label??null);
         primary.appendChild(actionButton);firstAction=actionButton;
       }
       left.appendChild(primary);
       const prep=add("section",undefined,"task20-checklist");prep.appendChild(add("h4","Before you continue"));
       const steps=add("ol");
-      for(const item of p.checklist)steps.appendChild(add("li",item.text));
+      for(const item of p.checklist)steps.appendChild(add("li",item.text,undefined,claimText.get(item.id)??null));
       prep.appendChild(steps);left.appendChild(prep);
       right.appendChild(add("h4","Get help with the next part"));
       right.appendChild(btn("View available steps",()=>showDetails("process"),"task20-secondary-option task23-process-trigger"));
@@ -456,12 +544,14 @@
       win.SGNaviLocale?.syncCoverage?.();
       function showDetails(part,requestedEvidenceIds=null){
         activeDetail=part;
+        refreshOpenDraft=null;
         body.replaceChildren();
         body.appendChild(add("h2",({
           contacts:"Official ways to get help",draft:"Write a request",documents:"What to prepare",
           pitfalls:"What to watch out for",alternatives:"If it isn't resolved",
           evidence:"Verified wording and sources",preparation:"Your preparation steps",process:"View available steps"
-        })[part]||"More information"));
+        })[part]||"More information",undefined,reviewed?.details.find(group=>group.kind===part)?.title));
+        if(part!=="evidence")appendReviewedNotice(body,data.reviewedDisclaimer);
         if(part==="process"){
           const processSection=add("section",undefined,"task23-process");
           const progress=add("p",undefined,"task23-progress"),count=add("span");
@@ -470,7 +560,7 @@
           progress.setAttribute("role","status");processSection.appendChild(progress);
           const list=add("ol");
           const now=add("li",undefined,"task23-step");now.dataset.current="true";
-          const current=add("strong");current.append(add("span","Now: "),add("span",p.primary_action.text));
+          const current=add("strong");current.append(add("span","Now: "),add("span",p.primary_action.text,undefined,reviewed?.primary_action.text??null));
           now.appendChild(current);
           now.appendChild(add("small","This is the current suggested action, not a completed official step."));
           now.appendChild(btn("View supporting sources",()=>showDetails("evidence",p.primary_action.evidence_ids),"task23-step-source"));
@@ -487,7 +577,7 @@
               if(next)next.closest(".task23-step").dataset.current="true";
               else now.dataset.current="true";
             });
-            label.append(tick,add("span",item.text));
+            label.append(tick,add("span",item.text,undefined,claimText.get(item.id)??null));
             li.appendChild(label);
             li.appendChild(btn("View supporting sources",()=>showDetails("evidence",item.evidence_ids),"task23-step-source"));
             li.dataset.current=index===0?"true":"false";
@@ -501,27 +591,39 @@
         }else if(part==="contacts"){
           if(!contacts.size)body.appendChild(add("p","No currently verified contact is available for this route."));
           for(const c of contacts.values()){
-            const row=add("div",undefined,"task21-contact");row.appendChild(add("strong",c.institution));
-            row.appendChild(add("p",LABEL(c.purpose)+(c.note?" · "+c.note:"")));
+            const translated=reviewed?.contacts.find(row=>row.id===c.id);
+            const row=add("div",undefined,"task21-contact");
+            row.appendChild(add("strong",c.institution,undefined,translated?.institution??null));
+            row.appendChild(add("p",LABEL(c.purpose)+(c.note?" · "+c.note:""),undefined,
+              translated?translated.purpose+(translated.note?" · "+translated.note:""):null));
             const link=add("a",c.kind==="phone"?"Call "+c.value:c.kind==="email"?"Email "+c.value:"Open official website ↗","task21-link");
             link.href=c.href;if(c.external){link.target="_blank";link.rel="noopener noreferrer";}
             row.appendChild(link);body.appendChild(row);
           }
         }else if(part==="draft"&&p.draft){
           body.appendChild(add("p","Edit this draft before copying. Nothing will be sent automatically."));
-          body.appendChild(add("h3",p.draft.title));
+          body.appendChild(add("h3",p.draft.title,undefined,reviewed?.draft?.title??null));
           const editors=new Map();
-          for(const slot of p.draft.slots){
-            const label=fieldLabel(slot.label),field=add("input");
+          for(const [index,slot] of p.draft.slots.entries()){
+            const label=fieldLabel(slot.label,reviewed?.draft?.slots[index].label??null),field=add("input");
             field.type="text";field.maxLength=140;field.placeholder="Add your own confirmed details";
             field.value=draftEdits.get(slot.id)||"";
             field.addEventListener("input",()=>draftEdits.set(slot.id,field.value));
             label.appendChild(field);editors.set(slot.id,field);body.appendChild(label);
           }
-          const preview=add("textarea",undefined,"task21-draft");preview.rows=9;preview.value=p.draft.subject+"\n\n"+p.draft.body;
-          const refresh=()=>{let src=p.draft.subject+"\n\n"+p.draft.body;for(const [id,field] of editors)src=src.split("{"+id+"}").join(field.value.trim()||"["+id+": to fill in]");
-            preview.value=src;};
-          editors.forEach(x=>x.addEventListener("input",refresh));refresh();
+          const preview=add("textarea",undefined,"task21-draft");preview.rows=9;
+          const refresh=()=>{
+            const chinese=win.SGNaviLocale?.getLanguage()==="zh"&&reviewed?.draft;
+            const template=chinese||p.draft;
+            let text=template.subject+"\n\n"+template.body;
+            for(const [id,field] of editors)
+              text=text.split("{"+id+"}").join(field.value.trim()||"["+id+(chinese?"：待填写]":": to fill in]"));
+            preview.value=manualDraft?.text??text;
+            preview.lang=manualDraft?.lang??(chinese?"zh-Hans":"en");
+          };
+          preview.addEventListener("input",()=>{manualDraft={text:preview.value,lang:preview.lang};});
+          editors.forEach(field=>field.addEventListener("input",()=>{manualDraft=null;refresh();}));
+          refreshOpenDraft=refresh;refresh();
           body.appendChild(preview);
           const copy=btn("Copy draft",async()=>{
             try{await win.navigator.clipboard.writeText(preview.value);setText(copy,"Copied — review before sending");}
@@ -541,7 +643,7 @@
           }
         }else{
           const items=part==="preparation"?p.checklist:p.details.filter(x=>x.kind===part).flatMap(x=>x.items);
-          const list=add("ul");for(const c of items||[])list.appendChild(add("li",c.text));
+          const list=add("ul");for(const c of items||[])list.appendChild(add("li",c.text,undefined,claimText.get(c.id)??null));
           body.appendChild(list);
           body.appendChild(btn("View supporting sources",()=>showDetails("evidence")));
         }
@@ -556,7 +658,7 @@
     }
     form.addEventListener("submit",e=>{e.preventDefault();interpret();});
     input.addEventListener("input",()=>{
-      reset();context=null;get("problem-count").textContent=input.value.length+" / 1,200";
+      reset();context=null;summaryDisplay=null;get("problem-count").textContent=input.value.length+" / 1,200";
       get("problem-submit").disabled=false;message("");
     });
     for(const b of doc.querySelectorAll("[data-example-question]"))b.addEventListener("click",()=>{
@@ -567,5 +669,5 @@
     host.dataset.task21Ready="true";get("problem-submit").disabled=false;
     return Object.freeze({interpret,reset});
   }
-  return Object.freeze({init,safeURL,safeContact,verifyResponse,revisionOf,canonical});
+  return Object.freeze({init,safeURL,safeContact,verifyResponse,reviewedDisplay,revisionOf,canonical});
 });

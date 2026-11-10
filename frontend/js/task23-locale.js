@@ -167,6 +167,7 @@
     [".intake-examples > span","Try a made-up example:"],
     [".hero-note","For demonstration only · Not legal advice · Does not submit cases"]
   ]);
+  const reviewedText=new WeakMap();
   let lang="en",doc=null,warning=null;
   function translate(text){return lang==="zh" ? EN_ZH[text]||null : text;}
   function label(text){return translate(String(text))||String(text);}
@@ -177,7 +178,7 @@
     const original=el.dataset.task23Original;
     if(el.dataset.task23Source==="true"){el.textContent=original;el.setAttribute("lang","en");return;}
     if(lang==="en"){el.textContent=original;el.removeAttribute("lang");return;}
-    const translated=translate(original);
+    const translated=reviewedText.has(el)?reviewedText.get(el):translate(original);
     if(translated){el.textContent=translated;el.removeAttribute("lang");return;}
     // Do not add a bulky warning to *every* label, option and dialog title.
     // Keep dynamic backend/source text unchanged and correctly language-tagged.
@@ -212,6 +213,7 @@
   }
   function syncCoverage(){
     if(!doc)return;
+    for(const notice of doc.querySelectorAll("[data-task24-reviewed-notice]"))notice.hidden=lang!=="zh";
     const needsNotice=container=>lang==="zh" && container?.querySelector('[data-task23-original][lang="en"]:not([data-task23-source])');
     const dialogBody=doc.querySelector(".task20-overlay:not([hidden]) .task20-dialog-content");
     if(dialogBody){
@@ -242,6 +244,10 @@
     applyDynamicElement(el);
     return el;
   }
+  function observeReviewedText(el,original,reviewed){
+    reviewedText.set(el,reviewed);
+    return observeText(el,original);
+  }
   function init(documentRef){
     doc=documentRef;
     warning=doc.getElementById("task23-language-warning");
@@ -256,5 +262,5 @@
     if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>init(document));
     else init(document);
   }
-  return Object.freeze({init,setLanguage,translate,label,exampleLabel,canonicalExample,observeText,syncCoverage,getLanguage:()=>lang});
+  return Object.freeze({init,setLanguage,translate,label,exampleLabel,canonicalExample,observeText,observeReviewedText,syncCoverage,getLanguage:()=>lang});
 });
