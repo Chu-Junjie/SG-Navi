@@ -41,14 +41,14 @@
  .site-header{margin-bottom:-56px}
  .header-inner,.hero .shell{width:calc(100% - 24px)}
  .header-inner{min-height:56px}
- .brand-logo{height:45px;max-width:158px}
+ .brand-logo{height:50px;max-width:158px}
  .hero{padding-top:72px;min-height:100dvh;padding-bottom:22px}
- .task23-language{gap:2px;padding:2px}
- .task23-language button{min-width:40px;min-height:38px;padding:5px 8px;font-size:.875rem}
+ .task23-language{gap:2px;padding:1px}
+ .task23-language button{min-width:36px;min-height:34px;padding:4px 6px;font-size:.8125rem}
  .intake-card{padding:16px}
  .hero h1{font-size:1.8rem}
  .task23-slogan{font-size:1.18rem}
- .hero-copy{font-size:.8rem}
+ .hero-copy{max-width:none;font-size:.8rem}
 }
 @media(max-width:360px){.header-inner{gap:6px}.site-header .brand{padding:3px 0}}
 
