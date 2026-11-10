@@ -197,3 +197,46 @@ def test_chinese_free_text_not_implicitly_supported():
     from backend.scenario_understanding import interpret_scenario
     with pytest.raises(ValueError):
         interpret_scenario("我的房东没有退还押金，我想投诉。")
+
+
+def test_preview_route_off_by_default_and_english_api_still_works():
+    from backend.app import create_app
+    client = create_app().test_client()
+    req = {
+        "action_plan_version": "1.0",
+        "request_id": "task24-preview-12345",
+        "operation": "interpret",
+        "description": "The restaurant charged me SGD 20 extra and refuses to refund it.",
+    }
+    assert client.post("/api/action-plan/zh-hans-preview", json=req).status_code == 404
+    original = client.post("/api/action-plan", json=req)
+    assert original.status_code == 200
+    data = original.get_json()
+    assert data["state"] == "CONFIRM"
+    assert "display" not in data and "overlay_version" not in data
+
+
+def test_opt_in_preview_returns_proposed_sidecar_without_touching_canonical():
+    from backend.app import create_app
+    app = create_app()
+    app.config["TASK24_ENABLE_UNREVIEWED_PREVIEW"] = True
+    client = app.test_client()
+    req = {
+        "action_plan_version": "1.0",
+        "request_id": "task24-preview-54321",
+        "operation": "interpret",
+        "description": "The restaurant charged me SGD 20 extra and refuses to refund it.",
+    }
+    response = client.post("/api/action-plan/zh-hans-preview", json=req)
+    assert response.status_code == 200
+    preview = response.get_json()
+    validate_action_plan(preview["canonical"], "response", request=req)
+    assert preview["translation_status"] == "pending_review"
+    assert preview["display"]["context_summary"]
+    assert preview["canonical"]["context"]["issue_subtype"] == "restaurant_overcharge"
+    assert not preview["is_official_translation"]
+    assert preview["reviewed_by"] is None
+    assert client.post("/api/action-plan/zh-hans-preview", data="test",
+                       content_type="text/plain").status_code == 415
+    assert client.post("/api/action-plan/zh-hans-preview", json={
+        **req, "action_plan_version": "2.0"}).status_code == 400
