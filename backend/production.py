@@ -49,7 +49,18 @@ def create_production_app():
         # Explicitly nonpersistent mode: synthetic transport demo only.
         EvidenceRepository().snapshot()
 
+    # Default-off reviewed Chinese display.  A toggle alone is not sufficient:
+    # only independently reviewed, source-version-matched translations can run.
+    locale_flag = os.environ.get("SG_NAVI_TASK24_REVIEWED_LOCALE", "0")
+    if locale_flag not in ("0", "1"):
+        raise RuntimeError("SG_NAVI_TASK24_REVIEWED_LOCALE must be 0 or 1")
+    if locale_flag == "1":
+        from backend.task24_delivery import checked_review_attestation
+        # Fail startup rather than accidentally serving unreviewed explanations.
+        checked_review_attestation()
+
     app = create_app()
+    app.config["TASK24_ENABLE_REVIEWED_LOCALE"] = locale_flag == "1"
     app.debug = False
     app.config["TESTING"] = False
 
