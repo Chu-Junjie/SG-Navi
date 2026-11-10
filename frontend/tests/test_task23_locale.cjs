@@ -27,15 +27,18 @@ test("source quotation is never translated by generic translation module",()=>{
   locale.setLanguage("en");
 });
 
-test("unknown backend option remains legible English without repeated prefix",()=>{
+test("known non-legal selector labels have Chinese display, unknown content stays English",()=>{
   locale.setLanguage("zh");
   const attrs={};
   const node={dataset:{},tagName:"OPTION",textContent:"",
     setAttribute(name,value){attrs[name]=value;},
     removeAttribute(name){delete attrs[name];}};
-  locale.observeText(node,"Understand Options");
-  assert.equal(node.textContent,"Understand Options");
+  locale.observeText(node,"A novel and unreviewed legal outcome");
+  assert.equal(node.textContent,"A novel and unreviewed legal outcome");
   assert.equal(attrs.lang,"en");
+  assert.equal(locale.label("Understand Options"),"了解处理方式");
+  assert.equal(locale.label("Goods Dispute"),"商品纠纷");
+  assert.equal(locale.label("Consumer Complaint"),"消费者纠纷");
   assert.doesNotMatch(node.textContent,/英文原文|暂无审核译文/);
   locale.setLanguage("en");
   locale.observeText(node,"Understand Options");
