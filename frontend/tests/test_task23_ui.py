@@ -15,6 +15,8 @@ class Task23UITests(unittest.TestCase):
                 self.assertIn("Don't feel lost, just find me.",text)
                 self.assertIn('data-task23-language="en"',text)
                 self.assertIn('data-task23-language="zh"',text)
+                self.assertIn('id="problem-language-help" lang="zh-Hans" hidden',text)
+                self.assertIn('placeholder="For example: My landlord',text)
                 self.assertIn('id="task23-slogan"',text)
                 self.assertIn('task23-ui.css',text)
                 self.assertIn('task23-locale.js',text)
