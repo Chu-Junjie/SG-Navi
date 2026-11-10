@@ -38,11 +38,12 @@ class Task23UITests(unittest.TestCase):
 
     def test_translation_protects_verbatim_quote_and_keeps_en_as_default(self):
         script=(ROOT/"frontend/js/task23-locale.js").read_text(encoding="utf-8")
-        for phrase in ('lang="en"', "EN_ZH", "BLOCKQUOTE",
+        for phrase in ('lang="en"', "EN_ZH", 'setAttribute("lang","en")',
                        "task23Original", "No reviewed Chinese translation",
                        "setLanguage(next)", "sgnavi:languagechange"):
             # The html= attribute itself is in the homepage, not locale module.
             if phrase!='lang="en"': self.assertIn(phrase,script)
+        self.assertIn("task23-dialog-translation-notice",script)
         self.assertNotIn("fetch(",script)
         self.assertNotIn("localStorage",script)
         self.assertNotIn("sessionStorage",script)
