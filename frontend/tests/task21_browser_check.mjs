@@ -28,6 +28,16 @@ async function click(selector,text){
  const expr="(()=>{const b=[...document.querySelectorAll("+JSON.stringify(selector)+")].find(x=>x.textContent.includes("+JSON.stringify(text)+"));if(!b)return false;b.click();return true;})()";
  assert.ok(await evaluate(expr),"Missing button: "+text);
 }
+async function dialogLanguage(language){
+ const selector=`#task21-overlay [data-task23-language="${language}"]`;
+ assert.ok(await evaluate(`(()=>{
+   const button=document.querySelector(${JSON.stringify(selector)});
+   if(!button)return false;
+   const {x,y,width,height}=button.getBoundingClientRect();
+   if(document.elementFromPoint(x+width/2,y+height/2)!==button)return false;
+   button.click();return true;
+ })()`),"Language switch must be reachable in the open dialog");
+}
 async function lastResponse(){
  const req=requests.filter(x=>new URL(x.url).pathname==="/api/action-plan"&&x.method==="POST").at(-1);
  assert.ok(req,"Actual Action Plan POST required");
@@ -89,6 +99,17 @@ try{
      "{const el=document.querySelectorAll('#task21-overlay select')[i];if(!el)return false;"+
      "if(el.value!==v){el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}));}}return true;})()";
    assert.ok(await evaluate(choice));
+   const values="[...document.querySelectorAll('#task21-overlay select')].map(select=>select.value)";
+   const actionRequestCount=()=>requests.filter(x=>x.method==="POST"&&new URL(x.url).pathname==="/api/action-plan").length;
+   const selected=await evaluate(values),requestCount=actionRequestCount();
+   await dialogLanguage("zh");
+   assert.equal(await evaluate("document.documentElement.lang"),"zh-Hans");
+   assert.deepEqual(await evaluate(values),selected);
+   assert.ok(await evaluate("document.querySelector('#task21-overlay select').selectedOptions[0].textContent.includes('纠纷')"));
+   assert.ok(await evaluate("!!document.querySelector('#task23-dialog-translation-notice:not([hidden])')"));
+   await dialogLanguage("en");
+   assert.deepEqual(await evaluate(values),selected);
+   assert.equal(actionRequestCount(),requestCount,"Changing the display language must not send a request");
    await click("#task21-overlay button","Confirm and continue");
    const preferred={merchant_location:"singapore",purchase_purpose:"personal",
      consumer_context:"local_consumer",resolution_attempted:true,
@@ -110,6 +131,9 @@ try{
      if(k<0)k=q.options.findIndex(x=>x.value==="unknown");
      assert.ok(k>=0,"Not sure required");
      await evaluate("document.querySelectorAll('.task20-answer')["+k+"].click()");
+     await dialogLanguage("zh");
+     assert.equal(await evaluate("document.querySelectorAll('.task20-answer')["+k+"].getAttribute('aria-pressed')"),"true");
+     await dialogLanguage("en");
      await click("#task21-overlay button","Continue");
    }
    assert.equal(await evaluate("document.querySelector('#problem-intake').dataset.flowStage"),"results");
@@ -130,14 +154,19 @@ try{
    await click("#task21-overlay button","Continue to next step");
    await click(".task20-first-right button","View available steps");
    assert.ok(await evaluate("document.querySelector('#task21-overlay .task23-step input[type=checkbox]').checked"));
-   await evaluate("document.querySelector('[data-task23-language=zh]').click()");
+   await dialogLanguage("zh");
    assert.equal(await evaluate("document.documentElement.lang"),"zh-Hans");
    assert.ok(await evaluate("document.querySelector('#task21-overlay .task23-step input[type=checkbox]').checked"));
-   await evaluate("document.querySelector('[data-task23-language=en]').click()");
+   await dialogLanguage("en");
    assert.equal(await evaluate("document.documentElement.lang"),"en");
    await click("#task21-overlay button","Continue to next step");
    await click(".task20-first-right button","Why this advice?");
    assert.ok(await evaluate("document.querySelectorAll('#task21-overlay .task21-evidence blockquote').length>0"));
+   const excerpts="[...document.querySelectorAll('#task21-overlay .task21-evidence')].map(el=>[el.querySelector('blockquote').textContent,el.querySelector('a').href])";
+   const original=await evaluate(excerpts);
+   await dialogLanguage("zh");
+   assert.deepEqual(await evaluate(excerpts),original);
+   await dialogLanguage("en");
    await click("#task21-overlay button","Continue to next step");
    await evaluate("document.getElementById('problem-text').dispatchEvent(new Event('input',{bubbles:true}))");
    assert.ok(await evaluate("document.getElementById('task21-result').hidden"));

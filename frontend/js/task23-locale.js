@@ -75,6 +75,19 @@
     "Private home or condo":"私人住宅或公寓",
     "Landlord":"房东",
     "Estate agent":"房产中介",
+    "Where did the purchase happen?":"你在哪里购买的？",
+    "Was it for personal use?":"是个人使用的吗？",
+    "Have you asked the seller to resolve it?":"你是否已联系卖家处理？",
+    "Are you a local consumer or a visitor?":"你是本地消费者还是访客？",
+    "Local consumer":"本地消费者",
+    "Visitor":"访客",
+    "Who is the dispute with?":"纠纷涉及哪一方？",
+    "What type of premises?":"租赁场所属于哪一类？",
+    "HDB":"组屋（HDB）",
+    "Commercial":"商业场所",
+    "Industrial":"工业场所",
+    "Have you already left or ended the tenancy?":"你是否已搬离或结束租约？",
+    "Does your signed agreement contain a break clause?":"你签署的租约是否包含提前解约条款？",
     "Not yet":"尚未",
     "Choose an option, including Not sure.":"请选择一个选项，包括“不确定”。",
     "Checking what happened…":"正在了解情况……",
@@ -97,6 +110,9 @@
     "Official contacts":"官方联系方式",
     "Write a request":"撰写请求",
     "Documents to prepare":"准备材料",
+    "What to prepare":"准备哪些材料",
+    "More information":"更多信息",
+    "Open official website ↗":"打开官方网站 ↗",
     "What to watch out for":"注意事项",
     "If it isn't resolved":"如果仍未解决",
     "Why this advice?":"建议依据",
@@ -119,6 +135,9 @@
     "Continue to next step":"继续下一步",
     "View available steps":"查看可用步骤",
     "Now":"现在",
+    "Now: ":"现在：",
+    " personal preparation steps checked":" 项个人准备事项已勾选",
+    "This is the current suggested action, not a completed official step.":"这是当前建议采取的行动。勾选仅供个人记录。",
     "Next":"接下来",
     "Later":"之后",
     "Further steps depend on your case.":"后续步骤取决于你的具体情况。",
@@ -156,6 +175,7 @@
   function applyDynamicElement(el){
     if(!el || !el.dataset || !el.dataset.task23Original)return;
     const original=el.dataset.task23Original;
+    if(el.dataset.task23Source==="true"){el.textContent=original;el.setAttribute("lang","en");return;}
     if(lang==="en"){el.textContent=original;el.removeAttribute("lang");return;}
     const translated=translate(original);
     if(translated){el.textContent=translated;el.removeAttribute("lang");return;}
@@ -184,25 +204,28 @@
       if(span)span.setAttribute("aria-hidden","true");
     }
     for(const el of doc.querySelectorAll("[data-task23-original]"))applyDynamicElement(el);
-    // Explain the partial Chinese coverage once per active dialog, not on every
-    // backend question/option. This is a readable, accessible text node.
-    const dialogBody=doc.querySelector(".task20-dialog-content");
+    for(const btn of doc.querySelectorAll("[data-task23-language]"))
+      btn.setAttribute("aria-pressed",String(btn.dataset.task23Language===lang));
+    syncCoverage();
+  }
+  function syncCoverage(){
+    if(!doc)return;
+    const needsNotice=container=>lang==="zh" && container?.querySelector('[data-task23-original][lang="en"]:not([data-task23-source])');
+    const dialogBody=doc.querySelector(".task20-overlay:not([hidden]) .task20-dialog-content");
     if(dialogBody){
       let note=doc.getElementById("task23-dialog-translation-notice");
-      if(!note){
+      const show=Boolean(needsNotice(dialogBody));
+      if(!note&&show){
         note=doc.createElement("p");
         note.id="task23-dialog-translation-notice";
         note.className="task23-dialog-translation-notice";
         note.setAttribute("role","note");
-        note.textContent="部分动态问题尚无经审核的中文译文，以下保留英文原文。";
+        note.textContent="部分内容尚无经审核的中文译文，以下保留英文原文。";
         dialogBody.prepend(note);
       }
-      note.hidden=lang!=="zh";
+      if(note)note.hidden=!show;
     }
-    for(const btn of doc.querySelectorAll("[data-task23-language]"))
-      btn.setAttribute("aria-pressed",String(btn.dataset.task23Language===lang));
-    if(warning)warning.hidden=lang==="en" || !doc.getElementById("problem-intake") ||
-       !["review","questions","results","limited"].includes(doc.getElementById("problem-intake").dataset.flowStage);
+    if(warning)warning.hidden=Boolean(dialogBody)||!needsNotice(doc.querySelector("#task21-result:not([hidden])"));
   }
   function setLanguage(next){
     if(next!=="zh"&&next!=="en")return false;
@@ -220,8 +243,10 @@
   function init(documentRef){
     doc=documentRef;
     warning=doc.getElementById("task23-language-warning");
-    for(const btn of doc.querySelectorAll("[data-task23-language]"))
-      btn.addEventListener("click",()=>setLanguage(btn.dataset.task23Language));
+    doc.addEventListener("click",event=>{
+      const button=event.target.closest?.("[data-task23-language]");
+      if(button)setLanguage(button.dataset.task23Language);
+    });
     apply();
     return {setLanguage,apply};
   }
@@ -229,5 +254,5 @@
     if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>init(document));
     else init(document);
   }
-  return Object.freeze({init,setLanguage,translate,label,exampleLabel,canonicalExample,observeText,getLanguage:()=>lang});
+  return Object.freeze({init,setLanguage,translate,label,exampleLabel,canonicalExample,observeText,syncCoverage,getLanguage:()=>lang});
 });

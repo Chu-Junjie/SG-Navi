@@ -168,13 +168,20 @@
   function init(doc,win){
     const get=id=>doc.getElementById(id),host=get("problem-intake"),form=get("problem-form"),input=get("problem-text");
     if(!host||!form||!input)return null;
+    const setText=(el,content,source=false)=>{
+      el.textContent=String(content);
+      win.SGNaviLocale?.observeText(el,content,source);
+    };
     const add=(tag,content,cls)=>{
       const el=doc.createElement(tag);
-      if(content!==undefined){
-        el.textContent=String(content);
-        if(win.SGNaviLocale)win.SGNaviLocale.observeText(el,content,tag==="blockquote");
-      }
+      if(content!==undefined)setText(el,content,tag==="blockquote");
       if(cls)el.className=cls;return el;
+    };
+    const fieldLabel=text=>{
+      const label=add("label",undefined,"task21-field");
+      // Replace only the text span when changing locale; the nested control keeps its state.
+      label.appendChild(add("span",text));
+      return label;
     };
     const btn=(label,fn,cls="intake-secondary")=>{
       const b=add("button",label,cls);b.type="button";b.addEventListener("click",fn);return b;
@@ -183,24 +190,45 @@
     let previousContexts=[],reply=null,checkedProcess=new Set();
     const overlay=add("div",undefined,"task20-overlay");overlay.hidden=true;overlay.id="task21-overlay";
     const dialog=add("section",undefined,"task20-dialog");dialog.setAttribute("role","dialog");dialog.setAttribute("aria-modal","true");
-    dialog.setAttribute("aria-label","SG Navi question and details");
     const heading=add("div",undefined,"task20-dialog-head");
     heading.appendChild(add("strong","SG Navi"));
-    const close=btn("×",()=>hideDialog(),"task20-close");close.setAttribute("aria-label","Close dialog");heading.appendChild(close);
+    const dialogControls=add("div",undefined,"task23-dialog-controls");
+    const close=btn("×",()=>hideDialog(),"task20-close");
+    if(win.SGNaviLocale){
+      const languages=add("div",undefined,"task23-language");
+      languages.setAttribute("role","group");languages.setAttribute("aria-label","Language / 语言");
+      for(const [code,text,tag] of [["en","EN","en"],["zh","中文","zh-Hans"]]){
+        const button=add("button");button.type="button";button.textContent=text;
+        button.lang=tag;button.dataset.task23Language=code;
+        button.setAttribute("aria-pressed",String(win.SGNaviLocale.getLanguage()===code));
+        languages.appendChild(button);
+      }
+      dialogControls.appendChild(languages);
+    }
+    dialogControls.appendChild(close);heading.appendChild(dialogControls);
+    function localizeDialogLabels(){
+      dialog.setAttribute("aria-label",win.SGNaviLocale?.label("SG Navi question and details")??"SG Navi question and details");
+      close.setAttribute("aria-label",win.SGNaviLocale?.label("Close dialog")??"Close dialog");
+    }
+    localizeDialogLabels();
+    doc.addEventListener("sgnavi:languagechange",localizeDialogLabels);
     const body=add("div",undefined,"task20-dialog-content");
     dialog.append(heading,body);overlay.appendChild(dialog);doc.body.appendChild(overlay);
     const result=add("section",undefined,"task15-flow task21-result");result.id="task21-result";result.hidden=true;host.appendChild(result);
     function reset(){
       serial++;if(controller)controller.abort();controller=null;pending=false;reply=null;checkedProcess.clear();
       result.hidden=true;result.replaceChildren();host.dataset.flowStage="input";
+      win.SGNaviLocale?.syncCoverage?.();
     }
     function hideDialog(){
       overlay.hidden=true;doc.body.classList.remove("task20-modal-open");
+      win.SGNaviLocale?.syncCoverage?.();
       if(lastFocus?.isConnected)lastFocus.focus();
     }
     function showDialog(){
       if(overlay.hidden)lastFocus=doc.activeElement;
       overlay.hidden=false;doc.body.classList.add("task20-modal-open");
+      win.SGNaviLocale?.syncCoverage?.();
       close.focus();
     }
     doc.addEventListener("keydown",e=>{
@@ -214,8 +242,7 @@
     });
     function message(text,isError=false){
       const validation=get("problem-validation");
-      validation.textContent=text;
-      win.SGNaviLocale?.observeText(validation,text);
+      setText(validation,text);
       validation.setAttribute("role",isError?"alert":"status");
     }
     const call=async(operation,token,payload)=>{
@@ -253,7 +280,7 @@
       finally{if(token===serial)get("problem-submit").disabled=false;}
     }
     function select(label,items,value,onChange){
-      const wrap=add("label",label,"task21-field");
+      const wrap=fieldLabel(label);
       const sel=add("select");for(const item of items){
         const o=add("option",LABEL(item));o.value=item;if(item===value)o.selected=true;sel.appendChild(o);
       }
@@ -292,7 +319,7 @@
       const optional=add("details",undefined,"task21-fact-corrections");
       optional.appendChild(add("summary","Correct any important details (optional)"));
       for(const [field,prompt,items] of corrections[copy.case_type]){
-        const row=add("label",prompt,"task21-field"),control=add("select");
+        const row=fieldLabel(prompt),control=add("select");
         const empty=add("option","Not specified");empty.value="";control.appendChild(empty);
         for(const [value,text] of items){
           const option=add("option",text);option.value=JSON.stringify(value);
@@ -351,7 +378,7 @@
       }));
       actions.append(btn("Continue →",()=>{
         if(!hasSelection){
-          error.textContent="Choose an option, including Not sure.";return;
+          setText(error,"Choose an option, including Not sure.");return;
         }
         previousContexts.push(context);
         context={...context,facts:{...context.facts,[question.field]:selected}};
@@ -365,7 +392,8 @@
       result.appendChild(add("h3",unavailable?"Service temporarily unavailable":"More information is needed"));
       result.appendChild(add("p",text));
       result.appendChild(btn("Check again",()=>{if(context)plan();else interpret();},"intake-primary"));
-      result.appendChild(btn("Edit description",()=>{result.hidden=true;input.focus();}));
+      result.appendChild(btn("Edit description",()=>{result.hidden=true;win.SGNaviLocale?.syncCoverage?.();input.focus();}));
+      win.SGNaviLocale?.syncCoverage?.();
     }
     function showResult(data){
       result.replaceChildren();result.hidden=false;stage="ready";host.dataset.flowStage="results";
@@ -380,7 +408,7 @@
         else title.focus();
       }
       function statusCount(){
-        return checkedProcess.size+" / "+p.checklist.length+" personal preparation steps checked";
+        return checkedProcess.size+" / "+p.checklist.length;
       }
       const title=add("h3",p.headline);title.id="task21-result-heading";result.appendChild(title);
       result.appendChild(add("p",p.assessment.text,"task20-situation"));
@@ -404,12 +432,12 @@
       for(const item of p.checklist)steps.appendChild(add("li",item.text));
       prep.appendChild(steps);left.appendChild(prep);
       right.appendChild(add("h4","Get help with the next part"));
-      right.appendChild(btn("View available steps  ›",()=>showDetails("process"),"task20-secondary-option task23-process-trigger"));
+      right.appendChild(btn("View available steps",()=>showDetails("process"),"task20-secondary-option task23-process-trigger"));
       for(const [label,part] of [["Official contacts","contacts"],["Write a request","draft"],
         ["Documents to prepare","documents"],["What to watch out for","pitfalls"],
         ["If it isn't resolved","alternatives"],["Why this advice?","evidence"]]){
         if(part==="draft"&&!p.draft||["documents","pitfalls","alternatives"].includes(part)&&!p.details.some(x=>x.kind===part))continue;
-        right.appendChild(btn(label+"  ›",()=>showDetails(part),"task20-secondary-option"));
+        right.appendChild(btn(label,()=>showDetails(part),"task20-secondary-option"));
       }
       two.append(left,right);result.appendChild(two);
       const basis=p.legal_basis.map(row=>sources.get(row.evidence_id)).filter(Boolean);
@@ -425,6 +453,7 @@
       controls.append(btn("Edit situation",()=>{reset();showConfirm();}));
       controls.append(btn("Check again",()=>plan()));
       result.appendChild(controls);
+      win.SGNaviLocale?.syncCoverage?.();
       function showDetails(part,requestedEvidenceIds=null){
         activeDetail=part;
         body.replaceChildren();
@@ -435,10 +464,14 @@
         })[part]||"More information"));
         if(part==="process"){
           const processSection=add("section",undefined,"task23-process");
-          const progress=add("p",statusCount(),"task23-progress");progress.setAttribute("role","status");processSection.appendChild(progress);
+          const progress=add("p",undefined,"task23-progress"),count=add("span");
+          count.textContent=statusCount();
+          progress.append(count,add("span"," personal preparation steps checked"));
+          progress.setAttribute("role","status");processSection.appendChild(progress);
           const list=add("ol");
           const now=add("li",undefined,"task23-step");now.dataset.current="true";
-          now.appendChild(add("strong","Now: "+p.primary_action.text));
+          const current=add("strong");current.append(add("span","Now: "),add("span",p.primary_action.text));
+          now.appendChild(current);
           now.appendChild(add("small","This is the current suggested action, not a completed official step."));
           now.appendChild(btn("View supporting sources",()=>showDetails("evidence",p.primary_action.evidence_ids),"task23-step-source"));
           list.appendChild(now);
@@ -446,10 +479,9 @@
             const item=p.checklist[index],li=add("li",undefined,"task23-step");
             const label=add("label"),tick=doc.createElement("input");tick.type="checkbox";
             tick.checked=checkedProcess.has(item.id);
-            tick.setAttribute("aria-label","Personal checklist: "+item.text);
             tick.addEventListener("change",()=>{
               if(tick.checked)checkedProcess.add(item.id);else checkedProcess.delete(item.id);
-              progress.textContent=statusCount();
+              count.textContent=statusCount();
               for(const row of list.querySelectorAll("[data-current]"))row.dataset.current="false";
               const next=list.querySelector('input[type="checkbox"]:not(:checked)');
               if(next)next.closest(".task23-step").dataset.current="true";
@@ -480,7 +512,7 @@
           body.appendChild(add("h3",p.draft.title));
           const editors=new Map();
           for(const slot of p.draft.slots){
-            const label=add("label",slot.label,"task21-field"),field=add("input");
+            const label=fieldLabel(slot.label),field=add("input");
             field.type="text";field.maxLength=140;field.placeholder="Add your own confirmed details";
             field.value=draftEdits.get(slot.id)||"";
             field.addEventListener("input",()=>draftEdits.set(slot.id,field.value));
@@ -492,8 +524,8 @@
           editors.forEach(x=>x.addEventListener("input",refresh));refresh();
           body.appendChild(preview);
           const copy=btn("Copy draft",async()=>{
-            try{await win.navigator.clipboard.writeText(preview.value);copy.textContent="Copied — review before sending";}
-            catch(_){copy.textContent="Select the draft text to copy";preview.select();}
+            try{await win.navigator.clipboard.writeText(preview.value);setText(copy,"Copied — review before sending");}
+            catch(_){setText(copy,"Select the draft text to copy");preview.select();}
           },"intake-primary");body.appendChild(copy);
         }else if(part==="evidence"){
           for(const e of sources.values()){
