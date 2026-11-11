@@ -1,0 +1,99 @@
+{
+  "scope": "Actual isolated Flask reproduction of stale confirmation summary",
+  "source_commit": "d4760ff6c1daa6caa28bd8c44ba1aa23cf23ea6c",
+  "stale_context": {
+    "case_type": "consumer_complaint",
+    "issue_subtype": "restaurant_overcharge",
+    "goal": "complain",
+    "facts": {
+      "disputed_amount_cents": 2000,
+      "resolution_attempted": true,
+      "purchase_type": "services",
+      "merchant_location": "singapore"
+    },
+    "summary": "You reported a restaurant billing overcharge. You want to seek repayment."
+  },
+  "stale_http": 503,
+  "stale_response": {
+    "error": "translation_not_approved",
+    "message": "Reviewed Chinese content is not available; use the canonical English API."
+  },
+  "corrected_summary": "You reported a restaurant billing overcharge. You want to make a complaint.",
+  "corrected_http": 200,
+  "corrected_response": {
+    "canonical": {
+      "action_plan_version": "1.0",
+      "context": {
+        "case_type": "consumer_complaint",
+        "facts": {
+          "disputed_amount_cents": 2000,
+          "merchant_location": "singapore",
+          "purchase_type": "services",
+          "resolution_attempted": true
+        },
+        "goal": "complain",
+        "issue_subtype": "restaurant_overcharge",
+        "summary": "You reported a restaurant billing overcharge. You want to make a complaint."
+      },
+      "message": "One detail may change the appropriate next step.",
+      "plan": null,
+      "question": {
+        "field": "purchase_purpose",
+        "id": "decide_purchase_purpose",
+        "options": [
+          {
+            "label": "Personal use",
+            "value": "personal"
+          },
+          {
+            "label": "Business use",
+            "value": "business"
+          },
+          {
+            "label": "Not sure",
+            "value": "unknown"
+          }
+        ],
+        "prompt": "Was this for personal or business use?",
+        "reason": "Consumer assistance may depend on the purpose of the purchase."
+      },
+      "reason": "missing_decisive_fact",
+      "request_id": "task23-summary-corrected-repro",
+      "revision": "89a221d2ce4afb7f45c9cf77",
+      "state": "ASK"
+    },
+    "disclaimer": "中文说明（非官方译文）；法律与程序依据以官方英文原文为准。",
+    "display": {
+      "context_summary": "您表示餐厅账单存在多收费问题。 您希望提出投诉。",
+      "message": "以下一项信息可能影响合适的下一步措施。",
+      "plan": null,
+      "question": {
+        "field": "purchase_purpose",
+        "id": "decide_purchase_purpose",
+        "options": [
+          {
+            "label": "个人用途",
+            "value": "personal"
+          },
+          {
+            "label": "商业用途",
+            "value": "business"
+          },
+          {
+            "label": "不确定",
+            "value": "unknown"
+          }
+        ],
+        "prompt": "这笔购买用于个人用途还是商业用途？",
+        "reason": "消费者协助的适用性可能取决于购买用途。"
+      }
+    },
+    "entries_sha256": "d9aa17280c9691388c4ed1c410cad5274594930bc61fb2ce7208f84e4f010ca3",
+    "is_official_translation": false,
+    "locale": "zh-Hans",
+    "overlay_version": "task24-reviewed-1.0",
+    "reviewed_at": "2026-11-10T14:38:32+00:00",
+    "reviewed_by": "Chu-Junjie",
+    "translation_status": "approved_explanation"
+  }
+}

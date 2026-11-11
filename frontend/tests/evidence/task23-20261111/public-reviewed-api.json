@@ -1,0 +1,1321 @@
+{
+  "scope": "Actual public Render reviewed requests with synthetic descriptions, captured before PR130 deployment",
+  "captured_at": "2026-11-11T01:12:45.178080+00:00",
+  "origin": "https://chu-junjie.github.io",
+  "endpoint": "https://sg-navi-api-junjie.onrender.com/api/action-plan/zh-hans-reviewed",
+  "post_headers": "HTTP/1.1 200 OK\ndate: Wed, 11 Nov 2026 01:11:09 GMT\n\nHTTP/2 200 \ndate: Wed, 11 Nov 2026 01:11:10 GMT\ncontent-type: application/json\naccess-control-allow-origin: https://chu-junjie.github.io\ncache-control: no-store\ncf-cache-status: DYNAMIC\nrndr-id: d16b0e61-6729-42ba\nserver: envoy\nvary: Origin,Accept-Encoding\nx-render-origin-server: gunicorn\nx-sg-navi-deployment-mode: postgres-backed-free-demo\ncf-ray: a5896bde89c4ad97-DFW\nalt-svc: h3=\":443\"; ma=86400\nx-envoy-upstream-service-time: 537\n\n",
+  "options_headers": "HTTP/1.1 200 OK\ndate: Wed, 11 Nov 2026 01:11:39 GMT\n\nHTTP/2 204 \ndate: Wed, 11 Nov 2026 01:11:39 GMT\ncontent-type: text/html; charset=utf-8\naccess-control-allow-headers: Content-Type\naccess-control-allow-methods: POST, OPTIONS\naccess-control-allow-origin: https://chu-junjie.github.io\naccess-control-max-age: 600\ncache-control: no-store\ncontent-encoding: br\nrndr-id: b4d0e6a0-e2f1-47a9\nserver: envoy\nvary: Origin,Accept-Encoding\nx-render-origin-server: gunicorn\nx-sg-navi-deployment-mode: postgres-backed-free-demo\ncf-cache-status: DYNAMIC\ncf-ray: a5896c9868b6ad97-DFW\nalt-svc: h3=\":443\"; ma=86400\nx-envoy-upstream-service-time: 246\n\n",
+  "provider_deployed_sha": "NOT_EXPOSED_BY_PUBLIC_VERSION_ENDPOINT",
+  "journeys": [
+    {
+      "case": "consumer_complaint",
+      "description": "The restaurant in Singapore charged me SGD 20 extra and refuses to refund it.",
+      "trace": [
+        {
+          "http": 200,
+          "state": "CONFIRM",
+          "question": null,
+          "request_id": "release-zh-1b6f3f4baf584c708377ba4c903fd4ce",
+          "revision": null
+        },
+        {
+          "http": 200,
+          "state": "ASK",
+          "question": {
+            "field": "purchase_purpose",
+            "id": "decide_purchase_purpose",
+            "options": [
+              {
+                "label": "Personal use",
+                "value": "personal"
+              },
+              {
+                "label": "Business use",
+                "value": "business"
+              },
+              {
+                "label": "Not sure",
+                "value": "unknown"
+              }
+            ],
+            "prompt": "Was this for personal or business use?",
+            "reason": "Consumer assistance may depend on the purpose of the purchase."
+          },
+          "request_id": "release-zh-c2c22c8d86234cfaa41aefd21a65bc0a",
+          "revision": "7c86bb059bea2d306677c003"
+        },
+        {
+          "http": 200,
+          "state": "ASK",
+          "question": {
+            "field": "consumer_context",
+            "id": "decide_consumer_context",
+            "options": [
+              {
+                "label": "Local consumer",
+                "value": "local_consumer"
+              },
+              {
+                "label": "Visitor",
+                "value": "visitor"
+              },
+              {
+                "label": "Not sure",
+                "value": "unknown"
+              }
+            ],
+            "prompt": "Are you seeking help as a local consumer or a visitor?",
+            "reason": "The reviewed complaint-contact profile distinguishes its service audience."
+          },
+          "request_id": "release-zh-0f3c25078ca5466790c2ac02e83af2c6",
+          "revision": "dc55017e021afa34488479f3"
+        },
+        {
+          "http": 200,
+          "state": "READY",
+          "question": null,
+          "request_id": "release-zh-962403c4cde6478588775431768ab3d2",
+          "revision": "b9b5326bf3e1529c09fec1fa"
+        }
+      ],
+      "final": {
+        "canonical": {
+          "action_plan_version": "1.0",
+          "context": {
+            "case_type": "consumer_complaint",
+            "facts": {
+              "consumer_context": "local_consumer",
+              "disputed_amount_cents": 2000,
+              "merchant_location": "singapore",
+              "purchase_purpose": "personal",
+              "purchase_type": "services",
+              "resolution_attempted": true
+            },
+            "goal": "seek_refund",
+            "issue_subtype": "restaurant_overcharge",
+            "summary": "You reported a restaurant billing overcharge. You want to seek repayment."
+          },
+          "message": "A reviewed preparation or assistance step is available. This does not establish eligibility or guarantee an outcome.",
+          "plan": {
+            "assessment": {
+              "evidence_ids": [
+                "CASE-SCOPE",
+                "CASE-ASSESS"
+              ],
+              "id": "assessment",
+              "text": "CASE has an assistance route for personal consumer disputes. Ask it to assess the reported charge and its scope."
+            },
+            "checklist": [
+              {
+                "evidence_ids": [
+                  "CCS-RECORDS"
+                ],
+                "id": "bill",
+                "text": "Keep the receipt, advertised price and your written exchanges."
+              },
+              {
+                "evidence_ids": [
+                  "CCS-RECORDS"
+                ],
+                "id": "difference",
+                "text": "Note the price or charge you dispute and the correction you requested."
+              }
+            ],
+            "contacts": [
+              {
+                "evidence_ids": [
+                  "CASE-PORTAL"
+                ],
+                "id": "case-form",
+                "institution": "Consumers Association of Singapore",
+                "kind": "web",
+                "purpose": "complaint_intake",
+                "value": "https://complaints.case.org.sg/"
+              },
+              {
+                "evidence_ids": [
+                  "CASE-PHONE"
+                ],
+                "id": "case-phone",
+                "institution": "Consumers Association of Singapore",
+                "kind": "phone",
+                "note": "Monday to Friday, 9 am to 5 pm, excluding public holidays.",
+                "purpose": "consumer_assistance",
+                "value": "+6562775100"
+              },
+              {
+                "evidence_ids": [
+                  "CASE-EMAIL"
+                ],
+                "id": "case-email",
+                "institution": "Consumers Association of Singapore",
+                "kind": "email",
+                "note": "Use this for assistance enquiries. The online form is the complaint submission channel.",
+                "purpose": "consumer_assistance",
+                "value": "admin@case.org.sg"
+              }
+            ],
+            "details": [
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "CPFTA-4A"
+                    ],
+                    "id": "legal-context",
+                    "text": "A potentially misleading representation is a point to raise. Whether the facts meet the legal test needs assessment."
+                  },
+                  {
+                    "evidence_ids": [
+                      "CASE-SCOPE"
+                    ],
+                    "id": "scope",
+                    "text": "Check whether the seller and personal purchase fit the published CASE scope."
+                  }
+                ],
+                "kind": "conditions",
+                "title": "When this route is relevant"
+              },
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "CASE-FEES"
+                    ],
+                    "id": "fees",
+                    "text": "Ask which service is offered and whether that service has fees or membership requirements."
+                  }
+                ],
+                "kind": "pitfalls",
+                "title": "Check the service and costs"
+              },
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "CASE-ASSESS"
+                    ],
+                    "id": "assist",
+                    "text": "Ask CASE for advice before deciding whether to use another procedure."
+                  }
+                ],
+                "kind": "alternatives",
+                "title": "If you need help choosing the next step"
+              }
+            ],
+            "draft": {
+              "body": "I am asking for help with {disputed_charge}. The amount on the bill was {billed_amount}. I expected {expected_amount}. I contacted the business and received {business_response}. Please advise on the next step.",
+              "slots": [
+                {
+                  "id": "disputed_charge",
+                  "label": "Describe the disputed charge"
+                },
+                {
+                  "id": "billed_amount",
+                  "label": "Amount charged"
+                },
+                {
+                  "id": "expected_amount",
+                  "label": "Expected amount"
+                },
+                {
+                  "id": "business_response",
+                  "label": "Business response"
+                }
+              ],
+              "subject": "Request for help with a billing dispute",
+              "title": "Billing complaint draft"
+            },
+            "evidence": [
+              {
+                "captured_at": "2026-11-07T04:48:12+00:00",
+                "edition": null,
+                "id": "CASE-ASSESS",
+                "kind": "official_procedure",
+                "locator": "Complaint resolution process, Consultation",
+                "provision": null,
+                "publisher": "Consumers Association of Singapore",
+                "quote": "our Officers will assess your situation",
+                "quote_sha256": "d8b981fb283db6848fbc29996508740227a5112f443bc1d85cb8b4445a3c1ead",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "case-process",
+                "source_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+                "title": "Submit A Complaint",
+                "url": "https://www.case.org.sg/submit-a-complaint/"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:13+00:00",
+                "edition": null,
+                "id": "CASE-EMAIL",
+                "kind": "official_procedure",
+                "locator": "FAQ 7, Consumer, Email",
+                "provision": null,
+                "publisher": "Competition and Consumer Commission of Singapore",
+                "quote": "admin@case.org.sg",
+                "quote_sha256": "0dbc9800f8c1694f21b7cc667233ec52a55f60146223d91f3b7ea3a13d7ec2f0",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "ccs-consumer",
+                "source_sha256": "19c05ef88e6d9623f059cb16b393cb48f2c357b139f97a32bc1d54f2a34220f1",
+                "title": "Consumer Protection",
+                "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:12+00:00",
+                "edition": null,
+                "id": "CASE-FEES",
+                "kind": "official_procedure",
+                "locator": "Assisted scheme and case filing discussion",
+                "provision": null,
+                "publisher": "Consumers Association of Singapore",
+                "quote": "Both may incur a small fee.",
+                "quote_sha256": "d91fc66bd10fb88f68064214bc9f12b8435354d325ef44360bdaaca6ebcd085e",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "case-process",
+                "source_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+                "title": "Submit A Complaint",
+                "url": "https://www.case.org.sg/submit-a-complaint/"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:12+00:00",
+                "edition": null,
+                "id": "CASE-PHONE",
+                "kind": "official_procedure",
+                "locator": "How to Reach Us",
+                "provision": null,
+                "publisher": "Consumers Association of Singapore",
+                "quote": "+(65) 6277 5100",
+                "quote_sha256": "db13ae48f82c743456b5ef6b903de346dcc5829de925b767c8d1d657f5e34816",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "case-contact",
+                "source_sha256": "dc1a2b04b532d31958ddde83ad82f580f5859fe53122d8b3e5b773bd743739a4",
+                "title": "Contact Us",
+                "url": "https://www.case.org.sg/contact-us/"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:12+00:00",
+                "edition": null,
+                "id": "CASE-PORTAL",
+                "kind": "official_procedure",
+                "locator": "Get in Touch, consumer complaint form",
+                "provision": null,
+                "publisher": "Consumers Association of Singapore",
+                "quote": "https://complaints.case.org.sg/",
+                "quote_sha256": "77a109480fc1749c49188e7717e0bff90e08a3fde0dc73191c2f1d1ef56fbd96",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "case-contact",
+                "source_sha256": "dc1a2b04b532d31958ddde83ad82f580f5859fe53122d8b3e5b773bd743739a4",
+                "title": "Contact Us",
+                "url": "https://www.case.org.sg/contact-us/"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:12+00:00",
+                "edition": null,
+                "id": "CASE-SCOPE",
+                "kind": "official_procedure",
+                "locator": "Consumer complaint FAQ",
+                "provision": null,
+                "publisher": "Consumers Association of Singapore",
+                "quote": "personal/domestic use with a registered company in Singapore",
+                "quote_sha256": "d8efb56b83ec86e9094dd7ba3a9bb2b6669d7755529124ab8f9f2dc09f6094a5",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "case-process",
+                "source_sha256": "8f8084b1e547f0d9f69b56f07e3e458d1da7ec62cf7c76d46f41b4672048c7c3",
+                "title": "Submit A Complaint",
+                "url": "https://www.case.org.sg/submit-a-complaint/"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:13+00:00",
+                "edition": null,
+                "id": "CCS-RECORDS",
+                "kind": "official_procedure",
+                "locator": "FAQ 7, supporting documents",
+                "provision": null,
+                "publisher": "Competition and Consumer Commission of Singapore",
+                "quote": "receipts, invoices and delivery orders",
+                "quote_sha256": "1471983ab2f4bb72c8c79abb46804ee4f9cbb957a3e9635b69d97e5b13913294",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "ccs-consumer",
+                "source_sha256": "19c05ef88e6d9623f059cb16b393cb48f2c357b139f97a32bc1d54f2a34220f1",
+                "title": "Consumer Protection",
+                "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:13+00:00",
+                "edition": "2020 RevEd, version of 09 Mar 2025 in SSO index as at 07 Nov 2026",
+                "id": "CPFTA-4A",
+                "kind": "statute",
+                "locator": "FAQ 2, statutory excerpt as reproduced by CCS",
+                "provision": "Section 4(a)",
+                "publisher": "Competition and Consumer Commission of Singapore",
+                "quote": "a consumer might reasonably be deceived or misled",
+                "quote_sha256": "4534b57b3400eb596ce785c40816eb0de53f131d2122d6e5add024871a0ecbb5",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "ccs-consumer",
+                "source_sha256": "19c05ef88e6d9623f059cb16b393cb48f2c357b139f97a32bc1d54f2a34220f1",
+                "title": "Consumer Protection (Fair Trading) Act 2003",
+                "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/"
+              }
+            ],
+            "headline": "Ask CASE about your disputed charge",
+            "legal_basis": [
+              {
+                "claim_id": "legal-context",
+                "evidence_id": "CPFTA-4A"
+              }
+            ],
+            "primary_action": {
+              "contact_id": "case-form",
+              "evidence_ids": [
+                "CASE-PORTAL",
+                "CASE-ASSESS",
+                "CCS-RECORDS"
+              ],
+              "id": "next",
+              "kind": "complaint_intake",
+              "label": "Open CASE's complaint form",
+              "text": "Explain the disputed amount and your attempt to resolve it in the official complaint form."
+            },
+            "source_version": "action-kb-2026-11-07.1"
+          },
+          "question": null,
+          "reason": "verified_action",
+          "request_id": "release-zh-962403c4cde6478588775431768ab3d2",
+          "revision": "b9b5326bf3e1529c09fec1fa",
+          "state": "READY"
+        },
+        "disclaimer": "中文说明（非官方译文）；法律与程序依据以官方英文原文为准。",
+        "display": {
+          "context_summary": "您表示餐厅账单存在多收费问题。 您希望请求返还款项。",
+          "message": "现有一项经过审核的准备或协助措施。这不代表您必然符合申请资格，也不保证结果。",
+          "plan": {
+            "assessment": {
+              "evidence_ids": [
+                "CASE-SCOPE",
+                "CASE-ASSESS"
+              ],
+              "id": "assessment",
+              "text": "CASE 提供个人消费者纠纷协助渠道。请由 CASE 评估您所述收费问题及其适用范围。"
+            },
+            "checklist": [
+              {
+                "evidence_ids": [
+                  "CCS-RECORDS"
+                ],
+                "id": "bill",
+                "text": "保存收据、标示价格及双方书面沟通记录。"
+              },
+              {
+                "evidence_ids": [
+                  "CCS-RECORDS"
+                ],
+                "id": "difference",
+                "text": "记录您有争议的价格或收费，以及您要求商家作出的更正。"
+              }
+            ],
+            "contacts": [
+              {
+                "evidence_ids": [
+                  "CASE-PORTAL"
+                ],
+                "id": "case-form",
+                "institution": "新加坡消费者协会（CASE）",
+                "kind": "web",
+                "note": null,
+                "purpose": "投诉受理渠道",
+                "value": "https://complaints.case.org.sg/"
+              },
+              {
+                "evidence_ids": [
+                  "CASE-PHONE"
+                ],
+                "id": "case-phone",
+                "institution": "新加坡消费者协会（CASE）",
+                "kind": "phone",
+                "note": "周一至周五上午9时至下午5时，公共假期除外。",
+                "purpose": "消费者协助",
+                "value": "+6562775100"
+              },
+              {
+                "evidence_ids": [
+                  "CASE-EMAIL"
+                ],
+                "id": "case-email",
+                "institution": "新加坡消费者协会（CASE）",
+                "kind": "email",
+                "note": "该邮箱用于协助咨询。提交投诉请使用官方在线表格。",
+                "purpose": "消费者协助",
+                "value": "admin@case.org.sg"
+              }
+            ],
+            "details": [
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "CPFTA-4A"
+                    ],
+                    "id": "legal-context",
+                    "text": "可能具有误导性的陈述是值得提出的问题。具体事实是否符合法律标准，仍须进一步评估。"
+                  },
+                  {
+                    "evidence_ids": [
+                      "CASE-SCOPE"
+                    ],
+                    "id": "scope",
+                    "text": "核对商家及个人购买行为是否符合 CASE 公布的服务范围。"
+                  }
+                ],
+                "kind": "conditions",
+                "title": "该渠道何时可能适用"
+              },
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "CASE-FEES"
+                    ],
+                    "id": "fees",
+                    "text": "询问可提供哪些服务，以及相关服务是否收取费用或要求会员资格。"
+                  }
+                ],
+                "kind": "pitfalls",
+                "title": "确认服务项目与费用"
+              },
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "CASE-ASSESS"
+                    ],
+                    "id": "assist",
+                    "text": "在决定是否采用其他程序前，先向 CASE 询问意见。"
+                  }
+                ],
+                "kind": "alternatives",
+                "title": "如需协助选择下一步"
+              }
+            ],
+            "draft": {
+              "body": "我希望就{disputed_charge}寻求协助。账单所列金额为{billed_amount}，我预期应付金额为{expected_amount}。我已联系商家，得到的回复是{business_response}。请告知我可以采取的下一步措施。",
+              "slots": [
+                {
+                  "id": "disputed_charge",
+                  "label": "说明有争议的收费"
+                },
+                {
+                  "id": "billed_amount",
+                  "label": "实际收费金额"
+                },
+                {
+                  "id": "expected_amount",
+                  "label": "预期金额"
+                },
+                {
+                  "id": "business_response",
+                  "label": "商家回复"
+                }
+              ],
+              "subject": "请求协助处理账单争议",
+              "title": "账单投诉信草稿"
+            },
+            "headline": "向新加坡消费者协会（CASE）咨询争议收费",
+            "primary_action": {
+              "contact_id": "case-form",
+              "evidence_ids": [
+                "CASE-PORTAL",
+                "CASE-ASSESS",
+                "CCS-RECORDS"
+              ],
+              "id": "next",
+              "kind": "complaint_intake",
+              "label": "打开 CASE 投诉表格",
+              "text": "在官方投诉表格中说明争议金额，以及您此前尝试与商家解决问题的经过。"
+            }
+          },
+          "question": null
+        },
+        "entries_sha256": "d9aa17280c9691388c4ed1c410cad5274594930bc61fb2ce7208f84e4f010ca3",
+        "is_official_translation": false,
+        "locale": "zh-Hans",
+        "overlay_version": "task24-reviewed-1.0",
+        "reviewed_at": "2026-11-10T14:38:32+00:00",
+        "reviewed_by": "Chu-Junjie",
+        "translation_status": "approved_explanation"
+      }
+    },
+    {
+      "case": "rental_deposit",
+      "description": "My work pass was cancelled and I must leave my private condo early. My landlord will not refund my rental deposit.",
+      "trace": [
+        {
+          "http": 200,
+          "state": "CONFIRM",
+          "question": null,
+          "request_id": "release-zh-3c0f9516418345bbb023d53e4de7a55b",
+          "revision": null
+        },
+        {
+          "http": 200,
+          "state": "ASK",
+          "question": {
+            "field": "lease_ended",
+            "id": "decide_lease_ended",
+            "options": [
+              {
+                "label": "Yes",
+                "value": true
+              },
+              {
+                "label": "Not yet",
+                "value": false
+              },
+              {
+                "label": "Not sure",
+                "value": "unknown"
+              }
+            ],
+            "prompt": "Have you already ended the tenancy?",
+            "reason": "The immediate step differs for a planned exit and a completed exit."
+          },
+          "request_id": "release-zh-698b9d2b112448f981efbadc69e7586d",
+          "revision": "3a04a66defa04efe33b81602"
+        },
+        {
+          "http": 200,
+          "state": "ASK",
+          "question": {
+            "field": "break_clause_present",
+            "id": "decide_break_clause_present",
+            "options": [
+              {
+                "label": "Yes",
+                "value": true
+              },
+              {
+                "label": "No",
+                "value": false
+              },
+              {
+                "label": "Not sure",
+                "value": "unknown"
+              }
+            ],
+            "prompt": "Does your signed lease include a break or diplomatic clause?",
+            "reason": "Only the signed lease can establish your particular early-exit terms."
+          },
+          "request_id": "release-zh-e0f469211d844279aa35d640c477efe9",
+          "revision": "a9d02f11b186b0336015820b"
+        },
+        {
+          "http": 200,
+          "state": "READY",
+          "question": null,
+          "request_id": "release-zh-551ef0657a244eed99fa547213c86573",
+          "revision": "6c9d9add1491c7d14123ceaf"
+        }
+      ],
+      "final": {
+        "canonical": {
+          "action_plan_version": "1.0",
+          "context": {
+            "case_type": "rental_deposit",
+            "facts": {
+              "break_clause_present": "unknown",
+              "dispute_with": "landlord",
+              "lease_ended": false,
+              "pass_event": "cancelled",
+              "premises_type": "private_residential"
+            },
+            "goal": "seek_refund",
+            "issue_subtype": "pass_related_exit",
+            "summary": "You reported a rental issue involving a work-pass event. You want to seek repayment."
+          },
+          "message": "A reviewed preparation or assistance step is available. This does not establish eligibility or guarantee an outcome.",
+          "plan": {
+            "assessment": {
+              "evidence_ids": [
+                "CEA-TEMPLATE-SCOPE",
+                "CEA-TEMPLATE-BREAK",
+                "CEA-TEMPLATE-DEPOSIT"
+              ],
+              "id": "assessment",
+              "text": "Review the lease terms and the circumstances of the exit before assessing a deposit deduction."
+            },
+            "checklist": [
+              {
+                "evidence_ids": [
+                  "CEA-TEMPLATE-NOTICE",
+                  "COURTS-RECORDS"
+                ],
+                "id": "notice",
+                "text": "Keep the signed terms, written notice, relevant pass or employment notice and proof of delivery."
+              },
+              {
+                "evidence_ids": [
+                  "CEA-TEMPLATE-DEPOSIT",
+                  "COURTS-RECORDS"
+                ],
+                "id": "deduction",
+                "text": "Ask the landlord for the written reason and itemised deduction. Keep your deposit record."
+              }
+            ],
+            "contacts": [
+              {
+                "evidence_ids": [
+                  "COURTS-RESIDENTIAL"
+                ],
+                "id": "sct-criteria",
+                "institution": "Singapore Courts",
+                "kind": "web",
+                "purpose": "procedure_information",
+                "value": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim"
+              }
+            ],
+            "details": [
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "CEA-TEMPLATE-SCOPE",
+                      "CEA-TEMPLATE-BREAK"
+                    ],
+                    "id": "template",
+                    "text": "The private rental template illustrates optional terms. Check the clauses and choices in the agreement you actually signed."
+                  },
+                  {
+                    "evidence_ids": [
+                      "MOM-EP-CANCELLATION",
+                      "CEA-TEMPLATE-DEPOSIT"
+                    ],
+                    "id": "pass",
+                    "text": "For an Employment Pass, check MOM's cancellation guidance for the pass position. Check the signed tenancy terms separately for the deposit question."
+                  }
+                ],
+                "kind": "pitfalls",
+                "title": "Separate the pass event from the rental terms"
+              },
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "SCTA-SCHEDULE-1C",
+                      "COURTS-RESIDENTIAL"
+                    ],
+                    "id": "jurisdiction",
+                    "text": "Check the SCT criteria for residential leases and the other filing conditions before deciding whether to file."
+                  }
+                ],
+                "kind": "conditions",
+                "title": "Check whether the small claims procedure fits"
+              }
+            ],
+            "draft": {
+              "body": "Please provide a written breakdown of {deduction} and identify the clause of our signed tenancy agreement used for it. My understanding of the relevant clause is {clause}. Please clarify the remaining deposit and the reason for any deduction.",
+              "slots": [
+                {
+                  "id": "deduction",
+                  "label": "Disputed deduction or deposit amount"
+                },
+                {
+                  "id": "clause",
+                  "label": "Your signed agreement clause"
+                }
+              ],
+              "subject": "Request for a deposit breakdown",
+              "title": "Deposit request draft"
+            },
+            "evidence": [
+              {
+                "captured_at": "2026-11-07T04:52:39+00:00",
+                "edition": "Version 1.3, updated 11 March 2024",
+                "id": "CEA-TEMPLATE-BREAK",
+                "kind": "contract_template",
+                "locator": "PDF page 3, printed page 2, Schedule item 14",
+                "provision": null,
+                "publisher": "Council for Estate Agencies",
+                "quote": "DIPLOMATIC / BREAK CLAUSE",
+                "quote_sha256": "8063cde57bc9cc44ac879b92029e1d4b175a3ca2c9b5f42f9ed2bf027a480a6c",
+                "review_method": "official_pdf_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "cea-template",
+                "source_sha256": "87d7ddc476fbda6bcf2685cac88cc3c553e53e3a4784f1f29b7a805ebc95a9b4",
+                "title": "Tenancy Agreement Template for Private Residential Property",
+                "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf"
+              },
+              {
+                "captured_at": "2026-11-07T04:52:39+00:00",
+                "edition": "Version 1.3, updated 11 March 2024",
+                "id": "CEA-TEMPLATE-DEPOSIT",
+                "kind": "contract_template",
+                "locator": "PDF page 6, printed page 5, Operative Part clause 2.2",
+                "provision": null,
+                "publisher": "Council for Estate Agencies",
+                "quote": "as security for the due performance",
+                "quote_sha256": "2d5147585864bcc52e8f2e0393cb5c58066b2381437691c4827d06c17d40182c",
+                "review_method": "official_pdf_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "cea-template",
+                "source_sha256": "87d7ddc476fbda6bcf2685cac88cc3c553e53e3a4784f1f29b7a805ebc95a9b4",
+                "title": "Tenancy Agreement Template for Private Residential Property",
+                "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf"
+              },
+              {
+                "captured_at": "2026-11-07T04:52:39+00:00",
+                "edition": "Version 1.3, updated 11 March 2024",
+                "id": "CEA-TEMPLATE-NOTICE",
+                "kind": "contract_template",
+                "locator": "PDF page 3, printed page 2, Schedule item 14",
+                "provision": null,
+                "publisher": "Council for Estate Agencies",
+                "quote": "notice shall be served on the Landlord",
+                "quote_sha256": "94e29597381037ecc1d7798be8795396afc50b0d31c3f6f163414897e91444a5",
+                "review_method": "official_pdf_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "cea-template",
+                "source_sha256": "87d7ddc476fbda6bcf2685cac88cc3c553e53e3a4784f1f29b7a805ebc95a9b4",
+                "title": "Tenancy Agreement Template for Private Residential Property",
+                "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:14+00:00",
+                "edition": null,
+                "id": "CEA-TEMPLATE-SCOPE",
+                "kind": "official_procedure",
+                "locator": "Step 3, Negotiate and sign contract",
+                "provision": null,
+                "publisher": "Council for Estate Agencies",
+                "quote": "This template is just a guide and is not compulsory.",
+                "quote_sha256": "345d7bff9fbf71c2fde37ddda944a05a5535d5c547b892dcf3deff76b165965d",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "cea-private",
+                "source_sha256": "337964d68a92b847756da2c6c4f6b13b78c60613ef41aeac00b9ad7a5483209b",
+                "title": "Renting or renting out a private residential property",
+                "url": "https://www.cea.gov.sg/consumers/transacting-on-your-own/renting-or-renting-out-a-private-residential-property/"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:12+00:00",
+                "edition": null,
+                "id": "COURTS-RECORDS",
+                "kind": "official_procedure",
+                "locator": "Application supporting documents",
+                "provision": null,
+                "publisher": "Singapore Courts",
+                "quote": "invoices, receipts, contracts, tenancy agreements",
+                "quote_sha256": "9699edcdc107a0cac1ffec4890fdd09506f4cc4a4f7ed89b85be27129563a2e9",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "courts-filing",
+                "source_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea",
+                "title": "How to file and serve a small claim",
+                "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:12+00:00",
+                "edition": null,
+                "id": "COURTS-RESIDENTIAL",
+                "kind": "official_procedure",
+                "locator": "Types of eligible claims",
+                "provision": null,
+                "publisher": "Singapore Courts",
+                "quote": "tenancy agreement for residential premises not exceeding 2 years",
+                "quote_sha256": "83d7b77169595c8885ac952dde6376ac1a53ceaee832246086a4ff780514e6af",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "courts-criteria",
+                "source_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+                "title": "Cases eligible for a small claim",
+                "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:15+00:00",
+                "edition": null,
+                "id": "MOM-EP-CANCELLATION",
+                "kind": "official_procedure",
+                "locator": "Employment Pass cancellation guidance",
+                "provision": null,
+                "publisher": "Ministry of Manpower",
+                "quote": "Cancel an Employment Pass",
+                "quote_sha256": "afb1629b4462dade681baa57a50430255478a536f14302114d027db8773fc9c9",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "mom-ep",
+                "source_sha256": "cfebdf84bd35e76348c8204debb925a3e77f68be174e571e595f8e5887379de4",
+                "title": "Cancel an Employment Pass",
+                "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/cancel-a-pass"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:15+00:00",
+                "edition": "2020 RevEd, version of 01 Oct 2025 in SSO index as at 27 Oct 2026",
+                "id": "SCTA-SCHEDULE-1C",
+                "kind": "statute",
+                "locator": "[2026] SGSCT 8, paragraph 22, statutory wording quoted by the tribunal",
+                "provision": "Schedule paragraph 1(c)",
+                "publisher": "Singapore Courts",
+                "quote": "a contract for the lease of residential premises that does not exceed 2 years",
+                "quote_sha256": "12dc7d061b67226dafeb82f589f1df392a04d78a0c4f1da80300b476d4e280df",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "scta-reproduced",
+                "source_sha256": "f264a9d00cd080536ba9868d8b08dbe94f841b264f42af7082d4228677a74e4e",
+                "title": "Small Claims Tribunals Act 1984",
+                "url": "https://www.elitigation.sg/gd/s/2026_SGSCT_8"
+              }
+            ],
+            "headline": "Check the signed exit and deposit terms",
+            "legal_basis": [
+              {
+                "claim_id": "jurisdiction",
+                "evidence_id": "SCTA-SCHEDULE-1C"
+              }
+            ],
+            "primary_action": {
+              "contact_id": null,
+              "evidence_ids": [
+                "CEA-TEMPLATE-BREAK",
+                "CEA-TEMPLATE-NOTICE",
+                "CEA-TEMPLATE-DEPOSIT"
+              ],
+              "id": "next",
+              "kind": "prepare",
+              "label": "Review the signed agreement",
+              "text": "Find the signed break clause, deposit clause and notice terms. Compare them with your actual notice and the landlord's stated reason."
+            },
+            "source_version": "action-kb-2026-11-07.1"
+          },
+          "question": null,
+          "reason": "verified_action",
+          "request_id": "release-zh-551ef0657a244eed99fa547213c86573",
+          "revision": "6c9d9add1491c7d14123ceaf",
+          "state": "READY"
+        },
+        "disclaimer": "中文说明（非官方译文）；法律与程序依据以官方英文原文为准。",
+        "display": {
+          "context_summary": "您表示租赁问题涉及工作准证相关情况。 您希望请求返还款项。",
+          "message": "现有一项经过审核的准备或协助措施。这不代表您必然符合申请资格，也不保证结果。",
+          "plan": {
+            "assessment": {
+              "evidence_ids": [
+                "CEA-TEMPLATE-SCOPE",
+                "CEA-TEMPLATE-BREAK",
+                "CEA-TEMPLATE-DEPOSIT"
+              ],
+              "id": "assessment",
+              "text": "在评估押金扣除问题前，先核查租约条款和实际退租情况。"
+            },
+            "checklist": [
+              {
+                "evidence_ids": [
+                  "CEA-TEMPLATE-NOTICE",
+                  "COURTS-RECORDS"
+                ],
+                "id": "notice",
+                "text": "保存已签署的条款、书面通知、相关准证或雇佣通知及送达证明。"
+              },
+              {
+                "evidence_ids": [
+                  "CEA-TEMPLATE-DEPOSIT",
+                  "COURTS-RECORDS"
+                ],
+                "id": "deduction",
+                "text": "向房东索取书面理由和逐项扣款说明，并保留押金支付记录。"
+              }
+            ],
+            "contacts": [
+              {
+                "evidence_ids": [
+                  "COURTS-RESIDENTIAL"
+                ],
+                "id": "sct-criteria",
+                "institution": "新加坡法院",
+                "kind": "web",
+                "note": null,
+                "purpose": "程序信息查询",
+                "value": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim"
+              }
+            ],
+            "details": [
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "CEA-TEMPLATE-SCOPE",
+                      "CEA-TEMPLATE-BREAK"
+                    ],
+                    "id": "template",
+                    "text": "私人住宅租约模板仅展示可选条款。请核对您实际签署的协议中所选用的条款。"
+                  },
+                  {
+                    "evidence_ids": [
+                      "MOM-EP-CANCELLATION",
+                      "CEA-TEMPLATE-DEPOSIT"
+                    ],
+                    "id": "pass",
+                    "text": "如涉及 Employment Pass（就业准证），请查阅新加坡人力部（MOM）的准证取消指引；押金问题仍须分别核对已签署的租约。"
+                  }
+                ],
+                "kind": "pitfalls",
+                "title": "将工作准证状态变化与租约条款分开核查"
+              },
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "SCTA-SCHEDULE-1C",
+                      "COURTS-RESIDENTIAL"
+                    ],
+                    "id": "jurisdiction",
+                    "text": "决定是否提出索偿前，请核对小额索偿审裁处（SCT）对住宅租赁的标准及其他申请条件。"
+                  }
+                ],
+                "kind": "conditions",
+                "title": "核对小额索偿程序是否适用"
+              }
+            ],
+            "draft": {
+              "body": "请提供{deduction}的书面明细，并指出已签署租约中作为扣款依据的条款。据我理解，相关条款为{clause}。请说明尚余押金金额及任何扣款理由。",
+              "slots": [
+                {
+                  "id": "deduction",
+                  "label": "有争议的扣款或押金金额"
+                },
+                {
+                  "id": "clause",
+                  "label": "您签署的协议条款"
+                }
+              ],
+              "subject": "请求提供押金扣款明细",
+              "title": "押金请求信草稿"
+            },
+            "headline": "核对已签署的提前退租和押金条款",
+            "primary_action": {
+              "contact_id": null,
+              "evidence_ids": [
+                "CEA-TEMPLATE-BREAK",
+                "CEA-TEMPLATE-NOTICE",
+                "CEA-TEMPLATE-DEPOSIT"
+              ],
+              "id": "next",
+              "kind": "prepare",
+              "label": "查看已签署的租赁协议",
+              "text": "找出已签署租约中的提前解约条款、押金条款和通知条款，将其与实际通知及房东所述理由对照。"
+            }
+          },
+          "question": null
+        },
+        "entries_sha256": "d9aa17280c9691388c4ed1c410cad5274594930bc61fb2ce7208f84e4f010ca3",
+        "is_official_translation": false,
+        "locale": "zh-Hans",
+        "overlay_version": "task24-reviewed-1.0",
+        "reviewed_at": "2026-11-10T14:38:32+00:00",
+        "reviewed_by": "Chu-Junjie",
+        "translation_status": "approved_explanation"
+      }
+    },
+    {
+      "case": "rental_deposit",
+      "description": "My landlord deducted SGD 200 from my rental deposit. I want a refund.",
+      "trace": [
+        {
+          "http": 200,
+          "state": "CONFIRM",
+          "question": null,
+          "request_id": "release-zh-c27125a080ce4c3db5aaeefad328f5a4",
+          "revision": null
+        },
+        {
+          "http": 200,
+          "state": "READY",
+          "question": null,
+          "request_id": "release-zh-9831f088d5064cf09680dff78943f16a",
+          "revision": "fdde35b204f5e0f5505e73dc"
+        }
+      ],
+      "final": {
+        "canonical": {
+          "action_plan_version": "1.0",
+          "context": {
+            "case_type": "rental_deposit",
+            "facts": {
+              "dispute_with": "landlord",
+              "disputed_amount_cents": 20000
+            },
+            "goal": "seek_refund",
+            "issue_subtype": "deposit_deduction",
+            "summary": "You reported disputed deductions from a rental deposit. You want to seek repayment."
+          },
+          "message": "A reviewed preparation or assistance step is available. This does not establish eligibility or guarantee an outcome.",
+          "plan": {
+            "assessment": {
+              "evidence_ids": [
+                "COURTS-RECORDS"
+              ],
+              "id": "assessment",
+              "text": "The signed agreement and the actual reasons for the deduction help identify what to check."
+            },
+            "checklist": [
+              {
+                "evidence_ids": [
+                  "COURTS-RECORDS"
+                ],
+                "id": "records",
+                "text": "Keep your agreement, payment evidence and correspondence about the deposit."
+              }
+            ],
+            "contacts": [
+              {
+                "evidence_ids": [
+                  "COURTS-RESIDENTIAL"
+                ],
+                "id": "sct-criteria",
+                "institution": "Singapore Courts",
+                "kind": "web",
+                "purpose": "procedure_information",
+                "value": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim"
+              }
+            ],
+            "details": [
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "SCTA-SCHEDULE-1C",
+                      "COURTS-RESIDENTIAL"
+                    ],
+                    "id": "jurisdiction",
+                    "text": "Check the SCT criteria for residential leases and the other filing conditions before deciding whether to file."
+                  }
+                ],
+                "kind": "conditions",
+                "title": "Check whether the small claims procedure fits"
+              }
+            ],
+            "draft": {
+              "body": "Please provide a written breakdown of {deduction} and identify the clause of our signed tenancy agreement used for it. My understanding of the relevant clause is {clause}. Please clarify the remaining deposit and the reason for any deduction.",
+              "slots": [
+                {
+                  "id": "deduction",
+                  "label": "Disputed deduction or deposit amount"
+                },
+                {
+                  "id": "clause",
+                  "label": "Your signed agreement clause"
+                }
+              ],
+              "subject": "Request for a deposit breakdown",
+              "title": "Deposit request draft"
+            },
+            "evidence": [
+              {
+                "captured_at": "2026-11-07T04:48:12+00:00",
+                "edition": null,
+                "id": "COURTS-RECORDS",
+                "kind": "official_procedure",
+                "locator": "Application supporting documents",
+                "provision": null,
+                "publisher": "Singapore Courts",
+                "quote": "invoices, receipts, contracts, tenancy agreements",
+                "quote_sha256": "9699edcdc107a0cac1ffec4890fdd09506f4cc4a4f7ed89b85be27129563a2e9",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "courts-filing",
+                "source_sha256": "718e40a93914e6412a763ece0c7d41768a8cc48e9e9098bad138e83cb4e3b6ea",
+                "title": "How to file and serve a small claim",
+                "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:12+00:00",
+                "edition": null,
+                "id": "COURTS-RESIDENTIAL",
+                "kind": "official_procedure",
+                "locator": "Types of eligible claims",
+                "provision": null,
+                "publisher": "Singapore Courts",
+                "quote": "tenancy agreement for residential premises not exceeding 2 years",
+                "quote_sha256": "83d7b77169595c8885ac952dde6376ac1a53ceaee832246086a4ff780514e6af",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "courts-criteria",
+                "source_sha256": "d4e7cc3d0617a9f160f407cc641d7d6a090389ffd87e210ae8c40e9387e386e0",
+                "title": "Cases eligible for a small claim",
+                "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim"
+              },
+              {
+                "captured_at": "2026-11-07T04:48:15+00:00",
+                "edition": "2020 RevEd, version of 01 Oct 2025 in SSO index as at 27 Oct 2026",
+                "id": "SCTA-SCHEDULE-1C",
+                "kind": "statute",
+                "locator": "[2026] SGSCT 8, paragraph 22, statutory wording quoted by the tribunal",
+                "provision": "Schedule paragraph 1(c)",
+                "publisher": "Singapore Courts",
+                "quote": "a contract for the lease of residential premises that does not exceed 2 years",
+                "quote_sha256": "12dc7d061b67226dafeb82f589f1df392a04d78a0c4f1da80300b476d4e280df",
+                "review_method": "live_excerpt_check",
+                "review_status": "verified",
+                "reviewed_at": "2026-11-07T04:58:44+00:00",
+                "reviewed_by": "Codex source and excerpt verification",
+                "source_id": "scta-reproduced",
+                "source_sha256": "f264a9d00cd080536ba9868d8b08dbe94f841b264f42af7082d4228677a74e4e",
+                "title": "Small Claims Tribunals Act 1984",
+                "url": "https://www.elitigation.sg/gd/s/2026_SGSCT_8"
+              }
+            ],
+            "headline": "Gather the signed agreement and deposit records",
+            "legal_basis": [
+              {
+                "claim_id": "jurisdiction",
+                "evidence_id": "SCTA-SCHEDULE-1C"
+              }
+            ],
+            "primary_action": {
+              "contact_id": null,
+              "evidence_ids": [
+                "COURTS-RECORDS"
+              ],
+              "id": "next",
+              "kind": "prepare",
+              "label": "Check the deposit and notice terms",
+              "text": "Find the signed lease and ask for a written breakdown of the withheld amount before assessing the dispute."
+            },
+            "source_version": "action-kb-2026-11-07.1"
+          },
+          "question": null,
+          "reason": "verified_action",
+          "request_id": "release-zh-9831f088d5064cf09680dff78943f16a",
+          "revision": "fdde35b204f5e0f5505e73dc",
+          "state": "READY"
+        },
+        "disclaimer": "中文说明（非官方译文）；法律与程序依据以官方英文原文为准。",
+        "display": {
+          "context_summary": "您表示对租房押金扣除项目有争议。 您希望请求返还款项。",
+          "message": "现有一项经过审核的准备或协助措施。这不代表您必然符合申请资格，也不保证结果。",
+          "plan": {
+            "assessment": {
+              "evidence_ids": [
+                "COURTS-RECORDS"
+              ],
+              "id": "assessment",
+              "text": "已签署的协议及实际扣款理由，有助于确定应核查的事项。"
+            },
+            "checklist": [
+              {
+                "evidence_ids": [
+                  "COURTS-RECORDS"
+                ],
+                "id": "records",
+                "text": "保存协议、付款证明及有关押金的往来记录。"
+              }
+            ],
+            "contacts": [
+              {
+                "evidence_ids": [
+                  "COURTS-RESIDENTIAL"
+                ],
+                "id": "sct-criteria",
+                "institution": "新加坡法院",
+                "kind": "web",
+                "note": null,
+                "purpose": "程序信息查询",
+                "value": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim"
+              }
+            ],
+            "details": [
+              {
+                "items": [
+                  {
+                    "evidence_ids": [
+                      "SCTA-SCHEDULE-1C",
+                      "COURTS-RESIDENTIAL"
+                    ],
+                    "id": "jurisdiction",
+                    "text": "决定是否提出索偿前，请核对小额索偿审裁处（SCT）对住宅租赁的标准及其他申请条件。"
+                  }
+                ],
+                "kind": "conditions",
+                "title": "核对小额索偿程序是否适用"
+              }
+            ],
+            "draft": {
+              "body": "请提供{deduction}的书面明细，并指出已签署租约中作为扣款依据的条款。据我理解，相关条款为{clause}。请说明尚余押金金额及任何扣款理由。",
+              "slots": [
+                {
+                  "id": "deduction",
+                  "label": "有争议的扣款或押金金额"
+                },
+                {
+                  "id": "clause",
+                  "label": "您签署的协议条款"
+                }
+              ],
+              "subject": "请求提供押金扣款明细",
+              "title": "押金请求信草稿"
+            },
+            "headline": "整理已签署租约和押金记录",
+            "primary_action": {
+              "contact_id": null,
+              "evidence_ids": [
+                "COURTS-RECORDS"
+              ],
+              "id": "next",
+              "kind": "prepare",
+              "label": "核对押金及通知条款",
+              "text": "寻找已签署租约，并在评估纠纷前索取被扣金额的书面明细。"
+            }
+          },
+          "question": null
+        },
+        "entries_sha256": "d9aa17280c9691388c4ed1c410cad5274594930bc61fb2ce7208f84e4f010ca3",
+        "is_official_translation": false,
+        "locale": "zh-Hans",
+        "overlay_version": "task24-reviewed-1.0",
+        "reviewed_at": "2026-11-10T14:38:32+00:00",
+        "reviewed_by": "Chu-Junjie",
+        "translation_status": "approved_explanation"
+      }
+    }
+  ]
+}
