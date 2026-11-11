@@ -21,13 +21,15 @@ class Task21BrowserTest(unittest.TestCase):
         if not node or not browser:self.skipTest("NOT RUN: Node.js and Chromium/Edge required")
         from integration.app import create_app
         from werkzeug.serving import make_server
-        server=make_server("127.0.0.1",0,create_app(),threaded=True)
+        app=create_app()
+        app.config["TASK24_ENABLE_REVIEWED_LOCALE"]=True
+        server=make_server("127.0.0.1",0,app,threaded=True)
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
         try:
             for attempt in range(2):
                 process=subprocess.run(
                     [node,str(ROOT/"frontend/tests/task21_browser_check.mjs"),
-                     f"http://127.0.0.1:{server.server_port}/",browser],
+                     f"http://127.0.0.1:{server.server_port}/",browser,"--extended"],
                     cwd=ROOT,capture_output=True,text=True,
                     encoding="utf-8",errors="replace",timeout=300
                 )
@@ -40,7 +42,10 @@ class Task21BrowserTest(unittest.TestCase):
             self.assertTrue(report["passed"],report.get("errors"))
             self.assertEqual(len(report["cases"]),2)
             self.assertTrue(all(c["passed"] for c in report["cases"]))
-            self.assertEqual(len(report["screenshots"]),4)
+            self.assertEqual(len(report["screenshots"]),34)
+            self.assertEqual(len(report["matrix"]),30)
+            self.assertTrue(all(c["keyboardFocusAndEscape"] and c["editedDraftPreserved"]
+                                and c["offlineRetryPreservedAnswers"] for c in report["cases"]))
         finally:server.shutdown();thread.join(timeout=5)
 
 

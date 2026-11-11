@@ -1,0 +1,28 @@
+{
+  "scope": "Actual published Chrome native 200 percent zoom, distinct from local CSS-viewport emulation",
+  "published_frontend_merge_commit": "8294056438449857b6dd99c0684431a03f626a07",
+  "rental": {
+    "device_pixel_ratio": 2,
+    "document_width": 674,
+    "document_scroll_width": 674,
+    "modal_document_width": 681,
+    "modal_scroll_width": 681,
+    "modal_bounds": {
+      "left": 50.75,
+      "right": 630.75,
+      "top": 9,
+      "bottom": 459
+    },
+    "checklist_tick_preserved": true
+  },
+  "consumer": {
+    "device_pixel_ratio": 2,
+    "document_width": 674,
+    "document_scroll_width": 674,
+    "steps_modal_opened": true,
+    "checklist_tick_preserved": true
+  },
+  "native_browser_ui": "Chrome zoom popup visibly showed 200%; captured in public-native-200-browser.png",
+  "zoom_restored_to_100_percent": true,
+  "candidate_correction_deployed": "NOT_YET_VERIFIED"
+}

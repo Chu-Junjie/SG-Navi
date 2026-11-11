@@ -14,6 +14,32 @@
     consumer_complaint:["restaurant_overcharge","duplicate_charge","unclear_charge","goods_dispute","services_dispute","unspecified"]
   };
   const GOALS=["complain","seek_refund","prepare_claim","understand_options","contact_provider"];
+  // The existing Task18 product-written templates describe confirmed selectors only.
+  const SUMMARY_ISSUES={
+    restaurant_overcharge:"You reported a restaurant billing overcharge.",
+    duplicate_charge:"You reported being charged twice for a transaction.",
+    unclear_charge:"You reported a disputed restaurant bill or charge.",
+    goods_dispute:"You reported a dispute about purchased goods.",
+    services_dispute:"You reported a dispute about a purchased service.",
+    deposit_return:"You reported a dispute about returning a rental deposit.",
+    deposit_deduction:"You reported disputed deductions from a rental deposit.",
+    early_exit:"You reported a rental dispute involving an early tenancy exit.",
+    pass_related_exit:"You reported a rental issue involving a work-pass event.",
+    agent_conduct:"You reported a concern about an estate agent's conduct.",
+    agency_agreement:"You reported an estate agency agreement dispute.",
+    unspecified:"You reported a dispute that needs a little more context."
+  };
+  const SUMMARY_GOALS={
+    complain:"make a complaint.",seek_refund:"seek repayment.",
+    prepare_claim:"explore preparing a formal claim.",
+    contact_provider:"contact the relevant organisation.",
+    understand_options:"understand your available options."
+  };
+  function summaryForContext(ctx){
+    if(!ctx||!Object.hasOwn(SUBTYPES,ctx.case_type)||
+      !SUBTYPES[ctx.case_type].includes(ctx.issue_subtype)||!GOALS.includes(ctx.goal))return null;
+    return SUMMARY_ISSUES[ctx.issue_subtype]+" You want to "+SUMMARY_GOALS[ctx.goal];
+  }
   const LABEL=s=>String(s).replace(/_/g," ").replace(/\b\w/g,c=>c.toUpperCase());
   const object=x=>x!==null&&typeof x==="object"&&!Array.isArray(x);
   const isText=(x,max=500)=>typeof x==="string"&&x.length>0&&x.length<=max;
@@ -375,15 +401,21 @@
       body.appendChild(add("p","Does this describe your situation?","task21-eyebrow"));
       body.appendChild(add("h2","Confirm the main details"));
       const summary=summaryDisplay?.english===context.summary?summaryDisplay:null;
-      body.appendChild(add("p",context.summary,undefined,summary?.chinese??win.SGNaviLocale?.chineseSummary?.(context.summary)??null));
+      const summaryNode=add("p",context.summary,undefined,summary?.chinese??win.SGNaviLocale?.chineseSummary?.(context.summary)??null);
+      body.appendChild(summaryNode);
       appendReviewedNotice(body,summary?.disclaimer);
       const copy={...context,facts:{...context.facts}};
+      function updateSummary(){
+        copy.summary=summaryForContext(copy)??copy.summary;
+        setText(summaryNode,copy.summary,false,win.SGNaviLocale?.chineseSummary?.(copy.summary)??null);
+      }
       body.appendChild(select("Topic",Object.keys(SUBTYPES),copy.case_type,value=>{
         copy.case_type=value;copy.issue_subtype="unspecified";copy.facts={};
+        updateSummary();
         context=copy;showConfirm();
       }));
-      body.appendChild(select("Type of concern",SUBTYPES[copy.case_type],copy.issue_subtype,value=>{copy.issue_subtype=value;}));
-      body.appendChild(select("What you want help with",GOALS,copy.goal,value=>{copy.goal=value;}));
+      body.appendChild(select("Type of concern",SUBTYPES[copy.case_type],copy.issue_subtype,value=>{copy.issue_subtype=value;updateSummary();}));
+      body.appendChild(select("What you want help with",GOALS,copy.goal,value=>{copy.goal=value;updateSummary();}));
 
       // Corrections are optional and collapsed: do not impose a generic survey.
       // These exact Task16 typed facts can change a reviewed action profile.
@@ -684,5 +716,5 @@
     host.dataset.task21Ready="true";get("problem-submit").disabled=false;
     return Object.freeze({interpret,reset});
   }
-  return Object.freeze({init,safeURL,safeContact,verifyResponse,reviewedDisplay,revisionOf,canonical});
+  return Object.freeze({init,safeURL,safeContact,verifyResponse,reviewedDisplay,revisionOf,canonical,summaryForContext});
 });

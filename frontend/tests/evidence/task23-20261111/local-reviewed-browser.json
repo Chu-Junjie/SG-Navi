@@ -1,0 +1,1027 @@
+{
+  "scope": "task21_actual_local_browser",
+  "extended": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "restaurant",
+      "states": [
+        "CONFIRM",
+        "ASK:purchase_purpose",
+        "ASK:consumer_context",
+        "READY"
+      ],
+      "passed": true,
+      "keyboardFocusAndEscape": true,
+      "editedDraftPreserved": true,
+      "offlineRetryPreservedAnswers": true,
+      "slowRequestEditInvalidation": true,
+      "noBrowserStorageOrDescriptionInUrls": true,
+      "browserHistoryBack": true
+    },
+    {
+      "name": "rental_pass",
+      "states": [
+        "CONFIRM",
+        "ASK:lease_ended",
+        "ASK:break_clause_present",
+        "READY"
+      ],
+      "passed": true,
+      "keyboardFocusAndEscape": true,
+      "editedDraftPreserved": true,
+      "offlineRetryPreservedAnswers": true,
+      "slowRequestEditInvalidation": true,
+      "noBrowserStorageOrDescriptionInUrls": true,
+      "browserHistoryBack": true
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "homepage-en-layout-1366.jpg",
+      "width": 1366,
+      "height": 768,
+      "bytes": 74068,
+      "digest": "1c98f37dade0b07198ada88bd66ecf23d11860c1dae61a86be15c3a74090a0c1"
+    },
+    {
+      "file": "homepage-en-layout-1440.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 84709,
+      "digest": "c7f7dc18e04e65c1b77e3bea419bf30a43b619d1c243c2c2c51a0afa238b5fb9"
+    },
+    {
+      "file": "homepage-en-layout-320.jpg",
+      "width": 320,
+      "height": 850,
+      "bytes": 33376,
+      "digest": "fcca754194e0aa9a5203c511929b9828be2c7f0d28339e7a8ee292a935d78ba8"
+    },
+    {
+      "file": "homepage-en-layout-390.jpg",
+      "width": 390,
+      "height": 850,
+      "bytes": 36207,
+      "digest": "174f18b27db23e8544af3ae520783c9fcc0ce746112406421b3b3a9be61476c2"
+    },
+    {
+      "file": "homepage-en-zoom-layout-200-683.jpg",
+      "width": 683,
+      "height": 384,
+      "bytes": 36217,
+      "digest": "b53ca9e6e0aee4cc2b5a44cc0eb1537e9a4bfa7681372a32b3ee8d86a0668f54"
+    },
+    {
+      "file": "homepage-zh-layout-1366.jpg",
+      "width": 1366,
+      "height": 768,
+      "bytes": 71732,
+      "digest": "08807a91effc4486531c8f8ea1f872363af48bf0a3dc6566d0a4147b51cb1fb2"
+    },
+    {
+      "file": "homepage-zh-layout-1440.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 77974,
+      "digest": "36d66187b2f49885663ef7e2c558e6a14eb8f21115dc61b18134282b0ccd9975"
+    },
+    {
+      "file": "homepage-zh-layout-320.jpg",
+      "width": 320,
+      "height": 850,
+      "bytes": 31095,
+      "digest": "9eede6c8ecc68d7e36da718f851f47e45765e0ce64e3a4f741fc55ae4490f93c"
+    },
+    {
+      "file": "homepage-zh-layout-390.jpg",
+      "width": 390,
+      "height": 850,
+      "bytes": 34042,
+      "digest": "fe0f055730bd06f00fb9acb55d3a7ea33a8f5491cd1d37aa990f1c77a1dd12f3"
+    },
+    {
+      "file": "homepage-zh-zoom-layout-200-683.jpg",
+      "width": 683,
+      "height": 384,
+      "bytes": 34239,
+      "digest": "da6388642977aea605f6e03fc8e96077b282cc9a9d0ecd45549804294f94b408"
+    },
+    {
+      "file": "restaurant-1440.jpg",
+      "width": 1440,
+      "height": 850,
+      "bytes": 97524,
+      "digest": "dcd219272157d0c53c820c7942f2c3b05581ebe7413730a0c1dcb4d54518da9e"
+    },
+    {
+      "file": "restaurant-390.jpg",
+      "width": 390,
+      "height": 850,
+      "bytes": 46182,
+      "digest": "ecdc977b091baba12465b9ffa9b8d62e7a6b6fc7c679208f285148e6613297d1"
+    },
+    {
+      "file": "restaurant-en-layout-1366.jpg",
+      "width": 1366,
+      "height": 768,
+      "bytes": 88233,
+      "digest": "1612d30c2fcb4da187f3e7849f07b2d09b3d240843e6fc55c6707005af70c5c0"
+    },
+    {
+      "file": "restaurant-en-layout-1440.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 97841,
+      "digest": "81ebce198ab1522cdc2a8e1070991782801a9ee58c9ce4b3b712c2d8ce6fa1fa"
+    },
+    {
+      "file": "restaurant-en-layout-320.jpg",
+      "width": 320,
+      "height": 850,
+      "bytes": 41314,
+      "digest": "31620260ec94544357d9b13224e6fa1ef4fa70e3e4e9ad02927286e7b6f8874b"
+    },
+    {
+      "file": "restaurant-en-layout-390.jpg",
+      "width": 390,
+      "height": 850,
+      "bytes": 46182,
+      "digest": "ecdc977b091baba12465b9ffa9b8d62e7a6b6fc7c679208f285148e6613297d1"
+    },
+    {
+      "file": "restaurant-en-zoom-layout-200-683.jpg",
+      "width": 683,
+      "height": 384,
+      "bytes": 39807,
+      "digest": "8692615ad6e10170df6806eeebad7f2daaafee7550fefef423ca4d6439fc9bb1"
+    },
+    {
+      "file": "restaurant-zh-layout-1366.jpg",
+      "width": 1366,
+      "height": 768,
+      "bytes": 88783,
+      "digest": "6cdcacd5fce762afdc6c4b8b814b323d7f5b13e46abcf3574105a2382f880912"
+    },
+    {
+      "file": "restaurant-zh-layout-1440.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 98026,
+      "digest": "fef74ef3a14bc013330c3e5155523f7d7fb779022abb814c2958084ffdf8cc18"
+    },
+    {
+      "file": "restaurant-zh-layout-320.jpg",
+      "width": 320,
+      "height": 850,
+      "bytes": 43851,
+      "digest": "fb89f63ca4bd9fe2855d9792bfd319f6886ae0f7f283dcca8d399793aaba34e4"
+    },
+    {
+      "file": "restaurant-zh-layout-390.jpg",
+      "width": 390,
+      "height": 850,
+      "bytes": 47854,
+      "digest": "f13091b117a66a4436984e063a48f6a229f540c776d952b9b6778da135c89a2b"
+    },
+    {
+      "file": "restaurant-zh-zoom-layout-200-683.jpg",
+      "width": 683,
+      "height": 384,
+      "bytes": 41722,
+      "digest": "a1c45a594e154f0d330dee9f26c3980d149c461b097e389d1536df56edf1528b"
+    },
+    {
+      "file": "rental_pass-1440.jpg",
+      "width": 1440,
+      "height": 850,
+      "bytes": 96562,
+      "digest": "0e89e92e82a8955c03212ef14bae7a3a382b8ac8bd1e5b2f3768900cd71f75c1"
+    },
+    {
+      "file": "rental_pass-390.jpg",
+      "width": 390,
+      "height": 850,
+      "bytes": 49352,
+      "digest": "74c359414aabe5faaa6f67caaeb559fec854605d1c7c0fb9cfefdb5d273e8d96"
+    },
+    {
+      "file": "rental_pass-en-layout-1366.jpg",
+      "width": 1366,
+      "height": 768,
+      "bytes": 88419,
+      "digest": "a068851a3a683477c773b84752967af1b0a4527c9eaaa01ec7daf31f08338ea6"
+    },
+    {
+      "file": "rental_pass-en-layout-1440.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 100684,
+      "digest": "17f68bfe3fac732e1de88a3b53cdfdc9a59e93e4837c4b95fff01b75cd43e09b"
+    },
+    {
+      "file": "rental_pass-en-layout-320.jpg",
+      "width": 320,
+      "height": 850,
+      "bytes": 41684,
+      "digest": "738c7213e12f9379f9a087402e7b2d24c5a286f71b1d86c5b7222aaf194c70d4"
+    },
+    {
+      "file": "rental_pass-en-layout-390.jpg",
+      "width": 390,
+      "height": 850,
+      "bytes": 49352,
+      "digest": "74c359414aabe5faaa6f67caaeb559fec854605d1c7c0fb9cfefdb5d273e8d96"
+    },
+    {
+      "file": "rental_pass-en-zoom-layout-200-683.jpg",
+      "width": 683,
+      "height": 384,
+      "bytes": 41013,
+      "digest": "a02360686eadd3cac8674f431aa9fea042b7a20770824887e1f23edbee242623"
+    },
+    {
+      "file": "rental_pass-zh-layout-1366.jpg",
+      "width": 1366,
+      "height": 768,
+      "bytes": 90520,
+      "digest": "3274307f61ee48725bb2ac820ae3d3732c716d0dd1f1345d7117ae904aaf7a6b"
+    },
+    {
+      "file": "rental_pass-zh-layout-1440.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 101992,
+      "digest": "0a0c0ab1c5955126840fb0aa6d7ba8f3af633020a50862a666b4a297d1184d25"
+    },
+    {
+      "file": "rental_pass-zh-layout-320.jpg",
+      "width": 320,
+      "height": 850,
+      "bytes": 43264,
+      "digest": "f89cc40f90f5d6e87d7c8800d0ec7c26ce6d6bea6572cebd3c6a7fdb234da2e6"
+    },
+    {
+      "file": "rental_pass-zh-layout-390.jpg",
+      "width": 390,
+      "height": 850,
+      "bytes": 47232,
+      "digest": "ad1b44aa4b7d4a08a8070421f1ed3f8df9f123cc2476f964d6f774bec5d32b53"
+    },
+    {
+      "file": "rental_pass-zh-zoom-layout-200-683.jpg",
+      "width": 683,
+      "height": 384,
+      "bytes": 39858,
+      "digest": "081e2dbd60b7242cd3600e6577320a1dacaf1808bdcde25fe25e268438bbd03e"
+    }
+  ],
+  "matrix": [
+    {
+      "name": "homepage",
+      "language": "en",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "action": {
+        "top": 421.015625,
+        "bottom": 468.015625,
+        "left": 159,
+        "right": 360
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "homepage",
+      "language": "en",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "action": {
+        "top": 423.421875,
+        "bottom": 470.421875,
+        "left": 196,
+        "right": 397
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "homepage",
+      "language": "en",
+      "width": 320,
+      "height": 850,
+      "scrollWidth": 320,
+      "scrollHeight": 850,
+      "action": {
+        "top": 464.40625,
+        "bottom": 511.40625,
+        "left": 29,
+        "right": 291
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "homepage",
+      "language": "en",
+      "width": 390,
+      "height": 850,
+      "scrollWidth": 390,
+      "scrollHeight": 850,
+      "action": {
+        "top": 452.40625,
+        "bottom": 499.40625,
+        "left": 29,
+        "right": 230
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "homepage",
+      "language": "en",
+      "width": 683,
+      "height": 384,
+      "scrollWidth": 683,
+      "scrollHeight": 519,
+      "action": {
+        "top": 375.46875,
+        "bottom": 422.46875,
+        "left": 29,
+        "right": 230
+      },
+      "zoom": "200% equivalent layout at half CSS viewport; native browser zoom NOT RUN"
+    },
+    {
+      "name": "homepage",
+      "language": "zh-Hans",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "action": {
+        "top": 460.171875,
+        "bottom": 510.171875,
+        "left": 159,
+        "right": 305
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "homepage",
+      "language": "zh-Hans",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "action": {
+        "top": 462.578125,
+        "bottom": 512.578125,
+        "left": 196,
+        "right": 342
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "homepage",
+      "language": "zh-Hans",
+      "width": 320,
+      "height": 850,
+      "scrollWidth": 320,
+      "scrollHeight": 850,
+      "action": {
+        "top": 515.71875,
+        "bottom": 565.71875,
+        "left": 29,
+        "right": 291
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "homepage",
+      "language": "zh-Hans",
+      "width": 390,
+      "height": 850,
+      "scrollWidth": 390,
+      "scrollHeight": 850,
+      "action": {
+        "top": 434.78125,
+        "bottom": 484.78125,
+        "left": 29,
+        "right": 175
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "homepage",
+      "language": "zh-Hans",
+      "width": 683,
+      "height": 384,
+      "scrollWidth": 683,
+      "scrollHeight": 530,
+      "action": {
+        "top": 414.625,
+        "bottom": 464.625,
+        "left": 29,
+        "right": 175
+      },
+      "zoom": "200% equivalent layout at half CSS viewport; native browser zoom NOT RUN"
+    },
+    {
+      "name": "restaurant",
+      "language": "en",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "action": {
+        "top": 404.0625,
+        "bottom": 448.0625,
+        "left": 180,
+        "right": 460
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "restaurant",
+      "language": "en",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "action": {
+        "top": 404.0625,
+        "bottom": 448.0625,
+        "left": 217,
+        "right": 497
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "restaurant",
+      "language": "en",
+      "width": 320,
+      "height": 850,
+      "scrollWidth": 320,
+      "scrollHeight": 850,
+      "action": {
+        "top": 529.734375,
+        "bottom": 590.734375,
+        "left": 50,
+        "right": 262
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "restaurant",
+      "language": "en",
+      "width": 390,
+      "height": 850,
+      "scrollWidth": 390,
+      "scrollHeight": 850,
+      "action": {
+        "top": 464.859375,
+        "bottom": 508.859375,
+        "left": 50,
+        "right": 330
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "restaurant",
+      "language": "en",
+      "width": 683,
+      "height": 384,
+      "scrollWidth": 683,
+      "scrollHeight": 460,
+      "action": {
+        "top": 372.984375,
+        "bottom": 416.984375,
+        "left": 50,
+        "right": 330
+      },
+      "zoom": "200% equivalent layout at half CSS viewport; native browser zoom NOT RUN"
+    },
+    {
+      "name": "restaurant",
+      "language": "zh-Hans",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "action": {
+        "top": 464.828125,
+        "bottom": 512.828125,
+        "left": 180,
+        "right": 384
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "restaurant",
+      "language": "zh-Hans",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "action": {
+        "top": 464.828125,
+        "bottom": 512.828125,
+        "left": 217,
+        "right": 421
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "restaurant",
+      "language": "zh-Hans",
+      "width": 320,
+      "height": 850,
+      "scrollWidth": 320,
+      "scrollHeight": 850,
+      "action": {
+        "top": 552.390625,
+        "bottom": 600.390625,
+        "left": 50,
+        "right": 262
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "restaurant",
+      "language": "zh-Hans",
+      "width": 390,
+      "height": 850,
+      "scrollWidth": 390,
+      "scrollHeight": 850,
+      "action": {
+        "top": 529.59375,
+        "bottom": 577.59375,
+        "left": 50,
+        "right": 254
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "restaurant",
+      "language": "zh-Hans",
+      "width": 683,
+      "height": 384,
+      "scrollWidth": 683,
+      "scrollHeight": 460,
+      "action": {
+        "top": 383.109375,
+        "bottom": 431.109375,
+        "left": 50,
+        "right": 254
+      },
+      "zoom": "200% equivalent layout at half CSS viewport; native browser zoom NOT RUN"
+    },
+    {
+      "name": "rental_pass",
+      "language": "en",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "action": {
+        "top": 431.71875,
+        "bottom": 478.71875,
+        "left": 180,
+        "right": 450
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "rental_pass",
+      "language": "en",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "action": {
+        "top": 431.71875,
+        "bottom": 478.71875,
+        "left": 217,
+        "right": 487
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "rental_pass",
+      "language": "en",
+      "width": 320,
+      "height": 850,
+      "scrollWidth": 320,
+      "scrollHeight": 850,
+      "action": {
+        "top": 551.625,
+        "bottom": 613.625,
+        "left": 50,
+        "right": 262
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "rental_pass",
+      "language": "en",
+      "width": 390,
+      "height": 850,
+      "scrollWidth": 390,
+      "scrollHeight": 850,
+      "action": {
+        "top": 486.75,
+        "bottom": 533.75,
+        "left": 50,
+        "right": 320
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "rental_pass",
+      "language": "en",
+      "width": 683,
+      "height": 384,
+      "scrollWidth": 683,
+      "scrollHeight": 460,
+      "action": {
+        "top": 369.984375,
+        "bottom": 416.984375,
+        "left": 50,
+        "right": 320
+      },
+      "zoom": "200% equivalent layout at half CSS viewport; native browser zoom NOT RUN"
+    },
+    {
+      "name": "rental_pass",
+      "language": "zh-Hans",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "action": {
+        "top": 461.828125,
+        "bottom": 511.828125,
+        "left": 180,
+        "right": 386
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "rental_pass",
+      "language": "zh-Hans",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "action": {
+        "top": 461.828125,
+        "bottom": 511.828125,
+        "left": 217,
+        "right": 423
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "rental_pass",
+      "language": "zh-Hans",
+      "width": 320,
+      "height": 850,
+      "scrollWidth": 320,
+      "scrollHeight": 850,
+      "action": {
+        "top": 550.4375,
+        "bottom": 600.4375,
+        "left": 50,
+        "right": 262
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "rental_pass",
+      "language": "zh-Hans",
+      "width": 390,
+      "height": 850,
+      "scrollWidth": 390,
+      "scrollHeight": 850,
+      "action": {
+        "top": 526.59375,
+        "bottom": 576.59375,
+        "left": 50,
+        "right": 256
+      },
+      "zoom": "100%"
+    },
+    {
+      "name": "rental_pass",
+      "language": "zh-Hans",
+      "width": 683,
+      "height": 384,
+      "scrollWidth": 683,
+      "scrollHeight": 460,
+      "action": {
+        "top": 403.953125,
+        "bottom": 453.953125,
+        "left": 50,
+        "right": 256
+      },
+      "zoom": "200% equivalent layout at half CSS viewport; native browser zoom NOT RUN"
+    }
+  ],
+  "wire": [
+    {
+      "path": "/api/action-plan/zh-hans-reviewed",
+      "http": 200,
+      "state": "CONFIRM",
+      "requestId": "req-501e6c0b-e167-49d9-96be-9d2211f744db",
+      "revision": null,
+      "reviewed": true,
+      "sourceVersion": null,
+      "evidence": []
+    },
+    {
+      "path": "/api/action-plan/zh-hans-reviewed",
+      "http": 200,
+      "state": "ASK",
+      "requestId": "req-2354397a-1d3e-4dd0-82e8-c85290e9deb0",
+      "revision": "89a221d2ce4afb7f45c9cf77",
+      "reviewed": true,
+      "sourceVersion": null,
+      "evidence": []
+    },
+    {
+      "path": "/api/action-plan/zh-hans-reviewed",
+      "http": 200,
+      "state": "ASK",
+      "requestId": "req-508faccc-d5e3-4b82-866f-b8d9440330d4",
+      "revision": "7cc752c824b75d88fb91db59",
+      "reviewed": true,
+      "sourceVersion": null,
+      "evidence": []
+    },
+    {
+      "path": "/api/action-plan/zh-hans-reviewed",
+      "http": 200,
+      "state": "READY",
+      "requestId": "req-22e007c1-b416-4b62-bcdb-b4f612e8100f",
+      "revision": "92bedbac2f8db4189053691e",
+      "reviewed": true,
+      "sourceVersion": "action-kb-2026-11-07.1",
+      "evidence": [
+        {
+          "id": "CASE-ASSESS",
+          "url": "https://www.case.org.sg/submit-a-complaint/",
+          "quote_sha256": "d8b981fb283db6848fbc29996508740227a5112f443bc1d85cb8b4445a3c1ead"
+        },
+        {
+          "id": "CASE-EMAIL",
+          "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+          "quote_sha256": "0dbc9800f8c1694f21b7cc667233ec52a55f60146223d91f3b7ea3a13d7ec2f0"
+        },
+        {
+          "id": "CASE-FEES",
+          "url": "https://www.case.org.sg/submit-a-complaint/",
+          "quote_sha256": "d91fc66bd10fb88f68064214bc9f12b8435354d325ef44360bdaaca6ebcd085e"
+        },
+        {
+          "id": "CASE-PHONE",
+          "url": "https://www.case.org.sg/contact-us/",
+          "quote_sha256": "db13ae48f82c743456b5ef6b903de346dcc5829de925b767c8d1d657f5e34816"
+        },
+        {
+          "id": "CASE-PORTAL",
+          "url": "https://www.case.org.sg/contact-us/",
+          "quote_sha256": "77a109480fc1749c49188e7717e0bff90e08a3fde0dc73191c2f1d1ef56fbd96"
+        },
+        {
+          "id": "CASE-SCOPE",
+          "url": "https://www.case.org.sg/submit-a-complaint/",
+          "quote_sha256": "d8efb56b83ec86e9094dd7ba3a9bb2b6669d7755529124ab8f9f2dc09f6094a5"
+        },
+        {
+          "id": "CCS-RECORDS",
+          "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+          "quote_sha256": "1471983ab2f4bb72c8c79abb46804ee4f9cbb957a3e9635b69d97e5b13913294"
+        },
+        {
+          "id": "CPFTA-4A",
+          "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+          "quote_sha256": "4534b57b3400eb596ce785c40816eb0de53f131d2122d6e5add024871a0ecbb5"
+        }
+      ]
+    },
+    {
+      "path": "/api/action-plan/zh-hans-reviewed",
+      "http": 200,
+      "state": "READY",
+      "requestId": "req-8d80512c-ce23-421f-a03d-f75b27ebd24f",
+      "revision": "92bedbac2f8db4189053691e",
+      "reviewed": true,
+      "sourceVersion": "action-kb-2026-11-07.1",
+      "evidence": [
+        {
+          "id": "CASE-ASSESS",
+          "url": "https://www.case.org.sg/submit-a-complaint/",
+          "quote_sha256": "d8b981fb283db6848fbc29996508740227a5112f443bc1d85cb8b4445a3c1ead"
+        },
+        {
+          "id": "CASE-EMAIL",
+          "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+          "quote_sha256": "0dbc9800f8c1694f21b7cc667233ec52a55f60146223d91f3b7ea3a13d7ec2f0"
+        },
+        {
+          "id": "CASE-FEES",
+          "url": "https://www.case.org.sg/submit-a-complaint/",
+          "quote_sha256": "d91fc66bd10fb88f68064214bc9f12b8435354d325ef44360bdaaca6ebcd085e"
+        },
+        {
+          "id": "CASE-PHONE",
+          "url": "https://www.case.org.sg/contact-us/",
+          "quote_sha256": "db13ae48f82c743456b5ef6b903de346dcc5829de925b767c8d1d657f5e34816"
+        },
+        {
+          "id": "CASE-PORTAL",
+          "url": "https://www.case.org.sg/contact-us/",
+          "quote_sha256": "77a109480fc1749c49188e7717e0bff90e08a3fde0dc73191c2f1d1ef56fbd96"
+        },
+        {
+          "id": "CASE-SCOPE",
+          "url": "https://www.case.org.sg/submit-a-complaint/",
+          "quote_sha256": "d8efb56b83ec86e9094dd7ba3a9bb2b6669d7755529124ab8f9f2dc09f6094a5"
+        },
+        {
+          "id": "CCS-RECORDS",
+          "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+          "quote_sha256": "1471983ab2f4bb72c8c79abb46804ee4f9cbb957a3e9635b69d97e5b13913294"
+        },
+        {
+          "id": "CPFTA-4A",
+          "url": "https://www.ccs.gov.sg/resources/faqs/consumer-protection/",
+          "quote_sha256": "4534b57b3400eb596ce785c40816eb0de53f131d2122d6e5add024871a0ecbb5"
+        }
+      ]
+    },
+    {
+      "path": "/api/action-plan/zh-hans-reviewed",
+      "http": 200,
+      "state": "CONFIRM",
+      "requestId": "req-f08ff3d3-580b-4cec-9f01-1c68dad7139c",
+      "revision": null,
+      "reviewed": true,
+      "sourceVersion": null,
+      "evidence": []
+    },
+    {
+      "path": "/api/action-plan/zh-hans-reviewed",
+      "http": 200,
+      "state": "ASK",
+      "requestId": "req-f970019e-f676-46b8-8fbc-7fd5c5172e12",
+      "revision": "3a04a66defa04efe33b81602",
+      "reviewed": true,
+      "sourceVersion": null,
+      "evidence": []
+    },
+    {
+      "path": "/api/action-plan/zh-hans-reviewed",
+      "http": 200,
+      "state": "ASK",
+      "requestId": "req-6f5ac3da-a829-4176-bc38-34c72491ca16",
+      "revision": "a9d02f11b186b0336015820b",
+      "reviewed": true,
+      "sourceVersion": null,
+      "evidence": []
+    },
+    {
+      "path": "/api/action-plan/zh-hans-reviewed",
+      "http": 200,
+      "state": "READY",
+      "requestId": "req-852b8d62-830c-450b-9919-7657e609abca",
+      "revision": "6c9d9add1491c7d14123ceaf",
+      "reviewed": true,
+      "sourceVersion": "action-kb-2026-11-07.1",
+      "evidence": [
+        {
+          "id": "CEA-TEMPLATE-BREAK",
+          "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+          "quote_sha256": "8063cde57bc9cc44ac879b92029e1d4b175a3ca2c9b5f42f9ed2bf027a480a6c"
+        },
+        {
+          "id": "CEA-TEMPLATE-DEPOSIT",
+          "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+          "quote_sha256": "2d5147585864bcc52e8f2e0393cb5c58066b2381437691c4827d06c17d40182c"
+        },
+        {
+          "id": "CEA-TEMPLATE-NOTICE",
+          "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+          "quote_sha256": "94e29597381037ecc1d7798be8795396afc50b0d31c3f6f163414897e91444a5"
+        },
+        {
+          "id": "CEA-TEMPLATE-SCOPE",
+          "url": "https://www.cea.gov.sg/consumers/transacting-on-your-own/renting-or-renting-out-a-private-residential-property/",
+          "quote_sha256": "345d7bff9fbf71c2fde37ddda944a05a5535d5c547b892dcf3deff76b165965d"
+        },
+        {
+          "id": "COURTS-RECORDS",
+          "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+          "quote_sha256": "9699edcdc107a0cac1ffec4890fdd09506f4cc4a4f7ed89b85be27129563a2e9"
+        },
+        {
+          "id": "COURTS-RESIDENTIAL",
+          "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+          "quote_sha256": "83d7b77169595c8885ac952dde6376ac1a53ceaee832246086a4ff780514e6af"
+        },
+        {
+          "id": "MOM-EP-CANCELLATION",
+          "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/cancel-a-pass",
+          "quote_sha256": "afb1629b4462dade681baa57a50430255478a536f14302114d027db8773fc9c9"
+        },
+        {
+          "id": "SCTA-SCHEDULE-1C",
+          "url": "https://www.elitigation.sg/gd/s/2026_SGSCT_8",
+          "quote_sha256": "12dc7d061b67226dafeb82f589f1df392a04d78a0c4f1da80300b476d4e280df"
+        }
+      ]
+    },
+    {
+      "path": "/api/action-plan/zh-hans-reviewed",
+      "http": 200,
+      "state": "READY",
+      "requestId": "req-4b3290e4-d9bc-4f88-ad03-1f44157df06f",
+      "revision": "6c9d9add1491c7d14123ceaf",
+      "reviewed": true,
+      "sourceVersion": "action-kb-2026-11-07.1",
+      "evidence": [
+        {
+          "id": "CEA-TEMPLATE-BREAK",
+          "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+          "quote_sha256": "8063cde57bc9cc44ac879b92029e1d4b175a3ca2c9b5f42f9ed2bf027a480a6c"
+        },
+        {
+          "id": "CEA-TEMPLATE-DEPOSIT",
+          "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+          "quote_sha256": "2d5147585864bcc52e8f2e0393cb5c58066b2381437691c4827d06c17d40182c"
+        },
+        {
+          "id": "CEA-TEMPLATE-NOTICE",
+          "url": "https://isomer-user-content.by.gov.sg/71/60052678-1592-4904-b443-3269a655e0de/Tenancy%20Agreement%20Template%20for%20Private%20Residential%20Property.pdf",
+          "quote_sha256": "94e29597381037ecc1d7798be8795396afc50b0d31c3f6f163414897e91444a5"
+        },
+        {
+          "id": "CEA-TEMPLATE-SCOPE",
+          "url": "https://www.cea.gov.sg/consumers/transacting-on-your-own/renting-or-renting-out-a-private-residential-property/",
+          "quote_sha256": "345d7bff9fbf71c2fde37ddda944a05a5535d5c547b892dcf3deff76b165965d"
+        },
+        {
+          "id": "COURTS-RECORDS",
+          "url": "https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim",
+          "quote_sha256": "9699edcdc107a0cac1ffec4890fdd09506f4cc4a4f7ed89b85be27129563a2e9"
+        },
+        {
+          "id": "COURTS-RESIDENTIAL",
+          "url": "https://www.judiciary.gov.sg/civil/cases-eligible-small-claim",
+          "quote_sha256": "83d7b77169595c8885ac952dde6376ac1a53ceaee832246086a4ff780514e6af"
+        },
+        {
+          "id": "MOM-EP-CANCELLATION",
+          "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/cancel-a-pass",
+          "quote_sha256": "afb1629b4462dade681baa57a50430255478a536f14302114d027db8773fc9c9"
+        },
+        {
+          "id": "SCTA-SCHEDULE-1C",
+          "url": "https://www.elitigation.sg/gd/s/2026_SGSCT_8",
+          "quote_sha256": "12dc7d061b67226dafeb82f589f1df392a04d78a0c4f1da80300b476d4e280df"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "started": "2026-11-11T01:47:42.959Z",
+  "javascriptExceptions": [],
+  "networkFailures": [
+    {
+      "id": "266.27",
+      "error": "net::ERR_INTERNET_DISCONNECTED"
+    },
+    {
+      "id": "266.28",
+      "error": "net::ERR_INTERNET_DISCONNECTED"
+    },
+    {
+      "id": "266.30",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "id": "266.101",
+      "error": "net::ERR_INTERNET_DISCONNECTED"
+    },
+    {
+      "id": "266.102",
+      "error": "net::ERR_INTERNET_DISCONNECTED"
+    },
+    {
+      "id": "266.104",
+      "error": "net::ERR_ABORTED"
+    }
+  ],
+  "finished": "2026-11-11T01:47:58.585Z"
+}

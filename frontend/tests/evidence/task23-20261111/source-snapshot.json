@@ -1,0 +1,11 @@
+{
+  "base_commit": "d4760ff6c1daa6caa28bd8c44ba1aa23cf23ea6c",
+  "source_file_sha256": {
+    "frontend/js/task21-live.js": "fb54885744cbcdc2a0094dbca363ee6c3b0d69643c0a875e6d4c7a4529ad48b2",
+    "frontend/css/task23-ui.css": "eb9c2f4d7595408db5bd77867215e1c900ecd8fb6f430feca87f56aad040552a",
+    "frontend/tests/task21_browser_check.mjs": "19f1ab234174d629b50edd0842b073132953970e81dba4fa5c6c0ee79a72da83",
+    "frontend/tests/test_task21_browser.py": "7e83c1dd331e816c24bb9aaebd8bf1870656250973aa45400865c30da83eaab5",
+    "frontend/tests/test_task23_ui.py": "4c26571f03a285411d0520dc7ec89cd9c82195e23963ffbccd8d5a0b99021cbc"
+  },
+  "working_tree_override": "One additional desktop fallback-banner height rule in frontend/css/task23-ui.css after the source commit; local fallback browser rerun passed. Final PR CI checks the resulting head."
+}

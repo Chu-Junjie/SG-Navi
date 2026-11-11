@@ -1,0 +1,1389 @@
+{
+  "scope": "Local exact-field machine observations from frozen Task22 fixture; not full independent acceptance or semantic/legal/checklist scoring",
+  "executed_at": "2026-11-11T01:49:42.918285+00:00",
+  "source_commit": "d4760ff6c1daa6caa28bd8c44ba1aa23cf23ea6c",
+  "fixture_version": "task22-heldout-1",
+  "fixture_sha256": "879108dd6ed48dd0c53c356bc2675ac1883f4143d5c8dc6f01433b458961b282",
+  "rows": [
+    {
+      "id": "R01",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed tenancy agreement",
+          "deposit payment evidence",
+          "correspondence or written deductions"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "unspecified",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "ffe4dedfc2d010d0004adf8b0bd56ec4933cc76f1d1ad3596e55afb663061f1b"
+    },
+    {
+      "id": "R02",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_deduction",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed tenancy agreement",
+          "deposit payment evidence",
+          "correspondence or written deductions"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "prepare",
+        "contact_id": null
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "1dc9cac88f99fc46120ef375e1e20c0d860056feba128aa43ff0df162228fd28"
+    },
+    {
+      "id": "R03",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed break/deposit terms",
+          "written notice and delivery record",
+          "deposit deduction or withholding explanation"
+        ],
+        "must_cite": [
+          "SCTA-SCHEDULE-1C"
+        ],
+        "prohibited": [
+          "automatic forfeiture",
+          "automatic refund"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": true,
+      "actual": {
+        "state": "ASK",
+        "reason": "missing_decisive_fact",
+        "question_field": "lease_ended",
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "76c1771118e80bc85abade860f2b1fbb8c5456af4f4f51ecfab383bc11638530"
+    },
+    {
+      "id": "R04",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed break/deposit terms",
+          "written notice and delivery record",
+          "deposit deduction or withholding explanation"
+        ],
+        "must_not_ask": [
+          "break_clause_present"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": true,
+      "actual": {
+        "state": "ASK",
+        "reason": "missing_decisive_fact",
+        "question_field": "lease_ended",
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "534f4cfe733761991874a76a8f9cc63998473c1409f811528f41033643dccbfa"
+    },
+    {
+      "id": "R05",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed break/deposit terms",
+          "written notice and delivery record",
+          "deposit deduction or withholding explanation"
+        ],
+        "prohibited": [
+          "assume signed break clause"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "ASK",
+        "reason": "missing_decisive_fact",
+        "question_field": "lease_ended",
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "5b9241a0679f0697851aa028d17921359c8c0bc004929cdba3d23b2067300b16"
+    },
+    {
+      "id": "R06",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed tenancy agreement",
+          "deposit payment evidence",
+          "correspondence or written deductions"
+        ],
+        "prohibited": [
+          "apply private residential template"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "pass_related_exit",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "ASK",
+        "reason": "missing_decisive_fact",
+        "question_field": "lease_ended",
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "0e168bcbbb4e2238b6e49aeb7d71dc193d11856d92653a5b4d430d32b3f6d5c9"
+    },
+    {
+      "id": "R07",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "early_exit",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed break/deposit terms",
+          "written notice and delivery record",
+          "deposit deduction or withholding explanation"
+        ],
+        "prohibited": [
+          "infer work pass event"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_deduction",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "prepare",
+        "contact_id": null
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "851e21ea76b2afd32c71641e4f13e69ffe99eddd02d0ee3b6be06afa83e27890"
+    },
+    {
+      "id": "R08",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "prepare_claim",
+        "state": "READY",
+        "action_kind": "check_criteria",
+        "contact_id": "sct-criteria",
+        "checklist": [
+          "tenancy agreement",
+          "deposit payment evidence",
+          "correspondence"
+        ],
+        "must_cite": [
+          "SCTA-SCHEDULE-1C"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "prepare",
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "a442fb51dae57b7f0c05a16bb4e9628588f38db6877d05e4ec7579eca13f60b5"
+    },
+    {
+      "id": "R09",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "prepare_claim",
+        "state": "READY",
+        "action_kind": "check_criteria",
+        "contact_id": "sct-criteria",
+        "checklist": [
+          "tenancy agreement",
+          "deposit payment evidence",
+          "correspondence"
+        ],
+        "must_not_ask": [
+          "lease_duration_months"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_deduction",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "prepare",
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "f5ee20b15bf7eafaf146926973e9c98cb31510fe7abb19af9c203eab19b78e4d"
+    },
+    {
+      "id": "R10",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "agent_conduct",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "cea-conduct",
+        "checklist": [
+          "description of the conduct",
+          "agency or agent correspondence"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "unspecified",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "491aec6c956a09e6650fc863f9cc8ad7667cb9d7719791e4e23d56388932d168"
+    },
+    {
+      "id": "R11",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "agency_agreement",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "consult",
+        "contact_id": "cea-agreement",
+        "checklist": [
+          "signed agency agreement",
+          "written communications"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "agency_agreement",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": true,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "consult",
+        "contact_id": "cea-agreement"
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "40cae2f07c93bef5fa43df8068ecceb477e7703dfa350d296ca738b768d2467e"
+    },
+    {
+      "id": "R12",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "agency_agreement",
+        "goal": "understand_options",
+        "state": "ASK",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "agency agreement"
+        ],
+        "question_field": "agency_agreement_signed"
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "unspecified",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "1bd0d62bf0bb8ee26dc711c3a76253176ad87c18e2884001c7b5310125f9c30c"
+    },
+    {
+      "id": "R13",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_deduction",
+        "goal": "contact_provider",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed tenancy agreement",
+          "deposit payment evidence",
+          "correspondence or written deductions"
+        ],
+        "prohibited": [
+          "CEA agent complaint"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_deduction",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "prepare",
+        "contact_id": null
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "21cc76fca48b91b8bb440be5fdf291fdbb1a5a869820120e5d808d2365ed7b3d"
+    },
+    {
+      "id": "R14",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "prepare_claim",
+        "state": "READY",
+        "action_kind": "check_criteria",
+        "contact_id": "sct-criteria",
+        "checklist": [
+          "tenancy agreement",
+          "deposit payment evidence",
+          "correspondence"
+        ],
+        "prohibited": [
+          "claim is eligible or can already be filed"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "unspecified",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "f36ca877e7147d4911685ae8ab851dc3ecbb7e9f230c378019a53c619ea10870"
+    },
+    {
+      "id": "R15",
+      "group": "rental",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_deduction",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "signed tenancy agreement",
+          "deposit payment evidence",
+          "correspondence or written deductions"
+        ],
+        "must_not_ask": [
+          "disputed_amount_cents"
+        ]
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_deduction",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "prepare",
+        "contact_id": null
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "8e2b294129aaa4f97cdd7eb729232176dea2c4b7b802d0a440754bb72aa3ad34"
+    },
+    {
+      "id": "C01",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ],
+        "must_cite": [
+          "CPFTA-4A"
+        ]
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unclear_charge",
+        "goal": "complain"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form"
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "640dd8a0dc0d0eec1fad1989ac8c0be5bdd02be27792001d5a59c2c4f4633a06"
+    },
+    {
+      "id": "C02",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "duplicate_charge",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ]
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "duplicate_charge",
+        "goal": "complain"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": true,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form"
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "6d1a5de30fe7de2a39a8e51f1df9e83253622880c51dc6da2a49336da9e26c71"
+    },
+    {
+      "id": "C03",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unclear_charge",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "itemised bill",
+          "record of the unclear charge"
+        ]
+      },
+      "interpretation": null,
+      "case_type_matches": false,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "b310a7504ff88ef1a8fd1caf8cf2d08420cde3b12885b44b5d930b02d601fd1f"
+    },
+    {
+      "id": "C04",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "ASK",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "receipt or displayed price"
+        ],
+        "question_field": "purchase_purpose"
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": true,
+      "actual": {
+        "state": "ASK",
+        "reason": "missing_decisive_fact",
+        "question_field": "purchase_purpose",
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "fba657c90410863586f56adf9271f2a2d0e159c8fbe00d7a359467979fde9f31"
+    },
+    {
+      "id": "C05",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ],
+        "must_not_ask": [
+          "supplier_registered_in_sg"
+        ],
+        "prohibited": [
+          "confirmed eligibility"
+        ]
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form"
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "928538e3a811a06933a393c6e5217eb71a5afd8f2c6681ab8c4526fa0639d4f3"
+    },
+    {
+      "id": "C06",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "duplicate_charge",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "both payment entries",
+          "receipt"
+        ]
+      },
+      "interpretation": null,
+      "case_type_matches": false,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "7fa8f41fd24d6a6292756729b27ce535fc747f40c809ecd9dcdb932871725277"
+    },
+    {
+      "id": "C07",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "receipt and disputed difference"
+        ],
+        "prohibited": [
+          "unqualified local-consumer intake route"
+        ]
+      },
+      "interpretation": null,
+      "case_type_matches": false,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "0782eb1e083d94e22c54e10b2d3b9b0e813d91b4dbcbc1f9b4a0e46e8efa4b69"
+    },
+    {
+      "id": "C08",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "goods_dispute",
+        "goal": "contact_provider",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "receipt",
+          "order or product records"
+        ],
+        "prohibited": [
+          "assert misleading billing without facts"
+        ]
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unspecified",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "b871512b7a572b13f2050c2f6a504a808969af8bddb5710c1a18f1bc07a9786a"
+    },
+    {
+      "id": "C09",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "services_dispute",
+        "goal": "contact_provider",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "service description",
+          "bill and correspondence"
+        ]
+      },
+      "interpretation": null,
+      "case_type_matches": false,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "db3e696212ad115eda67bdf9eaf6c5a8321f8638af88e99dc8f3d1c2a823c763"
+    },
+    {
+      "id": "C10",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unclear_charge",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ]
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unclear_charge",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form"
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "4e4349b87e88f87bec1aa9f7bf00dcb120b33f4deeaffd6309ec4717c2e3ae29"
+    },
+    {
+      "id": "C11",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "seek_refund",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ],
+        "prohibited": [
+          "guarantee a refund"
+        ]
+      },
+      "interpretation": null,
+      "case_type_matches": false,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "5174ef1e247d875dcc26c2c53e5a0cee2ba65539a40dddc1141256af9a373e6d"
+    },
+    {
+      "id": "C12",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unclear_charge",
+        "goal": "contact_provider",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "itemised bill",
+          "unclear charge"
+        ]
+      },
+      "interpretation": null,
+      "case_type_matches": false,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "9f8b99e37ef1c642aa0d835e297dd393c3e4546a899d1b975954bb2801c6344e"
+    },
+    {
+      "id": "C13",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "duplicate_charge",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "both payment entries",
+          "receipt"
+        ],
+        "prohibited": [
+          "promise card reversal"
+        ]
+      },
+      "interpretation": null,
+      "case_type_matches": false,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "d317f6a59d96fcfec9e2db377a53015b2fd815c7dae52451e12e099886e0abeb"
+    },
+    {
+      "id": "C14",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "READY",
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form",
+        "checklist": [
+          "receipt or itemised bill",
+          "specific disputed amount/charge",
+          "seller correspondence"
+        ]
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unclear_charge",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "complaint_intake",
+        "contact_id": "case-form"
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "344e7b706eb8d2d4185b6883798d8e41f6e9cb9d4a456d96881d6bd7bbcf8cf1"
+    },
+    {
+      "id": "C15",
+      "group": "consumer",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "understand_options",
+        "state": "READY",
+        "action_kind": "prepare",
+        "contact_id": null,
+        "checklist": [
+          "itemised bill",
+          "disputed item or menu price"
+        ]
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unclear_charge",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "READY",
+        "reason": "verified_action",
+        "question_field": null,
+        "action_kind": "prepare",
+        "contact_id": null
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "3b31f5b0ffaf01e962463ae014ce79e9e1b173a9ef516377c7dee7ede996557f"
+    },
+    {
+      "id": "B01",
+      "group": "boundary",
+      "expected": {
+        "case_type": null,
+        "issue_subtype": null,
+        "goal": null,
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "unspecified",
+        "goal": "understand_options"
+      },
+      "case_type_matches": false,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "ASK",
+        "reason": "missing_decisive_fact",
+        "question_field": "dispute_with",
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "ecdb0d95cb6dce7946565e778f7a0f45aabee971d6682e2c35324d71e5f2802d"
+    },
+    {
+      "id": "B02",
+      "group": "boundary",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "seek_refund",
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "seek_refund"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": true,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "outside_scope",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "88072d63d2586612e2d91f0e33f45492f10d60613a7092542a4868d2e8ed81cb"
+    },
+    {
+      "id": "B03",
+      "group": "boundary",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": true,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "outside_scope",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "1e7368548974c729608d5edba9779f156aef0f8717c5a65dd7c6669770ab16a2"
+    },
+    {
+      "id": "B04",
+      "group": "boundary",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "goods_dispute",
+        "goal": "seek_refund",
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unspecified",
+        "goal": "understand_options"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "outside_scope",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "09b04dc1dfd707cb73f7efe42224206944a0770e934afc58ad93de606f0456e2"
+    },
+    {
+      "id": "B05",
+      "group": "boundary",
+      "expected": {
+        "case_type": null,
+        "issue_subtype": null,
+        "goal": null,
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      },
+      "interpretation": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "unspecified",
+        "goal": "understand_options"
+      },
+      "case_type_matches": false,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "11bdc9828fc1c68813d0960082ccb1a947f374dc416207a1b264bffc1e3fb556"
+    },
+    {
+      "id": "B06",
+      "group": "boundary",
+      "expected": {
+        "case_type": null,
+        "issue_subtype": null,
+        "goal": null,
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "ambiguous_scope"
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "duplicate_charge",
+        "goal": "understand_options"
+      },
+      "case_type_matches": false,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "ASK",
+        "reason": "missing_decisive_fact",
+        "question_field": "purchase_purpose",
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "b5a81619ba50c64bc1ad30ca3f643478d55c35588b652dbddbfcc9f6d04c5c6a"
+    },
+    {
+      "id": "B07",
+      "group": "boundary",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "understand_options",
+        "state": "ASK",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "question_field": "dispute_with",
+        "prohibited": [
+          "assume landlord or agent"
+        ]
+      },
+      "interpretation": null,
+      "case_type_matches": false,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "insufficient_facts",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": false,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "d198a61c5dca26e1d9c56d4736fb14eaf869f322552ddfb8d89751887094ad63"
+    },
+    {
+      "id": "B08",
+      "group": "boundary",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "outside_scope"
+      },
+      "interpretation": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "unclear_charge",
+        "goal": "complain"
+      },
+      "case_type_matches": true,
+      "interpretation_matches": false,
+      "actual": {
+        "state": "LIMITED",
+        "reason": "outside_scope",
+        "question_field": null,
+        "action_kind": null,
+        "contact_id": null
+      },
+      "state_action_contact_matches": true,
+      "status": "OBSERVED",
+      "http": 200,
+      "response_sha256": "1e436c765818096de77f7c17e73b31e1404c44f05a49d36b3c1109a2bc56c65f"
+    },
+    {
+      "id": "B09",
+      "group": "boundary",
+      "expected": {
+        "case_type": "consumer_complaint",
+        "issue_subtype": "restaurant_overcharge",
+        "goal": "complain",
+        "state": "LIMITED",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "source_unverified",
+        "fixture": "quarantine_case_family_in_isolated_state"
+      },
+      "status": "NOT_RUN",
+      "reason": "Requires coordinator-controlled isolated failure fixture"
+    },
+    {
+      "id": "B10",
+      "group": "boundary",
+      "expected": {
+        "case_type": "rental_deposit",
+        "issue_subtype": "deposit_return",
+        "goal": "seek_refund",
+        "state": "UNAVAILABLE",
+        "action_kind": null,
+        "contact_id": null,
+        "checklist": [],
+        "reason": "service_unavailable",
+        "fixture": "controlled_unavailable_service"
+      },
+      "status": "NOT_RUN",
+      "reason": "Requires coordinator-controlled isolated failure fixture"
+    }
+  ],
+  "human_comprehension": "NOT_RUN",
+  "legal_support_scoring": "NOT_RUN",
+  "semantic_checklist_completeness": "NOT_RUN",
+  "public_40_case_execution": "NOT_RUN",
+  "counts": {
+    "rental": {
+      "total": 15,
+      "observed": 15,
+      "case_type_matches": 15,
+      "interpretation_matches": 3,
+      "state_action_contact_matches": 5
+    },
+    "consumer": {
+      "total": 15,
+      "observed": 15,
+      "case_type_matches": 8,
+      "interpretation_matches": 2,
+      "state_action_contact_matches": 6
+    },
+    "boundary": {
+      "total": 10,
+      "observed": 8,
+      "case_type_matches": 4,
+      "interpretation_matches": 2,
+      "state_action_contact_matches": 4
+    }
+  }
+}
