@@ -10,8 +10,8 @@
   // end-to-end release acceptance are tracked separately in Task 7.
   // The public API origin is NOT a credential or a database connection string.
   const HTTPS_API_ORIGIN = "https://sg-navi-api-junjie.onrender.com";
-  // Enable only after the reviewed response and Pages CORS pass production acceptance.
-  const REVIEWED_ACTION_PLAN_ENABLED = false;
+  // Approved catalog (#127), live reviewed responses and Pages CORS verified for release.
+  const REVIEWED_ACTION_PLAN_ENABLED = true;
   const REVIEWED_ACTION_PLAN_PATH = "/api/action-plan/zh-hans-reviewed";
   const API_PATHS = new Set(["/api/health", "/api/navigate", "/api/version", "/api/case-types",
     "/api/intake", "/api/intake/confirm", "/api/results/preview", "/api/guidance", "/api/action-plan", REVIEWED_ACTION_PLAN_PATH]);

@@ -135,11 +135,16 @@ test("reviewed overlay accepts all five states and rejects changed identities",a
  assert.equal(data.plan.evidence[0].quote,record().quote);
 });
 
-test("disabled, 404, 503 and network errors use the unchanged English request",async()=>{
+test("approved reviewed endpoint resolves on Pages and local Flask",()=>{
  const api=require("../js/api-config.js");
  const pages={hostname:"chu-junjie.github.io",pathname:"/SG-Navi/"};
- assert.equal(api.resolveReviewedActionPlan(pages),null);
- assert.equal(api.resolve("/api/action-plan/zh-hans-reviewed",pages),null);
+ const path="/api/action-plan/zh-hans-reviewed";
+ assert.equal(api.resolveReviewedActionPlan(pages),"https://sg-navi-api-junjie.onrender.com"+path);
+ assert.equal(api.resolve(path,pages),api.resolveReviewedActionPlan(pages));
+ assert.equal(api.resolveReviewedActionPlan({hostname:"127.0.0.1",pathname:"/"}),path);
+});
+
+test("disabled, 404, 503 and network errors use the unchanged English request",async()=>{
  class Element extends EventTarget {
   dataset={}; setAttribute(){} removeAttribute(){} append(){} appendChild(){} replaceChildren(){} focus(){}
  }
