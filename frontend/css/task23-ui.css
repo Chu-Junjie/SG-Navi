@@ -63,6 +63,8 @@
  .task23-slogan{margin-bottom:8px}
  .hero-copy{max-width:680px}
  .intake-actions{gap:12px}
+ .intake-card[data-flow-stage="results"]{display:flex;flex-direction:column;max-height:calc(100dvh - 190px)}
+ .intake-card[data-flow-stage="results"] .task21-result{min-height:0;flex-shrink:1}
 }
 @media(max-width:700px){.site-header .brand{min-height:44px;padding:3px 0}.intake-card{border-radius:15px}.hero-note{max-width:95%;line-height:1.5}}
 

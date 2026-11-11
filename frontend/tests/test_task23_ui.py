@@ -84,5 +84,37 @@ class Task23UITests(unittest.TestCase):
                            capture_output=True,text=True,encoding="utf-8",timeout=20,check=True)
         self.assertEqual(json.loads(run.stdout),[])
 
+    def test_corrected_selectors_preserve_backend_chinese_summary_coverage(self):
+        node=shutil.which("node")
+        if not node: self.skipTest("Node.js unavailable")
+        from backend.scenario_understanding import interpret_scenario
+        from backend.action_plan_service import process_action_plan
+        from backend.task24_bilingual import preview_zh_hans
+        contexts=[]
+        for description in ("My landlord kept my rental deposit and I want a refund.",
+                            "The restaurant charged me extra and refuses to refund it."):
+            original=interpret_scenario(description)["context"]
+            for goal in ("complain","seek_refund","prepare_claim","understand_options","contact_provider"):
+                contexts.append({**original,"goal":goal})
+        contexts.append({**contexts[0],"issue_subtype":"deposit_deduction"})
+        contexts.append({**contexts[-2],"issue_subtype":"goods_dispute"})
+        contexts.append({**contexts[0],"case_type":"consumer_complaint",
+                         "issue_subtype":"unspecified","facts":{}})
+        script='''const fs=require("node:fs"),ui=require("./frontend/js/task21-live.js");
+            console.log(JSON.stringify(JSON.parse(fs.readFileSync(0,"utf8")).map(context=>
+              ({...context,summary:ui.summaryForContext(context)}))));'''
+        run=subprocess.run([node,"-e",script],cwd=ROOT,input=json.dumps(contexts),
+                           capture_output=True,text=True,encoding="utf-8",timeout=20,check=True)
+        corrected=json.loads(run.stdout)
+        for before,context in zip(contexts,corrected):
+            with self.subTest(case=context["case_type"],goal=context["goal"],subtype=context["issue_subtype"]):
+                self.assertEqual(context["facts"],before["facts"])
+                response=process_action_plan({"action_plan_version":"1.0",
+                    "request_id":"task23-corrected-selectors","operation":"plan",
+                    "confirmed":True,"context":context})
+                overlay=preview_zh_hans(response)
+                self.assertEqual(overlay["missing_paths"],[])
+                self.assertIsNotNone(overlay["display"]["context_summary"])
+
 if __name__=="__main__":
     unittest.main()
