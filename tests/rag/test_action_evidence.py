@@ -69,7 +69,35 @@ def test_unknown_or_different_route_gets_preparation_without_case_intake(review,
     context = {**RESTAURANT, "facts": {**RESTAURANT["facts"], **change}}
     plan = select(context, review)
     assert plan["primary_action"]["kind"] == "prepare"
-    assert plan["contacts"] == []
+    # Personal local buyers may contact CASE for guidance, but only the
+    # fully reviewed post-dispute intake route offers its complaint form.
+    expected = set() if change.get("purchase_purpose") == "unknown" else {"case-phone", "case-email"}
+    assert {row["id"] for row in plan["contacts"]} == expected
+
+
+@pytest.mark.parametrize("subtype", [
+    "restaurant_overcharge", "duplicate_charge", "unclear_charge",
+    "goods_dispute", "services_dispute",
+])
+def test_personal_local_consumer_has_verified_case_assistance(review, subtype):
+    context = {**RESTAURANT, "issue_subtype": subtype, "facts": {
+        "merchant_location": "singapore", "purchase_purpose": "personal",
+        "resolution_attempted": False,
+    }}
+    plan = select(context, review)
+    assert plan["primary_action"]["kind"] == "prepare"
+    assert {row["id"] for row in plan["contacts"]} == {"case-phone", "case-email"}
+    assert {"CASE-PHONE", "CASE-EMAIL"} <= {row["id"] for row in plan["evidence"]}
+
+
+@pytest.mark.parametrize("subtype", ["goods_dispute", "services_dispute"])
+def test_goods_services_have_case_intake_after_confirmed_dispute(review, subtype):
+    context = {**RESTAURANT, "issue_subtype": subtype}
+    plan = select(context, review)
+    assert {row["id"] for row in plan["contacts"]} == {"case-form", "case-phone", "case-email"}
+    assert plan["primary_action"]["kind"] == "prepare"
+    assert plan["primary_action"]["contact_id"] is None
+    assert "CASE-PORTAL" in {row["id"] for row in plan["evidence"]}
 
 
 def test_duplicate_and_hdb_keep_relevant_records(review):
