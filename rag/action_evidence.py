@@ -83,6 +83,26 @@ def _matches(profile, context):
     )
 
 
+def _with_verified_consumer_contacts(profile, context):
+    """Attach reviewed CASE enquiry routes only to eligible local personal purchases."""
+    if profile["case_type"] != "consumer_complaint" or profile["contact_ids"]:
+        return profile
+    facts = context["facts"]
+    if (facts.get("merchant_location") != "singapore"
+            or facts.get("purchase_purpose") != "personal"):
+        return profile
+
+    # CASE phone/email are assistance enquiries, not a confirmed complaint outcome.
+    ids = ["case-phone", "case-email"]
+    if (context["issue_subtype"] in ("goods_dispute", "services_dispute")
+            and context["goal"] in ("complain", "seek_refund", "understand_options")
+            and facts.get("consumer_context") == "local_consumer"
+            and facts.get("resolution_attempted") is True):
+        ids.insert(0, "case-form")
+    # _materialize validates the source-to-contact authorization for every ID.
+    return {**profile, "contact_ids": ids}
+
+
 def _out_of_scope(facts):
     return (
         facts.get("purchase_purpose") == "business"
@@ -105,7 +125,8 @@ def select_action_plan(context, *, expected_version, repository=None,
     profile = next((p for p in data["profiles"] if _matches(p, context)), None)
     if profile is None:
         return None
-    plan = _materialize(profile, records, contacts, data["version"])
+    routed_profile = _with_verified_consumer_contacts(profile, context)
+    plan = _materialize(routed_profile, records, contacts, data["version"])
     try:
         repo = repository if repository is not None else EvidenceRepository()
         bundle, blocked = repo.snapshot()

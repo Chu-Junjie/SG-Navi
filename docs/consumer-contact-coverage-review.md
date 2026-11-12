@@ -1,20 +1,29 @@
-# Consumer complaint Official contacts coverage — review required
+# Consumer complaint Official contacts — bounded selection fix
 
-## Why this branch exists
+## Root cause
 
-The published `goods_dispute` and `services_dispute` preparation profiles deliberately contained `contact_ids: []`, so the frontend correctly displayed "No currently verified contact is available for this route." The existing Task 17 CASE registry already holds official telephone, assistance email and complaint form actions with evidence and source guards; **the problem is selection coverage, not a rendering defect**.
+The existing reviewed Task 17 package has 13 profiles. The goods and services preparation profiles have no contacts configured, so the frontend correctly displays "No currently verified contact is available for this route" even though Task 17 already includes verified CASE phone, email and complaint form actions.
 
-## Proposed bounded change
+## Fix
 
-- Personal-use purchases in Singapore can display the reviewed CASE *assistance enquiry* telephone and email for all five concrete consumer subtypes. These remain preparation actions; the result does not promise CASE acceptance, a refund or formal claim eligibility.
-- For goods/services where a local-consumer status and a prior attempt with the merchant are both confirmed, also display the reviewed CASE complaint-form link. Do not promote a preparation action to complaint submission or auto-submit anything.
-- Unknown personal/business purpose stays without CASE contacts; business purchases, confirmed unregistered suppliers and transactions outside Singapore remain outside this reviewed route. A tourist may still see a general assistance enquiry, but not the confirmed local-consumer complaint-form route.
-- All contact destinations, claim text, evidence records, legal text and Chinese translation strings remain **byte-for-byte unchanged** from the source package. New profile selectors only reuse reviewed fields. Existing fallback semantics remain intact.
+This PR preserves the **entire existing signed Task 17 evidence package** (including `package.json`, `package.sha256`, review dates, source version `action-kb-2026-11-07.1`, its 13 source profiles, and all official contact/quote text) rather than creating a new package version. Only the selector's combination of previously verified contact actions changes.
 
-## Release gate — do not merge until approved
+- For a personal purchase in Singapore matching any of the five concrete consumer subtypes, return existing CASE phone/email *assistance enquiry* actions in the preparation plan. This does not claim intake eligibility, a refund or filing success.
+- For `goods_dispute` and `services_dispute` with a confirmed local consumer, prior attempt to resolve with merchant, and a suitable complaint/refund/understand goal, also provide the reviewed CASE complaint form under `Official contacts`. The primary next step is still preparation and nothing is submitted automatically.
+- For an earlier restaurant complaint route that already explicitly selects CASE form/phone/email, leave that reviewed profile untouched.
+- Do not present CASE actions when personal purpose is missing/unknown, the seller is confirmed unregistered, the purchase is business-related or the transaction is outside Singapore. Visitor cases can ask the contact desk for information but do not automatically get the form.
+- The additional `consumer_context` question for goods/services asks only when a verified complaint intake route might be relevant. It remains a single Task 18/19 question and has an unknown/visitor option.
 
-The proposed package version is `action-kb-2026-11-12.1`; CASE evidence capture timestamps from 7 November are not misrepresented as a new capture/review. `package.sha256` is updated to match the exact package bytes.
+## Evidence and approval integrity
 
-The Task 24 reviewed Chinese catalog and approval **still refer to `action-kb-2026-11-07.1`**. This is intentional: do not silently rewrite the previous human approval to cover a new package revision. A source owner must review the expanded CASE route applicability, reconcile the unchanged catalog against the new source version, explicitly record a new approval, and confirm production reviewed delivery and bilingual tests before marking this PR ready or merging. The current production branch is not affected.
+No source content, evidence digests, legal quotations, existing review timestamps, approved Chinese translation strings or human sign-off records are changed. All contact actions originate from the existing approved Task 17 registry, and `_materialize` validates their exact evidence associations; runtime quarantine and source freshness checks still apply to the returned contact evidence.
 
-Run `python -X utf8 -m pytest tests/contracts tests/rag tests/backend/test_task19_action_plan.py tests/backend/test_task24_reviewed_delivery.py -q --tb=short` and `python -X utf8 -m pytest tests/backend/test_task24_bilingual.py -q --tb=short` after the reviewed-delivery gate has been reconciled. Confirm that local buyer goods and services show CASE assistance, confirmed after-dispute goods/services include the online form, and unknown/business cases do not imply eligibility.
+This is a **routing behavior change** even though it does not change the approved source package. Review the decision gates and run the full backend/RAG/Task24 regression suite before merging. Do **not** claim this branch has completed a fresh official-source review or a new human approval. The approved Chinese catalog remains version-compatible because the signed underlying evidence package and its exact English strings have not been replaced.
+
+## Test command
+
+```powershell
+python -X utf8 -m pytest tests/contracts tests/rag tests/backend -q --tb=short
+```
+
+Verify that a goods complaint now returns relevant CASE assistance; a confirmed after-dispute goods/service complaint shows the CASE form; unknown-purpose and out-of-scope cases do not show unqualified contacts; and Task24 reviewed Chinese delivery remains enabled.
