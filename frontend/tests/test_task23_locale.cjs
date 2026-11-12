@@ -111,12 +111,15 @@ test("known interpretation templates translate without guessing at unknown wordi
   assert.equal(locale.chineseCopy("toString"),null);
 });
 
-test("Chinese intake shows its English-input requirement before submission",()=>{
+test("Chinese intake keeps its English-input hint and EN language labels",()=>{
   const hint={hidden:true};
   const input={value:"My existing description",placeholder:"English example",attributes:{},
     setAttribute(name,value){this.attributes[name]=value;}};
+  const englishButtons=Array.from({length:2},()=>({dataset:{task23Language:"en"},attributes:{},
+    setAttribute(name,value){this.attributes[name]=value;}}));
   const doc=Object.assign(new EventTarget(),{documentElement:{},querySelector:()=>null,
-    querySelectorAll:()=>[],getElementById:id=>({"problem-text":input,"problem-language-help":hint})[id]});
+    querySelectorAll:selector=>selector==="[data-task23-language]"?englishButtons:[],
+    getElementById:id=>({"problem-text":input,"problem-language-help":hint})[id]});
   locale.init(doc);
   assert.equal(hint.hidden,true);
   locale.setLanguage("zh");
@@ -125,7 +128,16 @@ test("Chinese intake shows its English-input requirement before submission",()=>
   assert.equal(input.placeholder,"请用英文输入你的情况。");
   assert.equal(doc.title,"SG Navi｜从这里开始");
   assert.equal(input.value,"My existing description");
+  for(const button of englishButtons){
+    assert.equal(button.textContent,"EN");
+    assert.equal(button.attributes.lang,"en");
+    assert.equal(button.attributes["aria-pressed"],"false");
+  }
   locale.setLanguage("en");
+  for(const button of englishButtons){
+    assert.equal(button.textContent,"EN");
+    assert.equal(button.attributes["aria-pressed"],"true");
+  }
   assert.equal(hint.hidden,true);
   assert.equal(input.attributes["aria-describedby"],"problem-helper");
   assert.match(input.placeholder,/^For example: My landlord/);
