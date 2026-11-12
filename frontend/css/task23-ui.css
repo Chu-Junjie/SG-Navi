@@ -48,6 +48,27 @@
 .task23-step .task23-step-source{display:inline-flex;align-items:center;font-size:.87rem;margin:8px 7px 0 0}
 .task23-step[data-current="true"]{padding-right:12px}
 @media(max-width:390px){.task23-step{padding-left:23px}.task23-step-title{font-size:.99rem}.task23-step .task23-step-source{font-size:.8rem;padding:8px}}
+
+/* Task25: case-aware official reference pathways inside Step 3. */
+.task25-routes{margin:14px 0 2px;display:grid;gap:10px}
+.task25-routes h4{margin:0 0 2px;font-size:1rem;color:#173d49}
+.task25-route{border:1px solid #c8ded9;border-radius:11px;padding:12px;background:#fff}
+.task25-route h5{font-size:.95rem;color:#174950;margin:0 0 5px}
+.task25-route-reason{font-size:.85rem;line-height:1.5;color:#315568;margin:0 0 7px}
+.task25-route-caution{font-size:.79rem;line-height:1.5;margin:3px 0;color:#5b5d52}
+.task25-route-details summary{cursor:pointer;font-size:.86rem;color:#006f6c;font-weight:700;padding:6px 0}
+.task25-route-details summary:focus-visible,.task25-reference:focus-visible{outline:3px solid #159c95;outline-offset:3px}
+.task25-stage-list{list-style:decimal!important;margin:6px 0 0 20px!important;padding:0 0 0 5px!important}
+.task25-stage-list li{padding:8px 0 10px 2px;font-size:.85rem;line-height:1.5}
+.task25-stage-list li+li{border-top:1px solid #e0edea}
+.task25-stage-list li strong{display:block;color:#17444d}
+.task25-stage-list li p{margin:5px 0 7px;color:#365668}
+.task25-stage-list li small{display:block;color:#67706e;font-size:.75rem;margin-top:5px}
+.task25-reference{display:inline-flex!important;border:1px solid #b9d6d5;background:#f8fdfb;color:#076d6a;
+ border-radius:8px;text-decoration:none!important;padding:8px 10px;min-height:40px;align-items:center;
+ font-size:.8rem;cursor:pointer;margin:3px 0}
+@media(max-width:390px){.task25-route{padding:10px}.task25-stage-list{margin-left:13px!important}.task25-reference{font-size:.76rem}}
+
 .task23-language-warning{font-size:.85rem;color:#67512a;background:#fff3d9;border:1px solid #ead8ad;border-radius:9px;padding:9px 12px;margin-top:8px}
 .task23-language-warning[hidden]{display:none}
 .task23-unofficial{font-size:.78rem;color:#3b6270;border-left:3px solid #409a91;padding:8px;margin:5px 0}

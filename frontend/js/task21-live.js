@@ -551,6 +551,7 @@
         else title.focus();
       }
       const processStages=buildProcessSteps(data.context,p,contacts);
+      const possibleRoutes=win.SGNaviTask25?.buildRoutes?.(data.context,p,contacts)??[];
       function statusCount(){
         return processStages.filter(step=>checkedProcess.has(step.id)).length+" / "+processStages.length;
       }
@@ -647,6 +648,48 @@
               if(step.hasContacts)
                 li.appendChild(btn("Official contacts",()=>showDetails("contacts"),"task23-step-source"));
               else li.appendChild(btn("Edit situation",()=>{hideDialog();reset();showConfirm();},"task23-step-source"));
+            }
+            if(step.id==="official"&&possibleRoutes.length){
+              const holder=add("section",undefined,"task25-routes");
+              holder.appendChild(add("h4","Potential official routes to review"));
+              holder.appendChild(add("p","These are official reference pathways, not a decision that you may file a claim.","task25-route-caution"));
+              for(const route of possibleRoutes){
+                const card=add("article",undefined,"task25-route");
+                card.appendChild(add("h5",route.title));
+                card.appendChild(add("p",route.reason,"task25-route-reason"));
+                const expanded=add("details",undefined,"task25-route-details");
+                expanded.appendChild(add("summary","Explore the possible stages"));
+                const stages=add("ol",undefined,"task25-stage-list");
+                for(const phase of route.stages){
+                  const source=win.SGNaviTask25.SOURCES[phase.source];
+                  const safe=source?safeURL(source.url,true):null;
+                  if(!safe)continue;
+                  const item=add("li");
+                  item.appendChild(add("strong",phase.title));
+                  item.appendChild(add("p",phase.description));
+                  const verified=source.id&&source.status==="task17"
+                    &&sources.get(source.id)?.url===source.url;
+                  if(verified){
+                    item.appendChild(btn("View verified supporting source",
+                      ()=>showDetails("evidence",[source.id]),"task25-reference"));
+                  }else{
+                    const link=add("a","Read official process page","task25-reference");
+                    link.href=safe;link.target="_blank";link.rel="noopener noreferrer";
+                    item.appendChild(link);
+                    item.appendChild(add("small",source.status==="pending_review"
+                      ?"This new reference is pending independent source-owner review."
+                      :"This is background guidance, not a verified filing channel for this result."));
+                  }
+                  stages.appendChild(item);
+                }
+                expanded.appendChild(stages);
+                card.appendChild(expanded);
+                holder.appendChild(card);
+              }
+              holder.appendChild(add("p",
+                "Only contacts returned and verified for your case are actionable in SG Navi.",
+                "task25-route-caution"));
+              li.appendChild(holder);
             }
             if(step.evidence_ids.length)
               li.appendChild(btn("View supporting sources",()=>showDetails("evidence",step.evidence_ids),"task23-step-source"));
