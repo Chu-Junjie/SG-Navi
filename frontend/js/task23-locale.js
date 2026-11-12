@@ -279,8 +279,8 @@
       const english=btn.dataset.task23Language==="en";
       btn.setAttribute("aria-pressed",String(btn.dataset.task23Language===lang));
       if(english){
-        btn.textContent=lang==="zh"?"英文":"EN";
-        btn.setAttribute("lang",lang==="zh"?"zh-Hans":"en");
+        btn.textContent="EN";
+        btn.setAttribute("lang","en");
       }
     }
     syncCoverage();
