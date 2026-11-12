@@ -1,5 +1,5 @@
 {
-  "version": "action-kb-2026-11-07.1",
+  "version": "action-kb-2026-11-12.1",
   "legacy_version": "kb-2026-11-01.1",
   "reviewed_at": "2026-11-07T04:58:44+00:00",
   "law_checks": [
@@ -772,6 +772,662 @@
             "evidence_id": "CPFTA-4A"
           }
         ]
+      }
+    },
+    {
+      "id": "consumer-goods_dispute-case-contact-after-dispute",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "goods_dispute"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true
+      },
+      "contact_ids": [
+        "case-form",
+        "case-phone",
+        "case-email"
+      ],
+      "plan": {
+        "headline": "Gather your purchase and dispute records",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Keep the receipt, order details and correspondence about the product.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Gather your purchase and dispute records",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Purchase dispute draft",
+          "subject": "Request for help with a purchase",
+          "body": "I am asking for help with {purchase}. My concern is {issue}. The outcome I would like is {request}.",
+          "slots": [
+            {
+              "id": "purchase",
+              "label": "Describe the purchase"
+            },
+            {
+              "id": "issue",
+              "label": "Describe what went wrong"
+            },
+            {
+              "id": "request",
+              "label": "Requested outcome"
+            }
+          ]
+        },
+        "legal_basis": []
+      }
+    },
+    {
+      "id": "consumer-services_dispute-case-contact-after-dispute",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "services_dispute"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal",
+        "consumer_context": "local_consumer",
+        "resolution_attempted": true
+      },
+      "contact_ids": [
+        "case-form",
+        "case-phone",
+        "case-email"
+      ],
+      "plan": {
+        "headline": "Gather the service and payment records",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Keep the service description, bill and correspondence about what you dispute.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Gather the service and payment records",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Purchase dispute draft",
+          "subject": "Request for help with a purchase",
+          "body": "I am asking for help with {purchase}. My concern is {issue}. The outcome I would like is {request}.",
+          "slots": [
+            {
+              "id": "purchase",
+              "label": "Describe the purchase"
+            },
+            {
+              "id": "issue",
+              "label": "Describe what went wrong"
+            },
+            {
+              "id": "request",
+              "label": "Requested outcome"
+            }
+          ]
+        },
+        "legal_basis": []
+      }
+    },
+    {
+      "id": "consumer-restaurant_overcharge-case-assistance",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "restaurant_overcharge"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal"
+      },
+      "contact_ids": [
+        "case-phone",
+        "case-email"
+      ],
+      "plan": {
+        "headline": "Compare the bill with the displayed price",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Keep the menu price and itemised bill. Mark the item and difference you want the restaurant to explain.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Compare the bill with the displayed price",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "legal-context",
+                "text": "A potentially misleading representation is a point to raise. Whether the facts meet the legal test needs assessment.",
+                "evidence_ids": [
+                  "CPFTA-4A"
+                ]
+              },
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Billing complaint draft",
+          "subject": "Request for help with a billing dispute",
+          "body": "I am asking for help with {disputed_charge}. The amount on the bill was {billed_amount}. I expected {expected_amount}. I contacted the business and received {business_response}. Please advise on the next step.",
+          "slots": [
+            {
+              "id": "disputed_charge",
+              "label": "Describe the disputed charge"
+            },
+            {
+              "id": "billed_amount",
+              "label": "Amount charged"
+            },
+            {
+              "id": "expected_amount",
+              "label": "Expected amount"
+            },
+            {
+              "id": "business_response",
+              "label": "Business response"
+            }
+          ]
+        },
+        "legal_basis": [
+          {
+            "claim_id": "legal-context",
+            "evidence_id": "CPFTA-4A"
+          }
+        ]
+      }
+    },
+    {
+      "id": "consumer-duplicate_charge-case-assistance",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "duplicate_charge"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal"
+      },
+      "contact_ids": [
+        "case-phone",
+        "case-email"
+      ],
+      "plan": {
+        "headline": "Check both payment entries",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Compare the two payment entries with the receipt. Record both charges and ask the business to reconcile them.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Check both payment entries",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "legal-context",
+                "text": "A potentially misleading representation is a point to raise. Whether the facts meet the legal test needs assessment.",
+                "evidence_ids": [
+                  "CPFTA-4A"
+                ]
+              },
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Billing complaint draft",
+          "subject": "Request for help with a billing dispute",
+          "body": "I am asking for help with {disputed_charge}. The amount on the bill was {billed_amount}. I expected {expected_amount}. I contacted the business and received {business_response}. Please advise on the next step.",
+          "slots": [
+            {
+              "id": "disputed_charge",
+              "label": "Describe the disputed charge"
+            },
+            {
+              "id": "billed_amount",
+              "label": "Amount charged"
+            },
+            {
+              "id": "expected_amount",
+              "label": "Expected amount"
+            },
+            {
+              "id": "business_response",
+              "label": "Business response"
+            }
+          ]
+        },
+        "legal_basis": [
+          {
+            "claim_id": "legal-context",
+            "evidence_id": "CPFTA-4A"
+          }
+        ]
+      }
+    },
+    {
+      "id": "consumer-unclear_charge-case-assistance",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "unclear_charge"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal"
+      },
+      "contact_ids": [
+        "case-phone",
+        "case-email"
+      ],
+      "plan": {
+        "headline": "Ask for an itemised explanation",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Keep the itemised bill and ask the business to identify the fee or charge you do not understand.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Ask for an itemised explanation",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "legal-context",
+                "text": "A potentially misleading representation is a point to raise. Whether the facts meet the legal test needs assessment.",
+                "evidence_ids": [
+                  "CPFTA-4A"
+                ]
+              },
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Billing complaint draft",
+          "subject": "Request for help with a billing dispute",
+          "body": "I am asking for help with {disputed_charge}. The amount on the bill was {billed_amount}. I expected {expected_amount}. I contacted the business and received {business_response}. Please advise on the next step.",
+          "slots": [
+            {
+              "id": "disputed_charge",
+              "label": "Describe the disputed charge"
+            },
+            {
+              "id": "billed_amount",
+              "label": "Amount charged"
+            },
+            {
+              "id": "expected_amount",
+              "label": "Expected amount"
+            },
+            {
+              "id": "business_response",
+              "label": "Business response"
+            }
+          ]
+        },
+        "legal_basis": [
+          {
+            "claim_id": "legal-context",
+            "evidence_id": "CPFTA-4A"
+          }
+        ]
+      }
+    },
+    {
+      "id": "consumer-goods_dispute-case-assistance",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "goods_dispute"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal"
+      },
+      "contact_ids": [
+        "case-phone",
+        "case-email"
+      ],
+      "plan": {
+        "headline": "Gather your purchase and dispute records",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Keep the receipt, order details and correspondence about the product.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Gather your purchase and dispute records",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Purchase dispute draft",
+          "subject": "Request for help with a purchase",
+          "body": "I am asking for help with {purchase}. My concern is {issue}. The outcome I would like is {request}.",
+          "slots": [
+            {
+              "id": "purchase",
+              "label": "Describe the purchase"
+            },
+            {
+              "id": "issue",
+              "label": "Describe what went wrong"
+            },
+            {
+              "id": "request",
+              "label": "Requested outcome"
+            }
+          ]
+        },
+        "legal_basis": []
+      }
+    },
+    {
+      "id": "consumer-services_dispute-case-assistance",
+      "case_type": "consumer_complaint",
+      "subtypes": [
+        "services_dispute"
+      ],
+      "goals": [
+        "complain",
+        "seek_refund",
+        "understand_options",
+        "contact_provider",
+        "prepare_claim"
+      ],
+      "requires": {
+        "merchant_location": "singapore",
+        "purchase_purpose": "personal"
+      },
+      "contact_ids": [
+        "case-phone",
+        "case-email"
+      ],
+      "plan": {
+        "headline": "Gather the service and payment records",
+        "assessment": {
+          "id": "assessment",
+          "text": "You can prepare the billing or purchase records while the appropriate assistance route is checked.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ]
+        },
+        "primary_action": {
+          "id": "next",
+          "text": "Keep the service description, bill and correspondence about what you dispute.",
+          "evidence_ids": [
+            "CCS-RECORDS"
+          ],
+          "kind": "prepare",
+          "label": "Gather the service and payment records",
+          "contact_id": null
+        },
+        "checklist": [
+          {
+            "id": "records",
+            "text": "Keep your receipts and relevant written correspondence.",
+            "evidence_ids": [
+              "CCS-RECORDS"
+            ]
+          }
+        ],
+        "details": [
+          {
+            "kind": "conditions",
+            "title": "When this route is relevant",
+            "items": [
+              {
+                "id": "scope",
+                "text": "Check whether the seller and personal purchase fit the published CASE scope.",
+                "evidence_ids": [
+                  "CASE-SCOPE"
+                ]
+              }
+            ]
+          }
+        ],
+        "draft": {
+          "title": "Purchase dispute draft",
+          "subject": "Request for help with a purchase",
+          "body": "I am asking for help with {purchase}. My concern is {issue}. The outcome I would like is {request}.",
+          "slots": [
+            {
+              "id": "purchase",
+              "label": "Describe the purchase"
+            },
+            {
+              "id": "issue",
+              "label": "Describe what went wrong"
+            },
+            {
+              "id": "request",
+              "label": "Requested outcome"
+            }
+          ]
+        },
+        "legal_basis": []
       }
     },
     {
