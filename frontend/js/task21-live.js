@@ -631,7 +631,10 @@
               for(let index=0;index<p.checklist.length;index++){
                 const item=p.checklist[index];
                 if(!step.extra.includes(item))continue;
-                additional.appendChild(add("li",item.text,undefined,claimText.get(item.id)??null));
+                const extra=add("li");
+                extra.appendChild(add("span",item.text,undefined,claimText.get(item.id)??null));
+                extra.appendChild(btn("View supporting sources",()=>showDetails("evidence",item.evidence_ids),"task23-step-source"));
+                additional.appendChild(extra);
               }
               li.appendChild(additional);
             }
