@@ -276,18 +276,6 @@
     heading.appendChild(add("strong","SG Navi"));
     const dialogControls=add("div",undefined,"task23-dialog-controls");
     const close=btn("×",()=>hideDialog(),"task20-close");
-    if(win.SGNaviLocale){
-      const languages=add("div",undefined,"task23-language");
-      languages.setAttribute("role","group");
-      languages.setAttribute("aria-label",win.SGNaviLocale.label("Language / 语言"));
-      for(const [code,text,tag] of [["en","EN","en"],["zh","中文","zh-Hans"]]){
-        const button=add("button");button.type="button";button.textContent=text;
-        button.lang=tag;button.dataset.task23Language=code;
-        button.setAttribute("aria-pressed",String(win.SGNaviLocale.getLanguage()===code));
-        languages.appendChild(button);
-      }
-      dialogControls.appendChild(languages);
-    }
     dialogControls.appendChild(close);heading.appendChild(dialogControls);
     function localizeDialogLabels(){
       dialog.setAttribute("aria-label",win.SGNaviLocale?.label("SG Navi question and details")??"SG Navi question and details");
@@ -692,7 +680,7 @@
           const items=part==="preparation"?p.checklist:p.details.filter(x=>x.kind===part).flatMap(x=>x.items);
           const list=add("ul");for(const c of items||[])list.appendChild(add("li",c.text,undefined,claimText.get(c.id)??null));
           body.appendChild(list);
-          body.appendChild(btn("View supporting sources",()=>showDetails("evidence")));
+          if(part!=="preparation")body.appendChild(btn("View supporting sources",()=>showDetails("evidence")));
         }
         const buttons=add("div",undefined,"task21-modal-actions");
         buttons.appendChild(btn("Continue to next step",continueToAction,"intake-primary"));
