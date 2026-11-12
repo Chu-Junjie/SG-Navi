@@ -226,6 +226,35 @@
       canonical(slots(p.draft))!==canonical(slots(originalPlan.draft))):p.draft!==null)return null;
     return display;
   }
+  function buildProcessSteps(context,plan,contacts){
+    // A personal planning guide, never an official filing or tracking process.
+    const consumer=context.case_type==="consumer_complaint";
+    const first=plan.primary_action.kind==="prepare"?plan.primary_action:plan.checklist[0];
+    const available=[...contacts.values()];
+    const tried=context.facts.resolution_attempted===true;
+    const communicate=consumer
+      ?(tried
+        ?"Review your earlier request and the business's response. Keep a copy of both."
+        :"Describe the problem to the business, ask for a response, and keep a copy.")
+      :(context.facts.dispute_with==="agent"
+        ?"Describe your concern to the estate agent and keep the correspondence."
+        :"Ask the relevant party to clarify the disputed terms and keep the reply.");
+    return [
+      {id:"prepare",title:consumer?"Step 1 — Prepare evidence":"Step 1 — Review rental records",
+       text:first.text,evidence_ids:first.evidence_ids,
+       extra:plan.checklist.length>1
+         ?(plan.primary_action.kind==="prepare"?plan.checklist:plan.checklist.slice(1)):[]},
+      {id:"communicate",title:consumer?"Step 2 — Contact the business":"Step 2 — Clarify the dispute",
+       text:communicate,evidence_ids:[],extra:[]},
+      {id:"official",title:"Step 3 — Check official help",
+       text:available.length
+         ?"Review the verified official contacts for this route and check their purpose before proceeding."
+         :"No verified official contact is available for these details. Check the evidence or correct uncertain answers before choosing a formal route.",
+       evidence_ids:[...new Set(available.flatMap(c=>c.evidence_ids))],
+       extra:[],hasContacts:available.length>0},
+    ];
+  }
+
   function init(doc,win){
     const get=id=>doc.getElementById(id),host=get("problem-intake"),form=get("problem-form"),input=get("problem-text");
     if(!host||!form||!input)return null;
@@ -511,8 +540,8 @@
       const claimText=new Map();
       if(reviewed)for(const item of [...reviewed.checklist,...reviewed.details.flatMap(group=>group.items)])
         claimText.set(item.id,item.text);
-      // A process is only the source-backed current action and Task19 checklist,
-      // NOT an invented official end-to-end complaint or application status.
+      // Three planning stages reuse verified action sources and scoped contacts;
+      // the generic communication suggestion is not official filing guidance.
       let firstAction=null,activeDetail=null;
       const draftEdits=new Map();
       let manualDraft=null;
@@ -521,8 +550,9 @@
         if(firstAction){firstAction.classList.add("task23-current-action");firstAction.focus();}
         else title.focus();
       }
+      const processStages=buildProcessSteps(data.context,p,contacts);
       function statusCount(){
-        return checkedProcess.size+" / "+p.checklist.length;
+        return processStages.filter(step=>checkedProcess.has(step.id)).length+" / "+processStages.length;
       }
       const title=add("h3",p.headline,undefined,reviewed?.headline??null);title.id="task21-result-heading";result.appendChild(title);
       result.appendChild(add("p",p.assessment.text,"task20-situation",reviewed?.assessment.text??null));
@@ -581,39 +611,58 @@
         if(part!=="evidence")appendReviewedNotice(body,data.reviewedDisclaimer);
         if(part==="process"){
           const processSection=add("section",undefined,"task23-process");
+          processSection.appendChild(add("p","SG Navi planning guide — not an official procedure or case tracker.","task23-process-note"));
           const progress=add("p",undefined,"task23-progress"),count=add("span");
           count.textContent=statusCount();
-          progress.append(count,add("span"," personal preparation steps checked"));
+          progress.append(count,add("span"," personal planning steps reviewed"));
           progress.setAttribute("role","status");processSection.appendChild(progress);
           const list=add("ol");
-          const now=add("li",undefined,"task23-step");now.dataset.current="true";
-          const current=add("strong");current.append(add("span","Now: "),add("span",p.primary_action.text,undefined,reviewed?.primary_action.text??null));
-          now.appendChild(current);
-          now.appendChild(add("small","This is the current suggested action, not a completed official step."));
-          now.appendChild(btn("View supporting sources",()=>showDetails("evidence",p.primary_action.evidence_ids),"task23-step-source"));
-          list.appendChild(now);
-          for(let index=0;index<p.checklist.length;index++){
-            const item=p.checklist[index],li=add("li",undefined,"task23-step");
-            const label=add("label"),tick=doc.createElement("input");tick.type="checkbox";
-            tick.checked=checkedProcess.has(item.id);
+          for(const step of processStages){
+            const li=add("li",undefined,"task23-step");
+            li.dataset.processStep=step.id;
+            li.appendChild(add("h3",step.title,"task23-step-title"));
+            const translated=step.id==="prepare"
+              ?(p.primary_action.kind==="prepare"
+                ?reviewed?.primary_action.text:reviewed?.checklist[0]?.text)
+              :undefined;
+            li.appendChild(add("p",step.text,"task23-step-description",translated));
+            if(step.id==="prepare"&&step.extra.length){
+              const additional=add("ul",undefined,"task23-step-sublist");
+              for(let index=0;index<p.checklist.length;index++){
+                const item=p.checklist[index];
+                if(!step.extra.includes(item))continue;
+                additional.appendChild(add("li",item.text,undefined,claimText.get(item.id)??null));
+              }
+              li.appendChild(additional);
+            }
+            if(step.id==="communicate"){
+              li.appendChild(add("small","SG Navi suggestion — not an official procedure."));
+              if(p.draft)li.appendChild(btn("Write a request",()=>showDetails("draft"),"task23-step-source"));
+            }
+            if(step.id==="official"){
+              li.appendChild(add("small","Available contacts depend on the confirmed case and verified sources."));
+              if(step.hasContacts)
+                li.appendChild(btn("Official contacts",()=>showDetails("contacts"),"task23-step-source"));
+              else li.appendChild(btn("Edit situation",()=>{hideDialog();reset();showConfirm();},"task23-step-source"));
+            }
+            if(step.evidence_ids.length)
+              li.appendChild(btn("View supporting sources",()=>showDetails("evidence",step.evidence_ids),"task23-step-source"));
+            const label=add("label",undefined,"task23-step-check"),tick=doc.createElement("input");
+            tick.type="checkbox";tick.checked=checkedProcess.has(step.id);
+            label.append(tick,add("span","I have reviewed this step"));
             tick.addEventListener("change",()=>{
-              if(tick.checked)checkedProcess.add(item.id);else checkedProcess.delete(item.id);
+              if(tick.checked)checkedProcess.add(step.id);else checkedProcess.delete(step.id);
               count.textContent=statusCount();
-              for(const row of list.querySelectorAll("[data-current]"))row.dataset.current="false";
+              for(const row of list.querySelectorAll(".task23-step"))row.dataset.current="false";
               const next=list.querySelector('input[type="checkbox"]:not(:checked)');
               if(next)next.closest(".task23-step").dataset.current="true";
-              else now.dataset.current="true";
             });
-            label.append(tick,add("span",item.text,undefined,claimText.get(item.id)??null));
-            li.appendChild(label);
-            li.appendChild(btn("View supporting sources",()=>showDetails("evidence",item.evidence_ids),"task23-step-source"));
-            li.dataset.current=index===0?"true":"false";
-            if(tick.checked)li.dataset.current="false";
-            list.appendChild(li);
+            li.appendChild(label);list.appendChild(li);
           }
+          const firstUnchecked=list.querySelector('input[type="checkbox"]:not(:checked)');
+          if(firstUnchecked)firstUnchecked.closest(".task23-step").dataset.current="true";
           processSection.appendChild(list);
-          processSection.appendChild(add("p","Further steps depend on your case.","task23-limit"));
-          processSection.appendChild(add("p","Personal checklist only — not a filed case or official status.","task23-limit"));
+          processSection.appendChild(add("p","Checking a step only records your review in this tab. No complaint is filed or marked complete.","task23-limit"));
           body.appendChild(processSection);
         }else if(part==="contacts"){
           if(!contacts.size)body.appendChild(add("p","No currently verified contact is available for this route."));
@@ -704,5 +753,5 @@
     host.dataset.task21Ready="true";get("problem-submit").disabled=false;
     return Object.freeze({interpret,reset});
   }
-  return Object.freeze({init,safeURL,safeContact,verifyResponse,reviewedDisplay,revisionOf,canonical,summaryForContext});
+  return Object.freeze({init,safeURL,safeContact,verifyResponse,reviewedDisplay,revisionOf,canonical,summaryForContext,buildProcessSteps});
 });

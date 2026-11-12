@@ -236,7 +236,8 @@ try{
      await click(".task20-first-right button","View available steps");
      trace.keyboardFocusAndEscape=true;
    }
-   assert.ok(await evaluate("document.querySelectorAll('#task21-overlay .task23-step input[type=checkbox]').length>0"));
+   assert.equal(await evaluate("document.querySelectorAll('#task21-overlay .task23-step').length"),3);
+   assert.equal(await evaluate("document.querySelectorAll('#task21-overlay .task23-step input[type=checkbox]').length"),3);
    await evaluate("document.querySelector('#task21-overlay .task23-step input[type=checkbox]').click()");
    assert.ok(await evaluate("document.querySelector('.task23-progress').textContent.includes('1 /')"));
    await click("#task21-overlay button","Continue to next step");
