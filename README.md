@@ -1,141 +1,91 @@
-# SG Navi — developer setup and candidate handover
+# SG Navi
 
-**Group 6 · English Rental Deposit / Consumer Complaint prototype**
+Trying to get your rental deposit back or resolve a purchase dispute in Singapore? SG Navi helps you work out what to do next, what to prepare, and where to get help.
 
-SG Navi provides English Rental Deposit and Consumer Complaint research/preparation flows. The Task 15 home page connects actual intake → explicit fact confirmation → relevant missing questions → conditional `GUIDANCE_ONLY` → selected-item official excerpts. **Legal eligibility is not assessed**; all runtime legal rules remain disabled and `action_card` remains null. Existing `/api/navigate` v1 clients retain their conservative referral contract. See [Task 15 acceptance and operating instructions](docs/task15-acceptance.md) for current evidence and limits.
+**[Open SG Navi](https://chu-junjie.github.io/SG-Navi/)** · Free to try in your browser
 
-- **Task 5:** accepted; [evidence](docs/task5-checklist.md).
-- **Task 6:** accepted **with limits**; [evidence](docs/task6-checklist.md) (38 IDs: 36 PASS, E2E-01/02 LIMITED).
-- **Tasks 13–15 (2026-11-06):** source-aware retrieval and checked excerpt projection now run in the actual home-page workflow. [Task 15 evidence and instructions](docs/task15-acceptance.md): frozen routing 39/40, full combined local regression 689 passed/four skipped/15 subtests, and real published two-case browser journeys verified. Known safe routing miss and initial public-checker failure are retained. Final closeout CI/provider IDs are maintained in [Issue #75](https://github.com/Chu-Junjie/SG-Navi/issues/75).
-- **Task 7:** the owner-authorized limited internal candidate is closed; [coordinator assessment](integration_acceptance.md) records actual evidence and remaining limits. Original three-person independent environment evidence remains incomplete.
-- **Release/recovery procedures:** [Task 7 release handover](docs/task7-release-handover.md). Existing `v0.9.0-rc1` remains pinned to its original candidate; Tasks 13–15 do not move that tag or authorize a production/legal release.
-- **2026-11-05 remediation:** [PR #64](https://github.com/Chu-Junjie/SG-Navi/pull/64) corrects readiness reporting and records exact CEA footer-only drift, actual isolated hosted state persistence and encrypted external recovery. [Current acceptance](integration_acceptance.md) supersedes the 11-03 missing-demo list. Zheng's personal execution is user-reported; actual details remain pending.
-- **Current public demo (2026-11-05):** [GitHub Pages](https://chu-junjie.github.io/SG-Navi/) → [Junjie's Render Free API](https://sg-navi-api-junjie.onrender.com) → Neon Free PostgreSQL (`my-first-project`, PG18/Singapore). The service tracks `main`; exact deployed code and public results are reconciled in [PR #64](https://github.com/Chu-Junjie/SG-Navi/pull/64). Actual `/api/health` provider checks are configured. This is a conservative referral demo, **not a production/legal-decision release**. See the [live setup and acceptance register](docs/task7-junjie-render-neon-integration.md), not the [older paid-disk proposal](docs/task7-public-backend.md).
+## How to get started
 
-Repository: https://github.com/Chu-Junjie/SG-Navi
+1. **Describe what happened in English.** A sentence or two is enough to start. You can also choose an example on the homepage.
+2. **Confirm the details.** Check that SG Navi understood your situation. If an answer affects the guidance, you may see a follow-up question.
+3. **Start with the recommended next step.** Open the steps for your case to see what to prepare, how to contact the other party, and where to get help if the dispute continues. When available, you can open verified contact links, a draft message, and excerpts from the original sources.
 
-## Current free deployment and operational checks
-
-| Component | Actual setup | Caveat |
-| --- | --- | --- |
-| GitHub Pages | https://chu-junjie.github.io/SG-Navi/ | Static frontend; `frontend/js/api-config.js` routes Pages to the separate API |
-| Render | https://sg-navi-api-junjie.onrender.com, Singapore, plan Free, branch `main`, auto-deploy on | Sleeps and has usage quotas; Live status is not a complete UI acceptance |
-| Neon | Free PostgreSQL 18, Singapore, project `my-first-project` | Private database URL is set only as the Render secret `SG_NAVI_STATE_DATABASE_URL` |
-| Status persistence | `SG_NAVI_REQUIRE_PERSISTENCE=1`, `SG_NAVI_FREE_DEMO=1` | Nonempty state survived actual isolated Render redeploy; an authenticated local archive restored into another hosted database. [Evidence/procedure](docs/task7-state-recovery.md); production state was untouched |
-
-**Do not create a new paid resource or sync another Blueprint while checking the existing service.** The root [`render.yaml`](render.yaml) now describes the Free + Neon architecture for reference; it is **not** automatically controlling the existing API-created Render service. The old paid disk configuration is archived at [`render.starter.yaml`](render.starter.yaml) and requires separate cost approval. Older `render.free.yaml` and `render-free.yaml` are historical nonpersistent demos, not current deployment recipes.
-
-- Latest local/CI suite: [`.github/workflows/test.yml`](.github/workflows/test.yml) (ordinary suite can skip optional external browser and PostgreSQL tests).
-- Live public API and published browser acceptance: [`.github/workflows/task7-junjie-render-neon-https.yml`](.github/workflows/task7-junjie-render-neon-https.yml). On `main` push checks the actual remote API; scheduled/manual runs include the published Pages browser. The public test is not equivalent to a verified source SHA on the remote host.
-- Real PostgreSQL transaction/restart/recovery tests on **disposable CI PostgreSQL**, never the user's production Neon: [`.github/workflows/task7-postgres-durability.yml`](.github/workflows/task7-postgres-durability.yml).
-- Weekly read-only official source freshness: [`.github/workflows/source-freshness-read-only.yml`](.github/workflows/source-freshness-read-only.yml). Failed checks need owner review; CI never silently accepts new text or edits the five reviewed files. **GitHub disables scheduled Actions in public repositories after 60 days without repository activity**; an owner must re-enable them as needed (see GitHub Actions settings).
-
-Do not enable currently disabled legal thresholds/rules without precise official evidence, human review and dedicated boundary tests. `rule_version: mock-1` and `action_card: null` remain intentional. Legacy v1 returns conservative referrals; the separate Task 15 endpoint can return conditional `GUIDANCE_ONLY`. [Task 7 acceptance](integration_acceptance.md) and [Task 15 acceptance](docs/task15-acceptance.md) describe their limited internal scope under the owner's authorization. Original three-person final-environment evidence is incomplete; source retrieval can time out or return runner-specific 403. Strict monitoring remains enabled.
-
-## Ownership
-
-| Developer | Module |
+| What happened | Example you can try |
 | --- | --- |
-| Chu Junjie (`Chu-Junjie`) | RAG, sources, shared contract, integration technical acceptance |
-| Zheng Zaikun (`ZhengZaikun`) | Flask backend, backend/E2E tests, dependencies, CI, release documentation |
-| Lu Guanyu (`Guanyu-Lu`) | Frontend, frontend tests, candidate demonstrations |
+| **Rental deposit** | My landlord has not returned my S$2,000 deposit. What should I check? |
+| **Consumer complaint** | I bought a faulty product for personal use, but the seller will not refund me. |
 
-Respect [AGENTS.md](AGENTS.md): use feature branch → PR → peer review → merge; do not change another owner's module without coordination. Never commit secrets, `.env`, real disputes or user data.
+请用英文描述问题，也可以点击首页示例开始。点击「中文」可查看已有中文版本的结果。
 
-## Prerequisites
+SG Navi is a student project for finding information and preparing your next step. Use the linked organisations to confirm eligibility and submit any formal complaint or claim. Please try it with made-up details and leave out names, contact details, and private documents.
 
-- Git and **Python 3.12+**.
-- For actual FE browser test execution: **Node.js 22+ and Chromium / Edge / Chrome**. Without them, some browser tests may skip; a green subset is **not** an FE acceptance claim.
-- No API key, live production credentials, database server, `.env`, or npm dependency installation is required for the audited **local development** workflow.
-- The project uses `requirements.txt` and `tests/contracts/requirements.txt`; the latter includes the former. Version ranges are not an exact lockfile. An executed resolved-package snapshot is in [Task 7 coordinator's records](docs/test-results/task7-resolved-environment.json).
+## How SG Navi works
 
-## Fresh clone → isolated install (Windows PowerShell)
+The frontend uses HTML, CSS, and JavaScript on GitHub Pages. The browser sends your description and confirmed answers to a Flask API running with Gunicorn on Render. The API uses reviewed sources and templates to build the guidance. Neon PostgreSQL stores source-review state, including flags for sources that need to be checked again.
 
-Use a new folder for independent Task 7 environment evidence. Do not reuse an old virtual environment:
+```mermaid
+flowchart TD
+    Pages["GitHub Pages · HTML, CSS, JavaScript"] -->|Serves the website| Browser["Your browser"]
+    Browser <-->|HTTPS and JSON| API["Render · Flask and Gunicorn"]
+    API -->|Uses| Evidence["Reviewed sources and action templates"]
+    API <-->|Source-review state| Neon["Neon PostgreSQL"]
+```
 
-```powershell
+See the [case-specific guidance design](docs/task25-case-specific-workflows.md), [shared API contracts](shared/README.md), and [deployment and recovery notes](docs/task7-release-handover.md).
+
+## How we develop and release changes
+
+```mermaid
+flowchart TD
+    Issue["GitHub Issue"] --> Branch["Create a branch and make the change"]
+    Branch --> PR["Open a pull request"]
+    PR --> Checks["GitHub Actions tests"]
+    PR --> Review["Team review"]
+    Checks --> Main["Merge to main"]
+    Review --> Main
+    Main --> Pages["GitHub Pages publishes the website"]
+    Main --> Render["Render deploys the API"]
+    Pages --> Verify["Check the public site and API"]
+    Render --> Verify
+```
+
+Found a confusing step or a link that needs updating? Open a GitHub Issue with what you expected, what happened, and a made-up example we can reproduce. For code or documentation changes, follow the repository's contribution rules and check the CI results. [Issues](https://github.com/Chu-Junjie/SG-Navi/issues) · [Contribution rules](AGENTS.md) · [Actions](https://github.com/Chu-Junjie/SG-Navi/actions)
+
+## Run it locally
+
+Install Git and Python 3.12 or newer. The local demo runs without a Render account, Neon database, or API key.
+
+```sh
 git clone https://github.com/Chu-Junjie/SG-Navi.git
 cd SG-Navi
-git rev-parse HEAD
-py -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r tests/contracts/requirements.txt
 ```
 
-To reproduce the published internal candidate, use `git checkout --detach v0.9.0-rc1` before creating the environment. [The prerelease](https://github.com/Chu-Junjie/SG-Navi/releases/tag/v0.9.0-rc1) pins **f6076524223c5ef60b5a6b4433123d4792137f2c**. Its runtime/test/dependency/CI Git objects match the fresh-clone implementation audit `2d14ed5a612d35e35e1f6b9cb0a5fca0c6333d87`: 481 passed, 4 skipped, 13 subtests; [actual install/start and resolved packages](docs/test-results/task7-final-candidate-20261105.json). [Final public/deploy/release evidence](docs/test-results/task7-final-release-20261105.json) includes API 10/10 and real Pages browser 18/18. Later documentation-only commits do not move the tag.
-
-On macOS/Linux, replace the venv commands with:
-
-```bash
-python3 -m venv .venv
-./.venv/bin/python -m pip install -r tests/contracts/requirements.txt
-```
-
-## Run the actual integrated web app
-
-From the repo root, with the Python environment installed:
+**Windows (PowerShell)**
 
 ```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m flask --app integration.app run --host 127.0.0.1 --port 5000
 ```
 
-Open **http://127.0.0.1:5000/** and enter a made-up English problem. Confirm/correct the proposed category and facts, answer remaining questions, and select a guidance item to inspect its exact source. The topic buttons and **http://127.0.0.1:5000/task5-flow.html** retain the earlier v1 guided form. This is a local Flask development server; keep it on `127.0.0.1` and use synthetic facts.
+**macOS or Linux**
 
-In a *second* PowerShell window:
-
-```powershell
-Invoke-RestMethod http://127.0.0.1:5000/api/health
-Invoke-RestMethod http://127.0.0.1:5000/api/version
-Invoke-WebRequest http://127.0.0.1:5000/task5-flow.html
+```sh
+python3 -m venv .venv
+./.venv/bin/python -m pip install -r requirements.txt
+./.venv/bin/python -m flask --app integration.app run --host 127.0.0.1 --port 5000
 ```
 
-Expected health response: `{"status":"ok"}`. At the audited source snapshot, API fields are `api_version: 1.0`, `rule_version: mock-1`, and `source_version: kb-2026-11-01.1`. Check the actual returned values on your commit; do not write those versions into a new release without comparing them. Stop Flask with Ctrl+C.
+Open the [local website](http://127.0.0.1:5000/) and try one of the examples above. See the [test workflow](.github/workflows/test.yml) for the dependency and test commands used by CI.
 
-For Linux/macOS use `./.venv/bin/python -m flask --app integration.app run --host 127.0.0.1 --port 5000`.
+## Meet the team
 
-## Run verification
+| Developer | What they work on |
+| --- | --- |
+| **Chu Junjie** | Reviewed sources, guidance evidence, shared API contracts, and integration. [GitHub](https://github.com/Chu-Junjie) |
+| **Zheng Zaikun** | Flask API, backend tests, and GitHub Actions. [GitHub](https://github.com/ZhengZaikun) |
+| **Lu Guanyu** | Website design, user flows, and frontend tests. [GitHub](https://github.com/Guanyu-Lu) |
 
-In a separate terminal at repository root:
+## License
 
-```powershell
-.\.venv\Scripts\python.exe -m shared.validate_contracts
-.\.venv\Scripts\python.exe -m rag.import_knowledge_base
-.\.venv\Scripts\python.exe -m integration.checks
-.\.venv\Scripts\python.exe -X utf8 -m pytest tests/contracts tests/backend frontend/tests tests/rag tests/integration -q
-```
-
-`shared.validate_contracts` checks all shared example contracts. `rag.import_knowledge_base` verifies the five-file source package offline; `integration.checks` makes real backend/RAG calls without launching a browser. Full pytest includes frontend tests, which require the browser prerequisites for complete FE coverage; **inspect skipped/failed counts**.
-
-Optional actual browser diagnostic, with the integrated Flask server already running:
-
-```powershell
-node integration/browser_check.mjs http://127.0.0.1:5000
-```
-
-Optional *live* publisher check (requires real internet access; page changes can cause a truthful failure; does not renew review records):
-
-```powershell
-.\.venv\Scripts\python.exe -m rag.import_knowledge_base --verify-live
-```
-
-The GitHub [tests workflow](.github/workflows/test.yml) installs dependencies on Python 3.12, validates the shared examples, runs contracts/backend/RAG/integration pytest, then frontend unittest. **The default GitHub workflow alone is not a claim that every FE browser test or every team member's clean install ran.** The coordinator's actual Task 7 isolated Windows run reported **375 passed, 7 subtests** on the audited earlier candidate; Guanyu's later [candidate browser run](frontend/TASK7_CANDIDATE_DEMO.md) reported 18/18 steps. Those runs are different from a member's independent install and from tests of any future final tagged SHA.
-
-## Record your own clean-environment evidence
-
-Each team member should follow the same commands in **their own fresh clone/venv**, and record:
-
-`Tester | OS | Python/Node/browser versions | Exact HEAD SHA | Clone/venv/install exit codes | App start + API/page HTTP statuses | Full suite pass/fail/skip | Executed At (UTC) | Known limitations`
-
-Save local logs under `instance/` (gitignored); share only non-sensitive evidence with the team. A [copyable reporting template](docs/task7-member-verification-template.md) is provided. **Do not mark an unperformed member run as PASS.**
-
-## Source operations, rollback and release
-
-- [Release, rollback, service recovery and state backup](docs/task7-release-handover.md)
-- [RAG update, quarantine and verified source handling](rag/TASK4.md) and [Task 6 source integrity](rag/TASK6.md)
-- [Task 6 BE/E2E test records](docs/task6-backend-e2e-results.md)
-- [Task 7 acceptance and remaining evidence](integration_acceptance.md)
-
-The five canonical files under `rag/knowledge_base/` and **operational** `instance/rag_quarantine.json` are not interchangeable: preserve the quarantine/history file across rollback or restart. If source state becomes invalid, let the app fail closed; never delete the state file just to restore results.
-
-## Development-only historical previews
-
-The Task 4 fixture page (`frontend/task4-forms.html`) and mock previews are retained for historical testing. They use Mock data and **are not the Task 7 candidate**. Launch the live integrated `/` or `/task5-flow.html` paths above for any real evaluation.
+The source code is publicly available on GitHub. The repository has no software license yet. Please contact the maintainers about reuse or redistribution.
