@@ -15,8 +15,6 @@ Trying to get your rental deposit back or resolve a purchase dispute in Singapor
 | **Rental deposit** | My landlord has not returned my S$2,000 deposit. What should I check? |
 | **Consumer complaint** | I bought a faulty product for personal use, but the seller will not refund me. |
 
-请用英文描述问题，也可以点击首页示例开始。点击「中文」可查看已有中文版本的结果。
-
 SG Navi is a student project for finding information and preparing your next step. Use the linked organisations to confirm eligibility and submit any formal complaint or claim. Please try it with made-up details and leave out names, contact details, and private documents.
 
 ## How SG Navi works
