@@ -128,6 +128,26 @@ def test_personal_consumer_goods_services_offer_real_contacts(client, subtype):
     assert data["plan"]["contacts"] == []
 
 
+@pytest.mark.parametrize("subtype", ["goods_dispute", "services_dispute"])
+def test_goods_services_ask_local_audience_before_case_complaint_form(client, subtype):
+    ctx = context("consumer_complaint", subtype, "complain", {
+        "merchant_location": "singapore", "purchase_purpose": "personal",
+        "resolution_attempted": True,
+    })
+    req, res = submit(client, ctx)
+    data = res.get_json()
+    validate_action_plan(data, request=req)
+    assert data["state"] == "ASK"
+    assert data["question"]["field"] == "consumer_context"
+    assert data["plan"] is None
+    ctx["facts"]["consumer_context"] = "visitor"
+    req, res = submit(client, ctx)
+    data = res.get_json()
+    validate_action_plan(data, request=req)
+    assert data["state"] == "READY"
+    assert {c["id"] for c in data["plan"]["contacts"]} == {"case-phone", "case-email"}
+
+
 def test_restaurant_basic_preparation_before_full_claim_information(client):
     ctx = context("consumer_complaint", "restaurant_overcharge", "understand_options", {
         "merchant_location": "singapore", "purchase_purpose": "unknown",
