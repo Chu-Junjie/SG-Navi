@@ -31,6 +31,44 @@ async function ready(){
     source_version:"action-kb-2026-11-07.1",evidence:[record()]}}
 }
 function req(){return {action_plan_version:"1.0",request_id:"req-12345678",operation:"plan",confirmed:true,context};}
+test("three-step consumer process uses verified action and scoped contacts",()=>{
+ const p={primary_action:{id:"next",kind:"prepare",text:"Keep the purchase receipt.",evidence_ids:["ev-1"]},
+  checklist:[claim("records","Keep the receipt and seller messages.")],draft:{title:"Draft"}};
+ const ctx={case_type:"consumer_complaint",issue_subtype:"goods_dispute",goal:"complain",
+  facts:{purchase_purpose:"personal",resolution_attempted:false}};
+ const noContacts=ui.buildProcessSteps(ctx,p,new Map());
+ assert.deepEqual(noContacts.map(step=>step.id),["prepare","communicate","official"]);
+ assert.equal(noContacts.length,3);
+ assert.equal(noContacts[0].text,p.primary_action.text);
+ assert.deepEqual(noContacts[0].evidence_ids,["ev-1"]);
+ assert.match(noContacts[1].text,/Describe the problem to the business/);
+ assert.deepEqual(noContacts[1].evidence_ids,[]);
+ assert.equal(noContacts[2].hasContacts,false);
+ assert.deepEqual(noContacts[2].evidence_ids,[]);
+ assert.match(noContacts[2].text,/No verified official contact/);
+ const approved={id:"case-phone",evidence_ids:["ev-phone"],purpose:"consumer_assistance"};
+ const available=ui.buildProcessSteps({...ctx,facts:{...ctx.facts,resolution_attempted:true}},
+   p,new Map([["case-phone",approved]]));
+ assert.match(available[1].text,/Review your earlier request/);
+ assert.equal(available[2].hasContacts,true);
+ assert.deepEqual(available[2].evidence_ids,["ev-phone"]);
+});
+test("three-step rental guide distinguishes agent and never invents external contacts",()=>{
+ const p={primary_action:{id:"next",kind:"prepare",text:"Check the signed tenancy terms.",
+  evidence_ids:["ev-lease"]},checklist:[claim("records","Keep payment records."),claim("terms","Check the agreement.")],
+  draft:null};
+ const ctx={case_type:"rental_deposit",issue_subtype:"deposit_deduction",goal:"seek_refund",
+  facts:{dispute_with:"agent"}};
+ const steps=ui.buildProcessSteps(ctx,p,new Map());
+ assert.match(steps[0].title,/rental records/);
+ assert.match(steps[1].text,/estate agent/);
+ assert.equal(steps[0].extra.length,2);
+ assert.equal(steps[2].hasContacts,false);
+ assert.deepEqual(steps[2].evidence_ids,[]);
+ const landlord=ui.buildProcessSteps({...ctx,facts:{dispute_with:"landlord"}},p,new Map());
+ assert.match(landlord[1].text,/relevant party/);
+});
+
 test("approved HTTPS contacts, local phone and email only",()=>{
  assert.ok(ui.safeURL("https://www.case.org.sg/submit-a-complaint/"));
  for(const x of ["javascript:alert(1)","http://www.case.org.sg","https://case.org.sg.evil.com/",
