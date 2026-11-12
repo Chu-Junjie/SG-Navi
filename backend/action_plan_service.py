@@ -71,7 +71,8 @@ def _extra_question(context):
             )
         # This question is needed only for a complaint intake *after* an
         # attempted resolution and when the personal/local context is clear.
-        if (context["issue_subtype"] in ("restaurant_overcharge", "duplicate_charge", "unclear_charge")
+        if (context["issue_subtype"] in ("restaurant_overcharge", "duplicate_charge", "unclear_charge",
+                                         "goods_dispute", "services_dispute")
                 and context["goal"] in ("complain", "seek_refund", "understand_options")
                 and f.get("resolution_attempted") is True
                 and f.get("merchant_location") == "singapore"
