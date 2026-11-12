@@ -36,15 +36,12 @@ async function click(selector,text){
  const expr="(()=>{const b=[...document.querySelectorAll("+JSON.stringify(selector)+")].find(x=>x.textContent.includes("+JSON.stringify(text)+"));if(!b)return false;b.focus();b.click();return true;})()";
  assert.ok(await evaluate(expr),"Missing button: "+text);
 }
+// Exercise locale/state invariants without adding another switch inside the modal.
+// Users choose their language on the homepage before opening a dialog.
 async function dialogLanguage(language){
- const selector=`#task21-overlay [data-task23-language="${language}"]`;
- assert.ok(await evaluate(`(()=>{
-   const button=document.querySelector(${JSON.stringify(selector)});
-   if(!button)return false;
-   const {x,y,width,height}=button.getBoundingClientRect();
-   if(document.elementFromPoint(x+width/2,y+height/2)!==button)return false;
-   button.click();return true;
- })()`),"Language switch must be reachable in the open dialog");
+ assert.equal(await evaluate("document.querySelectorAll('#task21-overlay [data-task23-language]').length"),0,
+   "Dialogs must not duplicate the homepage language controls");
+ await evaluate(`window.SGNaviLocale.setLanguage(${JSON.stringify(language)})`);
 }
 async function lastResponse(){
  const req=requests.filter(isActionPlan).at(-1);
@@ -220,6 +217,19 @@ try{
    await click(".task20-first-right button","Official contacts");
    assert.ok(await evaluate("!document.getElementById('task21-overlay').hidden"));
    await click("#task21-overlay button","Continue to next step");
+   // Contact-backed actions are external links; preparation-only actions open a dialog.
+   if(await evaluate("!!document.querySelector('.task20-primary button')")){
+     await evaluate("document.querySelector('.task20-primary button').click()");
+     assert.equal(await evaluate("[...document.querySelectorAll('#task21-overlay button')].filter(b=>b.textContent==='View supporting sources').length"),1,
+       "Preparation dialog should have one supporting-sources entry");
+     await click("#task21-overlay button","View supporting sources");
+     assert.ok(await evaluate("document.querySelectorAll('#task21-overlay .task21-evidence blockquote').length>0"));
+     await click("#task21-overlay button","Continue to next step");
+     trace.preparationSourceEntry=true;
+   }else{
+     assert.ok(await evaluate("!!document.querySelector('.task20-primary a.task21-link[href]')"),
+       "Contact-backed primary action should remain an official link");
+   }
    await click(".task20-first-right button","View available steps");
    if(extended){
      await keyboardDialog();
