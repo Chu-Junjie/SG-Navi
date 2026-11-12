@@ -670,7 +670,7 @@
             article.appendChild(add("blockquote",e.quote));
             const review=add("p");
             if(e.provision)review.appendChild(officialText("span",e.provision+" · "));
-            review.append(add("span","Reviewed"),doc.createTextNode(" "+e.reviewed_at));
+            review.append(add("span","Reviewed"),doc.createTextNode(" "+e.reviewed_at.slice(0,10)));
             article.appendChild(review);
             const link=add("a","Read full original ↗","task21-link");link.href=safeURL(e.url,true);
             link.target="_blank";link.rel="noopener noreferrer";article.appendChild(link);
