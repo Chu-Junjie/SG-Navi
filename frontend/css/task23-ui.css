@@ -24,6 +24,11 @@
 .intake-meta{margin-bottom:6px;justify-content:flex-start}
 .intake-actions{margin-top:8px}
 .hero-note{margin-top:8px}
+/* Tablets can be taller than the uncropped photo, exposing a navy strip.
+   Fill the hero without stretching the image and keep the wheel at the right. */
+@media(min-width:701px) and (max-width:1180px){
+ .hero::after{height:100%;background-size:100% 100%,cover;background-position:center top,right top}
+}
 /* The existing hero-note is the only disclaimer; no separate footer band. */
 .task23-process ol{list-style:none;padding:0;margin:12px 0}
 .task23-step{position:relative;margin:0;padding:10px 10px 12px 30px;border-left:3px solid #d4e4df;overflow-wrap:anywhere}
